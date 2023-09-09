@@ -12,7 +12,7 @@
 <h3 align="center">IS212-G6T6</h3>
 
   <p align="center">
-    Easy to Use README Template for all your projects!
+    Software Project Management
     <br />
     <a href="https://github.com/jeezusplays/IS212-G6T6"><strong>Explore the docs »</strong></a>
     <br />

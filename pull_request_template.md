@@ -1,16 +1,15 @@
 ## Pull Request Description
 
-<Please provide your JIRA ticket number and title here e.g. T-01 Create User>
+<Please provide your ticket number and title here e.g. RL-01 Create Open Role Listing>
 <Please provide a brief description of the changes and the purpose of this pull request.>
 
 ## Checklist (Definition of Done)
 
-- [ ] I have tested these changes locally.
-- [ ] My code follows the project's coding style guidelines.
-- [ ] I have updated the documentation (if necessary).
-- [ ] I have added necessary comments to my code (if applicable).
-- [ ] All tests are passing.
-- [ ] I have squashed my commits into a single commit with a clear and concise commit message.
+- [ ] Unit tests passed
+- [ ] Code reviewed
+- [ ] Acceptance criteria met
+- [ ] Test cases passed
+- [ ] Product owner accepted
 
 ## Screenshots (if applicable)
 

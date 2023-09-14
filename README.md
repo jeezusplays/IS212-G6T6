@@ -2,7 +2,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/jeezusplays/IS212-G6T6">
-    <img src="logo/logo.png" alt="Logo" width="100" height="100">
+    <img src="assets/readme_logo.png" alt="Logo" width="100" height="100">
   </a>
 
 <h3 align="center">IS212-G6T6</h3>
@@ -45,9 +45,9 @@
   ```sh
   npm install npm@latest -g
   ```
-* pip
+* node
   ```sh
-  pip install --upgrade pip
+  npm install node@latest -g
   ```
 
 ### Installation
@@ -57,19 +57,11 @@
     ```
 2. Navigate to the project directory.
     ```sh
-    cd IS212-G6T6
+    cd app
     ```
-3. Install NPM packages (if applicable)
-   ```sh
-   npm install
-   ```
-3. Start the development server.
+3. Start laravel server.
     ```sh
-    npm start
-    ```
-4. Open the project in your browser.
-    ```sh
-    open http://localhost:3000
+    php artisan serve
     ```
 
 ## Usage

@@ -8,7 +8,7 @@
 <h3 align="center">IS212-G6T6</h3>
 
   <p align="center">
-    Software Project Management
+    Software Project Management: Skill Based Role Portal Project
   </p>
 </div>
 

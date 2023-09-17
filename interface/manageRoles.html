@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Disasters Near Me</title>
+    <title>All-In-One (HR)</title>
     <link rel="icon" type="image/x-icon" href="../img/favicon.ico" />
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
@@ -38,7 +38,7 @@
   <body>
     <div id="app">
       <!-- MODAL to check in on a disaster stricken user within 10km of disaster -->
-      <div
+      <!-- <div
         v-if="this.userStatus_level != 'safe'"
         class="modal"
         tabindex="-1"
@@ -81,13 +81,13 @@
               </button>
               <!-- <button type="button" class="btn btn-outline-primary acknowledgeButton" data-bs-dismiss="modal"
               id="liveToastBtn3">Severely Injured</button> -->
-            </div>
+            <!-- </div>
           </div>
         </div>
-      </div>
+      </div> --> 
 
       <!-- SUBMISSION TOAST -->
-      <div
+      <!-- <div
         v-for="status in statusArr"
         class="toast-container position-fixed bottom-0 end-0 p-3"
       >
@@ -112,7 +112,7 @@
             We have informed the government and your family on your status!
           </div>
         </div>
-      </div>
+      </div> -->
 
       <!-- NAVBAR-->
       <nav
@@ -121,8 +121,8 @@
       >
         <div class="container-fluid">
           <!-- Shows account type -->
-          <a class="navbar-brand" href="disastersNearMe.html"
-            >SafeMe (Public)</a
+          <a class="navbar-brand" href="manageRoles.html"
+            >All-In-One (HR)</a
           >
 
           <button
@@ -139,147 +139,130 @@
 
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <!-- Navbar tabs for Public UI -->
+              <!-- Navbar tabs for HR -->
+
+              <!-- Manage Roles tab -->
               <li class="nav-item">
                 <a
                   class="nav-link active"
                   aria-current="page"
-                  href="disastersNearMe.html"
-                  >Disasters Near Me</a
+                  href="manageRoles.html"
+                  >Manage Roles</a
                 >
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="myFamily.html">My Family</a>
+                <a class="nav-link" href="">Manage Candidates</a>
               </li>
-              <li class="nav-item">
+              <!-- <li class="nav-item">
                 <a class="nav-link" href="volunteerPublic.html"
                   >Volunteer to Help</a
                 >
-              </li>
+              </li> -->
             </ul>
 
             <!-- Switches between account types -->
             <button
               class="btn btn-outline-primary"
-              onclick="location.href='../gov/countryDisasters.html'"
+              onclick=""
             >
-              Switch to Government (for demo purpose)
+              Switch to Staff View (for demo purpose)
             </button>
           </div>
         </div>
       </nav>
 
-      <!-- DISASTER TABLE -->
-      <div class="container my-5">
-        <table
-          id="datatable"
-          class="table table-striped my-auto"
-          style="width: 100%"
-        >
-          <thead>
-            <tr>
-              <th>Country, City</th>
-              <th>Disaster Name</th>
-              <th>Distance Away</th>
-              <th>Time of Incident</th>
-              <th>Impact Level</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="disaster in this.disaster_table">
-              <td>{{disaster.country}}, {{disaster.city}}</td>
-              <td>{{disaster.disasterName}}</td>
-              <td>{{disaster.distance}} km</td>
-              <td>{{disaster.disasterTimestamp}}</td>
-              <!-- Checks for danger status and renders the colour status -->
-              <td v-if="disaster.disasterSeverityLevel == 'green'">
-                <span class="badge text-bg-success">Low</span>
-              </td>
-              <td v-else-if="disaster.disasterSeverityLevel == 'amber'">
-                <span class="badge text-bg-warning">Medium</span>
-              </td>
-              <td v-else-if="disaster.disasterSeverityLevel == 'red'">
-                <span class="badge text-bg-danger">High</span>
-              </td>
-              <td v-else>
-                <span class="badge text-bg-secondary">None</span>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <br />
-        <br />
-        <div>
-          <form @submit.prevent="submitForm">
-            <label for="userID">User ID:</label>
-            <input type="number" id="userID" v-model="form.userID" /><br />
+      <!-- HEADER -->
+      <div class="container-fluid my-4">
+        <h2>{{header}}</h2>
+      </div>
 
-            <label for="lat">Latitude:</label>
-            <input type="text" id="lat" v-model="form.lat" /><br />
+      <!-- SEARCH -->
 
-            <label for="long">Longitude:</label>
-            <input type="text" id="long" v-model="form.long" /><br />
 
-            <label for="country">Country:</label>
-            <input type="text" id="country" v-model="form.country" /><br />
+      <!-- OPEN ROLES -->
+      <div class="container-fluid my-4">
+        <div class="row">
+          <div v-for="openRole in openRoles" class="col-lg-4 col-md-6 col-s-12">
+            <div class="card">
+              <div class="card-header">
+                {{openRole.department}}
+              </div>
+              <div class="card-body">
+                <blockquote class="blockquote mb-0">
+                  <h4>{{openRole.jobTitle}}</h4>
+                  <h6 class="card-subtitle mb-2 text-muted">Expires on {{openRole.expiryDate}}</h6>
+                  <ul class="list-group mb-3">
+                    <li class="list-group-item">Work Arrangement: {{openRole.workArrangement}}</li>
+                    <li class="list-group-item">Hiring Manager: {{openRole.hiringManager}}</li>
+                  </ul>
 
-            <label for="city">City:</label>
-            <input type="text" id="city" v-model="form.city" /><br />
-
-            <button type="submit">Submit</button>
-          </form>
-          <button @click="sendWebSocketMessage()">
-            subscribe websocket
-          </button>
+                  <div class="btn-group pb-3" role="group" aria-label="Button Group">
+                    <button type="button" class="btn btn-outline-primary">View applicants</button>
+                    <button type="button" class="btn btn-outline-secondary">Edit Role</button>
+                  </div>
+                </div>
+                  
+                </blockquote>
+              </div>
+            </div>
+          </div>
         </div>
+">
+
+
+      </div>
+
+
+
+      
+
+    </div>
       </div>
     </div>
     <script>
-      // Hardcoded userID for now
-      const userID = 1;
-      const disaster_URL = "http://localhost:8000/api/disaster/disaster";
-      const user_location_URL =
-        "http://localhost:8000/api/user/location/" + userID;
-      const volunteer_URL =
-        "http://localhost:8000/api/volunteerevent/volunteer/event";
-
       const app = Vue.createApp({
         data() {
           return {
-            header: "Disasters Near Me",
-            // Danger threshold
-            dangerThreshold: 10,
-            form: {
-              userID: "",
-              lat: "",
-              long: "",
-              country: "",
-              city: "",
-              timestamp: "",
+            // Header
+            header: "Manage Roles",
+
+            // openRoles
+            openRoles: [
+            {
+              roleID: 1,
+              jobTitle: "HR Associate",
+              skillsRequired: ['item 01', 'item 02'],
+              department: "HR and Admin",
+              hiringManager: "Sally Loh",
+              expiryDate: "2021-10-30",
+              workArrangement: "Part-time",
+              vacancy: 1,
+              creationDate: "2021-09-30",
+              location: "Singapore",
+              description: ''
             },
-            //Available statuses for dynamic toasts
-            statusArr: ["okay", "mildlyInjured", "severelyInjured"],
-            userID: 1,
-            disaster_table: [
-              {
-                danger: "-",
-                distance: 0.0,
-              },
-            ],
-            status: "Unavailable",
-            user_lat: 0.0,
-            user_long: 0.0,
-            userStatus_level: "Not Okay",
-            alert: {
-              name: "Nil",
+            {
+              roleID: 1,
+              jobTitle: "HR Associate",
+              skillsRequired: ['item 01', 'item 02'],
+              department: "HR and Admin",
+              hiringManager: "Sally Loh",
+              expiryDate: "2021-10-30",
+              workArrangement: "Part-time",
+              vacancy: 1,
+              creationDate: Date("2021-09-30"),
+              location: "Singapore",
+              description: ''
             },
+
+          ],
           };
         },
 
         methods: {
-          // status
-          getStatus(status) {
-            return status;
+          // header
+          getHeader(header) {
+            return header;
           },
 
           

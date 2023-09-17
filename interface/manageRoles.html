@@ -37,82 +37,6 @@
 
   <body>
     <div id="app">
-      <!-- MODAL to check in on a disaster stricken user within 10km of disaster -->
-      <!-- <div
-        v-if="this.userStatus_level != 'safe'"
-        class="modal"
-        tabindex="-1"
-        id="checkInModal"
-      >
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title">Please report your safety</h5>
-              <button
-                type="button"
-                class="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
-            </div>
-            <div class="modal-body">
-              <p>
-                Based on your location, it appears that you may be caught in
-                {{alert.name}}.
-                <b>What is your current status?</b>
-              </p>
-            </div>
-            <div class="modal-footer">
-              <button
-                type="button"
-                class="btn btn-outline-primary acknowledgeButton"
-                data-bs-dismiss="modal"
-                id="liveToastBtn1"
-              >
-                Safe
-              </button>
-              <button
-                type="button"
-                class="btn btn-outline-primary acknowledgeButton"
-                data-bs-dismiss="modal"
-                id="liveToastBtn2"
-              >
-                Injured
-              </button>
-              <!-- <button type="button" class="btn btn-outline-primary acknowledgeButton" data-bs-dismiss="modal"
-              id="liveToastBtn3">Severely Injured</button> -->
-            <!-- </div>
-          </div>
-        </div>
-      </div> --> 
-
-      <!-- SUBMISSION TOAST -->
-      <!-- <div
-        v-for="status in statusArr"
-        class="toast-container position-fixed bottom-0 end-0 p-3"
-      >
-        <div
-          :id="status"
-          class="toast"
-          role="alert"
-          aria-live="assertive"
-          aria-atomic="true"
-        >
-          <div class="toast-header">
-            <strong class="me-auto">Your response has been recorded</strong>
-            <small>Just now</small>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="toast"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="toast-body">
-            We have informed the government and your family on your status!
-          </div>
-        </div>
-      </div> -->
 
       <!-- NAVBAR-->
       <nav
@@ -153,11 +77,6 @@
               <li class="nav-item">
                 <a class="nav-link" href="">Manage Candidates</a>
               </li>
-              <!-- <li class="nav-item">
-                <a class="nav-link" href="volunteerPublic.html"
-                  >Volunteer to Help</a
-                >
-              </li> -->
             </ul>
 
             <!-- Switches between account types -->
@@ -174,6 +93,7 @@
       <!-- HEADER -->
       <div class="container-fluid my-4">
         <h2>{{header}}</h2>
+        <a class="btn btn-primary" href="" role="button">Link</a>
       </div>
 
       <!-- SEARCH -->
@@ -190,10 +110,10 @@
               <div class="card-body">
                 <blockquote class="blockquote mb-0">
                   <h4>{{openRole.jobTitle}}</h4>
-                  <h6 class="card-subtitle mb-2 text-muted">Expires on {{openRole.expiryDate}}</h6>
+                  <h6 class="card-subtitle mb-2 text-muted">Role ID: {{openRole.roleID}}</h6>
                   <ul class="list-group mb-3">
                     <li class="list-group-item">Work Arrangement: {{openRole.workArrangement}}</li>
-                    <li class="list-group-item">Hiring Manager: {{openRole.hiringManager}}</li>
+                    <li class="list-group-item">Expires On: {{openRole.expiryDate}}</li>
                   </ul>
 
                   <div class="btn-group pb-3" role="group" aria-label="Button Group">
@@ -201,13 +121,11 @@
                     <button type="button" class="btn btn-outline-secondary">Edit Role</button>
                   </div>
                 </div>
-                  
-                </blockquote>
               </div>
             </div>
           </div>
         </div>
-">
+
 
 
       </div>

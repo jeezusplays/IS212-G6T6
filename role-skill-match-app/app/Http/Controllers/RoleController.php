@@ -25,8 +25,29 @@ class RoleController extends Controller
                 'listed_by' => 'Jane Smith',
                 'status' => 'Closed',
             ],
-            // Add more role data here
+            [
+                'job_title' => 'Data Analyst',
+                'total_applications' => 20,
+                'creation_date' => '2023-09-15',
+                'listed_by' => 'Alice Johnson',
+                'status' => 'Open',
+            ],
+            [
+                'job_title' => 'Project Manager',
+                'total_applications' => 40,
+                'creation_date' => '2023-09-16',
+                'listed_by' => 'Bob Wilson',
+                'status' => 'Open',
+            ],
+            [
+                'job_title' => 'Graphic Designer',
+                'total_applications' => 25,
+                'creation_date' => '2023-09-18',
+                'listed_by' => 'Eva Brown',
+                'status' => 'Closed',
+            ],
         ];
+        
 
         return view('role-listings', compact('roles'));
     }

@@ -3,7 +3,8 @@
     "type": "module",
     "scripts": {
         "dev": "vite",
-        "build": "vite build"
+        "build": "vite build",
+        "pint" : "./vendor/bin/pint role-skill-match-app/"
     },
     "devDependencies": {
         "axios": "^1.1.2",

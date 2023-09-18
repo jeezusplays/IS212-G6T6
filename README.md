@@ -26,11 +26,12 @@
 
 #### Back-end frameworks and libraries
 - ![Laravel](https://img.shields.io/badge/Laravel-FF2D20.svg?style=for-the-badge&logo=Laravel&logoColor=white)
-
+- ![MySQL](https://img.shields.io/badge/MySQL-4479A1.svg?style=for-the-badge&logo=MySQL&logoColor=white)
 
 ## Getting Started
 ### Prerequisites
 * Install the following:
+  * [MySQL Workbench](https://dev.mysql.com/downloads/workbench/)
   * [composer](https://getcomposer.org/download/) 
   * [php](https://www.php.net/downloads)
   * npm `npm install npm@latest -g`
@@ -49,7 +50,33 @@
     ```sh
     npm install
     ```
-3. Start local laravel server.
+4. Install composer packages.
+    ```sh
+    composer install
+    ```
+5. Create a copy of the `.env.example` file and rename it to `.env`. Edit the `.env` file to include the following:
+    ```sh
+    DB_CONNECTION=mysql
+    DB_HOST=127.0.0.1
+    DB_PORT=3306
+    DB_DATABASE=sbrp
+    DB_USERNAME=root
+    DB_PASSWORD=
+    ```
+6. Create a database named `sbrp` in MySQL.
+7. Migrate the database.
+    ```sh
+    php artisan migrate
+    ```
+8. Seed the database.
+    ```sh
+    php artisan db:seed
+    ```
+9. Generate artisan key
+    ```sh
+    php artisan key:generate
+    ```
+10. Start local laravel server.
     ```sh
     php artisan serve
     ```

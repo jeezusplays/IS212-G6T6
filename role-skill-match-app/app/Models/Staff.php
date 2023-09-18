@@ -5,9 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Staff extends Model
 {
+    use SoftDeletes;
+    // links to factory for seeding
+    use HasFactory;
+
     // Many-to-one relationship with `Department` model
     public function department(): BelongsTo
     {
@@ -45,5 +51,14 @@ class Staff extends Model
     {
         return $this->belongsToMany(Role_Manager::class, 'role_manager', 'staff_id', 'role_id');
     }
+
+  
+    protected $primaryKey = 'staff_id';
+
+    protected $fillable = [
+        'staff_fname',
+        'staff_lname',
+        'email'
+    ];
 
 }

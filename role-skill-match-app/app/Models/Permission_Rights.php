@@ -4,9 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 class Permission_Rights extends Model
 {
+    use SoftDeletes;
+    // links to factory for seeding
+    use HasFactory;
     // Many-to-one relationship with `Permission` Model
     public function permission(): BelongsTo
     {
@@ -18,4 +22,5 @@ class Permission_Rights extends Model
     {
         return $this->belongsTo(AccessRight::class, 'access_id');
     }
+
 }

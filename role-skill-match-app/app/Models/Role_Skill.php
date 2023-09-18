@@ -4,9 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 class Role_Skill extends Model
 {
+    use SoftDeletes;
+    // links to factory for seeding
+    use HasFactory;
     // Many-to-one relationship with the `Role` Model
     public function role(): BelongsTo
     {
@@ -18,5 +22,7 @@ class Role_Skill extends Model
     {
         return $this->belongsTo(Skill::class, 'role_skill', 'role_id', 'skill_id'); // TODO: Check
     }
+
+    protected $primaryKey = ['role_id','skill_id'];
 
 }

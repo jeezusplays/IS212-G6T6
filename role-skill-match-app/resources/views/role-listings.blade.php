@@ -3,12 +3,19 @@
 <head>
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <script src="{{ asset('js/app.js') }}" defer></script>
+    <link rel="icon" href="{{ asset('favicon-32x32.png') }}" type="image/x-icon">
 </head>
+
+<!-- Scripts -->
+@vite(['resources/sass/app.scss', 'resources/js/app.js'])
+
 <body>
-<div class="container">
+<div id = "app" class="container">
     {{-- Top Menu Bar --}}
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#"><img src="{{ asset('readme_logo.png') }}" alt="Company Logo"></a>
+        <a class="navbar-brand" href="#">
+            <img src="{{ asset('favicon-32x32.png') }}" alt="Company Logo">
+        </a>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item active">

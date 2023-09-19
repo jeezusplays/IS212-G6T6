@@ -14,8 +14,6 @@ class Application extends Model
     // links to factory for seeding
     use HasFactory;
 
-    // TODO: Check everything below this line ------------------------------------------------
-
     // Many-to-one relationship with `Staff` model
     public function staff_application(): BelongsTo
     {
@@ -27,13 +25,12 @@ class Application extends Model
     {
         return $this->belongsToMany(Role::class, 'role_id');
     }
-  
+
     protected $primaryKey = 'application_id';
 
     protected $fillable = [
         'is_selected',
         'application_date',
-        
-    ];
 
+    ];
 }

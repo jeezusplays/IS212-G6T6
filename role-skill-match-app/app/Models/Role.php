@@ -32,7 +32,6 @@ class Role extends Model
         return $this->belongsTo(Staff::class, 'staff_id');
     }
 
-
     // Many-to-many relationship with `Skill` Model through `Role_Skill` Model
     // public function skills(): BelongsToMany
     // {
@@ -42,19 +41,19 @@ class Role extends Model
     // One-to-many relationship with `Role_Skill` Model
     public function skills(): BelongsToMany
     {
-        return $this->belongsToMany(Skill::class, 'role_skill', 'role_id', 'skill_id'); 
+        return $this->belongsToMany(Skill::class, 'role_skill', 'role_id', 'skill_id');
     }
 
     // Many-to-many relationship with `Application` Model
     public function applications(): BelongsToMany
     {
-        return $this->belongsToMany(Application::class, 'application_role', 'role_id', 'application_id'); 
+        return $this->belongsToMany(Application::class, 'application_role', 'role_id', 'application_id');
     }
 
     // Many-to-many relationship with `Role_Manager` Model
     public function managers(): BelongsToMany
     {
-        return $this->belongsToMany(Role_Manager::class, 'role_manager', 'role_id', 'staff_id'); 
+        return $this->belongsToMany(Role_Manager::class, 'role_manager', 'role_id', 'staff_id');
     }
 
 

@@ -6,9 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
+
 class Skill extends Model
 {
-   
+
     use SoftDeletes;
     // links to factory for seeding
     use HasFactory;
@@ -37,12 +38,11 @@ class Skill extends Model
     // {
     //     return $this->belongsToMany(Staff::class, 'staff_skill', 'skill_id', 'staff_id');
     // }
-   
+
 
     protected $primaryKey = 'skill_id';
 
     protected $fillable = [
         'skill'
     ];
-
 }

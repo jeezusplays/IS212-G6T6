@@ -5,6 +5,9 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <script src="{{ asset('js/app.js') }}" defer></script>
     <link rel="icon" href="{{ asset('favicon-32x32.png') }}" type="image/x-icon">
+    <style>
+
+    </style>
 </head>
 
 <!-- Scripts -->
@@ -38,147 +41,194 @@
                     <li><a class="dropdown-item" href="#">Manager</a></li>
                 </ul>
             </div>
-
-
         </nav>
     </div>
 
     <div class="container">
-        <h1>Role Listings</h1>
-
         {{-- Search Bar --}}
         <div class="row justify-content-center">
-
-            {{-- Role Listings --}}
-            <div class="col-md-8 p-3">
+            <div class="col-md-8 p-3 d-flex">
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search for roles" id="myInput">
+                    <input style="display:inline-block; position:relative" type="text" class="form-control"
+                        placeholder="Search for roles" id="myInput">
                     <div class="input-group-append">
-                        <button class="btn btn-primary" type="button" onclick=searchJobs() id="searchbutton">Search</button>
+                        <button class="btn btn-primary" type="button" onclick=searchJobs()
+                            id="searchbutton">Search</button>
                     </div>
                 </div>
             </div>
-
-            {{-- Add a search form here --}}
-            <table class="table table-striped" id="job_role_table">
-                <thead>
-                    <tr>
-                        <th>Job Title</th>
-                        <th>Total Applications</th>
-                        <th>Creation Date</th>
-                        <th>Listed By</th>
-                        <th onclick="sortTable(4)">Status</th>
-                    </tr>
-                </thead>
-
-                {{-- Loop through your role data and display it here --}}
-                <tbody class="table-group-divider">
-                    @foreach ($roles as $role)
-                        <tr>
-                            <td>{{ $role['job_title'] }}</td>
-                            <td>{{ $role['total_applications'] }}</td>
-                            <td>{{ $role['creation_date'] }}</td>
-                            <td>{{ $role['listed_by'] }}</td>
-                            <td>
-                                @if ($role['status'] === 'Open')
-                                    <p class="text-success">Open</p>
-                                @else
-                                    <p class="text-danger">Closed</p>
-                                @endif
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
         </div>
 
-        <script>
-            document.getElementById("myInput")
-                .addEventListener("keyup", function(event) {
-                    event.preventDefault();
-                    if (event.keyCode === 13) {
-                        document.getElementById("searchbutton").click();
-                    }
-                });
+        {{-- Filter Bar --}}
+        <div class="container">
+            <h3>FILTER BY</h3>
 
-            function searchJobs() {
-                // Declare variables
-                var input, filter, table, tr, td, i, txtValue;
-                input = document.getElementById("myInput");
-                filter = input.value.toUpperCase();
-                table = document.getElementById("job_role_table");
-                tr = table.getElementsByTagName("tr");
+            <!-- Filter by button and dropdown -->
 
-                // Loop through all table rows, and hide those who don't match the search query
-                for (i = 0; i < tr.length; i++) {
-                    td = tr[i].getElementsByTagName("td")[0];
-                    if (td) {
-                        txtValue = td.textContent || td.innerText;
-                        if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                            tr[i].style.display = "";
-                        } else {
-                            tr[i].style.display = "none";
-                        }
-                    }
+            <div class="btn-group mb-3">
+                <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    Filter by Status
+                </button>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#" data-status="Open">Open</a>
+                    <a class="dropdown-item" href="#" data-status="Closed">Closed</a>
+                </div>
+            </div>
+
+            <br>
+
+            <h1>Role Listings</h1>
+
+            {{-- Loop through your role data and display each role in a card --}}
+            @foreach ($roles as $role)
+                <div class="card mb-3">
+                    <h5 class="card-header card-title p-3">{{ $role['job_title'] }}</h5>
+                    <div class="card-body">
+                        <p class="card-text">Applications received: <a
+                                href="#"><u>{{ $role['total_applications'] }}</u></a></p>
+                        <p class="card-text">Creation Date: {{ $role['creation_date'] }}</p>
+                        <p class="card-text">Listed By: {{ $role['listed_by'] }}</p>
+                        <p class="card-text">
+                            Status:
+                            @if ($role['status'] === 'Open')
+                                <span class="text-success">Open</span>
+                            @else
+                                <span class="text-danger">Closed</span>
+                            @endif
+                        </p>
+                    </div>
+                </div>
+            @endforeach
+        </div>
+
+
+        {{-- Role Listings --}}
+        <table class="table table-striped table-bordered" id="job_role_table">
+            <thead>
+                <tr>
+                    <th>Job Title</th>
+                    <th>Total Applications</th>
+                    <th>Creation Date</th>
+                    <th>Listed By</th>
+                    <th onclick="sortTable(4)">Status</th>
+                </tr>
+            </thead>
+
+            {{-- Loop through your role data and display it here --}}
+            <tbody class="table-group-divider">
+                @foreach ($roles as $role)
+                    <tr>
+                        <td>{{ $role['job_title'] }}</td>
+                        <td>{{ $role['total_applications'] }}</td>
+                        <td>{{ $role['creation_date'] }}</td>
+                        <td>{{ $role['listed_by'] }}</td>
+                        <td>
+                            @if ($role['status'] === 'Open')
+                                <p class="text-success">Open</p>
+                            @else
+                                <p class="text-danger">Closed</p>
+                            @endif
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+
+        <br>
+
+
+    </div>
+
+    <script>
+        // Search bar functionality on enter key press
+        document.getElementById("myInput")
+            .addEventListener("keyup", function(event) {
+                event.preventDefault();
+                if (event.keyCode === 13) {
+                    document.getElementById("searchbutton").click();
                 }
-            }
+            });
 
-            // Sort table by column number n, where n is the nth column starting from 0 on the left
-            function sortTable(n) {
-                var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
-                table = document.getElementById("job_role_table");
-                switching = true;
-                // Set the sorting direction to ascending:
-                dir = "asc";
-                /* Make a loop that will continue until
-                no switching has been done: */
-                while (switching) {
-                    // Start by saying: no switching is done:
-                    switching = false;
-                    rows = table.rows;
-                    /* Loop through all table rows (except the
-                    first, which contains table headers): */
-                    for (i = 1; i < (rows.length - 1); i++) {
-                        // Start by saying there should be no switching:
-                        shouldSwitch = false;
-                        /* Get the two elements you want to compare,
-                        one from current row and one from the next: */
-                        x = rows[i].getElementsByTagName("TD")[n];
-                        y = rows[i + 1].getElementsByTagName("TD")[n];
-                        /* Check if the two rows should switch place,
-                        based on the direction, asc or desc: */
-                        if (dir == "asc") {
-                            if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
-                                // If so, mark as a switch and break the loop:
-                                shouldSwitch = true;
-                                break;
-                            }
-                        } else if (dir == "desc") {
-                            if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
-                                // If so, mark as a switch and break the loop:
-                                shouldSwitch = true;
-                                break;
-                            }
-                        }
-                    }
-                    if (shouldSwitch) {
-                        /* If a switch has been marked, make the switch
-                        and mark that a switch has been done: */
-                        rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-                        switching = true;
-                        // Each time a switch is done, increase this count by 1:
-                        switchcount++;
+        // Search bar functionality
+        function searchJobs() {
+            // Declare variables
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("myInput");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("job_role_table");
+            tr = table.getElementsByTagName("tr");
+
+            // Loop through all table rows, and hide those who don't match the search query
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[0];
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
                     } else {
-                        /* If no switching has been done AND the direction is "asc",
-                        set the direction to "desc" and run the while loop again. */
-                        if (switchcount == 0 && dir == "asc") {
-                            dir = "desc";
-                            switching = true;
-                        }
+                        tr[i].style.display = "none";
                     }
                 }
             }
-        </script>
+        }
+
+        // Sort table by column number n, where n is the nth column starting from 0 on the left
+        function sortTable(n) {
+            var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+            table = document.getElementById("job_role_table");
+            switching = true;
+            // Set the sorting direction to ascending:
+            dir = "asc";
+            /* Make a loop that will continue until
+            no switching has been done: */
+            while (switching) {
+                // Start by saying: no switching is done:
+                switching = false;
+                rows = table.rows;
+                /* Loop through all table rows (except the
+                first, which contains table headers): */
+                for (i = 1; i < (rows.length - 1); i++) {
+                    // Start by saying there should be no switching:
+                    shouldSwitch = false;
+                    /* Get the two elements you want to compare,
+                    one from current row and one from the next: */
+                    x = rows[i].getElementsByTagName("TD")[n];
+                    y = rows[i + 1].getElementsByTagName("TD")[n];
+                    /* Check if the two rows should switch place,
+                    based on the direction, asc or desc: */
+                    if (dir == "asc") {
+                        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                            // If so, mark as a switch and break the loop:
+                            shouldSwitch = true;
+                            break;
+                        }
+                    } else if (dir == "desc") {
+                        if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                            // If so, mark as a switch and break the loop:
+                            shouldSwitch = true;
+                            break;
+                        }
+                    }
+                }
+                if (shouldSwitch) {
+                    /* If a switch has been marked, make the switch
+                    and mark that a switch has been done: */
+                    rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                    switching = true;
+                    // Each time a switch is done, increase this count by 1:
+                    switchcount++;
+                } else {
+                    /* If no switching has been done AND the direction is "asc",
+                    set the direction to "desc" and run the while loop again. */
+                    if (switchcount == 0 && dir == "asc") {
+                        dir = "desc";
+                        switching = true;
+                    }
+                }
+            }
+        }
+    </script>
 </body>
 
 </html>

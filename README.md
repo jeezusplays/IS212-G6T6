@@ -46,34 +46,23 @@
     ```sh
     cd role-skill-match-app
     ```
-3. Install npm packages.
+3. Install npm and composer packages.
     ```sh
     npm install
-    ```
-4. Install composer packages.
-    ```sh
     composer install
     ```
-5. Create a copy of the `.env.example` file and rename it to `.env`. Edit the `.env` file to include the following:
-    ```sh
-    DB_CONNECTION=mysql
-    DB_HOST=127.0.0.1
-    DB_PORT=3306
-    DB_DATABASE=sbrp
-    DB_USERNAME=root
-    DB_PASSWORD=
-    ```
-6. Create a database named `sbrp` in MySQL.
-7. Migrate the database.
+4. Create a copy of the `.env.example` file and rename it to `.env`. Edit `DB_DATABASE` `.env` file to `sbrp`.
+5. Create a database named `sbrp` in MySQL.
+6. Migrate the database.
     ```sh
     php artisan migrate
     ```
-8. Seed the database.
+7. Seed the database.
     ```sh
     php artisan db:seed
     ```
 
-9. Start local laravel server.
+8. Start local laravel server.
     ```sh
     php artisan serve
     ```

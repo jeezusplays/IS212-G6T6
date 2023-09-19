@@ -173,6 +173,33 @@
             }
         }
 
+        // WIP: Filter by status functionality
+        // Filter by status functionality
+        // Function to filter roles based on status
+        function filterRoles(status) {
+            const cards = document.querySelectorAll('.card');
+
+            cards.forEach(card => {
+                const cardStatus = card.querySelector('.card-status').textContent.trim();
+
+                if (cardStatus === status) {
+                    card.style.display = 'block';
+                    console.log("filter")
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // Event listener for dropdown item clicks
+        document.querySelectorAll('.dropdown-item').forEach(item => {
+            item.addEventListener('click', function(e) {
+                e.preventDefault();
+                const status = this.getAttribute('data-status');
+                filterRoles(status);
+            });
+        });
+
         // Sort table by column number n, where n is the nth column starting from 0 on the left
         function sortTable(n) {
             var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;

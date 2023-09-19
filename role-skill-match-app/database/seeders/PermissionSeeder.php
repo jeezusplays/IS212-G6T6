@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class PermissionSeeder extends Seeder
 {
@@ -12,6 +13,10 @@ class PermissionSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        DB::table('permission')->insert([
+            ['permission' => 'read'],
+            ['permission' => 'write'],
+            // Add more permissions here
+        ]);
     }
 }

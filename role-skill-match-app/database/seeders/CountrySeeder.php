@@ -12,7 +12,10 @@ class CountrySeeder extends Seeder
      * Run the database seeds.
      */
     public function run(): void
-    {
-        // 
+    { 
+        DB::table('country')->insert([ 
+            ['country' => 'Singapore'],
+            // Add more countries here
+        ]);
     }
 }

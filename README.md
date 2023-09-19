@@ -61,8 +61,11 @@
     ```sh
     php artisan db:seed
     ```
-
-8. Start local laravel server.
+9. Generate artisan key
+    ```sh
+    php artisan key:generate
+    ```
+10. Start local laravel server.
     ```sh
     php artisan serve
     ```

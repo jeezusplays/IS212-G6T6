@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+// import model
+use App\Models\Access_Rights;
 
 class AccessRightSeeder extends Seeder
 {
@@ -13,11 +15,18 @@ class AccessRightSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('access_rights')->insert([
-            ['access_name' => 'Admin'],
-            ['access_name' => 'HR'],
-            ['access_name' => 'Staff'],
-            // Add more access rights here
+        // create 3 access rights using model
+        Access_Rights::create([
+            'access_id' => '1',
+            'access_name' => 'User',
+        ]);
+        Access_Rights::create([
+            'access_id' => '2',
+            'access_name' => 'Manager',
+        ]);
+        Access_Rights::create([
+            'access_id' => '3',
+            'access_name' => 'Admin',
         ]);
     }
 }

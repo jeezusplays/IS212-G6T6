@@ -125,8 +125,8 @@
                     <select required class="form-select" id="department" name="department">
                     <option value="" disabled selected>Select department</option>
                         @foreach ($deptDDL as $dept)
-                            <option value = "{{ $dept['deptID']}}">
-                                {{$dept['department']}}
+                            <option value = "{{ $dept['Department_ID']}}">
+                                {{$dept['Department']}}
                             </option>
                         @endforeach
                     </select>
@@ -137,8 +137,8 @@
                     <label for="hiringManager" class="form-label">Select Hiring Manager</label>
                     <select required id="hiringManager"  style="width:100%"  name="hiringManager" class= "form-select select2" multiple  aria-placeholder="Select hiring manager(s)">
                         @foreach ($hiringManagerDDL as $hm)
-                            <option value = "{{ $hm['empID'] }}">
-                                {{$hm['name']}}
+                            <option value = "{{ $hm['Staff_ID'] }}">
+                                {{$hm['Staff_FullName']}}
                             </option>
                         @endforeach
                     </select>
@@ -147,7 +147,7 @@
                 <!-- Number input (vacancy) -->
                 <div class="mb-3 col-lg-6">
                     <label for="vacancy" class="form-label">Vacancy</label>
-                    <input required type="number" max="{{$max}}" min="0" class="form-control" id="vacancy" name="vacancy" placeholder="Enter vacancy" value = "{{$vacancy}}">
+                    <input required type="number" max="5" min="0" class="form-control" id="vacancy" name="vacancy" placeholder="Enter vacancy" value = "{{$vacancy}}">
                 </div>
 
                 <!-- Date picker -->
@@ -162,7 +162,7 @@
                   <br>
                   <select id="skills" style="width:100%" multiple class= "select2" required>
                         @foreach ($skillsDDL as $skill)
-                            <option value = "{{ $skill['skillID'] }}" {{ in_array($skill['skillID'], $skills) ? 'selected' : '' }}>
+                            <option value = "{{ $skill['skillID'] }}" >
                                 {{$skill['skill']}}
                             </option>
                         @endforeach

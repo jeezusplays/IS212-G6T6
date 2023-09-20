@@ -22,6 +22,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/create-role', [RoleController::class, 'index']); 
+
+Route::post('/create-role', [RoleController::class, 'store']);
 
 // Auth::routes();
 
@@ -30,107 +33,93 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 // Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-
-
-// Format of Livewire App
 
 Route::get('/create-role', function () {
     return view('create-role',[
         'header' => "Create Role",
+        // 'role' =>$existingRole,
 
          //this is the values to pass into frontend, possibly from backend
          //retrieved values from role listing
-        'roleID' => 0,
+        'Role_Name' => 0,
         'title' => "",
-        'max' => 10,
-        'hiring_managers' => [
-            'Derek Tan (Sales)', 
-            'Ernest Sim (Consultancy Division)', 
-            'Eric Loh (System Solutioning)', 
-            'Philip Lee (Engineering Operation)', 
-            'Sally Loh (HR and Admin)', 
-            'David Yap (Finance)', 
-            'Peter Yap (IT)'
-        ],
         'vacancy' => 0,
         'deadline' => "",
         'skills' =>  [],
         'description' => "", 
         'deptDDL' => [
             [
-                "deptID" => 1,
-                "department" => "Sales"
+                "Department_ID" => 1,
+                "Department" => "Sales"
             ],
             [
-                "deptID" => 2,
-                "department" => "IT"
+                "Department_ID" => 2,
+                "Department" => "Consultancy"
             ],
             [
-                "deptID" => 3,
-                "department" => "Consultancy Division"
+                "Department_ID" => 3,
+                "Department" => "System Solutioning"
             ],
             [
-                "deptID" => 4,
-                "department" => "System Solutioning"
+                "Department_ID" => 4,
+                "Department" => "Engineering"
             ],
             [
-                "deptID" => 5,
-                "department" => "Engineering Operation"
+                "Department_ID" => 5,
+                "Department" => "HR and Admin"
             ],
             [
-                "deptID" => 6,
-                "department" => "HR and Admin"
+                "Department_ID" => 6,
+                "Department" => "Finance"
             ],
             [
-                "deptID" => 7,
-                "department" => "Finance"
+                "Department_ID" => 7,
+                "Department" => "IT"
             ]
-            ],
+        ],
 
         'workArrangementDDL' => [
             [
                 "workArrangementID" => 1,
-                "workArrangement" => "Part Time"
+                "workArrangement" => "Full Time"
             ],
             [
                 "workArrangementID" => 2,
-                "workArrangement" => "Full Time"
+                "workArrangement" => "Part Time"
             ]
-            ],
-            // 'Part Time', 'Full Time'
+        ],
         
 
         'hiringManagerDDL' => [ 
             [   
-                "empID" => 1,
-                "name" => "Derek Tan (Sales)"
+                "Staff_ID" => 1,
+                "Staff_FullName" => "Derek Tan"
             ],
 
             [
-                "empID" => 2,
-                "name" => "Ernest Sim (Consultancy Division)"
+                "Staff_ID" => 2,
+                "Staff_FullName" => "Ernest Sim"
             ],
 
             [
-                "empID" => 3,
-                "name" => "Eric Loh (System Solutioning)"
+                "Staff_ID" => 3,
+                "Staff_FullName" => "Eric Loh"
             ],
             [
-                "empID" => 4,
-                "name" => "Philip Lee (Engineering Operation)"
+                "Staff_ID" => 4,
+                "Staff_FullName" => "Philip Lee"
             ],
             [
-                "empID" => 5,
-                "name" => "Sally Loh (HR and Admin)"
+                "Staff_ID" => 5,
+                "Staff_FullName" => "Sally Loh"
             ],
             [
-                "empID" => 6,
-                "name" => "David Yap (Finance)"
+                "Staff_ID" => 6,
+                "Staff_FullName" => "David Yap"
             ],
             [
-                "empID" => 7,
-                "name" => "Peter Yap (IT)"
+                "Staff_ID" => 7,
+                "Staff_FullName" => "Peter Yap"
             ],
         ],
 
@@ -154,97 +143,26 @@ Route::get('/create-role', function () {
         ],
 
         'dummyRoleList' => [
-            [
-                "roleID" => 1,
-                "title" => "Sales Manager",
-                "max" => 10,
-                "hiring_managers" => [
-                    "Derek Tan (Sales)", 
-                    "Ernest Sim (Consultancy Division)", 
-                    "Eric Loh (System Solutioning)", 
-                    "Philip Lee (Engineering Operation)", 
-                    "Sally Loh (HR and Admin)", 
-                    "David Yap (Finance)", 
-                    "Peter Yap (IT)"
-                ],
-                "vacancy" => 0,
-                "deadline" => "2021-10-10",
-                "skills" =>  [
-                    "Python",
-                    "Excel",
-                    "Management",
-                    "Accounting"
-                ],
-                "description" => "Sales Manager", 
-                "dept" => "Sales",
-                "workArrangement" => "Full Time"
-            ],
 
             [
-                "roleID" => 2,
-                "title" => "Sales Manager",
-                "max" => 10,
-                "hiring_managers" => [
-                    "Derek Tan (Sales)", 
-                    "Ernest Sim (Consultancy Division)", 
-                    "Eric Loh (System Solutioning)", 
-                    "Philip Lee (Engineering Operation)", 
-                    "Sally Loh (HR and Admin)", 
-                    "David Yap (Finance)", 
-                    "Peter Yap (IT)"
+                'Role_ID' => 1,
+                'Role_Name' => 'Sales Manager',
+                'Description' => 'Manage sales team',
+                'Department_ID' => 1, // Sales
+                'Country_ID'=> 1, //Singapore
+                'Work_Arrangement'=> 'Full-time',
+                'Vacancy'=> 5,
+                'Status'=> 1 , //Open
+                'Deadline'=> '31/12/2023',
+                'Creation_Date'=> '20/9/2023',
+                'Created_By'=> 'Park Bo Gum',
+                'Skills' => [
+                    'Python',
+                    'Excel',
+                    'Management'
                 ],
-                "vacancy" => 0,
-                "deadline" => "2021-10-10",
-                "skills" =>  [
-                    "Python",
-                    "Excel",
-                    "Management",
-                    "Accounting"
-                ],
-                "description" => "Sales Manager", 
-                "dept" => "Sales",
-                "workArrangement" => "Full Time"
             ],
-
-            [
-                "roleID" => 3,
-                "title" => "Sales Manager",
-                "max" => 10,
-                "hiring_managers" => [
-                    "Derek Tan (Sales)", 
-                    "Ernest Sim (Consultancy Division)", 
-                    "Eric Loh (System Solutioning)", 
-                    "Philip Lee (Engineering Operation)", 
-                    "Sally Loh (HR and Admin)", 
-                    "David Yap (Finance)", 
-                    "Peter Yap (IT)"
-                ],
-                "vacancy" => 0,
-                "deadline" => "2021-10-10",
-                "skills" =>  [
-                    "Python",
-                    "Excel",
-                    "Management",
-                    "Accounting"
-                ],
-                "description" => "Sales Manager", 
-                "dept" => "Sales",
-                "workArrangement" => "Full Time",
-            ],
-            [
-                "roleID" => 4,
-                "title" => "",
-                "max" => 10,
-                "hiring_managers" => [
-                ],
-                "vacancy" => 0,
-                "deadline" => "",
-                "skills" =>  [
-                ],
-                "description" => "", 
-                "dept" => "",
-                "workArrangement" => "",
-            ]   
+            
     ]
     ]);
 }); 

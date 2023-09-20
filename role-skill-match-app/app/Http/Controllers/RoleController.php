@@ -12,40 +12,44 @@ class RoleController extends Controller
         // Placeholder data for roles
         $roles = [
             [
-                'job_title' => 'Software Developer',
-                'total_applications' => 50,
-                'creation_date' => '2023-09-12',
-                'listed_by' => 'John Doe',
-                'status' => 'Open',
+                'Role_ID' => 1,
+                'Role_Name' => 'Sales Manager',
+                'Description' => 'Manage sales team',
+                'Department_ID' => 1, // Sales
+                'Country_ID'=> 1, //Singapore
+                'Work_Arrangement'=> 'Full-time',
+                'Vacancy'=> 5,
+                'Status'=> 1 , //Open
+                'Deadline'=> '31/12/2023',
+                'Creation_Date'=> '20/9/2023',
+                'Created_By'=> 'Park Bo Gum',
+                'Skills' => [
+                    'Python',
+                    'Excel',
+                    'Management'
+                ],
             ],
+
             [
-                'job_title' => 'UX Designer',
-                'total_applications' => 30,
-                'creation_date' => '2023-09-14',
-                'listed_by' => 'Jane Smith',
-                'status' => 'Closed',
+                'Role_ID' => 2,
+                'Role_Name' => 'Consultant',
+                'Description' => 'Provide consultation to clients',
+                'Department_ID' => 2, // Consultation
+                'Country_ID'=> 1, //Singapore
+                'Work_Arrangement'=> 'Full-time',
+                'Vacancy'=> 5,
+                'Status'=> 1 , //Open
+                'Deadline'=> '31/12/2023',
+                'Creation_Date'=> '20/9/2023',
+                'Created_By'=> 'Park Bo Gum',
+                'Skills' => [
+                    'Python',
+                    'Excel',
+                    'Management'
+                ],
             ],
-            [
-                'job_title' => 'Data Analyst',
-                'total_applications' => 20,
-                'creation_date' => '2023-09-15',
-                'listed_by' => 'Alice Johnson',
-                'status' => 'Open',
-            ],
-            [
-                'job_title' => 'Project Manager',
-                'total_applications' => 40,
-                'creation_date' => '2023-09-16',
-                'listed_by' => 'Bob Wilson',
-                'status' => 'Open',
-            ],
-            [
-                'job_title' => 'Graphic Designer',
-                'total_applications' => 25,
-                'creation_date' => '2023-09-18',
-                'listed_by' => 'Eva Brown',
-                'status' => 'Closed',
-            ],
+
+
         ];
         
 

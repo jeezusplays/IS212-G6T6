@@ -83,15 +83,14 @@
             {{-- Loop through your role data and display each role in a card --}}
             @foreach ($roles as $role)
                 <div class="card mb-3">
-                    <h5 class="card-header card-title p-3">{{ $role['job_title'] }}</h5>
+                    <h5 class="card-header card-title p-3">{{ $role['Role_Name'] }}</h5>
                     <div class="card-body">
-                        <p class="card-text">Applications received: <a
-                                href="#"><u>{{ $role['total_applications'] }}</u></a></p>
-                        <p class="card-text">Creation Date: {{ $role['creation_date'] }}</p>
-                        <p class="card-text">Listed By: {{ $role['listed_by'] }}</p>
+                      
+                        <p class="card-text">Creation Date: {{ $role['Creation_Date'] }}</p>
+                        <p class="card-text">Listed By: {{ $role['Created_By'] }}</p>
                         <p class="card-text">
                             Status:
-                            @if ($role['status'] === 'Open')
+                            @if ($role['Status'] === 'Open')
                                 <span class="text-success">Open</span>
                             @else
                                 <span class="text-danger">Closed</span>
@@ -119,12 +118,11 @@
             <tbody class="table-group-divider">
                 @foreach ($roles as $role)
                     <tr>
-                        <td>{{ $role['job_title'] }}</td>
-                        <td>{{ $role['total_applications'] }}</td>
-                        <td>{{ $role['creation_date'] }}</td>
-                        <td>{{ $role['listed_by'] }}</td>
+                        <td>{{ $role['Role_Name'] }}</td>
+                        <td>{{ $role['Creation_Date'] }}</td>
+                        <td>{{ $role['Created_By'] }}</td>
                         <td>
-                            @if ($role['status'] === 'Open')
+                            @if ($role['Status'] === 1)
                                 <p class="text-success">Open</p>
                             @else
                                 <p class="text-danger">Closed</p>

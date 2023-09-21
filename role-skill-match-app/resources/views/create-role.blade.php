@@ -98,7 +98,8 @@
 
       <!-- FORM -->
       <div class="container">
-            <form>
+            <form  action="{{ route('Role.create') }}" method="post">
+              @csrf
                 <div class="row">
                 <!-- Text input (jobTitle) -->
                 <div class="mb-3 col-lg-6">
@@ -147,7 +148,7 @@
                 <!-- Number input (vacancy) -->
                 <div class="mb-3 col-lg-6">
                     <label for="vacancy" class="form-label">Vacancy</label>
-                    <input required type="number" max="5" min="0" class="form-control" id="vacancy" name="vacancy" placeholder="Enter vacancy" value = "{{$vacancy}}">
+                    <input required type="number" max="5" min="1" class="form-control" id="vacancy" name="vacancy" placeholder="Enter vacancy" value = "{{$vacancy}}">
                 </div>
 
                 <!-- Date picker -->

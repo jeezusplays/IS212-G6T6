@@ -48,8 +48,6 @@ class RoleController extends Controller
                     'Management'
                 ],
             ],
-
-
         ];
         
 

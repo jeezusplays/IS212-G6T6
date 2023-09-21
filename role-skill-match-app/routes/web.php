@@ -22,9 +22,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/create-role', [RoleController::class, 'index']); 
-
-Route::post('/create-role', [RoleController::class, 'store']);
+// Route for Role Creation
+Route::post('/create-role', [RoleCreationController::class, 'store'])->name('Role.create');
 
 // Auth::routes();
 

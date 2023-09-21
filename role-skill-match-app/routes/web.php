@@ -23,7 +23,7 @@ Route::get('/', function () {
 });
 
 // Route for Role Creation
-Route::post('/create-role', [RoleCreationController::class, 'store'])->name('Role.create');
+Route::post('/create-role', [RoleController::class, 'store'])->name('Role.create');
 
 // Auth::routes();
 

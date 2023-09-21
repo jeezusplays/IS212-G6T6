@@ -2,10 +2,29 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use Illuminate\Http\CreateRoleRequest;
+use App\Models\Role;
 
 class RoleController extends Controller
 {
+    public function store(CreateRoleRequest $request): RedirectResponse
+    {
+        // Retrieve the validated input data...
+        $data = $request->validated();
+
+        // Check if role already exists in the database
+        $role = Role::firstOrCreate($data->safe()->only(['Role_Name', 'Department_ID', 'Country_ID', 'Work_Arrangement', 'Status']), $data->safe()->except(['Role_Name', 'Department_ID', 'Country_ID', 'Work_Arrangement', 'Status']));
+
+        // Check if role was recently created or not
+        if ($role->wasRecentlyCreated) {
+            // Role was created, return 200 OK HTTP code
+            return redirect('/home', 200);
+        } else {
+            // Role already exists, return 409 Conflict HTTP code
+            return redirect('/home', 409);
+        }
+    }
+
     public function index()
     {
         // Retrieve role data from the database (you will need to implement this)

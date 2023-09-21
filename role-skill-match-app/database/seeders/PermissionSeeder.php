@@ -14,8 +14,10 @@ class PermissionSeeder extends Seeder
     public function run(): void
     {
         DB::table('permission')->insert([
-            ['permission' => 'read'],
-            ['permission' => 'write'],
+            ['permission_id' => 1, 'permission' => 'create'],
+            ['permission_id' => 2, 'permission' => 'read'],
+            ['permission_id' => 3, 'permission' => 'update'],
+            ['permission_id' => 4, 'permission' => 'delete'],
             // Add more permissions here
         ]);
     }

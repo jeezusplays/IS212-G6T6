@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('application', function (Blueprint $table) {
             $table->increments('application_id');
-            $table->boolean('is_selected')->default(false);
+            $table->integer('status');
             $table->date('application_date');
             $table->unsignedInteger('role_id');
             $table->unsignedInteger('staff_id');

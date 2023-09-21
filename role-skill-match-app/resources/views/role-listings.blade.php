@@ -31,8 +31,7 @@
                 </ul>
             </div>
             <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
-                    data-bs-toggle="dropdown" aria-expanded="false">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                     Current User's Name (HR Staff)
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -49,11 +48,9 @@
         <div class="row justify-content-center">
             <div class="col-md-8 p-3 d-flex">
                 <div class="input-group">
-                    <input style="display:inline-block; position:relative" type="text" class="form-control"
-                        placeholder="Search for roles" id="myInput">
+                    <input style="display:inline-block; position:relative" type="text" class="form-control" placeholder="Search for roles" id="myInput">
                     <div class="input-group-append">
-                        <button class="btn btn-primary" type="button" onclick=searchJobs()
-                            id="searchbutton">Search</button>
+                        <button class="btn btn-primary" type="button" onclick=searchJobs() id="searchbutton">Search</button>
                     </div>
                 </div>
             </div>
@@ -66,15 +63,15 @@
             <!-- Filter by button and dropdown -->
 
             <div class="btn-group mb-3">
-                <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown"
-                    aria-haspopup="true" aria-expanded="false">
+                <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="filterButton">
                     Filter by Status
                 </button>
-                <div class="dropdown-menu">
+                <div class="dropdown-menu" id="filterDropdown">
                     <a class="dropdown-item" href="#" data-status="Open">Open</a>
                     <a class="dropdown-item" href="#" data-status="Closed">Closed</a>
                 </div>
             </div>
+
 
             <br>
 
@@ -82,23 +79,22 @@
 
             {{-- Loop through your role data and display each role in a card --}}
             @foreach ($roles as $role)
-                <div class="card mb-3">
-                    <h5 class="card-header card-title p-3">{{ $role['job_title'] }}</h5>
-                    <div class="card-body">
-                        <p class="card-text">Applications received: <a
-                                href="#"><u>{{ $role['total_applications'] }}</u></a></p>
-                        <p class="card-text">Creation Date: {{ $role['creation_date'] }}</p>
-                        <p class="card-text">Listed By: {{ $role['listed_by'] }}</p>
-                        <p class="card-text">
-                            Status:
-                            @if ($role['status'] === 'Open')
-                                <span class="text-success">Open</span>
-                            @else
-                                <span class="text-danger">Closed</span>
-                            @endif
-                        </p>
-                    </div>
+            <div class="card mb-3 @if ($role['status'] === 'Open') open-role @else closed-role @endif">
+                <h5 class="card-header card-title p-3">{{ $role['job_title'] }}</h5>
+                <div class="card-body">
+                    <p class="card-text">Applications received: <a href="#"><u>{{ $role['total_applications'] }}</u></a></p>
+                    <p class="card-text">Creation Date: {{ $role['creation_date'] }}</p>
+                    <p class="card-text">Listed By: {{ $role['listed_by'] }}</p>
+                    <p class="card-text" id="card-status">
+                        Status:
+                        @if ($role['status'] === 'Open')
+                        <span class="text-success">Open</span>
+                        @else
+                        <span class="text-danger">Closed</span>
+                        @endif
+                    </p>
                 </div>
+            </div>
             @endforeach
         </div>
 
@@ -118,22 +114,23 @@
             {{-- Loop through your role data and display it here --}}
             <tbody class="table-group-divider">
                 @foreach ($roles as $role)
-                    <tr>
-                        <td>{{ $role['job_title'] }}</td>
-                        <td>{{ $role['total_applications'] }}</td>
-                        <td>{{ $role['creation_date'] }}</td>
-                        <td>{{ $role['listed_by'] }}</td>
-                        <td>
-                            @if ($role['status'] === 'Open')
-                                <p class="text-success">Open</p>
-                            @else
-                                <p class="text-danger">Closed</p>
-                            @endif
-                        </td>
-                    </tr>
+                <tr class="@if ($role['status'] === 'Open') open-role @else closed-role @endif">
+                    <td>{{ $role['job_title'] }}</td>
+                    <td>{{ $role['total_applications'] }}</td>
+                    <td>{{ $role['creation_date'] }}</td>
+                    <td>{{ $role['listed_by'] }}</td>
+                    <td>
+                        @if ($role['status'] === 'Open')
+                        <p class="text-success">Open</p>
+                        @else
+                        <p class="text-danger">Closed</p>
+                        @endif
+                    </td>
+                </tr>
                 @endforeach
             </tbody>
         </table>
+
 
         <br>
 
@@ -173,30 +170,46 @@
             }
         }
 
-        // WIP: Filter by status functionality
-        // Filter by status functionality
-        // Function to filter roles based on status
-        function filterRoles(status) {
-            const cards = document.querySelectorAll('.card');
+        document.addEventListener("DOMContentLoaded", function() {
+            // Get references to the button and dropdown menu
+            const filterButton = document.getElementById("filterButton");
+            const filterDropdown = document.getElementById("filterDropdown");
+            const jobRoleTable = document.getElementById("job_role_table").getElementsByTagName('tbody')[0];
 
-            cards.forEach(card => {
-                const cardStatus = card.querySelector('.card-status').textContent.trim();
+            // Add event listeners to filter options
+            filterDropdown.addEventListener("click", function(event) {
+                if (event.target.dataset.status) {
+                    const selectedStatus = event.target.dataset.status;
 
-                if (cardStatus === status) {
-                    card.style.display = 'block';
-                    console.log("filter")
-                } else {
-                    card.style.display = 'none';
+                    // Hide all role cards
+                    const roleCards = document.querySelectorAll(".card");
+                    roleCards.forEach((card) => {
+                        card.style.display = "none";
+                    });
+
+                    // Show only the cards with the selected status
+                    const filteredCards = document.querySelectorAll(`.${selectedStatus.toLowerCase()}-role`);
+                    filteredCards.forEach((card) => {
+                        card.style.display = "block";
+                    });
+
+                    // Update the button text to reflect the selected filter
+                    filterButton.innerText = `Filter by ${selectedStatus} Status`;
+                
+                    // Table
+                    
+                    // Hide all table rows
+                    const tableRows = jobRoleTable.getElementsByTagName('tr');
+                    for (let i = 0; i < tableRows.length; i++) {
+                        tableRows[i].style.display = "none";
+                    }
+
+                    // Show only the rows with the selected status
+                    const filteredRows = jobRoleTable.getElementsByClassName(`${selectedStatus.toLowerCase()}-role`);
+                    for (let i = 0; i < filteredRows.length; i++) {
+                        filteredRows[i].style.display = "";
+                    }
                 }
-            });
-        }
-
-        // Event listener for dropdown item clicks
-        document.querySelectorAll('.dropdown-item').forEach(item => {
-            item.addEventListener('click', function(e) {
-                e.preventDefault();
-                const status = this.getAttribute('data-status');
-                filterRoles(status);
             });
         });
 

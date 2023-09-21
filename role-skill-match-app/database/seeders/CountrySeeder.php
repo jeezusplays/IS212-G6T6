@@ -16,23 +16,23 @@ class CountrySeeder extends Seeder
     { 
         // create 5 countries using model
         Country::create([
-            'country_id' => '1',
+            'country_id' => 1,
             'country_name' => 'Singapore',
         ]);
         Country::create([
-            'country_id' => '2',
+            'country_id' => 2,
             'country_name' => 'Malaysia',
         ]);
         Country::create([
-            'country_id' => '3',
+            'country_id' => 3,
             'country_name' => 'Indonesia',
         ]);
         Country::create([
-            'country_id' => '4',
+            'country_id' => 4,
             'country_name' => 'Thailand',
         ]);
         Country::create([
-            'country_id' => '5',
+            'country_id' => 5,
             'country_name' => 'Vietnam',
         ]);
     }

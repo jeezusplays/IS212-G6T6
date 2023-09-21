@@ -17,15 +17,15 @@ class AccessRightSeeder extends Seeder
     {
         // create 3 access rights using model
         Access_Rights::create([
-            'access_id' => '1',
+            'access_id' => 1,
             'access_name' => 'User',
         ]);
         Access_Rights::create([
-            'access_id' => '2',
+            'access_id' => 2,
             'access_name' => 'Manager',
         ]);
         Access_Rights::create([
-            'access_id' => '3',
+            'access_id' => 3,
             'access_name' => 'Admin',
         ]);
     }

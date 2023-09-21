@@ -14,9 +14,9 @@ class ProficiencySeeder extends Seeder
     public function run(): void
     {
         DB::table('proficiency')->insert([
-            ['proficiency' => 'Beginner'],
-            ['proficiency' => 'Intermediate'],
-            ['proficiency' => 'Expert']
+            ['proficiency_id' => 1, 'proficiency' => 'Beginner'],
+            ['proficiency_id' => 2, 'proficiency' => 'Intermediate'],
+            ['proficiency_id' => 3, 'proficiency' => 'Expert']
         ]);
     }
 }

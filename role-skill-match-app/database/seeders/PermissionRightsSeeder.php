@@ -15,7 +15,24 @@ class PermissionRightsSeeder extends Seeder
     {
         // TODO: Not sure if needed
         // DB::table('permission_rights')->insert([
-            
+        // access id 1 = user, 2 = manager, 3 = hr
         // ]);
+        DB::table('permission_rights')->insert([
+            ['access_id' => 1, 'permission_id' => 1],
+            ['access_id' => 1, 'permission_id' => 2],
+            ['access_id' => 1, 'permission_id' => 3],
+
+            ['access_id' => 2, 'permission_id' => 1],
+            ['access_id' => 2, 'permission_id' => 2],
+            ['access_id' => 2, 'permission_id' => 3],
+
+
+            ['access_id' => 3, 'permission_id' => 1],
+            ['access_id' => 3, 'permission_id' => 2],
+            ['access_id' => 3, 'permission_id' => 3],
+            ['access_id' => 3, 'permission_id' => 4],
+            // Add more permissions here
+        ]);
+
     }
 }

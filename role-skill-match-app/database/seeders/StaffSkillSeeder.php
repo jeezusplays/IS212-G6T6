@@ -14,7 +14,13 @@ class StaffSkillSeeder extends Seeder
     public function run(): void
     {
         DB::table('staff_skill')->insert([
-            // TODO: Add staff_skill table data here. 
+            // Skill id and proficiency id is left empty for now 
+            ['staff_id' => 1, 'skill_id' => '', 'proficiency_id' => ''],
+            ['staff_id' => 2, 'skill_id' => '', 'proficiency_id' => ''],
+            ['staff_id' => 3, 'skill_id' => '', 'proficiency_id' => ''],
+            ['staff_id' => 4, 'skill_id' => '', 'proficiency_id' => ''],
+            ['staff_id' => 5, 'skill_id' => '', 'proficiency_id' => ''],
+            ['staff_id' => 5, 'skill_id' => '', 'proficiency_id' => ''],
         ]);
     }
 }

@@ -46,10 +46,10 @@ class Staff extends Model
         return $this->belongsToMany(Application::class, 'application_role', 'staff_id', 'application_id');
     }
 
-    // One-to-many relationship with `Role_Manager` model
+    // One-to-many relationship with `Hiring_Manager` model
     public function managers(): BelongsToMany
     {
-        return $this->belongsToMany(Role_Manager::class, 'role_manager', 'staff_id', 'role_id');
+        return $this->belongsToMany(Hiring_Manager::class, 'hiring_manager', 'staff_id', 'role_id');
     }
 
   

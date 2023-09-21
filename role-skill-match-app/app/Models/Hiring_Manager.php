@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Role_Manager extends Model
+class Hiring_Manager extends Model
 {
     use SoftDeletes;
     // links to factory for seeding

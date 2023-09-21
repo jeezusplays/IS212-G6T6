@@ -50,10 +50,10 @@ class Role extends Model
         return $this->belongsToMany(Application::class, 'application_role', 'role_id', 'application_id');
     }
 
-    // Many-to-many relationship with `Role_Manager` Model
+    // Many-to-many relationship with `Hiring_Manager` Model
     public function managers(): BelongsToMany
     {
-        return $this->belongsToMany(Role_Manager::class, 'role_manager', 'role_id', 'staff_id');
+        return $this->belongsToMany(Hiring_Manager::class, 'hiring_manager', 'role_id', 'staff_id');
     }
 
 

@@ -23,7 +23,7 @@ class Application extends Model
     // One to many relationship with "Role_Listing" model
     public function application_listing(): BelongsToMany
     {
-        return $this->belongsToMany(Role::class, 'listing_id');
+        return $this->belongsToMany(Role_Listing::class, 'listing_id');
     }
 
     protected $primaryKey = 'application_id';

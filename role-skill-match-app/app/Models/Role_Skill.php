@@ -16,7 +16,7 @@ class Role_Skill extends Model
     // Many-to-one relationship with the `Role` Model
     public function role(): BelongsTo
     {
-        return $this->belongsTo(Role::class, 'role_skill', 'listing_id', 'skill_id'); // TODO: Check
+        return $this->belongsTo(Role_Listing::class, 'role_skill', 'listing_id', 'skill_id'); // TODO: Check
     }
 
     // Many-to-one relationship with the `Skill` Model

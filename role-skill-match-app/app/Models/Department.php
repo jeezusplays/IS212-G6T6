@@ -22,7 +22,7 @@ class Department extends Model
     // One-to-many relationship with `Role` model
     public function roles(): HasMany
     {
-        return $this->hasMany(Role::class);
+        return $this->hasMany(Role_Listing::class);
     }
 
     protected $primaryKey = 'department_id';

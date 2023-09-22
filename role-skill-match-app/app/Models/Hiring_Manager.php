@@ -22,7 +22,7 @@ class Hiring_Manager extends Model
     // Many-to-one relationship with `Role` Model
     public function access(): BelongsTo
     {
-        return $this->belongsTo(Role::class, 'role_id');
+        return $this->belongsTo(Role_Listing::class, 'role_id');
     }
 
     protected $primaryKey = ['role_id', 'staff_id'];

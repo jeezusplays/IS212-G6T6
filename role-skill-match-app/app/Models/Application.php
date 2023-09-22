@@ -20,10 +20,10 @@ class Application extends Model
         return $this->belongsTo(Staff::class, 'staff_id');
     }
 
-    // One to many relationship with "Role" model
-    public function application_role(): BelongsToMany
+    // One to many relationship with "Role_Listing" model
+    public function application_listing(): BelongsToMany
     {
-        return $this->belongsToMany(Role::class, 'role_id');
+        return $this->belongsToMany(Role::class, 'listing_id');
     }
 
     protected $primaryKey = 'application_id';

@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('role', function (Blueprint $table) {
-            $table->increments('role_id');
+        Schema::create('role_listing', function (Blueprint $table) {
+            $table->increments('listing_id');
             $table->string('role');
             $table->text('description');
             $table->unsignedInteger('department_id');

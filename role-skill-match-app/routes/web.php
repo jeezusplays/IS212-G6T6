@@ -78,14 +78,8 @@ Route::get('/create-role', function () {
         ],
 
         'workArrangementDDL' => [
-            [
-                "workArrangementID" => 1,
-                "workArrangement" => "Full Time"
-            ],
-            [
-                "workArrangementID" => 2,
-                "workArrangement" => "Part Time"
-            ]
+            1,
+            2
         ],
         
 

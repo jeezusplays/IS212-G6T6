@@ -113,9 +113,13 @@
                     <select required class="form-select" id="workArrangement" name="workArrangement">
                         <option value="" disabled selected>Select work arrangement</option>
                         @foreach ($workArrangementDDL as $work)
-                            <option value = "{{ $work['workArrangementID'] }}">
-                                {{$work['workArrangement']}}
-                            </option>
+                          <option value = "{{ $work }}">
+                            @if ($work == 1)
+                              Full-time
+                            @else
+                              Part-time
+                            @endif
+                          </option>
                         @endforeach
                     </select>
                 </div>

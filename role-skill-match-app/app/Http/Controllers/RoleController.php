@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\CreateRoleRequest;
+
 use App\Models\Role;
 
 class RoleController extends Controller
@@ -36,7 +37,7 @@ class RoleController extends Controller
                 'Description' => 'Manage sales team',
                 'Department_ID' => 1, // Sales
                 'Country_ID'=> 1, //Singapore
-                'Work_Arrangement'=> 'Full-time',
+                'Work_Arrangement'=> 1, // Full-time
                 'Vacancy'=> 5,
                 'Status'=> 1 , //Open
                 'Deadline'=> '31/12/2023',
@@ -55,7 +56,7 @@ class RoleController extends Controller
                 'Description' => 'Provide consultation to clients',
                 'Department_ID' => 2, // Consultation
                 'Country_ID'=> 1, //Singapore
-                'Work_Arrangement'=> 'Full-time',
+                'Work_Arrangement'=> 1, // Fll-time
                 'Vacancy'=> 5,
                 'Status'=> 1 , //Open
                 'Deadline'=> '31/12/2023',

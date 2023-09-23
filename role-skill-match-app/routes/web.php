@@ -24,6 +24,8 @@ Route::get('/', function () {
 
 // Route for Role Creation
 Route::post('/create-role', [RoleController::class, 'store'])->name('Role.create');
+// Route::post('/create-role', [RoleController::class, 'getData'])->name('Role.create');
+Route::view('/create-role', '/create-role');
 
 // Auth::routes();
 
@@ -40,7 +42,7 @@ Route::get('/create-role', function () {
 
          //this is the values to pass into frontend, possibly from backend
          //retrieved values from role listing
-        'Role_Name' => 0,
+        'Role_Name' => '',
         'title' => "",
         'vacancy' => 0,
         'deadline' => "",

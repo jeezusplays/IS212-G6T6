@@ -1,8 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use Illuminate\Http\CreateRoleRequest;
+use App\Http\Requests\CreateRoleRequest;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 
 use App\Models\Role;
 
@@ -10,7 +11,25 @@ class RoleController extends Controller
 {
     public function store(CreateRoleRequest $request): RedirectResponse
     {
-        // Retrieve the validated input data...
+        
+        // Save mutliselect forms as arrays
+
+        // Get all selected hiring managers as array
+        $staffIds = $request->input('Staff_ID', []);
+        // Save selected options
+        Role::create([
+            'Staff_ID' => $staffIds 
+        ]);
+
+        // Get all selected skills as array
+        $skills = $request->input('skills', []);
+        // Save selected options
+        Role::create([
+            'skills' => $skills
+        ]);
+        
+        // Retrieve the validated input data...>
+        @dump($request->input());
         $data = $request->validated();
 
         // Check if role already exists in the database
@@ -24,6 +43,12 @@ class RoleController extends Controller
             // Role already exists, return 409 Conflict HTTP code
             return redirect('/home', 409);
         }
+    }
+
+    function getData(Request $req)
+    {
+        @dump($req->input());
+        return $req->input();
     }
 
     public function index()

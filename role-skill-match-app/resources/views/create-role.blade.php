@@ -35,59 +35,37 @@
     <div id="app">
 
       <!-- NAVBAR-->
-      <nav
-        class="navbar navbar-light navbar-expand-lg bg-body-secondary"
-        style="background-color: #e3f2fd"
-      >
-        <div class="container-fluid">
-          <!-- Shows account type -->
-          <a class="navbar-brand" href="manageRoles.html"
-            >All-In-One (HR)</a
-          >
-
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span class="navbar-toggler-icon"></span>
-          </button>
-
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <!-- Navbar tabs for HR -->
-
-              <!-- Manage Roles tab -->
-              <li class="nav-item">
-                <a
-                  class="nav-link active"
-                  aria-current="page"
-                  href="manageRoles.html"
-                  >Manage Roles</a
-                >
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="">Manage Candidates</a>
-              </li>
-            </ul>
-
-            <!-- Switches between account types -->
-            <button
-              class="btn btn-outline-primary"
-              onclick=""
-            >
-              Switch to Staff View (for demo purpose)
-            </button>
-          </div>
-        </div>
-      </nav>
+        <div class="container">
+        {{-- Top Menu Bar --}}
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="#">
+                <img src="{{ asset('favicon-32x32.png') }}" alt="Company Logo">
+            </a>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">View Role Listings</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Create Role Listing</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                    Current User's Name (HR Staff)
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <li><a class="dropdown-item" href="#">HR Staff</a></li>
+                    <li><a class="dropdown-item" href="#">Staff</a></li>
+                    <li><a class="dropdown-item" href="#">Manager</a></li>
+                </ul>
+            </div>
+        </nav>
+    </div>
 
       <!-- HEADER -->
-      <div class="container-fluid my-4">
+      <div class="container my-4">
         
         <h2>{{$header}}</h2>
         <!-- <a class="btn btn-primary" href="" role="button">Link</a> -->
@@ -98,19 +76,20 @@
 
       <!-- FORM -->
       <div class="container">
-            <form  action="{{ route('Role.create') }}" method="post">
+            <!-- <form action="" method="post"> -->
+            <form action="{{ route('Role.create') }}" method="POST">
               @csrf
                 <div class="row">
-                <!-- Text input (jobTitle) -->
+                <!-- Text input (roleTitle) -->
                 <div class="mb-3 col-lg-6">
-                    <label for="jobTitle" class="form-label">Job Title</label>
-                    <input required class="form-control" id="jobTitle" name="jobTitle" placeholder="Enter title" value="{{$title}}">
+                    <label for="Role_Name" class="form-label">Role Title</label>
+                    <input required class="form-control" id="Role_Name" name="Role_Name" placeholder="Enter title" value="{{$Role_Name}}">
                 </div>
 
                 <!-- Select input (workArrangement) -->
                 <div class="mb-3 col-lg-6">
-                    <label for="workArrangement" class="form-label">Work Arrangement</label>
-                    <select required class="form-select" id="workArrangement" name="workArrangement">
+                    <label for="Work_Arrangement" class="form-label">Work Arrangement</label>
+                    <select required class="form-select" id="Work_Arrangement" name="Work_Arrangement">
                         <option value="" disabled selected>Select work arrangement</option>
                         @foreach ($workArrangementDDL as $work)
                           <option value = "{{ $work }}">
@@ -126,8 +105,8 @@
 
                 <!-- Select input (department) -->
                 <div class="mb-3 col-lg-6">
-                    <label for="department" class="form-label">Select Department</label>
-                    <select required class="form-select" id="department" name="department">
+                    <label for="Department_ID" class="form-label">Select Department</label>
+                    <select required class="form-select" id="Department_ID" name="Department_ID">
                     <option value="" disabled selected>Select department</option>
                         @foreach ($deptDDL as $dept)
                             <option value = "{{ $dept['Department_ID']}}">
@@ -139,8 +118,8 @@
 
                 <!-- Select input (hiringManager) -->
                 <div class="mb-3 col-lg-6">
-                    <label for="hiringManager" class="form-label">Select Hiring Manager</label>
-                    <select required id="hiringManager"  style="width:100%"  name="hiringManager" class= "form-select select2" multiple  aria-placeholder="Select hiring manager(s)">
+                    <label for="Staff_ID" class="form-label">Select Hiring Manager</label>
+                    <select required id="Staff_ID"  style="width:100%"  name="Staff_ID[]" class= "form-select select2" multiple  aria-placeholder="Select hiring manager(s)">
                         @foreach ($hiringManagerDDL as $hm)
                             <option value = "{{ $hm['Staff_ID'] }}">
                                 {{$hm['Staff_FullName']}}
@@ -151,21 +130,21 @@
 
                 <!-- Number input (vacancy) -->
                 <div class="mb-3 col-lg-6">
-                    <label for="vacancy" class="form-label">Vacancy</label>
-                    <input required type="number" max="5" min="1" class="form-control" id="vacancy" name="vacancy" placeholder="Enter vacancy" value = "{{$vacancy}}">
+                    <label for="Vacancy" class="form-label">Vacancy</label>
+                    <input required type="number" max="5" min="1" class="form-control" id="Vacancy" name="Vacancy" placeholder="Enter vacancy" value = "{{$vacancy}}">
                 </div>
 
                 <!-- Date picker -->
                 <div class="mb-3 col-lg-6">
-                  <label for="deadline" class="form-label">Deadline</label>
-                  <input required type="date" class="form-control" id="deadline" name="deadline" placeholder="DD/MM/YYYY" value="{{$deadline}}">
+                  <label for="Deadline" class="form-label">Deadline</label>
+                  <input required type="date" class="form-control" id="Deadline" name="Deadline" placeholder="DD/MM/YYYY" value="{{$deadline}}">
                 </div>
 
                 <!-- Skills Required -->
                 <div class="mb-3 col-lg-6">
                   <label for="skills" class="form-label">Skills</label>
                   <br>
-                  <select id="skills" style="width:100%" multiple class= "select2" required>
+                  <select name="skills[]" id="skills" style="width:100%" multiple class= "select2" required>
                         @foreach ($skillsDDL as $skill)
                             <option value = "{{ $skill['skillID'] }}" >
                                 {{$skill['skill']}}
@@ -176,13 +155,13 @@
     
                 <!-- Textarea (description) -->
                 <div class="mb-3">
-                    <label for="description" class="form-label">Description</label>
-                    <textarea class="form-control" id="description" name="description" rows="4" placeholder="Enter description" required>{{$description}}</textarea>
+                    <label for="Description" class="form-label">Description</label>
+                    <textarea class="form-control" id="Description" name="Description" rows="4" placeholder="Enter description" required value=" {{$description}} ">{{$description}}</textarea>
                 </div>
             
                   <!-- Submit button -->
                   <div class="container">
-                    <button class="btn btn-primary me-2">Submit</button>
+                    <button type="submit" class="btn btn-primary me-2">Submit</button>
                     <!-- <button type="submit" class="btn btn-outline-danger">Cancel</button> -->
                   </div>
                 </div>

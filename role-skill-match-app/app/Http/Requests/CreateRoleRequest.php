@@ -46,6 +46,6 @@ class CreateRoleRequest extends FormRequest
             'Status.required' => 'Status is required',
             'Deadline.required' => 'Deadline is required',
             'Skills.required' => 'Skills is required',
-        ]
-    };
+        ];
+    }
 }

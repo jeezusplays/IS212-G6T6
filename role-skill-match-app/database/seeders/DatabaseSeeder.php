@@ -39,8 +39,9 @@ class DatabaseSeeder extends Seeder
             StaffSkillSeeder::class,
             RoleSeeder::class,
             ApplicationSeeder::class,
-            RoleManagerSeeder::class,
-            Role_Skill::class,
+            HiringManagerSeeder::class,
+            RoleSkillSeeder::class,
+            RoleListingSeeder::class
         ]);
     }
 }

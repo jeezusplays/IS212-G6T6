@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('role_listing', function (Blueprint $table) {
             $table->increments('listing_id');
             $table->unsignedInteger('role_id');
-            $table->string('role_name');
             $table->text('description');
             $table->unsignedInteger('department_id');
             $table->unsignedInteger('country_id');
@@ -31,6 +30,7 @@ return new class extends Migration
             $table->foreign('department_id')->references('department_id')->on('department');
             $table->foreign('country_id')->references('country_id')->on('country');
             $table->foreign('created_by')->references('staff_id')->on('staff');
+            
         });
     }
 

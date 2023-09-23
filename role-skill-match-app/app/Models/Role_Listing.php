@@ -61,7 +61,6 @@ class Role_Listing extends Model
     protected $primaryKey = 'listing_id';
 
     protected $fillable = [
-        'role_name',
         'description',
         'work_arrangement',
         'vacancy',

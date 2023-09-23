@@ -26,5 +26,5 @@ class Role_Skill extends Model
     }
 
     protected $table = 'Role_Skill';
-    protected $primaryKey = ['role_id', 'skill_id'];
+    protected $primaryKey = ['listing_id', 'skill_id'];
 }

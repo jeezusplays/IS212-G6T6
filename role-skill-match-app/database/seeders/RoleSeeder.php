@@ -16,64 +16,29 @@ class RoleSeeder extends Seeder
     public function run(): void
     {
         Role::create([
-            'role_name' => 'Financial Analyst',
-            'description' => 'Analyze financial data to provide financial advice.',
-            'department_id' => 1,
-            'country_id' => 1,
-            'work_arrangement' => 1, 
-            'vacancy' => 5,
-            'status' => 1,
-            'deadline' => '2023-12-31',
-            'creation_date' => '2023-09-20',
-            'created_by' => 'Park Bo Gum',
+            'role_id' => 1,
+            'role' => 'Financial Analyst',
+            
         ]);
         Role::create([
-            'role_name' => 'Consultant',
-            'description' => 'Lorem ipsum dolor sit amet',
-            'department_id' => 2,
-            'country_id' => 1,
-            'work_arrangement' => 1, 
-            'vacancy' => 5,
-            'status' => 1,
-            'deadline' => '2023-12-31',
-            'creation_date' => '2023-09-20',
-            'created_by' => 'Park Bo Gum',
+            'role_id' => 2,
+            'role' => 'Consultant',
+            
         ]);
         Role::create([
-            'role_name' => 'Solution Architect',
-            'description' => 'Lorem ipsum dolor sit amet',
-            'department_id' => 3,
-            'country_id' => 1,
-            'work_arrangement' => 2, 
-            'vacancy' => 5,
-            'status' => 1,
-            'deadline' => '2023-12-31',
-            'creation_date' => '2023-09-20',
-            'created_by' => 'Park Bo Gum',
+            'role_id' => 3,
+            'role' => 'Solution Architect',
+            
         ]);
         Role::create([
-            'role_name' => 'Operations Manager',
-            'description' => 'Lorem ipsum dolor sit amet',
-            'department_id' => 4,
-            'country_id' => 1,
-            'work_arrangement' => 1, 
-            'vacancy' => 5,
-            'status' => 1,
-            'deadline' => '2023-12-31',
-            'creation_date' => '2023-09-20',
-            'created_by' => 'Park Bo Gum',
+            'role_id' => 4,
+            'role' => 'Operations Manager',
+            
         ]);
         Role::create([
-            'role_name' => 'Employer Branding Specialist',
-            'description' => 'Lorem ipsum dolor sit amet',
-            'department_id' => 5,
-            'country_id' => 1,
-            'work_arrangement' => 1, 
-            'vacancy' => 5,
-            'status' => 1,
-            'deadline' => '2023-12-31',
-            'creation_date' => '2023-09-20',
-            'created_by' => 'Park Bo Gum',
+            'role_id' => 5,
+            'role' => 'Employer Branding Specialist',
+            
         ]);
     }
 }

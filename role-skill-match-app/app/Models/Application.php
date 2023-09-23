@@ -26,6 +26,8 @@ class Application extends Model
         return $this->belongsToMany(Role_Listing::class, 'listing_id');
     }
 
+    protected $table = 'Application';
+
     protected $primaryKey = 'application_id';
 
     protected $fillable = [

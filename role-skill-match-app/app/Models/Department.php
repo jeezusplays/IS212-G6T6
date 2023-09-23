@@ -25,6 +25,8 @@ class Department extends Model
         return $this->hasMany(Role_Listing::class);
     }
 
+    protected $table = 'department';
+    
     protected $primaryKey = 'department_id';
 
     protected $fillable = [

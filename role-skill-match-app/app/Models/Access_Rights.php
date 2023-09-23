@@ -27,6 +27,8 @@ class Access_Rights extends Model
         return $this->hasMany(Staff::class, 'access_id');
     }
     // define primary key
+    protected $table = 'Access_Rights';
+
     protected $primaryKey = 'access_id';
 
     // define fields for mass assignment using object relational mapping

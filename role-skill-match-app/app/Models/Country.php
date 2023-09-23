@@ -25,6 +25,8 @@ class Country extends Model
         return $this->hasMany(Role_Listing::class);
     }
 
+    protected $table = 'Country';
+
     protected $primaryKey = 'country_id';
 
     protected $fillable = [

@@ -30,6 +30,6 @@ class Staff_Skill extends Model
     {
         return $this->belongsTo(Proficiency::class, 'proficiency_id');
     }
-
+    protected $table = 'Staff_Skill';
     protected $primaryKey = ['staff_id', 'skill_id'];
 }

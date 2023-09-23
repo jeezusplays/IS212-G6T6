@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 // import model
 use App\Models\Access_Rights;
 
-class AccessRightSeeder extends Seeder
+class AccessRightsSeeder extends Seeder
 {
     /**
      * Run the database seeds.

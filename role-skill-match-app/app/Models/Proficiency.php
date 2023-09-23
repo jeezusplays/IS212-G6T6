@@ -17,7 +17,7 @@ class Proficiency extends Model
     {
         return $this->hasMany(Staff_Skill::class, 'proficiency_id');
     }
-    
+    protected $table = 'Proficiency';
 
     protected $primaryKey = 'proficiency_id';
 

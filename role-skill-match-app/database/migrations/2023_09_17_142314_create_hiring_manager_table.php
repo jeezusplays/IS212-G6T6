@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('role_manager', function (Blueprint $table) {
+        Schema::create('hiring_manager', function (Blueprint $table) {
             $table->unsignedInteger('role_id');
             $table->unsignedInteger('staff_id');
             $table->timestamps();
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('role_manager');
+        Schema::dropIfExists('hiring_manager');
     }
 };

@@ -39,6 +39,7 @@ class Skill extends Model
     //     return $this->belongsToMany(Staff::class, 'staff_skill', 'skill_id', 'staff_id');
     // }
 
+    protected $table = 'Skill';
 
     protected $primaryKey = 'skill_id';
 

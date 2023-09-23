@@ -17,31 +17,31 @@ class DepartmentSeeder extends Seeder
         // create 7 departments using model
         Department::create([
             'department_id' => 1,
-            'department_name' => 'Sales',
+            'department' => 'Sales',
         ]);
         Department::create([
             'department_id' => 2,
-            'department_name' => 'Consulting',
+            'department' => 'Consulting',
         ]);
         Department::create([
             'department_id' => 3,
-            'department_name' => 'System Solutioning',
+            'department' => 'System Solutioning',
         ]);
         Department::create([
             'department_id' => 4,
-            'department_name' => 'Engineering',
+            'department' => 'Engineering',
         ]);
         Department::create([
             'department_id' => 5,
-            'department_name' => 'HR and Admin',
+            'department' => 'HR and Admin',
         ]);
         Department::create([
             'department_id' => 6,
-            'department_name' => 'Finance',
+            'department' => 'Finance',
         ]);
         Department::create([
             'department_id' => 7,
-            'department_name' => 'IT',
+            'department' => 'IT',
         ]);
     }
 }

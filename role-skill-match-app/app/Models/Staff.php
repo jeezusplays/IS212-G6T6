@@ -52,7 +52,7 @@ class Staff extends Model
         return $this->belongsToMany(Hiring_Manager::class, 'hiring_manager', 'staff_id', 'role_id');
     }
 
-  
+    protected $table = 'Staff';
     protected $primaryKey = 'staff_id';
 
     protected $fillable = [

@@ -19,6 +19,8 @@ class Permission extends Model
         return $this->hasMany(Permission_Rights::class, 'permission_id');
     }
 
+    protected $table = 'Permission';
+
     protected $primaryKey = 'permission_id';
 
     protected $fillable = [

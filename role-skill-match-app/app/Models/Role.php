@@ -24,6 +24,8 @@ class Role extends Model
         return $this->hasMany(Role_Listing::class, 'role_id');
     }
 
+    protected $table = 'Role';
+
     protected $primaryKey = 'role_id';
 
     protected $fillable = [

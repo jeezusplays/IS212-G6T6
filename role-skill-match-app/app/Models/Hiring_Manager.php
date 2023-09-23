@@ -20,6 +20,8 @@ class Hiring_Manager extends Model
     }
 
     // Many-to-one relationship with `Role` Model
+    protected $table = 'Hiring_Manager';
+
     public function access(): BelongsTo
     {
         return $this->belongsTo(Role_Listing::class, 'role_id');

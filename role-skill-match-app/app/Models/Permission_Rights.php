@@ -12,6 +12,8 @@ class Permission_Rights extends Model
     // links to factory for seeding
     use HasFactory;
     
+    protected $table = 'Permission_Rights';
+
     // Many-to-one relationship with `Permission` Model
     public function permission(): BelongsTo
     {

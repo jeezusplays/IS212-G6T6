@@ -25,5 +25,6 @@ class Role_Skill extends Model
         return $this->belongsTo(Skill::class, 'role_skill', 'listing_id', 'skill_id'); // TODO: Check
     }
 
+    protected $table = 'Role_Skill';
     protected $primaryKey = ['role_id', 'skill_id'];
 }

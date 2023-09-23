@@ -56,6 +56,7 @@ class Role_Listing extends Model
         return $this->belongsToMany(Hiring_Manager::class, 'hiring_manager', 'role_id', 'staff_id');
     }
 
+    protected $table = 'Role_Listing';
 
     protected $primaryKey = 'listing_id';
 
@@ -66,8 +67,5 @@ class Role_Listing extends Model
         'vacancy',
         'status',
         'deadline'
-        /*
-        'Creation_Date',
-        'Creation_By', */
     ];
 }

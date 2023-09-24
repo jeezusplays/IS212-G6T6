@@ -24,6 +24,8 @@ return new class extends Migration
             $table->date('creation_date');
             $table->unsignedInteger('created_by');
             $table->timestamps();
+            $table->softDeletes();
+            
 
             // Foreign Keys
             $table->foreign('role_id')->references('role_id')->on('hiring_manager');
@@ -40,5 +42,6 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('role');
+        $table->dropSoftDeletes();
     }
 };

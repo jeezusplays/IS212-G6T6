@@ -25,7 +25,7 @@ class Department extends Model
         return $this->hasMany(Role_Listing::class);
     }
 
-    protected $table = 'department';
+    protected $table = 'Department';
     
     protected $primaryKey = 'department_id';
 

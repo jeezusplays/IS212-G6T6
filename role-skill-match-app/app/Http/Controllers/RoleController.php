@@ -5,44 +5,47 @@ use App\Http\Requests\CreateRoleRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
-use App\Models\Role;
+use App\Models\Role_Listing;
 
 class RoleController extends Controller
 {
-    public function store(CreateRoleRequest $request): RedirectResponse
+    public function store(Request $request)
     {
         
         // Save mutliselect forms as arrays
 
         // Get all selected hiring managers as array
-        $staffIds = $request->input('Staff_ID', []);
+        // $staffIds = $request->input('Staff_ID', []);
         // Save selected options
-        Role::create([
-            'Staff_ID' => $staffIds 
-        ]);
+        // Role::create([
+        //     'Staff_ID' => $staffIds 
+        // ]);
 
         // Get all selected skills as array
-        $skills = $request->input('skills', []);
+        // $skills = $request->input('skills', []);
         // Save selected options
-        Role::create([
-            'skills' => $skills
-        ]);
+        // Role::create([
+        //     'skills' => $skills
+        // ]);
         
         // Retrieve the validated input data...>
         @dump($request->input());
-        $data = $request->validated();
+        @dump($request->only(['Role_Name', 'Department_ID', 'Country_ID', 'Work_Arrangement', 'Status']));
+        @dump($request->except(['Role_Name', 'Department_ID', 'Country_ID', 'Work_Arrangement', 'Status']));
 
         // Check if role already exists in the database
-        $role = Role::firstOrCreate($data->safe()->only(['Role_Name', 'Department_ID', 'Country_ID', 'Work_Arrangement', 'Status']), $data->safe()->except(['Role_Name', 'Department_ID', 'Country_ID', 'Work_Arrangement', 'Status']));
+        // $role = Role_Listing::firstOrCreate($request->only(['Role_Name', 'Department_ID', 'Country_ID', 'Work_Arrangement', 'Status']), $request->except(['Role_Name', 'Department_ID', 'Country_ID', 'Work_Arrangement', 'Status']));
 
-        // Check if role was recently created or not
-        if ($role->wasRecentlyCreated) {
-            // Role was created, return 200 OK HTTP code
-            return redirect('/home', 200);
-        } else {
-            // Role already exists, return 409 Conflict HTTP code
-            return redirect('/home', 409);
-        }
+    //     // Check if role was recently created or not
+        // if ($role->wasRecentlyCreated) {
+        //     console.log("Role was created");
+        //     // Role was created, return 200 OK HTTP code
+        //     return redirect('/welcome', 200);
+        // } else {
+        //     console.log("Role was not created");
+        //     // Role already exists, return 409 Conflict HTTP code
+        //     return redirect('/', 409);
+        // }
     }
 
     function getData(Request $req)

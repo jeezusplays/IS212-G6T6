@@ -23,17 +23,17 @@ Route::get('/', function () {
 });
 
 // Route for Role Creation
-Route::post('/create-role', [RoleController::class, 'store'])->name('Role.create');
-// Route::post('/create-role', [RoleController::class, 'getData'])->name('Role.create');
-Route::view('/create-role', '/create-role');
+Route::post('/create-role', [RoleController::class, 'store']);
+Route::post('/create-role-test', [RoleController::class, 'getData'])->name('Role.create');
+// Route::view('/create-role', '/create-role');
 
 // Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 // Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::get('/create-role', function () {
     return view('create-role',[

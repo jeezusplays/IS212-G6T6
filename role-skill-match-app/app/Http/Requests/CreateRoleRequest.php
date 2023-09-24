@@ -11,7 +11,7 @@ class CreateRoleRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -45,7 +45,7 @@ class CreateRoleRequest extends FormRequest
             'Vacancy.required' => 'Vacancy is required',
             'Status.required' => 'Status is required',
             'Deadline.required' => 'Deadline is required',
-            'Skills.required' => 'Skills is required',
+            'Skills.required' => 'Skill is required',
         ];
     }
 }

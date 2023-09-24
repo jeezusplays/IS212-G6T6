@@ -77,7 +77,7 @@
       <!-- FORM -->
       <div class="container">
             <!-- <form action="" method="post"> -->
-            <form action="{{ route('Role.create') }}" method="POST">
+            <form action="/create-role" method="POST">
               @csrf
                 <div class="row">
                 <!-- Text input (roleTitle) -->
@@ -142,9 +142,9 @@
 
                 <!-- Skills Required -->
                 <div class="mb-3 col-lg-6">
-                  <label for="skills" class="form-label">Skills</label>
+                  <label for="Skills" class="form-label">Skills</label>
                   <br>
-                  <select name="skills[]" id="skills" style="width:100%" multiple class= "select2" required>
+                  <select name="Skills[]" id="Skills" style="width:100%" multiple class= "select2" required>
                         @foreach ($skillsDDL as $skill)
                             <option value = "{{ $skill['skillID'] }}" >
                                 {{$skill['skill']}}

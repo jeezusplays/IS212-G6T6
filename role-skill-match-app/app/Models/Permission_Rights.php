@@ -23,7 +23,7 @@ class Permission_Rights extends Model
     // Many-to-one relationship with `Access_Rights` Model
     public function access(): BelongsTo
     {
-        return $this->belongsTo(AccessRight::class, 'access_id');
+        return $this->belongsTo(Access_Rights::class, 'access_id');
     }
 
 }

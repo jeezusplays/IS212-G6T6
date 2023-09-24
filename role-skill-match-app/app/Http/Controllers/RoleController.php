@@ -11,6 +11,25 @@ class RoleController extends Controller
         // Retrieve role data from the database (you will need to implement this)
         // Placeholder data for roles
         $roles = [
+            // [
+            //     'Role ID' => 1,
+            //     'Role Name' => 'Sales Manager',
+            //     'Description' => 'Manage sales team',
+            //     'Department_ID' => 1,
+            //     'Country_ID' => 1,
+            //     'Work_Arrangement' => 'Full Time',
+            //     'Vacancy' => 5,
+            //     'Status' => 1,
+            //     'Deadline' => '2021-09-12',
+            //     'Creation_Date' => '2021-09-12',
+            //     'Created_By' => 'John Doe',
+            //     'Skills' => [
+            //         'Python',
+            //         'Excel',
+            //         'Management'
+            //     ]
+            // ],
+
             [
                 'job_title' => 'Software Developer',
                 'total_applications' => 50,
@@ -48,6 +67,7 @@ class RoleController extends Controller
             ],
         ];
         
+        $roles = collect($roles)->sortByDesc('creation_date')->values()->all();
 
         return view('role-listings', compact('roles'));
     }

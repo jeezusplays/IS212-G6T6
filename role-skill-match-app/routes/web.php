@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\RetrieveAllRoleListings;
 /*
 |--------------------------------------------------------------------------
@@ -12,10 +13,19 @@ use App\Http\Controllers\RetrieveAllRoleListings;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+use App\Http\Controllers\RoleController;
+
+Route::get('/role-listings', [RoleController::class, 'index']);
 
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/role-listings', [RetrieveAllRoleListings::class, 'role_listings']);
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

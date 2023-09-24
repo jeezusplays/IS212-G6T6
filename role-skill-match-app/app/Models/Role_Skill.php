@@ -16,15 +16,14 @@ class Role_Skill extends Model
     // Many-to-one relationship with the `Role` Model
     public function role(): BelongsTo
     {
-        return $this->belongsTo(Role_Listing::class, 'role_skill', 'listing_id', 'skill_id'); // TODO: Check
+        return $this->belongsTo(Role_Listing::class, 'listing_id'); // TODO: Check
     }
 
     // Many-to-one relationship with the `Skill` Model
     public function skill(): BelongsTo
     {
-        return $this->belongsTo(Skill::class, 'role_skill', 'listing_id', 'skill_id'); // TODO: Check
+        return $this->belongsTo(Skill::class, 'skill_id'); // TODO: Check
     }
 
-    protected $table = 'Role_Skill';
     protected $primaryKey = ['listing_id', 'skill_id'];
 }

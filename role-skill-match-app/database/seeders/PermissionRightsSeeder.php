@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use App\Models\Permission_Rights;
 
 class PermissionRightsSeeder extends Seeder
 {
@@ -17,22 +18,47 @@ class PermissionRightsSeeder extends Seeder
         // DB::table('permission_rights')->insert([
         // access id 1 = user, 2 = manager, 3 = hr
         // ]);
-        DB::table('permission_rights')->insert([
-            ['access_id' => 1, 'permission_id' => 1],
-            ['access_id' => 1, 'permission_id' => 2],
-            ['access_id' => 1, 'permission_id' => 3],
-
-            ['access_id' => 2, 'permission_id' => 1],
-            ['access_id' => 2, 'permission_id' => 2],
-            ['access_id' => 2, 'permission_id' => 3],
-
-
-            ['access_id' => 3, 'permission_id' => 1],
-            ['access_id' => 3, 'permission_id' => 2],
-            ['access_id' => 3, 'permission_id' => 3],
-            ['access_id' => 3, 'permission_id' => 4],
-            // Add more permissions here
+        Permission_Rights::create([
+            'access_id' => 1,
+            'permission_id' => 1,
         ]);
-
+        Permission_Rights::create([
+            'access_id' => 1,
+            'permission_id' => 2,
+        ]);
+        Permission_Rights::create([
+            'access_id' => 1,
+            'permission_id' => 3,
+        ]);
+        Permission_Rights::create([
+            'access_id' => 2,
+            'permission_id' => 1,
+        ]);
+        Permission_Rights::create([
+            'access_id' => 2,
+            'permission_id' => 2,
+        ]);
+        Permission_Rights::create([
+            'access_id' => 2,
+            'permission_id' => 3,
+        ]);
+        Permission_Rights::create([
+            'access_id' => 3,
+            'permission_id' => 1,
+        ]);
+        Permission_Rights::create([
+            'access_id' => 3,
+            'permission_id' => 2,
+        ]);
+        Permission_Rights::create([
+            'access_id' => 3,
+            'permission_id' => 3,
+        ]);
+        Permission_Rights::create([
+            'access_id' => 3,
+            'permission_id' => 4,
+        ]);
+        
+            // Add more permissions here
     }
 }

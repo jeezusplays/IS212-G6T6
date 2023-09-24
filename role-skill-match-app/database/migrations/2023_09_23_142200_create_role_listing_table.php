@@ -21,7 +21,6 @@ return new class extends Migration
             $table->integer('vacancy');
             $table->integer('status');
             $table->date('deadline');
-            $table->date('creation_date');
             $table->unsignedInteger('created_by');
             $table->timestamps();
 

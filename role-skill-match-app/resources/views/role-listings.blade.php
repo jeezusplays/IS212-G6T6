@@ -7,6 +7,13 @@
     <link rel="icon" href="{{ asset('favicon-32x32.png') }}" type="image/x-icon">
     <style>
         /* Add your custom CSS styles here */
+        .card-title-link {
+            text-decoration: none;
+            /* Remove underline */
+            color: inherit;
+            /* Inherit the card title's original text color */
+            /* Add any additional styling you desire */
+        }
     </style>
     <Title>
         Role Listings
@@ -92,10 +99,15 @@
                 <div
                     class="col-xl-4 col-md-6 col-sm-12 role-card @if ($role['status'] == 'Open') open-role @else closed-role @endif">
                     <div class="card mb-3">
-                        <h5 class="card-header card-title p-3">{{ $role['role'] }}</h5>
+                        <a href="#" class="card-title-link">
+                            <h5 class="card-header card-title p-3">{{ $role['role'] }}</h5>
+                        </a>
                         <div class="card-body">
-                            <p class="card-text">Applications received: <a
-                                    href="#"><u>{{ $role['total_applications'] }}</u></a></p>
+                            <p class="card-text">Applications received:
+                                {{ $role['total_applications'] }}
+                                <a href="#" class="@if ($role['total_applications'] > 0)  @endif">[View
+                                    Applications]</a>
+                            </p>
                             <p class="card-text">Creation Date: {{ $role['created_at'] }}</p>
                             <p class="card-text">Listed By: {{ $role['full_name'] }}</p>
                             <p class="card-text" id="card-status">

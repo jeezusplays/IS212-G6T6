@@ -64,9 +64,9 @@
             </div>
 
             <!-- Filter by Status Dropdown Checkbox -->
-            <div class="col-md-6 p-3 d-flex">
+            <div class="col-md-6 p-3 d-flex justify-content-end">
                 <div class="btn-group">
-                    <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                    <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                         id="filterButton">
                         Filter by Status
                     </button>

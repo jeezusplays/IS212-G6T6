@@ -98,7 +98,7 @@
 
       <!-- FORM -->
       <div class="container">
-            <form class="was-validated" method="post" action="/updateRole">
+            <form class="was-validated" action="/updateRole" method="post">
                 @csrf
                 <div class="row">
                 <!-- Text input (jobTitle) -->

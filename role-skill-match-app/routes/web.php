@@ -18,6 +18,7 @@ use App\Http\Controllers\RoleController;
 // Route::get('/create-role', [RoleController::class, 'index']);
 
 Route::get('/role-listings', [RoleController::class, 'index']);
+Route::post('/create-role', [RoleController::class, 'store'])->name('create-role');
 
 
 Route::get('/', function () {
@@ -67,11 +68,13 @@ Route::get('/create-role', function () {
             4,
             5
         ],
+
+        'Staff_ID' => 5,
+
+        // New role will be open by default
+        'status' => 1,
         
-
-
         
-
         'hiringManagerDDL' => [ 
             [   
                 "Staff_ID" => 1,

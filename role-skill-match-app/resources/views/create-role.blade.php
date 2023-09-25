@@ -71,15 +71,17 @@
         <!-- <a class="btn btn-primary" href="" role="button">Link</a> -->
       </div>
 
-      <!-- SEARCH -->
-
-
       <!-- FORM -->
       <div class="container">
-            <!-- <form action="" method="post"> -->
-            <form action="/create-role" method="POST">
-              @csrf
+            <form  class="was-validated" action="/create-role" method="POST">
+
+                @csrf
                 <div class="row">
+
+                <!-- Job status & Creator ID -->
+                <input type="hidden" id="Status" name="Status" value="{{$status}}">
+                <input type="hidden" id="Created_By" name="Created_By" value="{{ $Staff_ID }}">
+
                 <!-- Text input (roleTitle) -->
                 <div class="mb-3 col-lg-6">
                     <label for="Role_Name" class="form-label">Role Title</label>
@@ -127,7 +129,7 @@
 
                             @elseif ($dept == 6)
                               Finance
-                            
+
                             @else
                               IT
                             @endif

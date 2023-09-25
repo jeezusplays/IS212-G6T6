@@ -9,6 +9,15 @@ use App\Models\Role_Listing;
 
 class RoleController extends Controller
 {
+    
+    public static $lastId = 0;
+
+    public function create()
+    {
+        $roleId = self::$lastId + 1;
+        return view('/create-role', ['Role_ID' => $roleId]);  
+    }
+    
     public function store(Request $request)
     {
         
@@ -27,6 +36,7 @@ class RoleController extends Controller
         // Role::create([
         //     'skills' => $skills
         // ]);
+
         
         // Retrieve the validated input data...>
         @dump($request->input());

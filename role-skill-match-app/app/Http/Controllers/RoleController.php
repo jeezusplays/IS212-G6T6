@@ -12,7 +12,11 @@ use Illuminate\Support\Facades\DB;
 
 class RoleController extends Controller
 {
-    public function index()
+    public function index(){
+
+    }
+
+    public function retrieveAll()
     {
         // Retrieve all role data from the database
         $RoleListing_Table = Role_Listing::all();

@@ -14,17 +14,17 @@ use Illuminate\Support\Facades\Auth;
 */
 use App\Http\Controllers\RoleController;
 
-Route::get('/role-listings', [RoleController::class, 'index']);
-
+Route::get('/role-listings', [RoleController::class, 'retrieveAll']);
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+
+

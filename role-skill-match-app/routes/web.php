@@ -2,6 +2,9 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\UpdateRoleController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -17,6 +20,20 @@ use App\Http\Controllers\RoleController;
 
 Route::get('/role-listings', [RoleController::class, 'index']);
 
+Route::get('/', function(){
+    return view("welcome");
+});
+
+//store listing data
+Route::post('/updateRole', [UpdateRoleController::class, 'store']);
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::get('/edit', function () {
     return view('updateRole',[
@@ -79,13 +96,4 @@ Route::get('/edit', function () {
 });
 
 
-<<<<<<< Updated upstream
-Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-=======
->>>>>>> Stashed changes

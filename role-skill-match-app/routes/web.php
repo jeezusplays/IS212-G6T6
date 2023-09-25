@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\RetrieveAllRoleListings;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,16 +19,12 @@ use App\Http\Controllers\RoleController;
 
 Route::get('/role-listings', [RoleController::class, 'index']);
 
+
 Route::get('/', function () {
     return view('welcome');
 });
 
-// Route for Role Creation
-Route::post('/create-role', [RoleController::class, 'store']);
-Route::post('/create-role-test', [RoleController::class, 'getData'])->name('Role.create');
-// Route::view('/create-role', '/create-role');
-
-// Auth::routes();
+Auth::routes();
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 

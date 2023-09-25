@@ -20,29 +20,10 @@ class RoleController extends Controller
         $HiringManager_Table = Hiring_Manager::whereIn('role_id', $RoleListing_Table->pluck('role_id'))->get(['role_id','staff_id']);
         $Staff_Table =  Staff::whereIn('role_id', $RoleListing_Table->pluck('role_id'))->get(['role_id',DB::raw('CONCAT(staff_lname, " ", staff_fname) AS full_name')]);
         //$Application_Table = Application::whereIn('listing_id', $RoleListing_Table->pluck('listing_id'))->get(['listing_id','staff_id']); 
-
         $Application_Table = Application::whereIn('listing_id', $RoleListing_Table->pluck('listing_id'))
         ->selectRaw('listing_id, COUNT(application_id) as total_applications')
         ->groupBy('listing_id')
         ->get();
-
-        // Map the database records to the desired format
-        /*$roles = [
-            [
-                'job_title' => 'Software Developer',
-                'total_applications' => 50,
-                'creation_date' => '2023-09-12',
-                'listed_by' => 'John Doe',
-                'status' => 'Open',
-            ],
-            [
-                'job_title' => 'UX Designer',
-                'total_applications' => 30,
-                'creation_date' => '2023-09-14',
-                'listed_by' => 'Jane Smith',
-                'status' => 'Closed',
-            ],
-        ];*/
         
         $roles = $RoleListing_Table->map(function ($role) use ($Role_Table,$HiringManager_Table,$Staff_Table,$Application_Table) {
 
@@ -57,7 +38,7 @@ class RoleController extends Controller
                 //'role_id' => $matchingRole ? $matchingRole->role_id : null,
                 'role' => $matchingRole ? $matchingRole->role : null,  //job title
                 'created_at' => $role->created_at->format('Y-m-d'),  //creation_date
-                'full_name' => $staffRecord ? $staffRecord->full_name : null, //listed by                    
+                'full_name' => $staffRecord ? $staffRecord->full_name : null, //listed by
                 'status' => $status,
                 'total_applications' => $applicationCount ? $applicationCount->total_applications : 0, // total_applications  
             ];

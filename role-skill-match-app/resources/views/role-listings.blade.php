@@ -8,14 +8,17 @@
     <style>
         /* Add your custom CSS styles here */
     </style>
+    <Title>
+        Role Listings
+    </Title>
 </head>
 
 <!-- Scripts -->
 @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 
 <body>
+    {{-- Top Menu Bar --}}
     <div id="app" class="container">
-        {{-- Top Menu Bar --}}
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <a class="navbar-brand" href="#">
                 <img src="{{ asset('favicon-32x32.png') }}" alt="Company Logo">
@@ -23,22 +26,26 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item active">
-                        <a class="nav-link" href="#">View Role Listings</a>
+                        <a class="nav-link" href="http://localhost:8000/role-listings">View Role Listings</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Create Role Listing</a>
+                        <a class="nav-link" href="http://localhost:8000/create-role">Create Role Listing</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="http://localhost:8000/update-role">Edit Role Listing</a>
                     </li>
                 </ul>
             </div>
             <div class="dropdown">
                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown"
                     aria-expanded="false">
-                    Current User's Name (HR Staff)
+                    {{-- Retrieve default HR staff name from database --}}
+                    {{$roles[4]['full_name']}} (HR Staff)
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <li><a class="dropdown-item" href="#">HR Staff</a></li>
-                    <li><a class="dropdown-item" href="#">Staff</a></li>
-                    <li><a class="dropdown-item" href="#">Manager</a></li>
+                    <li><a class="dropdown-item" href="http://localhost:8000/role-listings">HR Staff</a></li>
+                    <li><a class="dropdown-item" href="http://localhost:8000/role-listings-staff">Staff</a></li>
+                    <li><a class="dropdown-item" href="http://localhost:8000/role-listings-manager">Manager</a></li>
                 </ul>
             </div>
         </nav>
@@ -75,13 +82,12 @@
             </div>
         </div>
 
-        <h1>Role Listings</h1>
+        <h1 class = "my-3">Role Listings</h1>
 
         {{-- Loop through your role data and display each role in a card --}}
-        <div class="container">
             <div class="row" id="roleCardsContainer">
                 @foreach ($roles as $role)
-                <div class="col-xl-4 col-md-6 col-sm-12 role-card @if ($role['status'] == 1) open-role @else closed-role @endif">
+                <div class="col-xl-4 col-md-6 col-sm-12 role-card @if ($role['status'] == "Open") open-role @else closed-role @endif">
                     <div class="card mb-3">
                         <h5 class="card-header card-title p-3">{{ $role['role'] }}</h5>
                         <div class="card-body">
@@ -90,7 +96,7 @@
                             <p class="card-text">Listed By: {{ $role['full_name'] }}</p>
                             <p class="card-text" id="card-status">
                                 Status:
-                                @if ($role['status'] === "Open")
+                                @if ($role['status'] == "Open")
                                 <span class="text-success">Open</span>
                                 @else
                                 <span class="text-danger">Closed</span>
@@ -100,9 +106,9 @@
                     </div>
                 </div>
                 @endforeach
-            </div>
         </div>
     </div>
+</body>
 
     <script>
         // Search bar functionality on enter key press
@@ -156,6 +162,5 @@
             }
         }
     </script>
-</body>
 
 </html>

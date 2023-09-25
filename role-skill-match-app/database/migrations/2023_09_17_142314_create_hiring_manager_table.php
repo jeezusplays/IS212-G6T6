@@ -15,7 +15,7 @@ return new class extends Migration
             $table->unsignedInteger('role_id');
             $table->unsignedInteger('staff_id');
             $table->timestamps();
-
+            $table->Softdeletes();
             // Foreign Keys
             $table->foreign('role_id')->references('role_id')->on('role');
             $table->foreign('staff_id')->references('staff_id')->on('staff');

@@ -59,13 +59,12 @@ class RoleController extends Controller
                 'created_at' => $role->created_at->format('Y-m-d'),  //creation_date
                 'full_name' => $staffRecord ? $staffRecord->full_name : null, //listed by                    
                 'status' => $status,
-                'total_applications' => $applicationCount ? $applicationCount->total_applications : 0, // total_applications
-               
-                
+                'total_applications' => $applicationCount ? $applicationCount->total_applications : 0, // total_applications  
             ];
         });
 
-        return response()->json($roles);
+        // return response()->json($roles);
+        return view('role-listings', compact('roles'));
     }
 }
 

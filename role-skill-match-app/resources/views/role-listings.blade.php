@@ -81,16 +81,16 @@
         <div class="container">
             <div class="row" id="roleCardsContainer">
                 @foreach ($roles as $role)
-                <div class="col-xl-4 col-md-6 col-sm-12 role-card @if ($role['Status'] == 1) open-role @else closed-role @endif">
+                <div class="col-xl-4 col-md-6 col-sm-12 role-card @if ($role['status'] == 1) open-role @else closed-role @endif">
                     <div class="card mb-3">
-                        <h5 class="card-header card-title p-3">{{ $role['Role Name'] }}</h5>
+                        <h5 class="card-header card-title p-3">{{ $role['role'] }}</h5>
                         <div class="card-body">
-                            <p class="card-text">Applications received: <a href="#"><u>{{ $role['Total_Applications'] }}</u></a></p>
-                            <p class="card-text">Creation Date: {{ $role['Creation_Date'] }}</p>
-                            <p class="card-text">Listed By: {{ $role['Created_By'] }}</p>
+                            <p class="card-text">Applications received: <a href="#"><u>{{ $role['total_applications'] }}</u></a></p>
+                            <p class="card-text">Creation Date: {{ $role['created_at'] }}</p>
+                            <p class="card-text">Listed By: {{ $role['full_name'] }}</p>
                             <p class="card-text" id="card-status">
                                 Status:
-                                @if ($role['Status'] == 1)
+                                @if ($role['status'] == 1)
                                 <span class="text-success">Open</span>
                                 @else
                                 <span class="text-danger">Closed</span>

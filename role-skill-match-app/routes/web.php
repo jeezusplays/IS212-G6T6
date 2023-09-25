@@ -80,6 +80,17 @@ Route::get('/create-role', function () {
             1,
             2
         ],
+
+        'countryID_DDL' => [
+            1,
+            2,
+            3,
+            4,
+            5
+        ],
+        
+
+
         
 
         'hiringManagerDDL' => [ 

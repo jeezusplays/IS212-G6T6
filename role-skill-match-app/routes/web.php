@@ -18,7 +18,7 @@ use App\Http\Controllers\UpdateRoleController;
 */
 use App\Http\Controllers\RoleController;
 
-Route::get('/role-listings', [RoleController::class, 'index']);
+Route::get('/role-listings', [RoleController::class, 'retrieveAll']);
 
 
 Route::get('/', function () {

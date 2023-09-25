@@ -46,34 +46,13 @@ Route::get('/create-role', function () {
         'skills' =>  [],
         'description' => "", 
         'deptDDL' => [
-            [
-                "Department_ID" => 1,
-                "Department" => "Sales"
-            ],
-            [
-                "Department_ID" => 2,
-                "Department" => "Consultancy"
-            ],
-            [
-                "Department_ID" => 3,
-                "Department" => "System Solutioning"
-            ],
-            [
-                "Department_ID" => 4,
-                "Department" => "Engineering"
-            ],
-            [
-                "Department_ID" => 5,
-                "Department" => "HR and Admin"
-            ],
-            [
-                "Department_ID" => 6,
-                "Department" => "Finance"
-            ],
-            [
-                "Department_ID" => 7,
-                "Department" => "IT"
-            ]
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
         ],
 
         'workArrangementDDL' => [

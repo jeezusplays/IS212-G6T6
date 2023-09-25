@@ -109,8 +109,28 @@
                     <select required class="form-select" id="Department_ID" name="Department_ID">
                     <option value="" disabled selected>Select department</option>
                         @foreach ($deptDDL as $dept)
-                            <option value = "{{ $dept['Department_ID']}}">
-                                {{$dept['Department']}}
+                            <option value = "{{ $dept }}">
+                            @if ($dept == 1)
+                              Sales
+
+                            @elseif ($dept == 2)
+                              Consultancy
+
+                            @elseif ($dept == 3)
+                              System Solutioning
+
+                            @elseif ($dept == 4)
+                              Engineering
+
+                            @elseif ($dept == 5)
+                              HR and Admin
+
+                            @elseif ($dept == 6)
+                              Finance
+                            
+                            @else
+                              IT
+                            @endif
                             </option>
                         @endforeach
                     </select>
@@ -148,7 +168,7 @@
                         @foreach ($countryID_DDL as $countryID)
                           <option value = "{{ $countryID }}">
                             @if ($countryID == 1)
-                              Singapore
+                            Singapore
 
                             @elseif ($countryID == 2)
                               Malaysia

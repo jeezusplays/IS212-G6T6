@@ -90,7 +90,7 @@
                             <p class="card-text">Listed By: {{ $role['full_name'] }}</p>
                             <p class="card-text" id="card-status">
                                 Status:
-                                @if ($role['status'] == 1)
+                                @if ($role['status'] === "Open")
                                 <span class="text-success">Open</span>
                                 @else
                                 <span class="text-danger">Closed</span>

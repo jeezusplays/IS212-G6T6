@@ -17,43 +17,43 @@ class ApplicationSeeder extends Seeder
         Application::create([
             'Status' => 1, 
             'Application_Date' => '2023-01-01',
-            'Role_id' => 1, 
+            'listing_id' =>1,
             'Staff_id' => 2
         ]);
         Application::create([
             'Status' => 1, 
             'Application_Date' => '2023-02-02',
-            'Role_id' => 2, 
+            'listing_id' =>2,
             'Staff_id' => 2
         ]);
         Application::create([
             'Status' => 1, 
             'Application_Date' => '2023-03-03',
-            'Role_id' => 1, 
+            'listing_id' =>3,
             'Staff_id' => 3
         ]);
         Application::create([
             'Status' => 1, 
             'Application_Date' => '2023-04-04',
-            'Role_id' => 2, 
+            'listing_id' =>4, 
             'Staff_id' => 3
         ]);
         Application::create([
             'Status' => 1, 
             'Application_Date' => '2023-05-05',
-            'Role_id' => 3, 
+            'listing_id' =>5,
             'Staff_id' => 3
         ]);
         Application::create([
             'Status' => 1, 
             'Application_Date' => '2023-06-06',
-            'Role_id' => 4, 
+            'listing_id' =>1,
             'Staff_id' => 3
         ]);
         Application::create([
             'Status' => 1, 
             'Application_Date' => '2023-07-07',
-            'Role_id' => 5, 
+            'listing_id' =>2,
             'Staff_id' => 3
         ]);
     

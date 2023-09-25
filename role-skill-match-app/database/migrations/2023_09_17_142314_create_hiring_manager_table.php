@@ -22,7 +22,6 @@ return new class extends Migration
 
             // Composite Primary Keys
             $table->primary(['role_id', 'staff_id']);
-            $table->Softdeletes();
         });
     }
 

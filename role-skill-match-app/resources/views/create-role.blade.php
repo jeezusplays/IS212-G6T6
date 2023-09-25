@@ -140,6 +140,33 @@
                   <input required type="date" class="form-control" id="Deadline" name="Deadline" placeholder="DD/MM/YYYY" value="{{$deadline}}">
                 </div>
 
+                <!-- Country ID -->
+                <div class="mb-3 col-lg-6">
+                    <label for="Country_ID" class="form-label">Country</label>
+                    <select required class="form-select" id="Country_ID" name="Country_ID">
+                        <option value="" disabled selected>Select country</option>
+                        @foreach ($countryID_DDL as $countryID)
+                          <option value = "{{ $countryID }}">
+                            @if ($countryID == 1)
+                              Singapore
+
+                            @elseif ($countryID == 2)
+                              Malaysia
+
+                            @elseif ($countryID == 3)
+                              Indonesia
+
+                            @elseif ($countryID == 4)
+                              Vietnam
+                            
+                            @else
+                              Hong Kong
+                            @endif
+                          </option>
+                        @endforeach
+                    </select>
+                </div>
+
                 <!-- Skills Required -->
                 <div class="mb-3 col-lg-6">
                   <label for="Skills" class="form-label">Skills</label>

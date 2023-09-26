@@ -100,7 +100,12 @@
                     class="col-xl-4 col-md-6 col-sm-12 role-card @if ($role['status'] == 'Open') open-role @else closed-role @endif">
                     <div class="card mb-3">
                         <a href="#" class="card-title-link">
-                            <h5 class="card-header card-title p-3">{{ $role['role'] }}</h5>
+                            <div class="card-header card-title p-3 d-flex justify-content-between align-items-center">
+                                <h5 class="m-0">{{ $role['role'] }}</h5>
+                                <a href="http://localhost:8000/edit/roleID={{ $role['role_id'] }}/listingID={{ $role['listing_id'] }}" class="btn btn-sm btn-outline-primary">
+                                    Edit Listing
+                                </a>
+                            </div>
                         </a>
                         <div class="card-body">
                             <p class="card-text">Applications received:

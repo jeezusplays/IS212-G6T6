@@ -39,6 +39,8 @@ class RoleController extends Controller
             $status = $role->status === 1 ? 'Open' : 'Closed';
 
             return [
+                'listing_id' => $role->listing_id, // listing_id
+                'role_id' => $role->role_id, // role_id
                 'role' => $matchingRole ? $matchingRole->role : null, // job title
                 'created_at' => $role->created_at->format('Y-m-d'), // creation_date
                 'full_name' => $staffRecord ? $staffRecord->full_name : null, // listed by

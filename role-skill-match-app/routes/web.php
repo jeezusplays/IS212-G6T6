@@ -108,22 +108,20 @@ Route::get('/create-role', function () {
         ],
 
         'skillsDDL' => [
-            [
-                "skillID" => 1,
-                "skill" => "Python"
-            ],
-            [
-                "skillID" => 2,
-                "skill" => "Excel"
-            ],
-            [
-                "skillID" => 3,
-                "skill" => "Management"
-            ],
-            [
-                "skillID" => 4,
-                "skill" => "Accounting"
-            ]
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14
         ],
 
         'dummyRoleList' => [

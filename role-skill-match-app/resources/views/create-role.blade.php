@@ -73,7 +73,7 @@
 
       <!-- FORM -->
       <div class="container">
-            <form  class="was-validated" action="/create-role" method="POST">
+            <form class="needs-validation" novalidate action="/create-role" method="POST">
 
                 @csrf
                 <div class="row">
@@ -86,7 +86,9 @@
                 <div class="mb-3 col-lg-6">
                     <label for="Role_Name" class="form-label">Role Title</label>
                     <input required class="form-control" id="Role_Name" name="Role_Name" placeholder="Enter title" value="{{$Role_Name}}">
+                    <div class="invalid-feedback">Role Name cannot be empty</div>
                 </div>
+                
 
                 <!-- Select input (workArrangement) -->
                 <div class="mb-3 col-lg-6">
@@ -103,12 +105,13 @@
                           </option>
                         @endforeach
                     </select>
+                    <div class="invalid-feedback">Work Arrangement cannot be empty</div>
                 </div>
 
                 <!-- Select input (department) -->
                 <div class="mb-3 col-lg-6">
                     <label for="Department_ID" class="form-label">Select Department</label>
-                    <select required class="form-select" id="Department_ID" name="Department_ID">
+                    <select required  class="form-select" id="Department_ID" name="Department_ID">
                     <option value="" disabled selected>Select department</option>
                         @foreach ($deptDDL as $dept)
                             <option value = "{{ $dept }}">
@@ -136,36 +139,41 @@
                             </option>
                         @endforeach
                     </select>
+                    <div class="invalid-feedback">Department cannot be empty</div>
                 </div>
 
                 <!-- Select input (hiringManager) -->
                 <div class="mb-3 col-lg-6">
                     <label for="Staff_ID" class="form-label">Select Hiring Manager</label>
-                    <select required id="Staff_ID"  style="width:100%"  name="Staff_ID[]" class= "form-select select2" multiple  aria-placeholder="Select hiring manager(s)">
+                    <select required  id="Staff_ID"  style="width:100%"  name="Staff_ID[]" class= "form-select select2" multiple  aria-placeholder="Select hiring manager(s)">
                         @foreach ($hiringManagerDDL as $hm)
                             <option value = "{{ $hm['Staff_ID'] }}">
                                 {{$hm['Staff_FullName']}}
                             </option>
                         @endforeach
                     </select>
+                    <div class="invalid-feedback">You must select at least 1 hiring manager</div>
                 </div>
 
                 <!-- Number input (vacancy) -->
                 <div class="mb-3 col-lg-6">
                     <label for="Vacancy" class="form-label">Vacancy</label>
-                    <input required type="number" max="5" min="1" class="form-control" id="Vacancy" name="Vacancy" placeholder="Enter vacancy" value = "{{$vacancy}}">
+                    <input type="number" max="5" min="1" class="form-control" id="Vacancy" name="Vacancy" placeholder="Enter vacancy" value = "{{$vacancy}}">
+                    <div class="invalid-feedback">You must have between 1 and 5 vacancies.</div>
                 </div>
 
                 <!-- Date picker -->
                 <div class="mb-3 col-lg-6">
                   <label for="Deadline" class="form-label">Deadline</label>
-                  <input required type="date" class="form-control" id="Deadline" name="Deadline" placeholder="DD/MM/YYYY" value="{{$deadline}}">
+                  <input type="date" required class="form-control" id="Deadline" name="Deadline" placeholder="DD/MM/YYYY" value="{{$deadline}}">
+                  <div class="invalid-feedback">You must select a date later than today.</div>
                 </div>
+                
 
                 <!-- Country ID -->
                 <div class="mb-3 col-lg-6">
                     <label for="Country_ID" class="form-label">Country</label>
-                    <select required class="form-select" id="Country_ID" name="Country_ID">
+                    <select required  class="form-select" id="Country_ID" name="Country_ID">
                         <option value="" disabled selected>Select country</option>
                         @foreach ($countryID_DDL as $countryID)
                           <option value = "{{ $countryID }}">
@@ -187,30 +195,74 @@
                           </option>
                         @endforeach
                     </select>
+                    <div class="invalid-feedback">Country cannot be empty</div>
                 </div>
 
                 <!-- Skills Required -->
                 <div class="mb-3 col-lg-6">
                   <label for="Skills" class="form-label">Skills</label>
                   <br>
-                  <select name="Skills[]" id="Skills" style="width:100%" multiple class= "select2" required>
+                  <select required name="Skills[]" id="Skills" style="width:100%" multiple class= "select2">
                         @foreach ($skillsDDL as $skill)
-                            <option value = "{{ $skill['skillID'] }}" >
-                                {{$skill['skill']}}
+                            <option value = "{{ $skill }}" >
+                              @if ($skill == 1)
+                              Capital Management
+
+                              @elseif ($skill == 2)
+                              Capital Expenditure and Investment Evaluation
+
+                              @elseif ($skill == 3)
+                              People Management
+
+                              @elseif ($skill == 4)
+                              Stakeholder Management
+                              
+                              @elseif ($skill == 5)
+                              Strategy Implementation
+
+                              @elseif ($skill == 6)
+                              Architecture Design
+
+                              @elseif ($skill == 7)
+                              Equipment Maintenance and Housekeeping
+
+                              @elseif ($skill == 8)
+                              Project Risk Management
+
+                              @elseif ($skill == 9)
+                              Employer Branding
+
+                              @elseif ($skill == 10)
+                              Operational Excellence
+                              
+                              @elseif ($skill == 11)
+                              Market Profiling
+
+                              @elseif ($skill == 12)
+                              Financial Reporting
+
+                              @elseif ($skill == 13)
+                              Cyber Security
+
+                              @else
+                              Agile Software Development
+                              @endif
                             </option>
                         @endforeach
                   </select>
+                  <div class="invalid-feedback">You must select at least 1 skill.</div>
                 </div>
     
                 <!-- Textarea (description) -->
                 <div class="mb-3">
                     <label for="Description" class="form-label">Description</label>
-                    <textarea class="form-control" id="Description" name="Description" rows="4" placeholder="Enter description" required value=" {{$description}} ">{{$description}}</textarea>
+                    <textarea required class="form-control" id="Description" name="Description" rows="4" placeholder="Enter description"value=" {{$description}} ">{{$description}}</textarea>
+                    <div class="invalid-feedback">Description cannot be empty</div>
                 </div>
             
                   <!-- Submit button -->
                   <div class="container">
-                    <button type="submit" class="btn btn-primary me-2">Submit</button>
+                    <button type="submit" class="btn btn-primary me-2">Create Role</button>
                     <!-- <button type="submit" class="btn btn-outline-danger">Cancel</button> -->
                   </div>
                 </div>
@@ -226,11 +278,40 @@
     ></script>
 
     <script>
+      // Select 2 JS
       $(document).ready(function() {
         $(".select2").select2({
           theme:'classic'
         });
       });
+
+      // Form validation
+      var forms = document.querySelectorAll('.needs-validation');
+      Array.prototype.slice.call(forms).forEach(function(form) {
+        form.addEventListener('submit', function(event) {
+          if (!form.checkValidity()) {
+            event.preventDefault();
+            event.stopPropagation();
+          }
+          form.classList.add('was-validated');
+        }, false);
+      });
+
+      // To get today's date
+      var today = new Date();
+      var todayDate = today.getDate();
+      if (todayDate < 10) {
+        todayDate = "0" + todayDate;
+      }
+      var todayMonth = today.getMonth()+1;
+      if (todayMonth < 10) {
+        todayMonth = "0" + todayMonth;
+      }
+      var todayYear = today.getFullYear();
+      var minDate = todayYear + "-" + todayMonth + "-" + todayDate;
+      console.log(minDate);
+      document.getElementById("Deadline").setAttribute("min", minDate);
+
       </script>
 </body>
 </html>

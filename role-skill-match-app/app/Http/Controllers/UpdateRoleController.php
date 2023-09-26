@@ -13,6 +13,23 @@ Use App\Models\Role_Skill;
 Use App\Models\Skill;
 use Illuminate\Support\Facades\DB;
 
+/*
+$request = new Request();
+            // Set the input data
+            $request->merge([
+                '_token' => 'IgfOyMbAdJXvrQGRkagnbpex41WrY8h7ZR3S1Kzu',
+                'listing_id' => '3',
+                'jobTitle' => 'UpdatedTitle',
+                'workArrangement' => 'Full Time',
+                'department' => '3',
+                'hiringManager' => ['Kim Sejeong'],
+                'vacancy' => '5',
+                'deadline' => '2023-12-31',
+                'description' => 'Lorem ipsum dolor sit amet'
+            ]);
+*/      
+           
+
 class UpdateRoleController extends Controller
 {
     public function index()
@@ -86,7 +103,77 @@ class UpdateRoleController extends Controller
 
         return response()->json($roles);
     }
+        /*
+        [{"_token":"IgfOyMbAdJXvrQGRkagnbpex41WrY8h7ZR3S1Kzu",
+            "listing_id": "3"
+            "jobTitle":"UpdatedTitle",
+            "workArrangement":"Full Time",
+            "department":"3",
+            "hiringManager":["Kim Sejeong"],
+            "vacancy":"5",
+            "deadline":"2023-12-31",
+            "description":"Lorem ipsum dolor sit amet"}]
+            */
+            
+            
+             
 
-    
+        public function updateRoleListing(Request $request)
+        {
+            $requestData = $request->input()[0]; // Assuming the input is an array of one element
+        
+            $listingId = $requestData['listing_id'];
+            $jobTitle = $requestData['jobTitle'];
+            $workArrangement = $requestData['workArrangement'];
+            $department = $requestData['department'];
+            $hiringManagers = $requestData['hiringManager'];
+            $vacancy = $requestData['vacancy'];
+            $deadline = $requestData['deadline'];
+            $description = $requestData['description'];
+        
+            // 1st field: Update "role" column in "role" table
+            $role = Role_Listing::where('listing_id', $listingId)->first();
+            if ($role) {
+                $roleId = $role->role_id;
+                Role::where('role_id', $roleId)->update(['role' => $jobTitle]);
+            }
+        
+            // 2nd field: Update "work_arrangement" in role_listing table
+            $workArrangementText = $workArrangement == "1" ? "Full Time" : "Part Time";
+            Role_Listing::where('listing_id', $listingId)->update(['work_arrangement' => $workArrangementText]);
+        
+            // 3rd field: Update "department" column in department table
+            $departmentId = Role_Listing::where('listing_id', $listingId)->value('department_id');
+            Department::where('department_id', $departmentId)->update(['department' => $department]);
+        
+            // 4th field: Update or create hiring_manager records
+            $roleIds = Role_Listing::where('listing_id', $listingId)->pluck('role_id')->toArray();
+            foreach ($hiringManagers as $hiringManager) {
+                $staff = Staff::whereRaw("CONCAT(staff_lname, ' ', staff_fname) = ?", $hiringManager)->first();
+                if ($staff) {
+                    $staffId = $staff->staff_id;
+                    foreach ($roleIds as $roleId) {
+                        $existingRecord = Hiring_Manager::where('staff_id', $staffId)->where('role_id', $roleId)->first();
+                        if ($existingRecord) {
+                            $existingRecord->update(['staff_id' => $staffId]);
+                        } else {
+                            Hiring_Manager::create(['staff_id' => $staffId, 'role_id' => $roleId]);
+                        }
+                    }
+                }
+            }
+        
+            // 5th field: Update "vacancy" in role_listing table
+            Role_Listing::where('listing_id', $listingId)->update(['vacancy' => $vacancy]);
+        
+            // 6th field: Update "deadline" in role_listing table
+            Role_Listing::where('listing_id', $listingId)->update(['deadline' => $deadline]);
+        
+            // 7th field: Update "description" in role_listing table
+            Role_Listing::where('listing_id', $listingId)->update(['description' => $description]);
+        
+            return response()->json(['message' => 'Fields updated successfully']);
+        }
 }
 ?>
+

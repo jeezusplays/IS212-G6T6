@@ -32,6 +32,8 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::get('/editresults', [App\Http\Controllers\UpdateRoleController::class, 'autoFillRoleListing'])->name('home');
 
+Route::get('/updateresults', [App\Http\Controllers\UpdateRoleController::class, 'updateRoleListing'])->name('home');
+
 Route::get('/edit', function () {
     return view('updateRole',[
         'header' => "Update",

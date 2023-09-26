@@ -15,6 +15,7 @@ return new class extends Migration
             $table->increments('country_id');
             $table->string('country');
             $table->timestamps();
+            $table->Softdeletes();
         });
     }
 

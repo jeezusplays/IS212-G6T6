@@ -27,6 +27,9 @@ Route::get('/', function(){
 //store listing data
 Route::post('/updateRole', [UpdateRoleController::class, 'store']);
 
+//get listing 
+Route::get('/edit/roleID={passedrole}/listingID={passedlisting}', [UpdateRoleController::class, 'retrieveRoleListing']);
+
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
@@ -35,65 +38,9 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/edit', function () {
-    return view('updateRole',[
-        'header' => "Update",
+// Route::get('/edit', function () {
+    
+// });
 
-         //this is the values to pass into view, possibly from backend
-         //retrieved values from role listing
-        'roleID' => "0123",
-        'title' => "Test Role",
-        'workArrangement' => "Part Time",
-        'department' => 1,
-        'hiring_managers' => ["Alvin Ho", "Amy", "John"],
-        'vacancy' => 1,
-        'deadline' => "2023-10-10",
-        'skills' =>  [1,2],
-        'description' => "Test Job", 
-        
-        'deptDDL' => [
-            [
-                "deptID" => 1,
-                "department" => "Sales"
-            ],
-            [
-                "deptID" => 2,
-                "department" => "IT"
-            ],
-            [
-                "deptID" => 3,
-                "department" => "HR"
-            ]
-            ],
-
-        'workArrangementDDL' => [
-            'Part Time', 'Full Time'
-        ],
-
-        'hiringManagerDDL' => [ //currently all staff
-            'Amy', 'John', 'Latrice'
-        ],
-
-        'skillsDDL' => [
-            [
-                "skillID" => 1,
-                "skill" => "Python"
-            ],
-            [
-                "skillID" => 2,
-                "skill" => "Excel"
-            ],
-            [
-                "skillID" => 3,
-                "skill" => "Management"
-            ],
-            [
-                "skillID" => 4,
-                "skill" => "Accounting"
-            ]
-        ]
-    ]);
-});
-
-
+//Route::get('/edit', [UpdateRoleController::class, 'index']);
 

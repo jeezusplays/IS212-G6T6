@@ -98,19 +98,19 @@
 
       <!-- FORM -->
       <div class="container">
-            <form class="was-validated" action="/updateRole" method="post">
+            <form class="was-validated" id="form" action="/updateRole" method="post">
                 @csrf
                 <div class="row">
                 <!-- Text input (jobTitle) -->
                 <div class="mb-3 col-lg-6">
                     <label for="jobTitle" class="form-label">Job Title</label>
-                    <input class="form-control" id="jobTitle" name="jobTitle" placeholder="Enter title" value = "{{$title}}">
+                    <input required class="form-control" id="jobTitle" name="jobTitle" placeholder="Enter title" value = "{{$title}}">
                 </div>
 
                 <!-- Select input (workArrangement) -->
                 <div class="mb-3 col-lg-6">
                     <label for="workArrangement" class="form-label">Work Arrangement</label>
-                    <select class="form-select" id="workArrangement" name="workArrangement">
+                    <select required class="form-select" id="workArrangement" name="workArrangement">
                         @foreach ($workArrangementDDL as $work)
                             <option value = "{{ $work }}" {{ $work == $workArrangement ? 'selected' : '' }}>
                                 {{$work}}
@@ -122,7 +122,7 @@
                 <!-- Select input (department) -->
                 <div class="mb-3 col-lg-6">
                     <label for="department" class="form-label">Select Department</label>
-                    <select class="form-select" id="department" name="department">
+                    <select required class="form-select" id="department" name="department">
                         @foreach ($deptDDL as $dept)
                             <option value = "{{ $dept['deptID']}}" {{ $dept['deptID'] == $department ? 'selected' : '' }}>
                                 {{$dept['department']}}
@@ -146,20 +146,21 @@
                 <!-- Number input (vacancy) -->
                 <div class="mb-3 col-lg-6">
                     <label for="vacancy" class="form-label">Vacancy</label>
-                    <input type="number" class="form-control" id="vacancy" name="vacancy" placeholder="Enter vacancy" value = "{{$vacancy}}">
+                    <input required type="number" class="form-control" id="vacancy" name="vacancy" placeholder="Enter vacancy" value = "{{$vacancy}}">
                 </div>
 
                 <!-- Date picker -->
                 <div class="mb-3 col-lg-6">
                   <label for="deadline" class="form-label">Deadline</label>
-                  <input type="date" class="form-control" id="deadline" name="deadline" placeholder="DD/MM/YYYY" value="{{$deadline}}">
+                  <input required type="date" class="form-control" id="deadline" name="deadline" placeholder="DD/MM/YYYY" value="{{$deadline}}">
+                  <label id="date-error" for="deadline"></label>
                 </div>
 
                 <!-- Skills Required -->
                 <div class="mb-3 col-lg-6">
                   <label for="skills" class="form-label">Skills</label>
                   <br>
-                  <select id="skills" style="width:100%" multiple class= "select2" >
+                  <select required id="skills" style="width:100%" multiple class= "select2" >
                         @foreach ($skillsDDL as $skill)
                             <option value = "{{ $skill['skillID'] }}" {{ in_array($skill['skillID'], $skills) ? 'selected' : '' }}>
                                 {{$skill['skill']}}
@@ -171,12 +172,12 @@
                 <!-- Textarea (description) -->
                 <div class="mb-3">
                     <label for="description" class="form-label">Description</label>
-                    <textarea class="form-control" id="description" name="description" rows="4" placeholder="Enter description">{{$description}}</textarea>
+                    <textarea required class="form-control" id="description" name="description" rows="4" placeholder="Enter description">{{$description}}</textarea>
                 </div>
             
                   <!-- Submit button -->
                   <div class="container">
-                    <button class="btn btn-primary me-2">Submit</button>
+                    <button class="btn btn-primary me-2" id="Save">Save</button>
                     <!-- <button type="submit" class="btn btn-outline-danger">Cancel</button> -->
                   </div>
                 </div>
@@ -197,6 +198,43 @@
           theme:'classic'
         });
       });
+
+      document.getElementById("Save").addEventListener("click", checkDate);
+
+      function checkDate(){
+        console.log("work")
+        let dateChosen = new Date(document.getElementById('deadline').value)
+        let today = new Date()
+        console.log(dateChosen)
+        if (today >= dateChosen){
+          $("#form").submit(function(e) {
+            e.preventDefault();
+          });
+          console.log("stop")
+          document.getElementById('date-error').show();
+        }
+        else{
+          document.getElementById('date-error').hide();
+        }
+      }
+
+//       function checkDate(){
+
+// let dateChosen = new Date(document.getElementById('deadline').value);
+// let today = new Date();
+
+// if (today >= dateChosen){
+//   // Show error
+//   document.getElementById('date-error').hidden = false;
+//   return; 
+// }
+
+// // No error, submit form
+// document.getElementById('form').submit();
+
+// }
+
+// document.getElementById("Save").addEventListener("click", checkDate);
       </script>
 </body>
 </html>

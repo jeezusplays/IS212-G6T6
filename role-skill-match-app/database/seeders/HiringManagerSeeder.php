@@ -20,6 +20,7 @@ class HiringManagerSeeder extends Seeder
         // currently populated with random role_id, to test inputting data into D
         DB::table('hiring_manager')->insert([
             ['role_id' => 1, 'staff_id' => 6, 'created_at' => now(), 'updated_at' => now()],
+            ['role_id' => 1, 'staff_id' => 1, 'created_at' => now(), 'updated_at' => now()]
             // Add more permissions here
         ]);
     }

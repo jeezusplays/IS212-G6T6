@@ -12,16 +12,16 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('role_skill', function (Blueprint $table) {
-            $table->unsignedInteger('role_id');
+            $table->unsignedInteger('listing_id');
             $table->unsignedInteger('skill_id');
             $table->timestamps();
-
+            $table->Softdeletes();
             // Foreign Keys
-            $table->foreign('role_id')->references('role_id')->on('role');
+            $table->foreign('listing_id')->references('listing_id')->on('role_listing');
             $table->foreign('skill_id')->references('skill_id')->on('skill');
 
             // Composite Primary Keys
-            $table->primary(['role_id', 'skill_id']);
+            $table->primary(['listing_id', 'skill_id']);
         });
     }
 

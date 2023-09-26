@@ -16,12 +16,11 @@ return new class extends Migration
             $table->unsignedInteger('permission_id');
             $table->unsignedInteger('access_id');
             $table->timestamps();
-            $table->Softdeletes();
 
             // Foreign Keys
             $table->foreign('permission_id')->references('permission_id')->on('permission');
             $table->foreign('access_id')->references('access_id')->on('access_rights');
-            
+            $table->Softdeletes();
         });
     }
 

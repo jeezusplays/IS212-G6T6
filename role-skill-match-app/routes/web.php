@@ -30,7 +30,7 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/editresults', [App\Http\Controllers\UpdateRoleController::class, 'retrieveRoleListing'])->name('home');
+Route::get('/editresults', [App\Http\Controllers\UpdateRoleController::class, 'autoFillRoleListing'])->name('home');
 
 Route::get('/edit', function () {
     return view('updateRole',[

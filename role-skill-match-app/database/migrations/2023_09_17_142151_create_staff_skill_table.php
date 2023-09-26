@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedInteger('skill_id');
             $table->unsignedInteger('proficiency_id');
             $table->timestamps();
-
+            $table->Softdeletes();
             // Foreign Keys
             $table->foreign('staff_id')->references('staff_id')->on('staff');
             $table->foreign('skill_id')->references('skill_id')->on('skill');
@@ -26,7 +26,6 @@ return new class extends Migration
             $table->primary(['staff_id', 'skill_id']);
         });
     }
-
     /**
      * Reverse the migrations.
      */

@@ -15,6 +15,7 @@ return new class extends Migration
             $table->increments('proficiency_id');
             $table->string('proficiency');
             $table->timestamps();
+            $table->Softdeletes();
         });
     }
 

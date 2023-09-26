@@ -11,17 +11,26 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('role_skill', function (Blueprint $table) {
+        Schema::create('role_listing', function (Blueprint $table) {
+            $table->increments('listing_id');
             $table->unsignedInteger('role_id');
-            $table->unsignedInteger('skill_id');
+            $table->text('description');
+            $table->unsignedInteger('department_id');
+            $table->unsignedInteger('country_id');
+            $table->integer('work_arrangement');
+            $table->integer('vacancy');
+            $table->integer('status');
+            $table->date('deadline');
+            $table->unsignedInteger('created_by');
             $table->timestamps();
+            $table->Softdeletes();
 
             // Foreign Keys
-            $table->foreign('role_id')->references('role_id')->on('role');
-            $table->foreign('skill_id')->references('skill_id')->on('skill');
-
-            // Composite Primary Keys
-            $table->primary(['role_id', 'skill_id']);
+            $table->foreign('role_id')->references('role_id')->on('hiring_manager');
+            $table->foreign('department_id')->references('department_id')->on('department');
+            $table->foreign('country_id')->references('country_id')->on('country');
+            $table->foreign('created_by')->references('staff_id')->on('staff');
+            
         });
     }
 
@@ -30,6 +39,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('role_skill');
+        Schema::dropIfExists('role');
     }
 };

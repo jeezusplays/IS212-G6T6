@@ -11,10 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('permission', function (Blueprint $table) {
-            $table->increments('permission_id');
-            $table->string('permission');
+        Schema::create('access_rights', function (Blueprint $table) {
+            $table->increments('access_id');
+            $table->string('access_name');
             $table->timestamps();
+            $table->Softdeletes();
         });
     }
 
@@ -23,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('permission');
+        Schema::dropIfExists('access_rights');
     }
 };

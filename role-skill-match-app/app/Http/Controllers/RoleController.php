@@ -11,8 +11,6 @@ Use App\Models\Staff;
 Use App\Models\Application;
 use Illuminate\Support\Facades\DB;
 
-use App\Models\Role_Listing;
-
 class RoleController extends Controller
 {
     

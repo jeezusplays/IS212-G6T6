@@ -178,7 +178,7 @@
                         @foreach ($countryID_DDL as $countryID)
                           <option value = "{{ $countryID }}">
                             @if ($countryID == 1)
-                            Singapore
+                              Singapore
 
                             @elseif ($countryID == 2)
                               Malaysia
@@ -297,7 +297,7 @@
         }, false);
       });
 
-      // To get today's date
+      // Set datepicker min date to today
       var today = new Date();
       var todayDate = today.getDate();
       if (todayDate < 10) {
@@ -313,5 +313,6 @@
       document.getElementById("Deadline").setAttribute("min", minDate);
 
       </script>
+
 </body>
 </html>

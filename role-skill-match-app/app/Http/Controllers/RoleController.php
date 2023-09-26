@@ -24,7 +24,7 @@ class RoleController extends Controller
     
     public function store(Request $request)
     {
-        
+
         // Save mutliselect forms as arrays
 
         // Get all selected hiring managers as array

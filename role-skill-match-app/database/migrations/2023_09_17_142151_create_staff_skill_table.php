@@ -26,7 +26,6 @@ return new class extends Migration
             $table->primary(['staff_id', 'skill_id']);
         });
     }
-
     /**
      * Reverse the migrations.
      */

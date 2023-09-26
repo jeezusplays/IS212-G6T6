@@ -15,6 +15,7 @@ return new class extends Migration
             $table->increments('access_id');
             $table->string('access_name');
             $table->timestamps();
+            $table->Softdeletes();
         });
     }
 

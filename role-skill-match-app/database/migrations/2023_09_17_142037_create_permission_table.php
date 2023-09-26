@@ -15,6 +15,7 @@ return new class extends Migration
             $table->increments('permission_id');
             $table->string('permission');
             $table->timestamps();
+            $table->Softdeletes();
         });
     }
 

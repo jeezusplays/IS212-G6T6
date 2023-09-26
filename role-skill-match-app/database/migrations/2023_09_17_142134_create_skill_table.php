@@ -15,6 +15,7 @@ return new class extends Migration
             $table->increments('skill_id');
             $table->string('skill');
             $table->timestamps();
+            $table->Softdeletes();
         });
     }
 

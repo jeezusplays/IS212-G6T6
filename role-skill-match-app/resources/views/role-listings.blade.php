@@ -91,6 +91,10 @@
             </div>
         </div>
 
+        <div id="searchErrorAlert" class="alert alert-danger" style="display: none;">
+            Your search input contains invalid characters and is not supported.
+        </div>
+
         <h1 class="my-3">Role Listings</h1>
 
         {{-- Loop through your role data and display each role in a card --}}
@@ -99,10 +103,12 @@
                 <div
                     class="col-xl-4 col-md-6 col-sm-12 role-card @if ($role['status'] == 'Open') open-role @else closed-role @endif">
                     <div class="card mb-3">
-                        <a href="http://localhost:8000/view/roleID={{ $role['role_id'] }}/listingID={{ $role['listing_id'] }}" class="card-title-link">
+                        <a href="http://localhost:8000/view/roleID={{ $role['role_id'] }}/listingID={{ $role['listing_id'] }}"
+                            class="card-title-link">
                             <div class="card-header card-title p-3 d-flex justify-content-between align-items-center">
                                 <h5 class="m-0">{{ $role['role'] }}</h5>
-                                <a href="http://localhost:8000/edit/roleID={{ $role['role_id'] }}/listingID={{ $role['listing_id'] }}" class="btn btn-sm btn-outline-primary">
+                                <a href="http://localhost:8000/edit/roleID={{ $role['role_id'] }}/listingID={{ $role['listing_id'] }}"
+                                    class="btn btn-sm btn-outline-primary">
                                     Edit Listing
                                 </a>
                             </div>
@@ -128,6 +134,17 @@
                 </div>
             @endforeach
         </div>
+        <div id="no-matching-results" class="card mb-3" style="display: none;">
+            <div class="card-body">
+                <h5 class="card-title">No matching results</h5>
+                <p class="card-text">
+                    Sorry, there are no job listings that match your search criteria. Please try
+                    refining your search.
+                </p>
+            </div>
+        </div>
+
+
     </div>
 </body>
 
@@ -145,6 +162,7 @@
     // Search bar functionality
     function searchJobs() {
         const input = document.getElementById("myInput");
+        sanitizeAndCheckInput(input.value);
         currentSearchInput = input.value.toUpperCase();
         applyFilters();
     }
@@ -160,22 +178,52 @@
     function applyFilters() {
         const selectedStatusFilters = Array.from(document.querySelectorAll(".status-filter:checked")).map(checkbox =>
             checkbox.value);
+        var counter = 0;
 
         document.querySelectorAll(".role-card").forEach(card => {
             const status = card.classList.contains("open-role") ? "Open" : "Closed";
             const jobTitle = card.querySelector(".card-title").textContent.toUpperCase();
-
             // Check if the card matches the search input and selected status filters
-            if (
-                jobTitle.indexOf(currentSearchInput) > -1 &&
+            if (selectedStatusFilters.length == 0) {
+                card.style.display = "none";
+                counter++;
+            }
+            else if (jobTitle.indexOf(currentSearchInput) > -1 &&
                 (selectedStatusFilters.length === 0 || selectedStatusFilters.includes(status))
             ) {
                 card.style.display = "";
+            
             } else {
                 card.style.display = "none";
+                counter++;
             }
         });
+        
+        // Check if there are any visible cards
+        if (counter == document.querySelectorAll(".role-card").length) {
+            // If no visible cards, display the placeholder card
+            document.getElementById("no-matching-results").style.display = "block";
+        } else {
+            // If there are visible cards, hide the placeholder card
+            document.getElementById("no-matching-results").style.display = "none";
+        }
     }
+
+    function sanitizeAndCheckInput(input) {
+        // Define a regular expression pattern for valid alphanumeric characters (letters and numbers)
+        const alphanumericPattern = /^[a-zA-Z0-9]+$/;
+
+        // Use the test method to check if the input contains only valid characters
+        const isValid = alphanumericPattern.test(input);
+
+        if (!isValid && input !== "") {
+            document.getElementById("searchErrorAlert").style.display = "block";
+        }
+        else {
+            document.getElementById("searchErrorAlert").style.display = "none";
+        }
+    }
+
 </script>
 
 </html>

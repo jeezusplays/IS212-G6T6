@@ -21,13 +21,13 @@ return new class extends Migration
             $table->unsignedInteger('access_id');
             $table->string('email');
             $table->timestamps();
-
+            $table->Softdeletes();
             // Foreign Keys
             $table->foreign('role_id')->references('role_id')->on('role');
             $table->foreign('department_id')->references('department_id')->on('department');
             $table->foreign('country_id')->references('country_id')->on('country');
             $table->foreign('access_id')->references('access_id')->on('access_rights');
-            $table->Softdeletes();
+            
         });
     }
 

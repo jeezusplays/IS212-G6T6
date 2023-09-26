@@ -15,6 +15,7 @@ return new class extends Migration
             $table->increments('role_id');
             $table->string('role');
             $table->timestamps();
+            $table->Softdeletes();
         });
     }
 

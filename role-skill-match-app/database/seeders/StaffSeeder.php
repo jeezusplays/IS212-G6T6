@@ -24,6 +24,7 @@ class StaffSeeder extends Seeder
             // Access_ID: 1 (User)
         Staff::create([
             'staff_id' => 1,
+            'role_id' => 1,
             'staff_fname' => 'Ji Eun',
             'staff_lname' => 'Lee',
             'department_id' => 1, 
@@ -42,6 +43,7 @@ class StaffSeeder extends Seeder
             // Access_ID: 1 (User)
         Staff::create([
             'staff_id' => 2,
+            'role_id' => 2,
             'staff_fname' => 'Jackson',
             'staff_lname' => 'Wang',
             'department_id' => 2, 
@@ -60,6 +62,7 @@ class StaffSeeder extends Seeder
             // Access_ID: 1 (User)
         Staff::create([
             'staff_id' => 3,
+            'role_id' => 3,
             'staff_fname' => 'Yoo',
             'staff_lname' => 'Gong',
             'department_id' => 3, 
@@ -78,6 +81,7 @@ class StaffSeeder extends Seeder
             // Access_ID: 3 (Admin)
         Staff::create([
             'staff_id' => 4,
+            'role_id' => 4,
             'staff_fname' => 'Bin',
             'staff_lname' => 'Hyun',
             'department_id' => 4, 
@@ -95,6 +99,7 @@ class StaffSeeder extends Seeder
             // Access_ID: 3 (Admin)
         Staff::create([
             'staff_id' => 5,
+            'role_id' => 5,
             'staff_fname' => 'Bo Gum',
             'staff_lname' => 'Park',
             'department_id' => 5, 
@@ -113,6 +118,7 @@ class StaffSeeder extends Seeder
             // Access_ID: 2 (Manager)
         Staff::create([
             'staff_id' => 6,
+            'role_id' => 1,
             'staff_fname' => 'Sejeong',
             'staff_lname' => 'Kim',
             'department_id' => 6, 

@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('staff', function (Blueprint $table) {
             $table->increments('staff_id');
+            $table->unsignedInteger('role_id');
             $table->string('staff_fname');
             $table->string('staff_lname');
             $table->unsignedInteger('department_id');
@@ -22,9 +23,11 @@ return new class extends Migration
             $table->timestamps();
 
             // Foreign Keys
+            $table->foreign('role_id')->references('role_id')->on('role');
             $table->foreign('department_id')->references('department_id')->on('department');
             $table->foreign('country_id')->references('country_id')->on('country');
             $table->foreign('access_id')->references('access_id')->on('access_rights');
+            $table->Softdeletes();
         });
     }
 

@@ -213,10 +213,13 @@
         // Define a regular expression pattern for valid alphanumeric characters (letters and numbers)
         const alphanumericPattern = /^[a-zA-Z0-9]+$/;
 
-        // Use the test method to check if the input contains only valid characters
-        const isValid = alphanumericPattern.test(input);
+        // Remove all spaces from the input
+        const sanitizedInput = input.replace(/\s/g, '');
 
-        if (!isValid && input !== "") {
+        // Use the test method to check if the input contains only valid characters
+        const isValid = alphanumericPattern.test(sanitizedInput);
+
+        if (!isValid && sanitizedInput !== "") {
             document.getElementById("searchErrorAlert").style.display = "block";
         }
         else {

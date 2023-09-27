@@ -38,6 +38,7 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+Route::get('/test', [UpdateRoleController::class, 'retrieveAllSkills']);
 // Route::get('/edit', function () {
     
 // });

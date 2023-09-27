@@ -156,6 +156,25 @@ class UpdateRoleController extends Controller
 
             return response()->json($departments);
         }
-  
+    public function retrieveAllHiringManagers()
+        {
+            $hiringManagers = Staff::whereIn('staff_id', function ($query) {
+                    $query->select('staff_id')
+                        ->from('Hiring_Manager');
+                })
+                ->selectRaw("CONCAT(staff_lname, ' ', staff_fname) as hiring_manager_name")
+                ->get()
+                ->pluck('hiring_manager_name');
+        
+            return response()->json($hiringManagers);
+        }
+        
+    public function retrieveAllSkills()
+        {
+            $skills = Skill::pluck('skill');
+        
+            return response()->json($skills);
+        }
+           
 }
 ?>

@@ -28,7 +28,7 @@ Route::get('/', function(){
 Route::post('/updateRole', [UpdateRoleController::class, 'store']);
 
 //get listing 
-Route::get('/edit/roleID={passedrole}/listingID={passedlisting}', [UpdateRoleController::class, 'retrieveRoleListing']);
+Route::get('/edit/listingID={passedlisting}', [UpdateRoleController::class, 'autoFillRoleListing']);
 
 Auth::routes();
 

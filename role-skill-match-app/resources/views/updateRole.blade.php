@@ -89,7 +89,7 @@
       <!-- HEADER -->
       <div class="container-fluid my-4">
         
-        <h2>{{$header}}</h2>
+        <h2>Update</h2>
         <a class="btn btn-primary" href="" role="button">Link</a>
       </div>
 
@@ -97,6 +97,7 @@
 
 
       <!-- FORM -->
+      @foreach ($roles as $role)
       <div class="container">
             <form class="was-validated" id="form" action="/updateRole" method="post">
                 @csrf
@@ -104,18 +105,23 @@
                 <!-- Text input (jobTitle) -->
                 <div class="mb-3 col-lg-6">
                     <label for="jobTitle" class="form-label">Job Title</label>
-                    <input required class="form-control" id="jobTitle" name="jobTitle" placeholder="Enter title" value = "{{$title}}">
+                    <input required class="form-control" id="jobTitle" name="jobTitle" placeholder="Enter title" value = "{{$role['role']}}">
                 </div>
 
                 <!-- Select input (workArrangement) -->
                 <div class="mb-3 col-lg-6">
                     <label for="workArrangement" class="form-label">Work Arrangement</label>
                     <select required class="form-select" id="workArrangement" name="workArrangement">
-                        @foreach ($workArrangementDDL as $work)
-                            <option value = "{{ $work }}" {{ $work == $workArrangement ? 'selected' : '' }}>
-                                {{$work}}
-                            </option>
-                        @endforeach
+                    @if ($role['work_arrangement'] == 'Part Time')
+                        <option selected>Part Time</option>
+                        @else
+                        <option>Part Time</option>
+                        @endif
+                        @if ($role['work_arrangement'] == 'Full Time')
+                        <option selected>Full Time</option>
+                        @else
+                        <option>Full Time</option>
+                        @endif
                     </select>
                 </div>
 
@@ -146,13 +152,13 @@
                 <!-- Number input (vacancy) -->
                 <div class="mb-3 col-lg-6">
                     <label for="vacancy" class="form-label">Vacancy</label>
-                    <input required type="number" class="form-control" id="vacancy" name="vacancy" placeholder="Enter vacancy" value = "{{$vacancy}}">
+                    <input required type="number" class="form-control" id="vacancy" name="vacancy" placeholder="Enter vacancy" value = "{{$role['vacancy']}}">
                 </div>
 
                 <!-- Date picker -->
                 <div class="mb-3 col-lg-6">
                   <label for="deadline" class="form-label">Deadline</label>
-                  <input required type="date" class="form-control" id="deadline" name="deadline" placeholder="DD/MM/YYYY" value="{{$deadline}}">
+                  <input required type="date" class="form-control" id="deadline" name="deadline" placeholder="DD/MM/YYYY" value="{{$role['deadline']}}">
                   <label id="date-error" for="deadline"></label>
                 </div>
 
@@ -172,7 +178,7 @@
                 <!-- Textarea (description) -->
                 <div class="mb-3">
                     <label for="description" class="form-label">Description</label>
-                    <textarea required class="form-control" id="description" name="description" rows="4" placeholder="Enter description">{{$description}}</textarea>
+                    <textarea required class="form-control" id="description" name="description" rows="4" placeholder="Enter description">{{$role['description']}}</textarea>
                 </div>
             
                   <!-- Submit button -->
@@ -184,7 +190,7 @@
 
             </form>
       </div>
-
+      @endforeach
        <!-- Bootstrap Bundle -->
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"

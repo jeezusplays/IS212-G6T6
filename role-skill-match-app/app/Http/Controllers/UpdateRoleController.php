@@ -39,10 +39,11 @@ class UpdateRoleController extends Controller
 
     public function store(Request $request)
     {
+        dd($request->input());
         return($request->input());
     }
 
-    public function autoFillRoleListing($passedlisting=1)   //erm help me make my job easier xD, pass in role_id and listing_id here
+    public function autoFillRoleListing($passedlisting=1)   
     {
         // Retrieve all role data from the database
         $RoleListing_Table = Role_Listing::where('role_id', $passedlisting)->get(); 
@@ -69,6 +70,7 @@ class UpdateRoleController extends Controller
         $vacancy= $RoleListing_Table->first()->vacancy; 
         $deadline= $RoleListing_Table->first()->deadline; 
         $department = $Department_Table->first()->department;
+        $department_id =$Department_Table->first()->department_id;
         $description = $RoleListing_Table->first()->description; 
         $skills = $Skill_Table->pluck('skill')->toArray();
     
@@ -93,6 +95,7 @@ class UpdateRoleController extends Controller
                 'role' => $matchingRole ? $matchingRole->role : null,  //job title
                 'work_arrangement' => $workArrangement, //work arrangement
                 'department'=>$department,   //department
+                'department_id'=>$department_id,
                 'vacancy' => $vacancy, //vacancy
                 'deadline' => $deadline, //deadline
                 'staff_name' => $staffNames,
@@ -108,16 +111,13 @@ class UpdateRoleController extends Controller
             "listing_id": "3"
             "jobTitle":"UpdatedTitle",
             "workArrangement":"Full Time",
-            "department":"3",
+            "department": "1",
             "hiringManager":["Kim Sejeong"],
             "vacancy":"5",
             "deadline":"2023-12-31",
             "description":"Lorem ipsum dolor sit amet"}]
             */
             
-            
-             
-
         public function updateRoleListing(Request $request)
         {
             $requestData = $request->input()[0]; // Assuming the input is an array of one element

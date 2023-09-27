@@ -148,6 +148,14 @@ class UpdateRoleController extends Controller
 
         return response()->json($roles);
     }
+    public function retrieveAllDepartments()
+        {
+            $departmentTable = Department::all(); // Assuming $Department_Table contains the records
+
+            $departments = $departmentTable->pluck('department'); // Extract 'department' column values
+
+            return response()->json($departments);
+        }
   
 }
 ?>

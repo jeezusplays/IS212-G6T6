@@ -14,6 +14,7 @@ Use App\Models\Skill;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+
 /*
 $request = new Request();
             // Set the input data
@@ -117,9 +118,9 @@ class UpdateRoleController extends Controller
             "description":"Lorem ipsum dolor sit amet",
             "skills": [1,2] }]  
             */
-            
+        
 
-        public function updateRoleListing(Request $request)
+            public function updateRoleListing(Request $request)
         {
             $requestData = $request->input();
             // hard coding the data for testing purposes
@@ -143,6 +144,13 @@ class UpdateRoleController extends Controller
             $description = $requestData['description'];
             $skills = $requestData['skills'];
 
+            //get application
+            $applicationsToDelete = DB::table('application')
+                ->where('listing_id', $listingId)
+                ->get();
+
+            // Store the retrieved application records
+            $storedApplications = $applicationsToDelete->toArray();
             // Soft delete records
             DB::table('hiring_manager')->where('listing_id', $listingId)->delete();
             DB::table('role_skill')->where('listing_id', $listingId)->delete();
@@ -215,7 +223,9 @@ class UpdateRoleController extends Controller
                     'deleted_at' => null, // Set the deleted_at column to null for soft delete
                 ]
             );
-            
+            foreach ($storedApplications as $storedApplication) {
+                DB::table('application')->insert((array)$storedApplication);
+            }
 
             return response()->json(['message' => 'Fields updated successfully']);
         }

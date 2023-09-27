@@ -120,7 +120,10 @@ class UpdateRoleController extends Controller
             
         public function updateRoleListing(Request $request)
         {
-            $requestData = $request->input()[0]; // Assuming the input is an array of one element
+
+            dd($request->input());
+            return($request->input());
+            //$requestData = $request->input()[0]; // Assuming the input is an array of one element
         
             $listingId = $requestData['listing_id'];
             $jobTitle = $requestData['jobTitle'];
@@ -173,6 +176,15 @@ class UpdateRoleController extends Controller
             Role_Listing::where('listing_id', $listingId)->update(['description' => $description]);
         
             return response()->json(['message' => 'Fields updated successfully']);
+        }
+
+        public function retrieveAllDepartments()
+        {
+            $departmentTable = Department::all(); // Assuming $Department_Table contains the records
+
+            $departments = $departmentTable->pluck('department'); // Extract 'department' column values
+
+            return response()->json($departments);
         }
 }
 ?>

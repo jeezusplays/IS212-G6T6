@@ -24,7 +24,7 @@ Route::get('/', function () {
 });
 
 //store listing data
-Route::post('/updateRole', [UpdateRoleController::class, 'store']);
+Route::post('/updateRole', [UpdateRoleController::class, 'updateRoleListing']);
 
 Auth::routes();
 
@@ -33,8 +33,6 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/editresults', [App\Http\Controllers\UpdateRoleController::class, 'autoFillRoleListing'])->name('home');
 
 Route::get('/alldepartments', [App\Http\Controllers\UpdateRoleController::class, 'retrieveAllDepartments'])->name('home');
-
-Route::get('/updateresults', [App\Http\Controllers\UpdateRoleController::class, 'updateRoleListing'])->name('home');
 
 Route::get('/edit', function () {
     return view('updateRole',[

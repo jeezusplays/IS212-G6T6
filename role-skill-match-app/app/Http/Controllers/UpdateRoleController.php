@@ -12,6 +12,7 @@ Use App\Models\Department;
 Use App\Models\Role_Skill;
 Use App\Models\Skill;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /*
 $request = new Request();
@@ -29,7 +30,6 @@ $request = new Request();
             ]);
 */      
            
-
 class UpdateRoleController extends Controller
 {
     public function index()
@@ -76,7 +76,6 @@ class UpdateRoleController extends Controller
     
         $isFirstIteration = true; 
         
-
         $staffNames = DB::table('role_listing')
             ->where('listing_id', $passedlisting)
             ->join('hiring_manager', 'role_listing.role_id', '=', 'hiring_manager.role_id')
@@ -108,23 +107,32 @@ class UpdateRoleController extends Controller
     }
         /*
         [{"_token":"IgfOyMbAdJXvrQGRkagnbpex41WrY8h7ZR3S1Kzu",
-            "listing_id": "3"
+            "listing_id": "13"
             "jobTitle":"UpdatedTitle",
-            "workArrangement":"Full Time",
+            "workArrangement":"1",
             "department": "1",
-            "hiringManager":["Kim Sejeong"],
+            "hiringManager":[6],
             "vacancy":"5",
             "deadline":"2023-12-31",
-            "description":"Lorem ipsum dolor sit amet"}]
+            "description":"Lorem ipsum dolor sit amet",
+            "skills": [1,2] }]  
             */
             
+
         public function updateRoleListing(Request $request)
         {
-
-            dd($request->input());
-            return($request->input());
-            //$requestData = $request->input()[0]; // Assuming the input is an array of one element
-        
+            $requestData = $request->input();
+            // hard coding the data for testing purposes
+            $requestData["listing_id"] = "1";
+            $requestData["jobTitle"] = "Financial Analyst";
+            $requestData["workArrangement"] = 1;
+            $requestData["department"] = "1";
+            $requestData["hiringManager"] = [6];
+            $requestData["vacancy"] = 6;
+            $requestData["deadline"] = "2023-12-31";
+            $requestData["description"] = "Lorem ipsum dolor sit amet";
+            $requestData["skills"] = [1, 2];
+            //actual start of code
             $listingId = $requestData['listing_id'];
             $jobTitle = $requestData['jobTitle'];
             $workArrangement = $requestData['workArrangement'];
@@ -133,59 +141,111 @@ class UpdateRoleController extends Controller
             $vacancy = $requestData['vacancy'];
             $deadline = $requestData['deadline'];
             $description = $requestData['description'];
-        
-            // 1st field: Update "role" column in "role" table
-            $role = Role_Listing::where('listing_id', $listingId)->first();
-            if ($role) {
-                $roleId = $role->role_id;
-                Role::where('role_id', $roleId)->update(['role' => $jobTitle]);
+            $skills = $requestData['skills'];
+
+            // Soft delete records
+            DB::table('hiring_manager')->where('listing_id', $listingId)->delete();
+            DB::table('role_skill')->where('listing_id', $listingId)->delete();
+            DB::table('application')->where('listing_id', $listingId)->delete();
+
+            // Check if job title exists, get role_id
+            $role = DB::table('role')
+                ->where('role', $jobTitle)
+                ->first();
+
+            if (!$role) {
+                return response()->json(['error' => 'Job title does not exist'], 400);
             }
-        
-            // 2nd field: Update "work_arrangement" in role_listing table
-            $workArrangementText = $workArrangement == "1" ? "Full Time" : "Part Time";
-            Role_Listing::where('listing_id', $listingId)->update(['work_arrangement' => $workArrangementText]);
-        
-            // 3rd field: Update "department" column in department table
-            $departmentId = Role_Listing::where('listing_id', $listingId)->value('department_id');
-            Department::where('department_id', $departmentId)->update(['department' => $department]);
-        
-            // 4th field: Update or create hiring_manager records
-            $roleIds = Role_Listing::where('listing_id', $listingId)->pluck('role_id')->toArray();
-            foreach ($hiringManagers as $hiringManager) {
-                $staff = Staff::whereRaw("CONCAT(staff_lname, ' ', staff_fname) = ?", $hiringManager)->first();
-                if ($staff) {
-                    $staffId = $staff->staff_id;
-                    foreach ($roleIds as $roleId) {
-                        $existingRecord = Hiring_Manager::where('staff_id', $staffId)->where('role_id', $roleId)->first();
-                        if ($existingRecord) {
-                            $existingRecord->update(['staff_id' => $staffId]);
-                        } else {
-                            Hiring_Manager::create(['staff_id' => $staffId, 'role_id' => $roleId]);
-                        }
-                    }
-                }
+
+            // Get department_id
+            $dept = DB::table('department')
+                ->where('department_id', $department)
+                ->value('department_id');
+
+            if (!$dept) {
+                return response()->json(['error' => 'Department does not exist'], 400);
             }
-        
-            // 5th field: Update "vacancy" in role_listing table
-            Role_Listing::where('listing_id', $listingId)->update(['vacancy' => $vacancy]);
-        
-            // 6th field: Update "deadline" in role_listing table
-            Role_Listing::where('listing_id', $listingId)->update(['deadline' => $deadline]);
-        
-            // 7th field: Update "description" in role_listing table
-            Role_Listing::where('listing_id', $listingId)->update(['description' => $description]);
-        
+
+            // Create record for each manager
+            foreach ($hiringManagers as $manager) {
+                DB::table('hiring_manager')->insert([
+                    'listing_id' => $listingId,
+                    'staff_id' => $manager,
+                ]);
+            }
+
+            // Create skills for each listing
+            foreach ($skills as $skill) {
+                DB::table('role_skill')->insert([
+                    'listing_id' => $listingId,
+                    'skill_id' => $skill,
+                ]);
+            }
+
+            // Get remaining info
+            $roleListingData = DB::table('role_listing')
+                ->select('country_id', 'created_at', 'created_by', 'status')
+                ->where('listing_id', $listingId)
+                ->first();
+
+            $country_id = $roleListingData->country_id;
+            $created_at = $roleListingData->created_at;
+            $created_by = $roleListingData->created_by;
+            $status = $roleListingData->status;
+
+            // Soft delete the record in role_listing
+            DB::table('role_listing')->where('listing_id', $listingId)->update(['deleted_at' => now()]);
+
+            // Insert it back with soft delete
+            $roleId = $role ? $role->role_id : null;
+
+            Role_Listing::updateOrInsert(
+                ['Listing_ID' => $listingId],
+                [
+                    'Role_ID' => $roleId,
+                    'Description' => $description,
+                    'Department_ID' => $dept,
+                    'Country_ID' => $country_id,
+                    'Work_Arrangement' => $workArrangement,
+                    'Vacancy' => $vacancy,
+                    'Status' => $status,
+                    'Deadline' => $deadline,
+                    'created_at' => $created_at,
+                    'created_by' => $created_by,
+                    'deleted_at' => null, // Set the deleted_at column to null for soft delete
+                ]
+            );
+            
+
             return response()->json(['message' => 'Fields updated successfully']);
         }
 
-        public function retrieveAllDepartments()
-        {
-            $departmentTable = Department::all(); // Assuming $Department_Table contains the records
+            public function retrieveAllDepartments()
+            {
+                $departments = Department::all(['department_id', 'department']);
 
-            $departments = $departmentTable->pluck('department'); // Extract 'department' column values
+                return response()->json($departments);
+            }
 
-            return response()->json($departments);
-        }
+            public function retrieveAllHiringManagers()
+            {
+                $hiringManagers = Staff::whereIn('staff_id', function ($query) {
+                        $query->select('staff_id')
+                            ->from('Hiring_Manager');
+                    })
+                    ->selectRaw("staff_id, CONCAT(staff_lname, ' ', staff_fname) as hiring_manager_name")
+                    ->get();
+
+                return response()->json($hiringManagers);
+            }
+
+
+            public function retrieveAllSkills()
+            {
+                $skills = Skill::all(['skill_id', 'skill']);
+
+                return response()->json($skills);
+            }
 }
 ?>
 

@@ -150,31 +150,31 @@ class UpdateRoleController extends Controller
     }
     public function retrieveAllDepartments()
         {
-            $departmentTable = Department::all(); // Assuming $Department_Table contains the records
-
-            $departments = $departmentTable->pluck('department'); // Extract 'department' column values
+            $departments = Department::all(['department_id', 'department']);
 
             return response()->json($departments);
         }
-    public function retrieveAllHiringManagers()
+
+        public function retrieveAllHiringManagers()
         {
             $hiringManagers = Staff::whereIn('staff_id', function ($query) {
                     $query->select('staff_id')
                         ->from('Hiring_Manager');
                 })
-                ->selectRaw("CONCAT(staff_lname, ' ', staff_fname) as hiring_manager_name")
-                ->get()
-                ->pluck('hiring_manager_name');
+                ->selectRaw("staff_id, CONCAT(staff_lname, ' ', staff_fname) as hiring_manager_name")
+                ->get();
         
             return response()->json($hiringManagers);
         }
         
-    public function retrieveAllSkills()
+        
+        public function retrieveAllSkills()
         {
-            $skills = Skill::pluck('skill');
+            $skills = Skill::all(['skill_id', 'skill']);
         
             return response()->json($skills);
         }
+        
            
 }
 ?>

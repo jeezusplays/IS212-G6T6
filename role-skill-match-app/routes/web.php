@@ -33,6 +33,7 @@ Route::get('/edit/roleID={passedrole}/listingID={passedlisting}', [UpdateRoleCon
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/alldept', [App\Http\Controllers\UpdateRoleController::class, 'retrieveAllSkills'])->name('home');
 
 Auth::routes();
 

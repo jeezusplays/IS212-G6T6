@@ -30,6 +30,8 @@ Route::post('/updateRole', [UpdateRoleController::class, 'store']);
 //get listing 
 Route::get('/edit/listingID={passedlisting}', [UpdateRoleController::class, 'autoFillRoleListing']);
 
+//Route::get('/edit/listingID={passedlisting}', [UpdateRoleController::class, 'retrieveAllDepartments']);
+
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
@@ -39,6 +41,7 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+Route::get('/test2', [UpdateRoleController::class, 'retrieveAllHiringManagers']);
 Route::get('/test', [UpdateRoleController::class, 'retrieveAllSkills']);
 // Route::get('/edit', function () {
     

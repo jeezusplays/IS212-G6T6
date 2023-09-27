@@ -129,9 +129,9 @@
                 <div class="mb-3 col-lg-6">
                     <label for="department" class="form-label">Select Department</label>
                     <select required class="form-select" id="department" name="department">
-                        @foreach ($deptDDL as $dept)
-                            <option value = "{{ $dept['deptID']}}" {{ $dept['deptID'] == $department ? 'selected' : '' }}>
-                                {{$dept['department']}}
+                        @foreach ($departments as $dept)
+                            <option value = "{{ $dept -> department_id}}" {{ $dept -> department }}> <!--  == $role['department'] ? 'selected' : '' -->
+                                {{$dept -> department }}
                             </option>
                         @endforeach
                     </select>
@@ -141,9 +141,9 @@
                 <div class="mb-3 col-lg-6">
                     <label for="hiringManager" class="form-label">Select Hiring Manager</label>
                     <select id="hiringManager"  style="width:100%"  name="hiringManager" class= "form-select select2" multiple>
-                        @foreach ($hiringManagerDDL as $hm)
-                            <option value = "{{ $hm }}" {{ in_array($hm, $hiring_managers) ? 'selected' : '' }}>
-                                {{$hm}}
+                        @foreach ($hiringManagers as $hm)
+                            <option value = "{{ $hm->staff_id}}" {{ in_array($hm->hiring_manager_name, $role['staff_name']) ? 'selected' : '' }}>
+                                {{$hm->hiring_manager_name}}
                             </option>
                         @endforeach
                     </select>
@@ -167,8 +167,8 @@
                   <label for="skills" class="form-label">Skills</label>
                   <br>
                   <select required id="skills" style="width:100%" multiple class= "select2" >
-                        @foreach ($skillsDDL as $skill)
-                            <option value = "{{ $skill['skillID'] }}" {{ in_array($skill['skillID'], $skills) ? 'selected' : '' }}>
+                        @foreach ($skills as $skill)
+                            <option value = "{{ $skill -> skillID }}" {{ in_array($skill -> skillID, $role['skills']) ? 'selected' : '' }}>
                                 {{$skill['skill']}}
                             </option>
                         @endforeach

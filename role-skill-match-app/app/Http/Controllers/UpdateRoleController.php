@@ -148,14 +148,19 @@ class UpdateRoleController extends Controller
                 'skills'=>$skills
             ];
         });
-        return view('updateRole', compact('roles'));
+
+        $departments = $this->retrieveAllDepartments();
+        $hiringManagers = $this->retrieveAllHiringManagers();
+        $skills = $this->retrieveAllSkills();
+
+        return view('updateRole', compact('roles', 'departments', 'hiringManagers','skills'));
         return response()->json($roles);
     }
         public function retrieveAllDepartments()
         {
             $departments = Department::all(['department_id', 'department']);
-
-            return response()->json($departments);
+            return $departments;
+           // return response()->json($departments);
         }
 
         public function retrieveAllHiringManagers()
@@ -166,7 +171,7 @@ class UpdateRoleController extends Controller
                 })
                 ->selectRaw("staff_id, CONCAT(staff_lname, ' ', staff_fname) as hiring_manager_name")
                 ->get();
-        
+            return $hiringManagers;
             return response()->json($hiringManagers);
         }
         
@@ -174,7 +179,8 @@ class UpdateRoleController extends Controller
         public function retrieveAllSkills()
         {
             $skills = Skill::all(['skill_id', 'skill']);
-        
+            return $skills;
+            //return view ('updateRole', compact('skills'));
             return response()->json($skills);
         }
         

@@ -26,7 +26,7 @@ return new class extends Migration
             $table->Softdeletes();
 
             // Foreign Keys
-            $table->foreign('role_id')->references('role_id')->on('hiring_manager');
+            $table->foreign('listing_id')->references('listing_id')->on('hiring_manager');
             $table->foreign('department_id')->references('department_id')->on('department');
             $table->foreign('country_id')->references('country_id')->on('country');
             $table->foreign('created_by')->references('staff_id')->on('staff');

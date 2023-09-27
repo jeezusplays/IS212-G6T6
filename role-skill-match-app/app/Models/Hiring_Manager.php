@@ -27,5 +27,5 @@ class Hiring_Manager extends Model
         return $this->belongsTo(Role_Listing::class, 'role_id');
     }
 
-    protected $primaryKey = ['role_id', 'staff_id'];
+    protected $primaryKey = ['listing_id', 'staff_id'];
 }

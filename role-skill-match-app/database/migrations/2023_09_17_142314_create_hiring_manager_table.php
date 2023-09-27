@@ -12,16 +12,16 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('hiring_manager', function (Blueprint $table) {
-            $table->unsignedInteger('role_id');
+            $table->unsignedInteger('listing_id');
             $table->unsignedInteger('staff_id');
             $table->timestamps();
             $table->Softdeletes();
             // Foreign Keys
-            $table->foreign('role_id')->references('role_id')->on('role');
+            $table->foreign('listing_id')->references('listing_id')->on('role_listing');
             $table->foreign('staff_id')->references('staff_id')->on('staff');
 
             // Composite Primary Keys
-            $table->primary(['role_id', 'staff_id']);
+            $table->primary(['listing_id', 'staff_id']);
         });
     }
 

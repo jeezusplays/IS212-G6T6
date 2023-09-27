@@ -262,7 +262,7 @@
             
                   <!-- Submit button -->
                   <div class="container">
-                    <button type="submit" class="btn btn-primary me-2">Create Role</button>
+                    <button type="submit" id="submit" class="btn btn-primary me-2">Create Role</button>
                     <!-- <button type="submit" class="btn btn-outline-danger">Cancel</button> -->
                   </div>
                 </div>
@@ -277,6 +277,9 @@
       crossorigin="anonymous"
     ></script>
 
+        <!-- sweetalert -->
+      <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
     <script>
       // Select 2 JS
       $(document).ready(function() {
@@ -284,6 +287,39 @@
           theme:'classic'
         });
       });
+
+
+
+      //Alert for successful role creation
+      $("#submit").click(function() {
+        var roleName = $("#Role_Name").val();
+        var workArrangement = $("#Work_Arrangement").val();
+        var department = $("#Department_ID").val();
+        var vacancy = $("#Vacancy").val();
+        var deadline = $("#Deadline").val();
+        var country = $("#Country_ID").val();
+        var skills = $("#Skills").val();
+        var description = $("#Description").val();
+        var hiringManager = $("#Staff_ID").val();
+        if (roleName == '' || workArrangement == '' || department == '' || vacancy == '' || deadline == '' || country == '' || skills == [] || description == '' || hiringManager == []) {
+          swal({
+            title: "All Fields Required",
+            text: "Please fill in all fields before submitting",
+            icon: "error",
+            button: "Back to form",
+          });
+        } else {
+          swal({
+            title: "Role Created",
+            text: "Role has been created successfully",
+            icon: "success",
+            button: "Back",
+          });
+        }
+
+      });
+
+
 
       // Form validation
       var forms = document.querySelectorAll('.needs-validation');
@@ -311,6 +347,13 @@
       var minDate = todayYear + "-" + todayMonth + "-" + todayDate;
       console.log(minDate);
       document.getElementById("Deadline").setAttribute("min", minDate);
+
+      //show Success card
+      // function successCard() {
+      //   var successCard = document.getElementById("success-card");
+      //   successCard.style.display = "block";
+      // }
+
 
       </script>
 

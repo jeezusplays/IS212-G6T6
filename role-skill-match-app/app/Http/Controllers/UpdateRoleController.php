@@ -50,7 +50,9 @@ class UpdateRoleController extends Controller
         $RoleListing_Table = Role_Listing::where('role_id', $passedlisting)->get(); 
         //declaring tables
         $Role_Table = Role::whereIn('role_id', $RoleListing_Table->pluck('role_id'))->get(['role_id','role']);
-        $HiringManager_Table = Hiring_Manager::whereIn('role_id', $RoleListing_Table->pluck('role_id'))->get(['role_id','staff_id']);
+
+        $HiringManager_Table = Hiring_Manager::whereIn('listing_id', $RoleListing_Table->pluck('listing_id'))->get(['listing_id','staff_id']);
+
         $Department_Table = Department::whereIn('department_id', $RoleListing_Table->pluck('department_id'))->get(['department_id','department']);
         $Role_Table = Role::whereIn('role_id', $RoleListing_Table->pluck('role_id'))->get(['role_id','role']);
         //$RoleSkill_Table = Role_Skill::where('listing_id', $passedlisting)->get(['listing_id','skill_id']);
@@ -78,8 +80,8 @@ class UpdateRoleController extends Controller
         $isFirstIteration = true; 
         
         $staffNames = DB::table('role_listing')
-            ->where('listing_id', $passedlisting)
-            ->join('hiring_manager', 'role_listing.role_id', '=', 'hiring_manager.role_id')
+            ->where('hiring_manager.listing_id', $passedlisting)
+            ->join('hiring_manager', 'role_listing.listing_id', '=', 'hiring_manager.listing_id')
             ->join('staff', 'hiring_manager.staff_id', '=', 'staff.staff_id')
             ->selectRaw('DISTINCT CONCAT(staff.staff_lname, " ", staff.staff_fname) as staff_name')
             ->pluck('staff_name')

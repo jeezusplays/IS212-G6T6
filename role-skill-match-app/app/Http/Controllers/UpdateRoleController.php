@@ -85,7 +85,7 @@ class UpdateRoleController extends Controller
 
     public function store(Request $request)
     {
-        return($request->input());
+        return($request->all());
     }
 
     public function autoFillRoleListing($passedlisting)   
@@ -138,6 +138,7 @@ class UpdateRoleController extends Controller
         
             return [
                 //'role_id' => $matchingRole ? $matchingRole->role_id : null,
+                'listingID' => $passedlisting,
                 'role' => $matchingRole ? $matchingRole->role : null,  //job title
                 'work_arrangement' => $workArrangement, //work arrangement
                 'department'=>$department,   //department

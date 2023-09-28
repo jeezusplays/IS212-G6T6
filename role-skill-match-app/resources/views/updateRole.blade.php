@@ -99,13 +99,18 @@
       <!-- FORM -->
       @foreach ($roles as $role)
       <div class="container">
-            <form class="was-validated" id="form" action="/updateRole" method="post">
+            <form class="needs-validation" novalidate  id="form" action="/updateRole" method="post">
                 @csrf
+                <!-- Job status -->
+                <input type="hidden" id="Status" name="Status" value="open"> <!-- change to status once backend done -->
+                <input type="hidden" id="listingID" name="listingID" value="{{ $role['listingID'] }}">
+
                 <div class="row">
                 <!-- Text input (jobTitle) -->
                 <div class="mb-3 col-lg-6">
-                    <label for="jobTitle" class="form-label">Job Title</label>
-                    <input required class="form-control" id="jobTitle" name="jobTitle" placeholder="Enter title" value = "{{$role['role']}}">
+                    <label for="jobTitle" class="form-label">Role Title</label>
+                    <input required class="form-control" id="roleTitle" name="roleTitle" placeholder="Enter title" value = "{{$role['role']}}">
+                    <div class="invalid-feedback">Role Name cannot be empty</div>
                 </div>
 
                 <!-- Select input (workArrangement) -->
@@ -123,6 +128,7 @@
                         <option>Full Time</option>
                         @endif
                     </select>
+                    <div class="invalid-feedback">Work Arrangement cannot be empty</div>
                 </div>
 
                 <!-- Select input (department) -->
@@ -135,6 +141,7 @@
                             </option>
                         @endforeach
                     </select>
+                    <div class="invalid-feedback">Department cannot be empty</div>
                 </div>
 
                 <!-- Select input (hiringManager) -->
@@ -147,12 +154,14 @@
                             </option>
                         @endforeach
                     </select>
+                    <div class="invalid-feedback">You must select at least 1 hiring manager</div>
                 </div>
 
                 <!-- Number input (vacancy) -->
                 <div class="mb-3 col-lg-6">
                     <label for="vacancy" class="form-label">Vacancy</label>
-                    <input required type="number" class="form-control" id="vacancy" name="vacancy" placeholder="Enter vacancy" value = "{{$role['vacancy']}}">
+                    <input required type="number" min="1" max="5" class="form-control" id="vacancy" name="vacancy" placeholder="Enter vacancy" value = "{{$role['vacancy']}}">
+                    <div class="invalid-feedback">You must have between 1 and 5 vacancies.</div>
                 </div>
 
                 <!-- Date picker -->
@@ -162,28 +171,41 @@
                   <label id="date-error" for="deadline"></label>
                 </div>
 
+                <!-- Country ID -->
+                <div class="mb-3 col-lg-6">
+                    <label for="Country_ID" class="form-label">Country</label>
+                    <select required  class="form-select" id="Country_ID" name="Country_ID">
+                        <option value="" disabled selected>Select country</option>
+                          <option value="hk">Hong Kong</option>
+                          <option value="hk2">Japan</option>
+                    </select>
+                    <div class="invalid-feedback">Country cannot be empty</div>
+                </div>
+
                 <!-- Skills Required -->
                 <div class="mb-3 col-lg-6">
                   <label for="skills" class="form-label">Skills</label>
                   <br>
-                  <select required id="skills" style="width:100%" multiple class= "select2" >
+                  <select required id="skills" style="width:100%" multiple name="skills" class= "form-select select2" >
                         @foreach ($skills as $skill)
-                            <option value = "{{ $skill -> skillID }}" {{ in_array($skill -> skill, $role['skills']) ? 'selected' : '' }}>
+                            <option value = "{{ $skill -> skill_id }}" {{ in_array($skill -> skill, $role['skills']) ? 'selected' : '' }}>
                                 {{$skill['skill']}}
                             </option>
                         @endforeach
                   </select>
+                  <div class="invalid-feedback">You must select at least 1 skill.</div>
                 </div>
     
                 <!-- Textarea (description) -->
                 <div class="mb-3">
                     <label for="description" class="form-label">Description</label>
                     <textarea required class="form-control" id="description" name="description" rows="4" placeholder="Enter description">{{$role['description']}}</textarea>
+                    <div class="invalid-feedback">Description cannot be empty</div>
                 </div>
 
                   <!-- Submit button -->
                   <div class="container">
-                    <button class="btn btn-primary me-2" id="Save">Save</button>
+                    <button class="btn btn-primary me-2" id="submit">Save</button>
                     <!-- <button type="submit" class="btn btn-outline-danger">Cancel</button> -->
                   </div>
                 </div>
@@ -198,6 +220,9 @@
       crossorigin="anonymous"
     ></script>
 
+      <!-- sweetalert -->
+      <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    
     <script>
       $(document).ready(function() {
         $(".select2").select2({
@@ -205,42 +230,62 @@
         });
       });
 
-      document.getElementById("Save").addEventListener("click", checkDate);
+      //Alert for successful role creation
+      $("#submit").click(function() {
+        var roleName = $("#roleTitle").val();
+        var workArrangement = $("#workArrangement").val();
+        var department = $("#department").val();
+        var vacancy = $("#vacancy").val();
+        var deadline = $("#deadline").val();
+        var country = $("#Country_ID").val();
+        var skills = $("#skills").val();
+        var description = $("#description").val();
+        var hiringManager = $("#hiringManager").val();
 
-      function checkDate(){
-        console.log("work")
-        let dateChosen = new Date(document.getElementById('deadline').value)
-        let today = new Date()
-        console.log(dateChosen)
-        if (today >= dateChosen){
-          $("#form").submit(function(e) {
-            e.preventDefault();
+        if (roleName == '' || workArrangement == '' || department == '' || vacancy == '' || deadline == '' || country == null || skills == [] || description == '' || hiringManager == []) {
+          swal({
+            title: "All Fields Required",
+            text: "Please fill in all fields before submitting",
+            icon: "error",
+            button: "Back to form",
           });
-          console.log("stop")
-          document.getElementById('date-error').show();
+        } else {
+          swal({
+            title: "Role Created",
+            text: "Role has been created successfully",
+            icon: "success",
+            button: "Back",
+          });
         }
-        else{
-          document.getElementById('date-error').hide();
-        }
+
+      });
+
+      // Form validation
+      var forms = document.querySelectorAll('.needs-validation');
+      Array.prototype.slice.call(forms).forEach(function(form) {
+        form.addEventListener('submit', function(event) {
+          if (!form.checkValidity()) {
+            event.preventDefault();
+            event.stopPropagation();
+          }
+          form.classList.add('was-validated');
+        }, false);
+      });
+
+      // Set datepicker min date to today
+      var today = new Date();
+      var todayDate = today.getDate();
+      if (todayDate < 10) {
+        todayDate = "0" + todayDate;
       }
-
-//       function checkDate(){
-
-// let dateChosen = new Date(document.getElementById('deadline').value);
-// let today = new Date();
-
-// if (today >= dateChosen){
-//   // Show error
-//   document.getElementById('date-error').hidden = false;
-//   return; 
-// }
-
-// // No error, submit form
-// document.getElementById('form').submit();
-
-// }
-
-// document.getElementById("Save").addEventListener("click", checkDate);
+      var todayMonth = today.getMonth()+1;
+      if (todayMonth < 10) {
+        todayMonth = "0" + todayMonth;
+      }
+      var todayYear = today.getFullYear();
+      var minDate = todayYear + "-" + todayMonth + "-" + todayDate;
+      console.log(minDate);
+      document.getElementById("deadline").setAttribute("min", minDate);
       </script>
 </body>
 </html>

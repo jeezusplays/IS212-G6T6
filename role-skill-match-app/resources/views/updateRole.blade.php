@@ -102,7 +102,7 @@
             <form class="needs-validation" novalidate  id="form" action="/updateRole" method="post">
                 @csrf
                 <!-- Job status -->
-                <input type="hidden" id="Status" name="Status" value="open"> <!-- change to status once backend done -->
+                <input type="hidden" id="Status" name="Status" value="{{$role['status']}}"> <!-- change to status once backend done -->
                 <input type="hidden" id="listingID" name="listingID" value="{{ $role['listingID'] }}">
 
                 <div class="row">
@@ -112,20 +112,20 @@
                     <input required class="form-control" id="roleTitle" name="roleTitle" placeholder="Enter title" value = "{{$role['role']}}">
                     <div class="invalid-feedback">Role Name cannot be empty</div>
                 </div>
-
+                
                 <!-- Select input (workArrangement) -->
                 <div class="mb-3 col-lg-6">
                     <label for="workArrangement" class="form-label">Work Arrangement</label>
                     <select required class="form-select" id="workArrangement" name="workArrangement">
-                    @if ($role['work_arrangement'] == 'Part Time')
-                        <option selected>Part Time</option>
+                        @if ($role['work_arrangement'] == '1')
+                        <option selected value='1'>Part Time</option>
                         @else
-                        <option>Part Time</option>
+                        <option value='1'>Part Time</option>
                         @endif
-                        @if ($role['work_arrangement'] == 'Full Time')
-                        <option selected>Full Time</option>
+                        @if ($role['work_arrangement'] == '2')
+                        <option selected value ='2'>Full Time</option>
                         @else
-                        <option>Full Time</option>
+                        <option value='2'>Full Time</option>
                         @endif
                     </select>
                     <div class="invalid-feedback">Work Arrangement cannot be empty</div>
@@ -136,7 +136,7 @@
                     <label for="department" class="form-label">Select Department</label>
                     <select required class="form-select" id="department" name="department">
                         @foreach ($departments as $dept)
-                            <option value = "{{ $dept -> department_id}}" {{ $dept -> department }}> <!--  == $role['department'] ? 'selected' : '' -->
+                            <option value = "{{ $dept -> department_id}}" {{ $dept -> department == $role['department'] ? 'selected' : '' }}>
                                 {{$dept -> department }}
                             </option>
                         @endforeach
@@ -176,8 +176,11 @@
                     <label for="Country_ID" class="form-label">Country</label>
                     <select required  class="form-select" id="Country_ID" name="Country_ID">
                         <option value="" disabled selected>Select country</option>
-                          <option value="hk">Hong Kong</option>
-                          <option value="hk2">Japan</option>
+                          @foreach ($countries as $country)
+                          <option value = "{{ $country -> country_id }}" {{ $country-> country_id == $role['country_id'] ? 'selected' : '' }}>
+                                {{$country -> country}}
+                          </option>
+                          @endforeach
                     </select>
                     <div class="invalid-feedback">Country cannot be empty</div>
                 </div>
@@ -189,7 +192,7 @@
                   <select required id="skills" style="width:100%" multiple name="skills" class= "form-select select2" >
                         @foreach ($skills as $skill)
                             <option value = "{{ $skill -> skill_id }}" {{ in_array($skill -> skill, $role['skills']) ? 'selected' : '' }}>
-                                {{$skill['skill']}}
+                                {{$skill -> skill}}
                             </option>
                         @endforeach
                   </select>

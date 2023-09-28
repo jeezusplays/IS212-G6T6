@@ -112,7 +112,7 @@
                     <input required class="form-control" id="roleTitle" name="roleTitle" placeholder="Enter title" value = "{{$role['role']}}">
                     <div class="invalid-feedback">Role Name cannot be empty</div>
                 </div>
-                
+
                 <!-- Select input (workArrangement) -->
                 <div class="mb-3 col-lg-6">
                     <label for="workArrangement" class="form-label">Work Arrangement</label>
@@ -147,7 +147,7 @@
                 <!-- Select input (hiringManager) -->
                 <div class="mb-3 col-lg-6">
                     <label for="hiringManager" class="form-label">Select Hiring Manager</label>
-                    <select id="hiringManager"  style="width:100%"  name="hiringManager" class= "form-select select2" multiple>
+                    <select required id="hiringManager"  style="width:100%"  name="hiringManager" class= "form-select select2" multiple>
                         @foreach ($hiringManagers as $hm)
                             <option value = "{{ $hm->staff_id}}" {{ in_array($hm->hiring_manager_name, $role['staff_name']) ? 'selected' : '' }}>
                                 {{$hm->hiring_manager_name}}
@@ -161,14 +161,14 @@
                 <div class="mb-3 col-lg-6">
                     <label for="vacancy" class="form-label">Vacancy</label>
                     <input required type="number" min="1" max="5" class="form-control" id="vacancy" name="vacancy" placeholder="Enter vacancy" value = "{{$role['vacancy']}}">
-                    <div class="invalid-feedback">You must have between 1 and 5 vacancies.</div>
+                    <div class="invalid-feedback">You must have between 1 and 5 vacancies</div>
                 </div>
 
                 <!-- Date picker -->
                 <div class="mb-3 col-lg-6">
                   <label for="deadline" class="form-label">Deadline</label>
                   <input required type="date" class="form-control" id="deadline" name="deadline" placeholder="DD/MM/YYYY" value="{{$role['deadline']}}">
-                  <label id="date-error" for="deadline"></label>
+                  <div class="invalid-feedback">Deadline date cannot be in the past</div>
                 </div>
 
                 <!-- Country ID -->
@@ -245,14 +245,25 @@
         var description = $("#description").val();
         var hiringManager = $("#hiringManager").val();
 
-        if (roleName == '' || workArrangement == '' || department == '' || vacancy == '' || deadline == '' || country == null || skills == [] || description == '' || hiringManager == []) {
+        var selectedDate = new Date(deadline); // Convert the input value to a Date object
+        var currentDate = new Date(); // Get the current date
+
+        if (roleName == '' || workArrangement == '' || department == '' || vacancy == '' || deadline == '' || country == null || skills.length == 0|| description == '' || hiringManager.length == 0) {
           swal({
             title: "All Fields Required",
             text: "Please fill in all fields before submitting",
             icon: "error",
             button: "Back to form",
           });
-        } else {
+        } 
+        else if (selectedDate < currentDate)
+          swal({
+            title: "All Fields Required",
+            text: "Your deadline date cannot be in the past",
+            icon: "error",
+            button: "Back to form",
+          })
+        else {
           swal({
             title: "Role Created",
             text: "Role has been created successfully",

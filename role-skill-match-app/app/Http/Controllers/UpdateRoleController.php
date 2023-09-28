@@ -123,8 +123,8 @@ class UpdateRoleController extends Controller
             */
         
 
-            public function updateRoleListing(Request $request)
-        {
+    public function updateRoleListing(Request $request)
+    {
             $requestData = $request->input();
             // hard coding the data for testing purposes
             $requestData["listing_id"] = "1";
@@ -135,7 +135,7 @@ class UpdateRoleController extends Controller
             $requestData["vacancy"] = 6;
             $requestData["deadline"] = "2023-12-31";
             $requestData["description"] = "Lorem ipsum dolor sit amet";
-            $requestData["skills"] = [1, 2];
+            $requestData["skills"] = [1,2];  //amended skills 
             //actual start of code
             $listingId = $requestData['listing_id'];
             $jobTitle = $requestData['jobTitle'];
@@ -145,8 +145,19 @@ class UpdateRoleController extends Controller
             $vacancy = $requestData['vacancy'];
             $deadline = $requestData['deadline'];
             $description = $requestData['description'];
+
+            if (!is_array($requestData['skills'])) {
+                $requestData['skills'] = [$requestData['skills']];
+            }
+
             $skills = $requestData['skills'];
 
+            if (!is_array($requestData['hiringManager'])) {
+                $requestData['hiringManager'] = [$requestData['hiringManager']];
+            }
+
+            $hiringManagers = $requestData['hiringManager'];
+            
             //get application
             $applicationsToDelete = DB::table('application')
                 ->where('listing_id', $listingId)
@@ -231,7 +242,7 @@ class UpdateRoleController extends Controller
             }
 
             return response()->json(['message' => 'Fields updated successfully']);
-        }
+    }
 
             public function retrieveAllDepartments()
             {

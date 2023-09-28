@@ -6,91 +6,124 @@
     <script src="{{ asset('js/app.js') }}" defer></script>
     <link rel="icon" href="{{ asset('favicon-32x32.png') }}" type="image/x-icon">
     <style>
-
+        /* Add your custom CSS styles here */
+        .card-title-link {
+            text-decoration: none;
+            /* Remove underline */
+            color: inherit;
+            /* Inherit the card title's original text color */
+            /* Add any additional styling you desire */
+        }
     </style>
+    <Title>
+        Role Listings
+    </Title>
 </head>
 
 <!-- Scripts -->
 @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 
 <body>
+{{-- Top Menu Bar --}}
     <div id="app" class="container">
-        {{-- Top Menu Bar --}}
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="http://localhost:8000/role-listings">
                 <img src="{{ asset('favicon-32x32.png') }}" alt="Company Logo">
             </a>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item active">
-                        <a class="nav-link" href="#">View Role Listings</a>
-                    </li>
+                        <a class="nav-link" href="http://localhost:8000/role-listings">View Role Listings</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="http://localhost:8000/create-role">Create Role Listing</a>
+                        </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Create Role Listing</a>
+                        <a class="nav-link" href="http://localhost:8000/update-role">Edit Role Listing</a>
                     </li>
                 </ul>
             </div>
             <div class="dropdown">
                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
                     data-bs-toggle="dropdown" aria-expanded="false">
-                    Current User's Name (HR Staff)
+                    {{-- Retrieve default HR staff name [Park Bo Gum, Role id = 5] from database --}}
+                    {{ $roles[4]['full_name'] }} (HR Staff)
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <li><a class="dropdown-item" href="#">HR Staff</a></li>
-                    <li><a class="dropdown-item" href="#">Staff</a></li>
-                    <li><a class="dropdown-item" href="#">Manager</a></li>
+                    <li><a class="dropdown-item" href="http://localhost:8000/role-listings">HR Staff</a></li>
+                    <li><a class="dropdown-item" href="http://localhost:8000/role-listings-staff">Staff</a></li>
+                    <li><a class="dropdown-item" href="http://localhost:8000/role-listings-manager">Manager</a></li>
                 </ul>
             </div>
         </nav>
     </div>
 
     <div class="container">
-        {{-- Search Bar --}}
-        <div class="row justify-content-center">
-            <div class="col-md-8 p-3 d-flex">
+        {{-- Search Bar and Filter Bar --}}
+        <div class="row justify-content-between">
+            <div class="col-md-5 p-3 d-flex">
                 <div class="input-group">
                     <input style="display:inline-block; position:relative" type="text" class="form-control"
                         placeholder="Search for roles" id="myInput">
                     <div class="input-group-append">
-                        <button class="btn btn-primary" type="button" onclick=searchJobs()
+                        <button class="btn btn-primary" type="button" onclick="searchJobs()"
                             id="searchbutton">Search</button>
                     </div>
                 </div>
             </div>
         </div>
-
-        {{-- Filter Bar --}}
-        <div class="container">
-            <h3>FILTER BY</h3>
-
-            <!-- Filter by button and dropdown -->
-
-            <div class="btn-group mb-3">
-                <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown"
-                    aria-haspopup="true" aria-expanded="false">
-                    Filter by Status
-                </button>
-                <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#" data-status="Open">Open</a>
-                    <a class="dropdown-item" href="#" data-status="Closed">Closed</a>
+            <!-- Filter by Status Dropdown Checkbox -->
+            <div class="col-md-6 p-3 d-flex justify-content-end">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false" id="filterButton">
+                        Filter by Status
+                    </button>
+                    <div class="dropdown-menu" id="filterDropdown" style="max-height: 200px; overflow-y: auto;">
+                        <label class="dropdown-item">
+                            <input type="checkbox" class="status-filter" value="Open" checked> Open
+                        </label>
+                        <label class="dropdown-item">
+                            <input type="checkbox" class="status-filter" value="Closed" checked> Closed
+                        </label>
+                    </div>
                 </div>
             </div>
+        </div>
 
-            <br>
+        <div id="searchErrorAlert" class="alert alert-danger" style="display: none;">
+            Your search input contains invalid characters and is not supported.
+        </div>
 
-            <h1>Role Listings</h1>
+        <h1 class="my-3">Role Listings</h1>
 
-            {{-- Loop through your role data and display each role in a card --}}
+        {{-- Loop through your role data and display each role in a card --}}
+        <div class="row" id="roleCardsContainer">
             @foreach ($roles as $role)
+            <div
+                class="col-xl-4 col-md-6 col-sm-12 role-card @if ($role['status'] == 'Open') open-role @else closed-role @endif">
                 <div class="card mb-3">
-                    <h5 class="card-header card-title p-3">{{ $role['Role_Name'] }}</h5>
+                    <a href="http://localhost:8000/view/roleID={{ $role['role_id'] }}/listingID={{ $role['listing_id'] }}"
+                        class="card-title-link">
+                        <div class="card-header card-title p-3 d-flex justify-content-between align-items-center">
+                            <h5 class="m-0">{{ $role['role'] }}</h5>
+                            <a href="http://localhost:8000/edit/roleID={{ $role['role_id'] }}/listingID={{ $role['listing_id'] }}"
+                                class="btn btn-sm btn-outline-primary">
+                                Edit Listing
+                            </a>
+                        </div>
+                    </a>
                     <div class="card-body">
-                      
-                        <p class="card-text">Creation Date: {{ $role['Creation_Date'] }}</p>
-                        <p class="card-text">Listed By: {{ $role['Created_By'] }}</p>
-                        <p class="card-text">
+                        <p class="card-text">Applications received:
+                            {{ $role['total_applications'] }}
+                            <a href="#" class="@if ($role['total_applications'] > 0)  @endif">[View
+                                Applications]</a>
+                        </p>
+                        <p class="card-text">Creation Date: {{ $role['created_at'] }}</p>
+                        <p class="card-text">Listed By: {{ $role['full_name'] }}</p>
+                        <p class="card-text" id="card-status">
                             Status:
-                            @if ($role['Status'] === 'Open')
+                            @if ($role['status'] == 'Open')
                                 <span class="text-success">Open</span>
                             @else
                                 <span class="text-danger">Closed</span>
@@ -98,135 +131,102 @@
                         </p>
                     </div>
                 </div>
-            @endforeach
+            </div>
+        @endforeach
+    </div>
+
+    <div id="no-matching-results" class="card mb-3" style="display: none;">
+        <div class="card-body">
+            <h5 class="card-title">No matching results</h5>
+            <p class="card-text">
+                Sorry, there are no job listings that match your search criteria. Please try
+                refining your search.
+            </p>
         </div>
-
-
-        {{-- Role Listings --}}
-        <table class="table table-striped table-bordered" id="job_role_table">
-            <thead>
-                <tr>
-                    <th>Job Title</th>
-                    <th>Total Applications</th>
-                    <th>Creation Date</th>
-                    <th>Listed By</th>
-                    <th onclick="sortTable(4)">Status</th>
-                </tr>
-            </thead>
-
-            {{-- Loop through your role data and display it here --}}
-            <tbody class="table-group-divider">
-                @foreach ($roles as $role)
-                    <tr>
-                        <td>{{ $role['Role_Name'] }}</td>
-                        <td>{{ $role['Creation_Date'] }}</td>
-                        <td>{{ $role['Created_By'] }}</td>
-                        <td>
-                            @if ($role['Status'] === 1)
-                                <p class="text-success">Open</p>
-                            @else
-                                <p class="text-danger">Closed</p>
-                            @endif
-                        </td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
-
-        <br>
+    </div>
 
 
     </div>
-
-    <script>
-        // Search bar functionality on enter key press
-        document.getElementById("myInput")
-            .addEventListener("keyup", function(event) {
-                event.preventDefault();
-                if (event.keyCode === 13) {
-                    document.getElementById("searchbutton").click();
-                }
-            });
-
-        // Search bar functionality
-        function searchJobs() {
-            // Declare variables
-            var input, filter, table, tr, td, i, txtValue;
-            input = document.getElementById("myInput");
-            filter = input.value.toUpperCase();
-            table = document.getElementById("job_role_table");
-            tr = table.getElementsByTagName("tr");
-
-            // Loop through all table rows, and hide those who don't match the search query
-            for (i = 0; i < tr.length; i++) {
-                td = tr[i].getElementsByTagName("td")[0];
-                if (td) {
-                    txtValue = td.textContent || td.innerText;
-                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                        tr[i].style.display = "";
-                    } else {
-                        tr[i].style.display = "none";
-                    }
-                }
-            }
-        }
-
-        // Sort table by column number n, where n is the nth column starting from 0 on the left
-        function sortTable(n) {
-            var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
-            table = document.getElementById("job_role_table");
-            switching = true;
-            // Set the sorting direction to ascending:
-            dir = "asc";
-            /* Make a loop that will continue until
-            no switching has been done: */
-            while (switching) {
-                // Start by saying: no switching is done:
-                switching = false;
-                rows = table.rows;
-                /* Loop through all table rows (except the
-                first, which contains table headers): */
-                for (i = 1; i < (rows.length - 1); i++) {
-                    // Start by saying there should be no switching:
-                    shouldSwitch = false;
-                    /* Get the two elements you want to compare,
-                    one from current row and one from the next: */
-                    x = rows[i].getElementsByTagName("TD")[n];
-                    y = rows[i + 1].getElementsByTagName("TD")[n];
-                    /* Check if the two rows should switch place,
-                    based on the direction, asc or desc: */
-                    if (dir == "asc") {
-                        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
-                            // If so, mark as a switch and break the loop:
-                            shouldSwitch = true;
-                            break;
-                        }
-                    } else if (dir == "desc") {
-                        if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
-                            // If so, mark as a switch and break the loop:
-                            shouldSwitch = true;
-                            break;
-                        }
-                    }
-                }
-                if (shouldSwitch) {
-                    /* If a switch has been marked, make the switch
-                    and mark that a switch has been done: */
-                    rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-                    switching = true;
-                    // Each time a switch is done, increase this count by 1:
-                    switchcount++;
-                } else {
-                    /* If no switching has been done AND the direction is "asc",
-                    set the direction to "desc" and run the while loop again. */
-                    if (switchcount == 0 && dir == "asc") {
-                        dir = "desc";
-                        switching = true;
-                    }
-                }
-            }
-        }
-    </script>
 </body>
 
+<script>
+    // Search bar functionality on enter key press
+    document.getElementById("myInput").addEventListener("keyup", function(event) {
+        event.preventDefault();
+        if (event.keyCode === 13) {
+            document.getElementById("searchbutton").click();
+        }
+    });
+
+    let currentSearchInput = "";
+
+    // Search bar functionality
+    function searchJobs() {
+        const input = document.getElementById("myInput");
+        sanitizeAndCheckInput(input.value);
+        currentSearchInput = input.value.toUpperCase();
+        applyFilters();
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+        // Filter by Status functionality
+        const checkboxes = document.querySelectorAll(".status-filter");
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener("change", applyFilters);
+        });
+    });
+
+    function applyFilters() {
+        const selectedStatusFilters = Array.from(document.querySelectorAll(".status-filter:checked")).map(checkbox =>
+            checkbox.value);
+        var counter = 0;
+
+        document.querySelectorAll(".role-card").forEach(card => {
+            const status = card.classList.contains("open-role") ? "Open" : "Closed";
+            const jobTitle = card.querySelector(".card-title").textContent.toUpperCase();
+            // Check if the card matches the search input and selected status filters
+            if (selectedStatusFilters.length == 0) {
+                card.style.display = "none";
+                counter++;
+            }
+            else if (jobTitle.indexOf(currentSearchInput) > -1 &&
+                (selectedStatusFilters.length === 0 || selectedStatusFilters.includes(status))
+            ) {
+                card.style.display = "";
+            
+            } else {
+                card.style.display = "none";
+                counter++;
+            }
+        });
+        
+        // Check if there are any visible cards
+        if (counter == document.querySelectorAll(".role-card").length) {
+            // If no visible cards, display the placeholder card
+            document.getElementById("no-matching-results").style.display = "block";
+        } else {
+            // If there are visible cards, hide the placeholder card
+            document.getElementById("no-matching-results").style.display = "none";
+        }
+    }
+
+    function sanitizeAndCheckInput(input) {
+        // Define a regular expression pattern for valid alphanumeric characters (letters and numbers)
+        const alphanumericPattern = /^[a-zA-Z0-9]+$/;
+
+        // Remove all spaces from the input
+        const sanitizedInput = input.replace(/\s/g, '');
+
+        // Use the test method to check if the input contains only valid characters
+        const isValid = alphanumericPattern.test(sanitizedInput);
+
+        if (!isValid && sanitizedInput !== "") {
+            document.getElementById("searchErrorAlert").style.display = "block";
+        }
+        else {
+            document.getElementById("searchErrorAlert").style.display = "none";
+        }
+    }
+
+</script>
 </html>

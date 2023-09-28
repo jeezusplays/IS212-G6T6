@@ -49,36 +49,48 @@ class RoleController extends Controller
             return redirect()->back()->withErrors(['Role does not exist']);
         }
 
-        $created_by = Staff::where('staff_id', $request->input('Created_By'))->first();
-
-        @dump($role->role_id);
+        // @dump($role->role_id);
 
         @dump($request->input());
 
-        $role_listing = Role_Listing::firstOrCreate(
-            [
-                'role_id' => Role::where('role', $request->input('Role_Name'))->first(),
-                'description' => $request->input('Description'),
-                'department_id' => $request->input('Department_ID'),
-                'country_id' => $request->input('Country_ID'),
-                'work_arrangement' => $request->input('Work_Arrangement')
-            ],
-            [
-                'vacancy' => $request->input('Vacancy'),
-                'status' => $request->input('Status'),
-                'deadline' => $request->input('Deadline'),
-                'created_by' => $created_by->staff_id,
-            ]);
+        // $role_listing = Role_Listing::firstOrCreate(
+        //     [
+        //         'role_id' => 1,
+        //         'description' => $request->input('Description'),
+        //         'department_id' => $request->input('Department_ID'),
+        //         'country_id' => $request->input('Country_ID'),
+        //         'work_arrangement' => $request->input('Work_Arrangement')
+        //     ],
+        //     [
+        //         'vacancy' => $request->input('Vacancy'),
+        //         'status' => $request->input('Status'),
+        //         'deadline' => $request->input('Deadline'),
+        //         'created_by' => $request->input('Created_By'),
+        //     ]);
 
-        // Check if role was recently created or not
-        if ($role_listing->wasRecentlyCreated) {
-            print_r("Role was created");
-            // Role was created, return 200 OK HTTP code
-            return redirect()->back(200);
-        } else {
-            // Role already exists, return 409 Conflict HTTP code
-            return response()->json(['error' => 'Conflict'], 409);
-        }
+        // $hiring_manager = Hiring_Manager::firstOrCreate(
+        //     [
+        //         'listing_id' => $role_listing->listing_id,
+        //         'staff_id' => $request->input('Staff_ID')
+        //     ]);
+
+        // $skills = $request->input('Skills', []);
+        // foreach ($skills as $skill) {
+        //     $role_skill = Role_Skill::firstOrCreate(
+        //         [
+        //             'listing_id' => $role_listing->listing_id,
+        //             'skill_id' => $skill
+        //         ]);
+        // }
+
+        // // Check if role was recently created or not
+        // if ($role_listing->wasRecentlyCreated && $hiring_manager->wasRecentlyCreated && $role_skill->wasRecentlyCreated) {
+        //     // Role was created, return 200 OK HTTP code
+        //     return redirect()->back(200);
+        // } else {
+        //     // Role already exists, return 409 Conflict HTTP code
+        //     return response()->json(['error' => 'Conflict'], 409);
+        // }
     }
 
     function getData(Request $req)

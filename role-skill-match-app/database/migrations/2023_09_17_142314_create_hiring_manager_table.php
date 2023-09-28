@@ -17,7 +17,7 @@ return new class extends Migration
             $table->timestamps();
             $table->Softdeletes();
             // Foreign Keys
-            $table->foreign('listing_id')->references('listing_id')->on('role');
+            $table->foreign('listing_id')->references('listing_id')->on('role_listing');
             $table->foreign('staff_id')->references('staff_id')->on('staff');
 
             // Composite Primary Keys

@@ -168,7 +168,7 @@
                   <br>
                   <select required id="skills" style="width:100%" multiple class= "select2" >
                         @foreach ($skills as $skill)
-                            <option value = "{{ $skill -> skillID }}" {{ in_array($skill -> skillID, $role['skills']) ? 'selected' : '' }}>
+                            <option value = "{{ $skill -> skillID }}" {{ in_array($skill -> skill, $role['skills']) ? 'selected' : '' }}>
                                 {{$skill['skill']}}
                             </option>
                         @endforeach
@@ -180,7 +180,7 @@
                     <label for="description" class="form-label">Description</label>
                     <textarea required class="form-control" id="description" name="description" rows="4" placeholder="Enter description">{{$role['description']}}</textarea>
                 </div>
-            
+
                   <!-- Submit button -->
                   <div class="container">
                     <button class="btn btn-primary me-2" id="Save">Save</button>

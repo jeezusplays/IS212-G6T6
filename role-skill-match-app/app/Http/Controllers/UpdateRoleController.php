@@ -23,7 +23,7 @@ $request = new Request();
                 '_token' => 'IgfOyMbAdJXvrQGRkagnbpex41WrY8h7ZR3S1Kzu',
                 'listing_id' => '3',
                 'jobTitle' => 'UpdatedTitle',
-                'workArrangement' => 'Full Time',
+                'workArrangement' => '1',
                 'department' => '3',
                 'hiringManager' => ['Kim Sejeong'],
                 'vacancy' => '5',
@@ -129,11 +129,13 @@ class UpdateRoleController extends Controller
             "jobTitle":"UpdatedTitle",
             "workArrangement":"1",
             "department": "1",
-            "hiringManager":[6],
+            "hiringManager":["6"],
             "vacancy":"5",
             "deadline":"2023-12-31",
             "description":"Lorem ipsum dolor sit amet",
-            "skills": [1,2] }]  
+            "skills": [1,2] }],
+            "Country_ID" : "1",                            ////////////////To UPDATE THIS 
+            "Status:" : "1"
             */
         
 
@@ -143,22 +145,27 @@ class UpdateRoleController extends Controller
             // hard coding the data for testing purposes
             $requestData["listing_id"] = "1";
             $requestData["jobTitle"] = "Financial Analyst";
-            $requestData["workArrangement"] = 1;
+            $requestData["workArrangement"] = "1";
             $requestData["department"] = "1";
-            $requestData["hiringManager"] = [6];
-            $requestData["vacancy"] = 6;
+            $requestData["hiringManager"] = "6";
+            $requestData["vacancy"] = "6";
             $requestData["deadline"] = "2023-12-31";
             $requestData["description"] = "Lorem ipsum dolor sit amet";
-            $requestData["skills"] = [1,2];  //amended skills 
+            $requestData["skills"] = [1,2];  
+            $requestData["Country_ID"] = "2"; //UPDATE THIS ALSO
+            $requestData["Status"] = "1";  // probably dont need to do
+
             //actual start of code
             $listingId = $requestData['listing_id'];
             $jobTitle = $requestData['jobTitle'];
             $workArrangement = $requestData['workArrangement'];
             $department = $requestData['department'];
-            $hiringManagers = $requestData['hiringManager'];
+            //$hiringManagers = $requestData['hiringManager'];
             $vacancy = $requestData['vacancy'];
             $deadline = $requestData['deadline'];
             $description = $requestData['description'];
+            $country_id = $requestData['Country_ID'];
+            $status = $requestData['Status'];
 
             if (!is_array($requestData['skills'])) {
                 $requestData['skills'] = [$requestData['skills']];
@@ -220,11 +227,10 @@ class UpdateRoleController extends Controller
 
             // Get remaining info
             $roleListingData = DB::table('role_listing')
-                ->select('country_id', 'created_at', 'created_by', 'status')
+                ->select('created_at', 'created_by', 'status')
                 ->where('listing_id', $listingId)
                 ->first();
 
-            $country_id = $roleListingData->country_id;
             $created_at = $roleListingData->created_at;
             $created_by = $roleListingData->created_by;
             $status = $roleListingData->status;

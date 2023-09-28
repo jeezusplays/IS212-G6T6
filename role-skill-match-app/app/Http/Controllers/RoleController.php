@@ -49,48 +49,44 @@ class RoleController extends Controller
             return redirect()->back()->withErrors(['Role does not exist']);
         }
 
-        // @dump($role->role_id);
+        $role_listing = Role_Listing::firstOrCreate(
+            [
+                'role_id' => 1,
+                'description' => $request->input('Description'),
+                'department_id' => $request->input('Department_ID'),
+                'country_id' => $request->input('Country_ID'),
+                'work_arrangement' => $request->input('Work_Arrangement')
+            ],
+            [
+                'vacancy' => $request->input('Vacancy'),
+                'status' => $request->input('Status'),
+                'deadline' => $request->input('Deadline'),
+                'created_by' => $request->input('Created_By'),
+            ]);
 
-        @dump($request->input());
+        $hiring_manager = Hiring_Manager::firstOrCreate(
+            [
+                'listing_id' => $role_listing->listing_id,
+                'staff_id' => $request->input('Staff_ID')
+            ]);
 
-        // $role_listing = Role_Listing::firstOrCreate(
-        //     [
-        //         'role_id' => 1,
-        //         'description' => $request->input('Description'),
-        //         'department_id' => $request->input('Department_ID'),
-        //         'country_id' => $request->input('Country_ID'),
-        //         'work_arrangement' => $request->input('Work_Arrangement')
-        //     ],
-        //     [
-        //         'vacancy' => $request->input('Vacancy'),
-        //         'status' => $request->input('Status'),
-        //         'deadline' => $request->input('Deadline'),
-        //         'created_by' => $request->input('Created_By'),
-        //     ]);
+        $skills = $request->input('Skills', []);
+        foreach ($skills as $skill) {
+            $role_skill = Role_Skill::firstOrCreate(
+                [
+                    'listing_id' => $role_listing->listing_id,
+                    'skill_id' => $skill
+                ]);
+        }
 
-        // $hiring_manager = Hiring_Manager::firstOrCreate(
-        //     [
-        //         'listing_id' => $role_listing->listing_id,
-        //         'staff_id' => $request->input('Staff_ID')
-        //     ]);
-
-        // $skills = $request->input('Skills', []);
-        // foreach ($skills as $skill) {
-        //     $role_skill = Role_Skill::firstOrCreate(
-        //         [
-        //             'listing_id' => $role_listing->listing_id,
-        //             'skill_id' => $skill
-        //         ]);
-        // }
-
-        // // Check if role was recently created or not
-        // if ($role_listing->wasRecentlyCreated && $hiring_manager->wasRecentlyCreated && $role_skill->wasRecentlyCreated) {
-        //     // Role was created, return 200 OK HTTP code
-        //     return redirect()->back(200);
-        // } else {
-        //     // Role already exists, return 409 Conflict HTTP code
-        //     return response()->json(['error' => 'Conflict'], 409);
-        // }
+        // Check if role was recently created or not
+        if ($role_listing->wasRecentlyCreated && $hiring_manager->wasRecentlyCreated && $role_skill->wasRecentlyCreated) {
+            // Role was created, return 200 OK HTTP code
+            return redirect()->back(200);
+        } else {
+            // Role already exists, return 409 Conflict HTTP code
+            return response()->json(['error' => 'Conflict'], 409);
+        }
     }
 
     function getData(Request $req)

@@ -11,6 +11,7 @@ Use App\Models\Application;
 Use App\Models\Department;
 Use App\Models\Role_Skill;
 Use App\Models\Skill;
+Use App\Models\Country;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -257,6 +258,20 @@ class UpdateRoleController extends Controller
                 $skills = Skill::all(['skill_id', 'skill']);
 
                 return response()->json($skills);
+            }
+
+            public function retrieveAllStatus()
+            {
+                $status = Role_Listing::all('status')->unique();
+
+                return response()->json($status);
+            }
+
+            public function retrieveAllCountries()
+            {
+                $country = Country::all(['country_id', 'country']);
+
+                return response()->json($country);
             }
 }
 ?>

@@ -123,36 +123,21 @@ class UpdateRoleController extends Controller
 
         return response()->json($roles);
     }
-        /*
-        [{"_token":"IgfOyMbAdJXvrQGRkagnbpex41WrY8h7ZR3S1Kzu",
-            "listing_id": "13"
-            "jobTitle":"UpdatedTitle",
-            "workArrangement":"1",
-            "department": "1",
-            "hiringManager":["6"],
-            "vacancy":"5",
-            "deadline":"2023-12-31",
-            "description":"Lorem ipsum dolor sit amet",
-            "skills": [1,2] }],
-            "Country_ID" : "1",                            ////////////////To UPDATE THIS 
-            "Status:" : "1"
-            */
-        
-
-    public function updateRoleListing(Request $request)
-    {
+    
+            public function updateRoleListing(Request $request)
+        {
             $requestData = $request->input();
             // hard coding the data for testing purposes
             $requestData["listing_id"] = "1";
             $requestData["jobTitle"] = "Financial Analyst";
             $requestData["workArrangement"] = "1";
             $requestData["department"] = "1";
-            $requestData["hiringManager"] = "6";
-            $requestData["vacancy"] = "6";
+            $requestData["hiringManager"] = ["6"];
+            $requestData["vacancy"] = "5";
             $requestData["deadline"] = "2023-12-31";
             $requestData["description"] = "Lorem ipsum dolor sit amet";
-            $requestData["skills"] = [1,2];  
-            $requestData["Country_ID"] = "2"; //UPDATE THIS ALSO
+            $requestData["skills"] = ["1","2"];
+            $requestData["Country_ID"] = "1"; //UPDATE THIS ALSO
             $requestData["Status"] = "1";  // probably dont need to do
 
             //actual start of code
@@ -160,36 +145,94 @@ class UpdateRoleController extends Controller
             $jobTitle = $requestData['jobTitle'];
             $workArrangement = $requestData['workArrangement'];
             $department = $requestData['department'];
-            //$hiringManagers = $requestData['hiringManager'];
             $vacancy = $requestData['vacancy'];
             $deadline = $requestData['deadline'];
             $description = $requestData['description'];
             $country_id = $requestData['Country_ID'];
             $status = $requestData['Status'];
 
+            //if passed in value is not array, assign it array, even if its 1 value
             if (!is_array($requestData['skills'])) {
                 $requestData['skills'] = [$requestData['skills']];
             }
 
             $skills = $requestData['skills'];
 
+            // Get all existing records for the given listing_id/////////////////////////////////////////////////////
+   
+            
+            // Retrieve existing records for the given listingId
+            $existingRecords = DB::table('role_skill')
+                ->where('listing_id', $listingId)
+                ->whereNull('deleted_at')
+                ->get();
+
+            $existingSkillIds = $existingRecords->pluck('skill_id')->toArray();
+
+            // Identify missing skill IDs
+            $missingSkills = array_diff($skills, $existingSkillIds);
+
+            // Insert new records for the missing skill IDs
+            foreach ($missingSkills as $missingSkill) {
+                DB::table('role_skill')
+                    ->updateOrInsert(
+                        ['listing_id' => $listingId, 'skill_id' => $missingSkill],
+                        ['deleted_at' => null, 'created_at' => now(), 'updated_at' => now()]
+                    );
+            }
+
+            // Soft delete skill IDs that exist in the database, are not in $skills array, and have a null deleted_at column
+            $softDeleteSkills = array_diff($existingSkillIds, $skills);
+
+            DB::table('role_skill')
+                ->where('listing_id', $listingId)
+                ->whereIn('skill_id', $softDeleteSkills)
+                ->update(['deleted_at' => now()]);
+
+            // Commit the changes to the database
+            DB::commit();
+
+///////////////////////////////////////////////////////////////////
+            
+            //if passed in value is not array, assign it array/////////////////////////////////////////////////////////////////////
             if (!is_array($requestData['hiringManager'])) {
                 $requestData['hiringManager'] = [$requestData['hiringManager']];
             }
 
             $hiringManagers = $requestData['hiringManager'];
-            
-            //get application
-            $applicationsToDelete = DB::table('application')
+            ///////////////HIRING MANAGER/////////////////////////////////////////////////////////////////////////////////////////////
+            $existingRecords = DB::table('hiring_manager')
                 ->where('listing_id', $listingId)
+                ->whereNull('deleted_at')
                 ->get();
 
-            // Store the retrieved application records
-            $storedApplications = $applicationsToDelete->toArray();
-            // Soft delete records
-            DB::table('hiring_manager')->where('listing_id', $listingId)->delete();
-            DB::table('role_skill')->where('listing_id', $listingId)->delete();
-            DB::table('application')->where('listing_id', $listingId)->delete();
+            $existingStaffIds = $existingRecords->pluck('staff_id')->toArray();
+
+            // Identify missing staff IDs
+            $missingStaffIds = array_diff($hiringManagers, $existingStaffIds);
+
+            // Insert new records for the missing staff IDs
+            foreach ($missingStaffIds as $missingStaffId) {
+                DB::table('hiring_manager')
+                    ->updateOrInsert(
+                        ['listing_id' => $listingId, 'staff_id' => $missingStaffId],
+                        ['deleted_at' => null, 'created_at' => now(), 'updated_at' => now()]
+                    );
+            }
+
+            // Soft delete staff IDs that exist in the database, are not in $hiringmanagers array, and have a null deleted_at column
+            $softDeleteStaffIds = array_diff($existingStaffIds, $hiringManagers);
+
+            DB::table('hiring_manager')
+                ->where('listing_id', $listingId)
+                ->whereIn('staff_id', $softDeleteStaffIds)
+                ->update(['deleted_at' => now()]);
+
+            // Commit the changes to the database
+            DB::commit();
+
+            ///////////////////////////////////////////////////////////END OF HIRING MANAGER///////////////////////////////
+            
 
             // Check if job title exists, get role_id
             $role = DB::table('role')
@@ -211,7 +254,7 @@ class UpdateRoleController extends Controller
 
             // Create record for each manager
             foreach ($hiringManagers as $manager) {
-                DB::table('hiring_manager')->insert([
+                DB::table('hiring_manager')->updateOrinsert([
                     'listing_id' => $listingId,
                     'staff_id' => $manager,
                 ]);
@@ -219,24 +262,11 @@ class UpdateRoleController extends Controller
 
             // Create skills for each listing
             foreach ($skills as $skill) {
-                DB::table('role_skill')->insert([
+                DB::table('role_skill')->updateOrinsert([
                     'listing_id' => $listingId,
                     'skill_id' => $skill,
                 ]);
             }
-
-            // Get remaining info
-            $roleListingData = DB::table('role_listing')
-                ->select('created_at', 'created_by', 'status')
-                ->where('listing_id', $listingId)
-                ->first();
-
-            $created_at = $roleListingData->created_at;
-            $created_by = $roleListingData->created_by;
-            $status = $roleListingData->status;
-
-            // Soft delete the record in role_listing
-            DB::table('role_listing')->where('listing_id', $listingId)->update(['deleted_at' => now()]);
 
             // Insert it back with soft delete
             $roleId = $role ? $role->role_id : null;
@@ -252,17 +282,12 @@ class UpdateRoleController extends Controller
                     'Vacancy' => $vacancy,
                     'Status' => $status,
                     'Deadline' => $deadline,
-                    'created_at' => $created_at,
-                    'created_by' => $created_by,
                     'deleted_at' => null, // Set the deleted_at column to null for soft delete
                 ]
             );
-            foreach ($storedApplications as $storedApplication) {
-                DB::table('application')->insert((array)$storedApplication);
-            }
 
             return response()->json(['message' => 'Fields updated successfully']);
-    }
+        }
 
             public function retrieveAllDepartments()
             {

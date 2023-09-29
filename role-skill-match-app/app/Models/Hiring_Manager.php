@@ -28,4 +28,6 @@ class Hiring_Manager extends Model
     }
 
     protected $primaryKey = ['listing_id', 'staff_id'];
+    protected $fillable = ['listing_id','staff_id'];
+    public $incrementing = false; // Set to false for composite primary key
 }

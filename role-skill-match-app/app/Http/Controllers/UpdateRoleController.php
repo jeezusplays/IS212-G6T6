@@ -157,8 +157,6 @@ class UpdateRoleController extends Controller
             }
 
             $skills = $requestData['skills'];
-
-            // Get all existing records for the given listing_id/////////////////////////////////////////////////////
    
             
             // Retrieve existing records for the given listingId
@@ -167,9 +165,10 @@ class UpdateRoleController extends Controller
                 ->whereNull('deleted_at')
                 ->get();
 
+            //The skill ids that are currently in the role_skill table.
             $existingSkillIds = $existingRecords->pluck('skill_id')->toArray();
 
-            // Identify missing skill IDs
+            // Identify missing skill IDs between passed in $skills and $existingSkillIds in database
             $missingSkills = array_diff($skills, $existingSkillIds);
 
             // Insert new records for the missing skill IDs

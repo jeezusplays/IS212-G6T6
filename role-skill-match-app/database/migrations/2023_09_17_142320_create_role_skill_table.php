@@ -10,7 +10,7 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    protected $table = 'role_skills';
+    protected $table = 'role_skill';
     
     public function up(): void
     {

@@ -341,8 +341,6 @@ class UpdateRoleController extends Controller
             ->get();
 
         return $hiringManagers;
-
-        return response()->json($hiringManagers);
     }
 
     public function retrieveAllSkills()
@@ -350,9 +348,8 @@ class UpdateRoleController extends Controller
         $skills = Skill::all(['skill_id', 'skill']);
 
         return $skills;
-
         //return view ('updateRole', compact('skills'));
-        return response()->json($skills);
+
     }
 
     public function retrieveAllCountries()
@@ -361,6 +358,5 @@ class UpdateRoleController extends Controller
 
         return $country;
 
-        return response()->json($country);
     }
 }

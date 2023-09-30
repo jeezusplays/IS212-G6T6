@@ -258,11 +258,19 @@
         } 
         else if (selectedDate < currentDate)
           swal({
-            title: "All Fields Required",
+            title: "Deadline Field is Wrong",
             text: "Your deadline date cannot be in the past",
             icon: "error",
             button: "Back to form",
           })
+        else if (vacancy > 5 || vacancy <1){
+          swal({
+            title: "Vacancy Field is Wrong",
+            text: "The number of vacancy cannot be more than 5 or less than 1",
+            icon: "error",
+            button: "Back to form",
+          })
+        }
         else {
           swal({
             title: "Role Created",

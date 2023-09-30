@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Application;
+use App\Models\Country;
+use App\Models\Department;
 use App\Models\Hiring_Manager;
 use App\Models\Role;
 use App\Models\Role_Listing;
+use App\Models\Skill;
 use App\Models\Staff;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -111,7 +114,7 @@ class RoleController extends Controller
         // Retrieve all role data from the database
         $RoleListing_Table = Role_Listing::all();
         $Role_Table = Role::whereIn('role_id', $RoleListing_Table->pluck('role_id'))->get(['role_id', 'role']);
-        $HiringManager_Table = Hiring_Manager::whereIn('role_id', $RoleListing_Table->pluck('role_id'))->get(['role_id', 'staff_id']);
+        $HiringManager_Table = Hiring_Manager::whereIn('listing_id', $RoleListing_Table->pluck('listing_id'))->get(['listing_id', 'staff_id']);
         $Staff_Table = Staff::whereIn('role_id', $RoleListing_Table->pluck('role_id'))->get(['role_id', DB::raw('CONCAT(staff_lname, " ", staff_fname) AS full_name')]);
         //$Application_Table = Application::whereIn('listing_id', $RoleListing_Table->pluck('listing_id'))->get(['listing_id','staff_id']);
 
@@ -144,6 +147,7 @@ class RoleController extends Controller
 
             // Find the corresponding staff record using the role_id
             $staffRecord = $Staff_Table->where('role_id', $role->role_id)->first();
+
             $applicationCount = $Application_Table->where('listing_id', $role->listing_id)->first();
 
             $status = $role->status === 1 ? 'Open' : 'Closed';
@@ -160,5 +164,79 @@ class RoleController extends Controller
         });
 
         return response()->json($roles);
+
+    }
+
+    public function setup()
+    {
+        //all roles
+        $role_titles = Role::select('role_id', 'role')->get();
+
+        // skills
+        $skills = Skill::select('skill_id', 'skill')->get();
+
+        // department
+        $departments = Department::select('department_id', 'department')->get();
+
+        // country
+        $countries = Country::select('country_id', 'country')->get();
+
+        // work arrangement
+        $work_arrangements = [
+            [
+                'id' => 1,
+                'name' => 'Full-time',
+            ],
+            [
+                'id' => 2,
+                'name' => 'Part-time',
+            ],
+        ];
+
+        // hiring manager
+        // $hiring_managers = Staff::all();
+        $hiring_managers = DB::table('staff')->join('hiring_manager', 'staff.staff_id', '=', 'hiring_manager.staff_id')->select('staff.staff_id', 'staff_fname', 'staff_lname')->get();
+
+        // see what backend is sending to frontend
+        return [
+            'header' => 'Create Role',
+
+            // replace when role title input bar has been changed to dropdown
+            'Role_Name' => $role_titles,
+            // 'Role_Name' => '',
+            'title' => '',
+            'vacancy' => 0,
+            'deadline' => '',
+            'skills' => $skills,
+            'description' => '',
+            'deptDDL' => $departments,
+            'workArrangementDDL' => $work_arrangements,
+            'countryID_DDL' => $countries,
+            'hiring_managers' => $hiring_managers,
+            // New role will be open by default
+            'status' => 1,
+            'Staff_ID' => 5,
+        ];
+
+        // return in format that frontend expects / can read
+        // return view('create-role', [
+        //     'header' => 'Create Role',
+
+        //     // replace when role title input bar has been changed to dropdown
+        //     // 'Role_Name' => $role_titles,
+        //     'Role_Name' => '',
+        //     'title' => '',
+        //     'vacancy' => 0,
+        //     'deadline' => '',
+        //     'skills' => $skills,
+        //     'description' => '',
+        //     'deptDDL' => $departments,
+        //     'workArrangementDDL' => $work_arrangements,
+        //     'countryID_DDL' => $countries,
+        //     'Staff_ID' => $hiring_managers,
+        //     // New role will be open by default
+        //     'status' => 1,
+        //     'Staff_ID' => 5,
+        // ]);
     }
 }

@@ -29,8 +29,6 @@ Route::post('/updateRole', [UpdateRoleController::class, 'store']);
 //get listing 
 Route::get('/edit/listingID={passedlisting}', [UpdateRoleController::class, 'autoFillRoleListing']);
 
-//Route::get('/edit/listingID={passedlisting}', [UpdateRoleController::class, 'retrieveAllDepartments']);
-
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
@@ -38,11 +36,6 @@ Route::get('/alldept', [App\Http\Controllers\UpdateRoleController::class, 'retri
 
 Route::get('/alldepartments', [App\Http\Controllers\UpdateRoleController::class, 'retrieveAllDepartments'])->name('home');
 
-Route::get('/test2', [UpdateRoleController::class, 'retrieveAllHiringManagers']);
-Route::get('/test', [UpdateRoleController::class, 'retrieveAllSkills']);
-// Route::get('/edit', function () {
-    
-// });
-
-//Route::get('/edit', [UpdateRoleController::class, 'index']);
+Route::get('/hiringManagerDDL', [UpdateRoleController::class, 'retrieveAllHiringManagers']);
+Route::get('/skillsDDL', [UpdateRoleController::class, 'retrieveAllSkills']);
 

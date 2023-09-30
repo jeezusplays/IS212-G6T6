@@ -105,6 +105,7 @@ class UpdateRoleController extends Controller
     {
         $requestData = $request->input();
             // hard coding the data for testing purposes
+            /*
             $requestData["listing_id"] = "1";
             $requestData["jobTitle"] = "Financial Analyst";
             $requestData["workArrangement"] = "1";
@@ -116,10 +117,11 @@ class UpdateRoleController extends Controller
             $requestData["skills"] = ["1","2"];
             $requestData["Country_ID"] = "1"; //UPDATE THIS ALSO
             $requestData["Status"] = "1";  // probably dont need to do
-
+            */  
             //actual start of code
-            $listingId = $requestData['listing_id'];
-            $jobTitle = $requestData['jobTitle'];
+       
+            $listingId = $requestData['listingID'];
+            $jobTitle = $requestData['roleTitle'];
             $workArrangement = $requestData['workArrangement'];
             $department = $requestData['department'];
             $vacancy = $requestData['vacancy'];

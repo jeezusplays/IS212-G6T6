@@ -36,8 +36,6 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/alldept', [App\Http\Controllers\UpdateRoleController::class, 'retrieveAllSkills'])->name('home');
 
-Route::get('/editresults', [App\Http\Controllers\UpdateRoleController::class, 'autoFillRoleListing'])->name('home');
-
 Route::get('/alldepartments', [App\Http\Controllers\UpdateRoleController::class, 'retrieveAllDepartments'])->name('home');
 
 Route::get('/test2', [UpdateRoleController::class, 'retrieveAllHiringManagers']);

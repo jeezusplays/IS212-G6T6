@@ -136,8 +136,6 @@ class UpdateRoleController extends Controller
             }
 
             $skills = $requestData['skills'];
-   
-            
             // Retrieve existing records for the given listingId
             $existingRecords = DB::table('role_skill')
                 ->where('listing_id', $listingId)
@@ -150,6 +148,7 @@ class UpdateRoleController extends Controller
             // Identify missing skill IDs between passed in $skills and $existingSkillIds in database
             $missingSkills = array_diff($skills, $existingSkillIds);
 
+
             // Insert new records for the missing skill IDs
             foreach ($missingSkills as $missingSkill) {
                 DB::table('role_skill')
@@ -161,7 +160,7 @@ class UpdateRoleController extends Controller
 
             // Soft delete skill IDs that exist in the database, are not in $skills array, and have a null deleted_at column
             $softDeleteSkills = array_diff($existingSkillIds, $skills);
-
+           
             DB::table('role_skill')
                 ->where('listing_id', $listingId)
                 ->whereIn('skill_id', $softDeleteSkills)
@@ -170,15 +169,14 @@ class UpdateRoleController extends Controller
             // Commit the changes to the database
             DB::commit();
 
-///////////////////////////////////////////////////////////////////
-            
-            //if passed in value is not array, assign it array/////////////////////////////////////////////////////////////////////
+             ////////////////////////////////////////////Start of HIRING MANAGER//////////////////////////////////////////////////////////////////////////////
+             // change to array if passed value not in array
             if (!is_array($requestData['hiringManager'])) {
                 $requestData['hiringManager'] = [$requestData['hiringManager']];
             }
 
             $hiringManagers = $requestData['hiringManager'];
-            ///////////////HIRING MANAGER/////////////////////////////////////////////////////////////////////////////////////////////
+            
             $existingRecords = DB::table('hiring_manager')
                 ->where('listing_id', $listingId)
                 ->whereNull('deleted_at')
@@ -228,25 +226,9 @@ class UpdateRoleController extends Controller
 
             if (!$dept) {
                 return response()->json(['error' => 'Department does not exist'], 400);
-            }
-
-            // Create record for each manager
-            foreach ($hiringManagers as $manager) {
-                DB::table('hiring_manager')->updateOrinsert([
-                    'listing_id' => $listingId,
-                    'staff_id' => $manager,
-                ]);
-            }
-
-            // Create skills for each listing
-            foreach ($skills as $skill) {
-                DB::table('role_skill')->updateOrinsert([
-                    'listing_id' => $listingId,
-                    'skill_id' => $skill,
-                ]);
-            }
-
-            // Insert it back with soft delete
+            }           
+            
+            // Get role_id
             $roleId = $role ? $role->role_id : null;
 
             Role_Listing::updateOrInsert(
@@ -260,15 +242,16 @@ class UpdateRoleController extends Controller
                     'Vacancy' => $vacancy,
                     'Status' => $status,
                     'Deadline' => $deadline,
-                    'deleted_at' => null, // Set the deleted_at column to null for soft delete
+                    'deleted_at' => null, 
                 ]
             );
 
             return response()->json(['message' => 'Fields updated successfully']);
+            // should return webpage here
     }
 
     public function autoFillRoleListing($passedlisting)   
-    { // MNEED TO RETRIEVE COUNTRY
+    { // 
         // Retrieve all role data from the database
         $RoleListing_Table = Role_Listing::where('listing_id', $passedlisting)->get(); 
         //declaring tables
@@ -279,9 +262,8 @@ class UpdateRoleController extends Controller
         $Country_Table = Country::whereIn('country_id', $RoleListing_Table->pluck('country_id'))->get(['country_id','country']);
 
         $Role_Table = Role::whereIn('role_id', $RoleListing_Table->pluck('role_id'))->get(['role_id','role']);
-        //$RoleSkill_Table = Role_Skill::where('listing_id', $passedlisting)->get(['listing_id','skill_id']);
+
         $RoleSkill_Table = Role_Skill::whereIn('listing_id', $RoleListing_Table->pluck('listing_id'))->get(['listing_id','skill_id']);
-        
           
         $Skill_Table = Skill::join('role_skill', 'skill.skill_id', '=', 'role_skill.skill_id')
             ->join('role_listing', function ($join) use ($passedlisting) {
@@ -306,10 +288,7 @@ class UpdateRoleController extends Controller
         $status= $RoleListing_Table->first()->status; 
 
         //$country_id= $RoleListing_Table->first()->country_id;
-       
-
-        $isFirstIteration = true; 
-        
+               
         $staffNames = DB::table('role_listing')
             ->where('hiring_manager.listing_id', $passedlisting)
             ->join('hiring_manager', 'role_listing.listing_id', '=', 'hiring_manager.listing_id')
@@ -319,10 +298,8 @@ class UpdateRoleController extends Controller
             ->toArray();
             
         
-        // Find the corresponding staff record using the role_id
-       
-        //$status = $role->status === 1 ? 'Open' : 'Closed';
-        
+        // Return corresponding records by listingID
+               
             return [
                 //'role_id' => $matchingRole ? $matchingRole->role_id : null,
                 'listingID' => $passedlisting,
@@ -338,9 +315,6 @@ class UpdateRoleController extends Controller
                 'status'=>$status,
                 'country_id'=>$country_id,
                 'country'=>$country,
-                /* 'country_id' => $country_Id,
-                'country' => $country, */
-
             ];
         });
 
@@ -350,7 +324,7 @@ class UpdateRoleController extends Controller
         $countries = $this->retrieveAllCountries();
 
         return view('updateRole', compact('roles', 'departments', 'hiringManagers','skills','countries'));
-        return response()->json($roles);
+        return response()->json($roles);    
     }
         public function retrieveAllDepartments()
         {
@@ -368,7 +342,6 @@ class UpdateRoleController extends Controller
                 ->selectRaw("staff_id, CONCAT(staff_lname, ' ', staff_fname) as hiring_manager_name")
                 ->get();
             return $hiringManagers;
-            return response()->json($hiringManagers);
         }
         
         
@@ -376,8 +349,6 @@ class UpdateRoleController extends Controller
         {
             $skills = Skill::all(['skill_id', 'skill']);
             return $skills;
-            //return view ('updateRole', compact('skills'));
-            return response()->json($skills);
         }
         
         public function retrieveAllCountries()
@@ -385,7 +356,6 @@ class UpdateRoleController extends Controller
             $country = Country::all(['country_id', 'country']);
 
             return $country;
-            return response()->json($country);
         }
            
 }

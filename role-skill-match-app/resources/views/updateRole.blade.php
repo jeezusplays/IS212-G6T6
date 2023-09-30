@@ -147,7 +147,7 @@
                 <!-- Select input (hiringManager) -->
                 <div class="mb-3 col-lg-6">
                     <label for="hiringManager" class="form-label">Select Hiring Manager</label>
-                    <select required id="hiringManager"  style="width:100%"  name="hiringManager" class= "form-select select2" multiple>
+                    <select required id="hiringManager"  style="width:100%"  name="hiringManager[]" class= "form-select select2" multiple>
                         @foreach ($hiringManagers as $hm)
                             <option value = "{{ $hm->staff_id}}" {{ in_array($hm->hiring_manager_name, $role['staff_name']) ? 'selected' : '' }}>
                                 {{$hm->hiring_manager_name}}
@@ -189,7 +189,7 @@
                 <div class="mb-3 col-lg-6">
                   <label for="skills" class="form-label">Skills</label>
                   <br>
-                  <select required id="skills" style="width:100%" multiple name="skills" class= "form-select select2" >
+                  <select required id="skills" style="width:100%" multiple name="skills[]" class= "form-select select2" >
                         @foreach ($skills as $skill)
                             <option value = "{{ $skill -> skill_id }}" {{ in_array($skill -> skill, $role['skills']) ? 'selected' : '' }}>
                                 {{$skill -> skill}}

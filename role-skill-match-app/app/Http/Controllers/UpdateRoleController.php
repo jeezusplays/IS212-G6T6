@@ -122,13 +122,14 @@ class UpdateRoleController extends Controller
         $country_id = $requestData['Country_ID'];
         $status = $requestData['Status'];
 
+
         //if passed in value is not array, assign it array, even if its 1 value
         if (! is_array($requestData['skills'])) {
             $requestData['skills'] = [$requestData['skills']];
         }
 
         $skills = $requestData['skills'];
-
+        
         // Retrieve existing records for the given listingId
         $existingRecords = DB::table('role_skill')
             ->where('listing_id', $listingId)

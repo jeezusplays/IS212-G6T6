@@ -360,4 +360,11 @@ class UpdateRoleController extends Controller
         return $country;
 
     }
+    public function retrieveAllRoles()
+    {
+        $role = Role::all(['role_id', 'role']);
+
+        return $role;
+
+    }
 }

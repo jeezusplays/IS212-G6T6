@@ -4,7 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\UpdateRoleController;
-
+use App\Http\Controllers\RoleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,12 +16,11 @@ use App\Http\Controllers\UpdateRoleController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-use App\Http\Controllers\RoleController;
+Route::get('/role-listings', [RoleController::class, 'retrieveAll']);
 
-Route::get('/role-listings', [RoleController::class, 'index']);
 
-Route::get('/', function(){
-    return view("welcome");
+Route::get('/', function () {
+    return view('welcome');
 });
 
 //store listing data
@@ -37,9 +36,9 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/alldept', [App\Http\Controllers\UpdateRoleController::class, 'retrieveAllSkills'])->name('home');
 
-Auth::routes();
+Route::get('/editresults', [App\Http\Controllers\UpdateRoleController::class, 'autoFillRoleListing'])->name('home');
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/alldepartments', [App\Http\Controllers\UpdateRoleController::class, 'retrieveAllDepartments'])->name('home');
 
 Route::get('/test2', [UpdateRoleController::class, 'retrieveAllHiringManagers']);
 Route::get('/test', [UpdateRoleController::class, 'retrieveAllSkills']);

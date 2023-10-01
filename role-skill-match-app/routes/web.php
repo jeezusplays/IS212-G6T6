@@ -16,7 +16,7 @@ use App\Http\Controllers\RoleController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-Route::get('/role-listings', [RoleController::class, 'retrieveAll']);
+Route::get('/role-listings', [RoleController::class, 'index']);
 
 
 Route::get('/', function () {

@@ -302,14 +302,30 @@
         var description = $("#Description").val();
         var hiringManager = $("#Staff_ID").val();
         
-        if (roleName == '' || workArrangement == '' || department == '' || vacancy == '' || deadline == '' || country == '' || skills == [] || description == '' || hiringManager == []) {
+        if (roleName == '' || workArrangement == '' || department == '' || vacancy == '' || deadline == '' || country == null || skills.length == 0|| description == '' || hiringManager.length == 0) {
           swal({
             title: "All Fields Required",
             text: "Please fill in all fields before submitting",
             icon: "error",
             button: "Back to form",
           });
-        } else {
+        } 
+        else if (selectedDate < currentDate)
+          swal({
+            title: "Deadline Field is Wrong",
+            text: "Your deadline date cannot be in the past",
+            icon: "error",
+            button: "Back to form",
+          })
+        else if (vacancy > 5 || vacancy <1){
+          swal({
+            title: "Vacancy Field is Wrong",
+            text: "The number of vacancy cannot be more than 5 or less than 1",
+            icon: "error",
+            button: "Back to form",
+          })
+        }
+        else {
           swal({
             title: "Role Created",
             text: "Role has been created successfully",

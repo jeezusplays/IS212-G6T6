@@ -72,7 +72,6 @@
       </div>
 
       <!-- FORM -->
-      @foreach ($roles as $role)
       <div class="container">
             <form class="needs-validation" id="form" novalidate action="/create-role" method="POST">
 
@@ -80,7 +79,7 @@
                 <div class="row">
 
                 <!-- Job status & Creator ID -->
-                <input type="hidden" id="Status" name="Status" value="{{$role['status']}}">
+                <input type="hidden" id="Status" name="Status" value="{{$status}}">
                 <input type="hidden" id="Created_By" name="Created_By" value="{{ $Staff_ID }}">
 
                 <!-- Text input (roleTitle) -->
@@ -97,12 +96,8 @@
                     <select required class="form-select" id="Work_Arrangement" name="Work_Arrangement">
                         <option value="" disabled selected>Select work arrangement</option>
                         @foreach ($workArrangementDDL as $work)
-                          <option value = "{{ $work }}">
-                            @if ($work == 1)
-                              Full-time
-                            @else
-                              Part-time
-                            @endif
+                          <option value = "{{ $work['department_id'] }}">
+                            {{ $work['name'] }}
                           </option>
                         @endforeach
                     </select>
@@ -114,29 +109,9 @@
                     <label for="Department_ID" class="form-label">Select Department</label>
                     <select required  class="form-select" id="Department_ID" name="Department_ID">
                     <option value="" disabled selected>Select department</option>
-                        @foreach ($deptDDL as $dept)
-                            <option value = "{{ $dept }}">
-                            @if ($dept == 1)
-                              Sales
-
-                            @elseif ($dept == 2)
-                              Consultancy
-
-                            @elseif ($dept == 3)
-                              System Solutioning
-
-                            @elseif ($dept == 4)
-                              Engineering
-
-                            @elseif ($dept == 5)
-                              HR and Admin
-
-                            @elseif ($dept == 6)
-                              Finance
-
-                            @else
-                              IT
-                            @endif
+                        @foreach ($deptDDL as $department)
+                            <option value = "{{ $department }}">
+                                {{$department}}
                             </option>
                         @endforeach
                     </select>
@@ -149,7 +124,7 @@
                     <select required  id="Staff_ID"  style="width:100%"  name="Staff_ID[]" class= "form-select select2" multiple  aria-placeholder="Select hiring manager(s)">
                         @foreach ($hiringManagerDDL as $hm)
                             <option value = "{{ $hm['Staff_ID'] }}">
-                                {{$hm['Staff_FullName']}}
+                                {{$hm['staff_fname'] . ' ' . $hm['staff_lname}}
                             </option>
                         @endforeach
                     </select>
@@ -176,23 +151,9 @@
                     <label for="Country_ID" class="form-label">Country</label>
                     <select required  class="form-select" id="Country_ID" name="Country_ID">
                         <option value="" disabled selected>Select country</option>
-                        @foreach ($countryID_DDL as $countryID)
-                          <option value = "{{ $countryID }}">
-                            @if ($countryID == 1)
-                              Singapore
-
-                            @elseif ($countryID == 2)
-                              Malaysia
-
-                            @elseif ($countryID == 3)
-                              Indonesia
-
-                            @elseif ($countryID == 4)
-                              Vietnam
-                            
-                            @else
-                              Hong Kong
-                            @endif
+                        @foreach ($countryID_DDL as $country)
+                          <option value = "{{ $country['country'] }}">
+                            {{$country['country']}}
                           </option>
                         @endforeach
                     </select>
@@ -204,50 +165,9 @@
                   <label for="Skills" class="form-label">Skills</label>
                   <br>
                   <select required name="Skills[]" id="Skills" style="width:100%" multiple class= "select2">
-                        @foreach ($skillsDDL as $skill)
-                            <option value = "{{ $skill }}" >
-                              @if ($skill == 1)
-                              Capital Management
-
-                              @elseif ($skill == 2)
-                              Capital Expenditure and Investment Evaluation
-
-                              @elseif ($skill == 3)
-                              People Management
-
-                              @elseif ($skill == 4)
-                              Stakeholder Management
-                              
-                              @elseif ($skill == 5)
-                              Strategy Implementation
-
-                              @elseif ($skill == 6)
-                              Architecture Design
-
-                              @elseif ($skill == 7)
-                              Equipment Maintenance and Housekeeping
-
-                              @elseif ($skill == 8)
-                              Project Risk Management
-
-                              @elseif ($skill == 9)
-                              Employer Branding
-
-                              @elseif ($skill == 10)
-                              Operational Excellence
-                              
-                              @elseif ($skill == 11)
-                              Market Profiling
-
-                              @elseif ($skill == 12)
-                              Financial Reporting
-
-                              @elseif ($skill == 13)
-                              Cyber Security
-
-                              @else
-                              Agile Software Development
-                              @endif
+                        @foreach ($skills as $skill)
+                            <option value = "{{ $skill['skill'] }}" >
+                                {{$skill['skill']}}
                             </option>
                         @endforeach
                   </select>
@@ -257,20 +177,21 @@
                 <!-- Textarea (description) -->
                 <div class="mb-3">
                     <label for="Description" class="form-label">Description</label>
-                    <textarea required class="form-control" id="Description" name="Description" rows="4" placeholder="Enter description"value=" {{$description}} ">{{$description}}</textarea>
+                    <textarea required class="form-control" id="Description" name="Description" rows="4" placeholder="Enter description"value=" {{$description}} ">
+                      {{$description}}
+                    </textarea>
                     <div class="invalid-feedback">Description cannot be empty</div>
                 </div>
             
                   <!-- Submit button -->
                   <div class="container">
-                    <button type="submit" id="submit" class="btn btn-primary me-2">Create Role</button>
+                    <button type="submit" id="submit" class="btn btn-primary me-2">Create Role Listing</button>
                     <!-- <button type="submit" class="btn btn-outline-danger">Cancel</button> -->
                   </div>
                 </div>
 
             </form>
       </div>
-      @endforeach
 
        <!-- Bootstrap Bundle -->
     <script
@@ -284,59 +205,62 @@
 
     <script>
       // Select 2 JS
-      $(document).ready(function() {
-        $(".select2").select2({
-          theme:'classic'
-        });
-      });
-
+      // $(document).ready(
+      //   function() {
+      //     $(".select2").select2(
+      //       {
+      //         theme:'classic'
+      //       }
+      //     );
+      //   }
+      //   );
 
 
       //Alert for successful role creation
-      $("#submit").click(function() {
-        var roleName = $("#Role_Name").val();
-        var workArrangement = $("#Work_Arrangement").val();
-        var department = $("#Department_ID").val();
-        var vacancy = $("#Vacancy").val();
-        var deadline = $("#Deadline").val();
-        var country = $("#Country_ID").val();
-        var skills = $("#Skills").val();
-        var description = $("#Description").val();
-        var hiringManager = $("#Staff_ID").val();
+      // $("#submit").click(function() {
+      //   var roleName = $("#Role_Name").val();
+      //   var workArrangement = $("#Work_Arrangement").val();
+      //   var department = $("#Department_ID").val();
+      //   var vacancy = $("#Vacancy").val();
+      //   var deadline = $("#Deadline").val();
+      //   var country = $("#Country_ID").val();
+      //   var skills = $("#Skills").val();
+      //   var description = $("#Description").val();
+      //   var hiringManager = $("#Staff_ID").val();
         
-        if (roleName == '' || workArrangement == '' || department == '' || vacancy == '' || deadline == '' || country == null || skills.length == 0|| description == '' || hiringManager.length == 0) {
-          swal({
-            title: "All Fields Required",
-            text: "Please fill in all fields before submitting",
-            icon: "error",
-            button: "Back to form",
-          });
-        } 
-        else if (selectedDate < currentDate)
-          swal({
-            title: "Deadline Field is Wrong",
-            text: "Your deadline date cannot be in the past",
-            icon: "error",
-            button: "Back to form",
-          })
-        else if (vacancy > 5 || vacancy <1){
-          swal({
-            title: "Vacancy Field is Wrong",
-            text: "The number of vacancy cannot be more than 5 or less than 1",
-            icon: "error",
-            button: "Back to form",
-          })
-        }
-        else {
-          swal({
-            title: "Role Created",
-            text: "Role has been created successfully",
-            icon: "success",
-            button: "Back",
-          });
-        }
+      //   if (roleName == '' || workArrangement == '' || department == '' || vacancy == '' || deadline == '' || country == null || skills.length == 0|| description == '' || hiringManager.length == 0) {
+      //     swal({
+      //       title: "All Fields Required",
+      //       text: "Please fill in all fields before submitting",
+      //       icon: "error",
+      //       button: "Back to form",
+      //     });
+      //   } 
+      //   else if (selectedDate < currentDate)
+      //     swal({
+      //       title: "Deadline Field is Wrong",
+      //       text: "Your deadline date cannot be in the past",
+      //       icon: "error",
+      //       button: "Back to form",
+      //     })
+      //   else if (vacancy > 5 || vacancy <1){
+      //     swal({
+      //       title: "Vacancy Field is Wrong",
+      //       text: "The number of vacancy cannot be more than 5 or less than 1",
+      //       icon: "error",
+      //       button: "Back to form",
+      //     })
+      //   }
+      //   else {
+      //     swal({
+      //       title: "Role Created",
+      //       text: "Role has been created successfully",
+      //       icon: "success",
+      //       button: "Back",
+      //     });
+      //   }
 
-      });
+      // });
 
 
 

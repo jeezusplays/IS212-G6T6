@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\RoleController;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Request;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,16 +15,8 @@ use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/role-listings', [RoleController::class, 'index']);
-Route::get('/setup-role-listing', [RoleController::class, 'setup']);
-Route::get('/create-role', function () {
 
-    // Call the GET route and get the response
-    $response = Route::dispatch(Request::create('/setup-role-listing', 'GET'));
-
-    // Render the view and pass in the response content
-    return view('/create-role')->with('content', $response->getContent());
-});
-
+Route::get('/create-role', [RoleController::class, 'setup']);
 Route::post('/create-role', [RoleController::class, 'store'])->name('create-role');
 
 Route::get('/', function () {

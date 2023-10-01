@@ -193,38 +193,21 @@ class RoleController extends Controller
             ],
         ];
 
-        // hiring manager
-        // $hiring_managers = Staff::all();
-        $hiring_managers = DB::table('staff')->join('hiring_manager', 'staff.staff_id', '=', 'hiring_manager.staff_id')->select('staff.staff_id', 'staff_fname', 'staff_lname')->get();
+        // hiring managers
+
+        // only get staff who are hiring managers
+        // $hiring_managers = DB::table('staff')->join('hiring_manager', 'staff.staff_id', '=', 'hiring_manager.staff_id')->select('staff.staff_id', 'staff_fname', 'staff_lname')->get();
+
+        // get all staff
+        $hiring_managers = DB::table('staff')->select('staff.staff_id', 'staff_fname', 'staff_lname')->get();
 
         // see what backend is sending to frontend
-        return [ 
-            'header' => 'Create Role',
-
-            // replace when role title input bar has been changed to dropdown
-            'Role_Name' => $role_titles,
-            // 'Role_Name' => '',
-            'title' => '',
-            'vacancy' => 0,
-            'deadline' => '',
-            'skills' => $skills,
-            'description' => '',
-            'deptDDL' => $departments,
-            'workArrangementDDL' => $work_arrangements,
-            'countryID_DDL' => $countries,
-            'hiring_managers' => $hiring_managers,
-            // New role will be open by default
-            'status' => 1,
-            'Staff_ID' => 5,
-        ];
-
-        // return in format that frontend expects / can read
-        // return view('create-role', [
+        // return [
         //     'header' => 'Create Role',
 
         //     // replace when role title input bar has been changed to dropdown
-        //     // 'Role_Name' => $role_titles,
-        //     'Role_Name' => '',
+        //     'Role_Name' => $role_titles,
+        //     // 'Role_Name' => '',
         //     'title' => '',
         //     'vacancy' => 0,
         //     'deadline' => '',
@@ -233,10 +216,32 @@ class RoleController extends Controller
         //     'deptDDL' => $departments,
         //     'workArrangementDDL' => $work_arrangements,
         //     'countryID_DDL' => $countries,
-        //     'Staff_ID' => $hiring_managers,
+        //     'hiring_managers' => $hiring_managers,
         //     // New role will be open by default
         //     'status' => 1,
         //     'Staff_ID' => 5,
-        // ]);
+        // ];
+
+        // return in format that frontend expects / can read
+        return view('create-role', [
+            'header' => 'Create Role',
+
+            // replace when role title input bar has been changed to dropdown
+            // 'Role_Name' => $role_titles,
+            'Role_Name' => '',
+            'title' => '',
+            'vacancy' => 0,
+            'deadline' => '',
+            'skills' => $skills,
+            'description' => '',
+            'deptDDL' => $departments,
+            'workArrangementDDL' => $work_arrangements,
+            'countryID_DDL' => $countries,
+            'Staff_ID' => $hiring_managers,
+            'hiringManagerDDL' => $hiring_managers,
+            // New role will be open by default
+            'status' => 1,
+            'Staff_ID' => 5,
+        ]);
     }
 }

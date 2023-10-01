@@ -96,8 +96,8 @@
                     <select required class="form-select" id="Work_Arrangement" name="Work_Arrangement">
                         <option value="" disabled selected>Select work arrangement</option>
                         @foreach ($workArrangementDDL as $work)
-                          <option value = "{{ $work->department_id }}">
-                            {{ $work->name }}
+                          <option value = "{{ $work['id'] }}">
+                            {{ $work['name'] }}
                           </option>
                         @endforeach
                     </select>
@@ -110,8 +110,8 @@
                     <select required  class="form-select" id="Department_ID" name="Department_ID">
                     <option value="" disabled selected>Select department</option>
                         @foreach ($deptDDL as $department)
-                            <option value = "{{ $department }}">
-                                {{$department}}
+                            <option value = "{{ $department->department_id }}">
+                                {{$department->department}}
                             </option>
                         @endforeach
                     </select>
@@ -123,8 +123,8 @@
                     <label for="Staff_ID" class="form-label">Select Hiring Manager</label>
                     <select required  id="Staff_ID"  style="width:100%"  name="Staff_ID[]" class= "form-select select2" multiple  aria-placeholder="Select hiring manager(s)">
                         @foreach ($hiringManagerDDL as $hm)
-                            <option value = "{{ $hm['Staff_ID'] }}">
-                                {{$hm['staff_fname'] . ' ' . $hm['staff_lname']}}
+                            <option value = "{{ $hm->staff_id }}">
+                                {{$hm->staff_fname . ' ' . $hm->staff_lname}}
                             </option>
                         @endforeach
                     </select>
@@ -166,7 +166,7 @@
                   <br>
                   <select required name="Skills[]" id="Skills" style="width:100%" multiple class= "select2">
                         @foreach ($skills as $skill)
-                            <option value = "{{ $skill->skill }}" >
+                            <option value = "{{ $skill->skill_id }}" >
                                 {{$skill->skill}}
                             </option>
                         @endforeach
@@ -178,7 +178,6 @@
                 <div class="mb-3">
                     <label for="Description" class="form-label">Description</label>
                     <textarea required class="form-control" id="Description" name="Description" rows="4" placeholder="Enter description"value=" {{$description}} ">
-                      {{$description}}
                     </textarea>
                     <div class="invalid-feedback">Description cannot be empty</div>
                 </div>

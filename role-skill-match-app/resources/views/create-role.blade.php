@@ -301,6 +301,7 @@
         var skills = $("#Skills").val();
         var description = $("#Description").val();
         var hiringManager = $("#Staff_ID").val();
+        
         if (roleName == '' || workArrangement == '' || department == '' || vacancy == '' || deadline == '' || country == '' || skills == [] || description == '' || hiringManager == []) {
           swal({
             title: "All Fields Required",

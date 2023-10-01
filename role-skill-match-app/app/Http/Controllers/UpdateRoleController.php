@@ -34,63 +34,6 @@ class UpdateRoleController extends Controller
 {
     public function index()
     {
-        return view('updateRole', [
-            'header' => 'Update',
-
-            //this is the values to pass into view, possibly from backend
-            //retrieved values from role listing
-            'roleID' => '0123',
-            'title' => 'Test Role',
-            'workArrangement' => 'Part Time',
-            'department' => 1,
-            'hiring_managers' => ['Alvin Ho', 'Amy', 'John'],
-            'vacancy' => 1,
-            'deadline' => '2023-10-10',
-            'skills' => [1, 2],
-            'description' => 'Test Job',
-
-            'deptDDL' => [
-                [
-                    'deptID' => 1,
-                    'department' => 'Sales',
-                ],
-                [
-                    'deptID' => 2,
-                    'department' => 'IT',
-                ],
-                [
-                    'deptID' => 3,
-                    'department' => 'HR',
-                ],
-            ],
-
-            'workArrangementDDL' => [
-                'Part Time', 'Full Time',
-            ],
-
-            'hiringManagerDDL' => [ //currently all staff
-                'Amy', 'John', 'Latrice',
-            ],
-
-            'skillsDDL' => [
-                [
-                    'skillID' => 1,
-                    'skill' => 'Python',
-                ],
-                [
-                    'skillID' => 2,
-                    'skill' => 'Excel',
-                ],
-                [
-                    'skillID' => 3,
-                    'skill' => 'Management',
-                ],
-                [
-                    'skillID' => 4,
-                    'skill' => 'Accounting',
-                ],
-            ],
-        ]);
     }
 
     public function store(Request $request)
@@ -318,8 +261,9 @@ class UpdateRoleController extends Controller
         $hiringManagers = $this->retrieveAllHiringManagers();
         $skills = $this->retrieveAllSkills();
         $countries = $this->retrieveAllCountries();
+        $rolesDDL = $this->retrieveAllRoles();
 
-        return view('updateRole', compact('roles', 'departments', 'hiringManagers', 'skills', 'countries'));
+        return view('updateRole', compact('roles', 'rolesDDL', 'departments', 'hiringManagers', 'skills', 'countries'));
 
         return response()->json($roles);
     }

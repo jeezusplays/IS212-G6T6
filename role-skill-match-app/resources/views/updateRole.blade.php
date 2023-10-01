@@ -109,8 +109,14 @@
                 <!-- Text input (jobTitle) -->
                 <div class="mb-3 col-lg-6">
                     <label for="jobTitle" class="form-label">Role Title</label>
-                    <input required class="form-control" id="roleTitle" name="roleTitle" placeholder="Enter title" value = "{{$role['role']}}">
-                    <div class="invalid-feedback">Role Name cannot be empty</div>
+                    <select required class="form-select" style="width:100%" id="roleTitle" name="roleTitle">
+                        @foreach ($rolesDDL as $roleTitle)
+                            <option value = "{{ $roleTitle -> role_id}}" {{ $roleTitle -> role == $role['role'] ? 'selected' : '' }}>
+                                {{$roleTitle -> role }}
+                            </option>
+                        @endforeach
+                    </select>
+                    <div class="invalid-feedback">Role Title cannot be empty</div>
                 </div>
 
                 <!-- Select input (workArrangement) -->
@@ -227,6 +233,7 @@
       <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     
     <script>
+    
       $(document).ready(function() {
         $(".select2").select2({
           theme:'classic'
@@ -259,7 +266,7 @@
         else if (selectedDate < currentDate)
           swal({
             title: "Deadline Field is Wrong",
-            text: "Your deadline date cannot be in the past",
+            text: "Deadline date cannot be in the past",
             icon: "error",
             button: "Back to form",
           })

@@ -15,7 +15,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/role-listings', [RoleController::class, 'index']);
-
+Route::get('/create-role', function () {
+    return view('/create-role');
+});
 Route::get('/setup-role-listing', [RoleController::class, 'setup']);
 Route::post('/create-role', [RoleController::class, 'store'])->name('create-role');
 

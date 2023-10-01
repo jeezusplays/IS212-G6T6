@@ -96,8 +96,8 @@
                     <select required class="form-select" id="Work_Arrangement" name="Work_Arrangement">
                         <option value="" disabled selected>Select work arrangement</option>
                         @foreach ($workArrangementDDL as $work)
-                          <option value = "{{ $work['department_id'] }}">
-                            {{ $work['name'] }}
+                          <option value = "{{ $work->department_id }}">
+                            {{ $work->name }}
                           </option>
                         @endforeach
                     </select>
@@ -152,8 +152,8 @@
                     <select required  class="form-select" id="Country_ID" name="Country_ID">
                         <option value="" disabled selected>Select country</option>
                         @foreach ($countryID_DDL as $country)
-                          <option value = "{{ $country['country'] }}">
-                            {{$country['country']}}
+                          <option value = "{{ $country->country_id }}">
+                            {{$country->country}}
                           </option>
                         @endforeach
                     </select>
@@ -166,8 +166,8 @@
                   <br>
                   <select required name="Skills[]" id="Skills" style="width:100%" multiple class= "select2">
                         @foreach ($skills as $skill)
-                            <option value = "{{ $skill['skill'] }}" >
-                                {{$skill['skill']}}
+                            <option value = "{{ $skill->skill }}" >
+                                {{$skill->skill}}
                             </option>
                         @endforeach
                   </select>

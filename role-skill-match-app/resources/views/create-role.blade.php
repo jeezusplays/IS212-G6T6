@@ -124,7 +124,7 @@
                     <select required  id="Staff_ID"  style="width:100%"  name="Staff_ID[]" class= "form-select select2" multiple  aria-placeholder="Select hiring manager(s)">
                         @foreach ($hiringManagerDDL as $hm)
                             <option value = "{{ $hm['Staff_ID'] }}">
-                                {{$hm['staff_fname'] . ' ' . $hm['staff_lname}}
+                                {{$hm['staff_fname'] . ' ' . $hm['staff_lname']}}
                             </option>
                         @endforeach
                     </select>
@@ -204,75 +204,64 @@
       <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
     <script>
-      // Select 2 JS
-      // $(document).ready(
-      //   function() {
-      //     $(".select2").select2(
-      //       {
-      //         theme:'classic'
-      //       }
-      //     );
-      //   }
-      //   );
-
-
-      //Alert for successful role creation
-      // $("#submit").click(function() {
-      //   var roleName = $("#Role_Name").val();
-      //   var workArrangement = $("#Work_Arrangement").val();
-      //   var department = $("#Department_ID").val();
-      //   var vacancy = $("#Vacancy").val();
-      //   var deadline = $("#Deadline").val();
-      //   var country = $("#Country_ID").val();
-      //   var skills = $("#Skills").val();
-      //   var description = $("#Description").val();
-      //   var hiringManager = $("#Staff_ID").val();
         
-      //   if (roleName == '' || workArrangement == '' || department == '' || vacancy == '' || deadline == '' || country == null || skills.length == 0|| description == '' || hiringManager.length == 0) {
-      //     swal({
-      //       title: "All Fields Required",
-      //       text: "Please fill in all fields before submitting",
-      //       icon: "error",
-      //       button: "Back to form",
-      //     });
-      //   } 
-      //   else if (selectedDate < currentDate)
-      //     swal({
-      //       title: "Deadline Field is Wrong",
-      //       text: "Your deadline date cannot be in the past",
-      //       icon: "error",
-      //       button: "Back to form",
-      //     })
-      //   else if (vacancy > 5 || vacancy <1){
-      //     swal({
-      //       title: "Vacancy Field is Wrong",
-      //       text: "The number of vacancy cannot be more than 5 or less than 1",
-      //       icon: "error",
-      //       button: "Back to form",
-      //     })
-      //   }
-      //   else {
-      //     swal({
-      //       title: "Role Created",
-      //       text: "Role has been created successfully",
-      //       icon: "success",
-      //       button: "Back",
-      //     });
-      //   }
+      //Alert for successful role creation
+      $("#submit").click(function() {
+        var roleName = $("#Role_Name").val();
+        var workArrangement = $("#Work_Arrangement").val();
+        var department = $("#Department_ID").val();
+        var vacancy = $("#Vacancy").val();
+        var deadline = $("#Deadline").val();
+        var country = $("#Country_ID").val();
+        var skills = $("#Skills").val();
+        var description = $("#Description").val();
+        var hiringManager = $("#Staff_ID").val();
+        
+        if (roleName == null || workArrangement == null || department == null || vacancy == null || deadline == null || country == null || skills.length == 0|| description == null || hiringManager.length == 0) {
+          swal({
+            title: "All Fields Required",
+            text: "Please fill in all fields before submitting",
+            icon: "error",
+            button: "Back to form",
+          });
+        } 
+        else if (selectedDate < currentDate)
+          swal({
+            title: "Deadline Field is Wrong",
+            text: "Your deadline date cannot be in the past",
+            icon: "error",
+            button: "Back to form",
+          })
+        else if (vacancy > 5 || vacancy <1){
+          swal({
+            title: "Vacancy Field is Wrong",
+            text: "The number of vacancy cannot be more than 5 or less than 1",
+            icon: "error",
+            button: "Back to form",
+          })
+        }
+        else {
+          swal({
+            title: "Role Created",
+            text: "Role has been created successfully",
+            icon: "success",
+            button: "Back",
+          });
+        }
 
-      // });
+      });
 
 
 
       // Form validation
-      var forms = document.querySelectorAll('.needs-validation');
+      var forms = document.querySelectorAll(".needs-validation");
       Array.prototype.slice.call(forms).forEach(function(form) {
-        form.addEventListener('submit', function(event) {
+        form.addEventListener("submit", function(event) {
           if (!form.checkValidity()) {
             event.preventDefault();
             event.stopPropagation();
           }
-          form.classList.add('was-validated');
+          form.classList.add("was-validated");
         }, false);
       });
 
@@ -291,11 +280,10 @@
       console.log(minDate);
       document.getElementById("Deadline").setAttribute("min", minDate);
 
-      //show Success card
-      // function successCard() {
-      //   var successCard = document.getElementById("success-card");
-      //   successCard.style.display = "block";
-      // }
+      // Select 2 JS
+      $(".select2").select2({
+        theme: "classic"
+      });
 
 
       </script>

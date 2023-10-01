@@ -148,7 +148,7 @@ class UpdateRoleController extends Controller
 
         // Check if job title exists, get role_id
         $role = DB::table('role')
-            ->where('role', $jobTitle)
+            ->where('role_id', $jobTitle)
             ->first();
 
         if (! $role) {

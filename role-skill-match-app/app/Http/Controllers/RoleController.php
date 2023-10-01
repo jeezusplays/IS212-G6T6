@@ -198,7 +198,7 @@ class RoleController extends Controller
         $hiring_managers = DB::table('staff')->join('hiring_manager', 'staff.staff_id', '=', 'hiring_manager.staff_id')->select('staff.staff_id', 'staff_fname', 'staff_lname')->get();
 
         // see what backend is sending to frontend
-        return [
+        return [ 
             'header' => 'Create Role',
 
             // replace when role title input bar has been changed to dropdown

@@ -67,19 +67,20 @@
       <!-- HEADER -->
       <div class="container my-4">
         
-        <h2>{{$header}}</h2>
+        <h2>Create Role</h2>
         <!-- <a class="btn btn-primary" href="" role="button">Link</a> -->
       </div>
 
       <!-- FORM -->
+      @foreach ($roles as $role)
       <div class="container">
-            <form class="needs-validation" novalidate action="/create-role" method="POST">
+            <form class="needs-validation" id="form" novalidate action="/create-role" method="POST">
 
                 @csrf
                 <div class="row">
 
                 <!-- Job status & Creator ID -->
-                <input type="hidden" id="Status" name="Status" value="{{$status}}">
+                <input type="hidden" id="Status" name="Status" value="{{$role['status']}}">
                 <input type="hidden" id="Created_By" name="Created_By" value="{{ $Staff_ID }}">
 
                 <!-- Text input (roleTitle) -->
@@ -269,6 +270,7 @@
 
             </form>
       </div>
+      @endforeach
 
        <!-- Bootstrap Bundle -->
     <script

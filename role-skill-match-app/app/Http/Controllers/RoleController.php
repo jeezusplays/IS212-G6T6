@@ -35,8 +35,9 @@ class RoleController extends Controller
             // Find the corresponding staff record using the role_id
             $staffRecord = $Staff_Table->where('role_id', $role->role_id)->first();
             $applicationCount = $Application_Table->where('listing_id', $role->listing_id)->first();
-
+            $vacancy = $role->vacancy;
             $status = $role->status === 1 ? 'Open' : 'Closed';
+            $work_arrangement = $role->work_arrangement === 1 ? 'Part Time' : 'Full Time';
 
             return [
                 'listing_id' => $role->listing_id, // listing_id
@@ -46,6 +47,8 @@ class RoleController extends Controller
                 'full_name' => $staffRecord ? $staffRecord->full_name : null, // listed by
                 'status' => $status, // status
                 'total_applications' => $applicationCount ? $applicationCount->total_applications : 0, // total_applications
+                'vacancy' => $vacancy, // vacancy
+                'work_arrangement' => $work_arrangement, // work_arrangement
             ];
         });
         return view('role-listings', compact('roles'));

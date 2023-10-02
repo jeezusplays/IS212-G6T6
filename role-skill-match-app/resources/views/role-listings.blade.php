@@ -38,9 +38,6 @@
                     <li class="nav-item">
                         <a class="nav-link" href="http://localhost:8000/create-role">Create Role Listing</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="http://localhost:8000/update-role">Edit Role Listing</a>
-                    </li>
                 </ul>
             </div>
             <div class="dropdown">
@@ -51,8 +48,8 @@
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     <li><a class="dropdown-item" href="http://localhost:8000/role-listings">HR Staff</a></li>
-                    <li><a class="dropdown-item" href="http://localhost:8000/role-listings-staff">Staff</a></li>
-                    <li><a class="dropdown-item" href="http://localhost:8000/role-listings-manager">Manager</a></li>
+                    <li><a class="dropdown-item" href="http://localhost:8000/browse-roles">Staff</a></li>
+                    <li><a class="dropdown-item" href="http://localhost:8000/role-listings-management">Manager</a></li>
                 </ul>
             </div>
         </nav>
@@ -103,11 +100,11 @@
                 <div
                     class="col-xl-4 col-md-6 col-sm-12 role-card @if ($role['status'] == 'Open') open-role @else closed-role @endif">
                     <div class="card mb-3">
-                        <a href="http://localhost:8000/view/roleID={{ $role['role_id'] }}/listingID={{ $role['listing_id'] }}"
+                        <a href="http://localhost:8000/view/listingID={{ $role['listing_id'] }}"
                             class="card-title-link">
                             <div class="card-header card-title p-3 d-flex justify-content-between align-items-center">
-                                <h5 class="m-0">{{ $role['role'] }}</h5>
-                                <a href="http://localhost:8000/edit/roleID={{ $role['role_id'] }}/listingID={{ $role['listing_id'] }}"
+                                <h5 class="m-0">{{ $role['role'] }} ({{ $role['work_arrangement'] }})</h5>
+                                <a href="http://localhost:8000/edit/listingID={{ $role['listing_id'] }}"
                                     class="btn btn-sm btn-outline-primary">
                                     Edit Listing
                                 </a>
@@ -121,6 +118,7 @@
                             </p>
                             <p class="card-text">Creation Date: {{ $role['created_at'] }}</p>
                             <p class="card-text">Listed By: {{ $role['full_name'] }}</p>
+                            <p class="card-text">Vacancy: {{ $role['vacancy'] }}</p>
                             <p class="card-text" id="card-status">
                                 Status:
                                 @if ($role['status'] == 'Open')

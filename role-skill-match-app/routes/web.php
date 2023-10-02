@@ -18,6 +18,8 @@ use App\Http\Controllers\RoleController;
 */
 Route::get('/role-listings', [RoleController::class, 'index']);
 
+# Route for browse-roles page
+Route::get('browse-roles', [App\Http\Controllers\BrowseAllRoleController::class, 'index_view'])->name('browse-roles');
 
 Route::get('/', function () {
     return view('welcome');

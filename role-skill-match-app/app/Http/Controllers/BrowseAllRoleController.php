@@ -52,7 +52,7 @@ class BrowseAllRoleController extends Controller
             ];
         });
         return view('browse-roles', compact('roles'));
-        // return response()->json($roles);
+        return response()->json($roles);
     }
 
 }

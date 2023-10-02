@@ -38,9 +38,6 @@
                     <li class="nav-item">
                         <a class="nav-link" href="http://localhost:8000/create-role">Create Role Listing</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="http://localhost:8000/update-role">Edit Role Listing</a>
-                    </li>
                 </ul>
             </div>
             <div class="dropdown">
@@ -51,8 +48,8 @@
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     <li><a class="dropdown-item" href="http://localhost:8000/role-listings">HR Staff</a></li>
-                    <li><a class="dropdown-item" href="http://localhost:8000/role-listings-staff">Staff</a></li>
-                    <li><a class="dropdown-item" href="http://localhost:8000/role-listings-manager">Manager</a></li>
+                    <li><a class="dropdown-item" href="http://localhost:8000/browse-roles">Staff</a></li>
+                    <li><a class="dropdown-item" href="http://localhost:8000/role-listings-management">Manager</a></li>
                 </ul>
             </div>
         </nav>

@@ -52,6 +52,7 @@ class BrowseAllRoleController extends Controller
             ];
         });
         return view('browse-roles', compact('roles'));
+        // For testing purposes only, to view the JSON data
         return response()->json($roles);
     }
 

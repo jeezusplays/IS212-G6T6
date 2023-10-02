@@ -43,12 +43,12 @@
         <div class="dropdown">
             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
                 data-bs-toggle="dropdown" aria-expanded="false">
-                {{-- Retrieve default HR staff name [Park Bo Gum, Role id = 5] from database --}}
-                {{ $roles[0]['full_name'] }} (Staff)
+                {{-- Default staff name [Lee Ji Eun, Role id = 1] from database --}}
+                Lee Ji Eun (Staff)
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <li><a class="dropdown-item" href="http://localhost:8000/browse-roles">Staff</a></li>
                 <li><a class="dropdown-item" href="http://localhost:8000/role-listings">HR Staff</a></li>
+                <li><a class="dropdown-item" href="http://localhost:8000/browse-roles">Staff</a></li>
                 <li><a class="dropdown-item" href="http://localhost:8000/role-listings-management">Manager</a></li>
             </ul>
         </div>
@@ -97,6 +97,7 @@
                     <p class="card-text">Skills: Skill 1, Skill 2, Skill 3</p>
                     <p class="card-text"><i>Application Closes on: 10 Oct 2023  </i></p>
                     <p class="card-text">Status: {{ $role['status'] }}</p>
+                    <p class="card-text">Applicants: {{ $role['total_applications'] }}</p>
                     <a href="#" class="btn btn-primary">View Details</a>
                 </div>
             </div>

@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-Use App\Models\Role_Listing;
-Use App\Models\Role;
-Use App\Models\Hiring_Manager;
-Use App\Models\Staff;
-Use App\Models\Application;
+use App\Models\Role_Listing;
+use App\Models\Role;
+use App\Models\Hiring_Manager;
+use App\Models\Staff;
+use App\Models\Role_Skill;
+
+use App\Models\Application;
 use Illuminate\Support\Facades\DB;
 
 class BrowseAllRoleController extends Controller
@@ -44,7 +46,10 @@ class BrowseAllRoleController extends Controller
             ->selectRaw('role_listing.country_id, country.country')
             ->get();
 
-        $roles = $RoleListing_Table->map(function ($role) use ($Role_Table, $Department_Table, $Staff_Table, $Application_Table, $Country_Table) {
+        // Retrieve skill_id values for each listing_id
+        $SkillIds = Role_Skill::select('listing_id', 'skill_id')->get();
+
+        $roles = $RoleListing_Table->map(function ($role) use ($Role_Table, $Department_Table, $Staff_Table, $Application_Table, $Country_Table, $SkillIds) {
 
             $matchingRole = $Role_Table->firstWhere('role_id', $role->role_id);
 
@@ -53,6 +58,18 @@ class BrowseAllRoleController extends Controller
             $country = $Country_Table->firstWhere('country_id', $role->country_id); // country
             $staffRecord = $Staff_Table->where('role_id', $role->role_id)->first();
             $applicationCount = $Application_Table->where('listing_id', $role->listing_id)->first();
+            // Find the skill_id values for the current listing_id
+            // $skills = $SkillIds->where('listing_id', $role->listing_id)->pluck('skill_id')->toArray();
+
+            // Find the skill_id values for the current listing_id
+            $skillIds = $SkillIds->where('listing_id', $role->listing_id)->pluck('skill_id')->toArray();
+
+            // Retrieve skill names from the Skills table based on the skill IDs
+            $skills = DB::table('skill')
+                ->whereIn('skill_id', $skillIds)
+                ->pluck('skill')
+                ->toArray();
+
             $vacancy = $role->vacancy;
             $status = $role->status === 1 ? 'Open' : 'Closed';
             $work_arrangement = $role->work_arrangement === 1 ? 'Part Time' : 'Full Time';
@@ -69,12 +86,11 @@ class BrowseAllRoleController extends Controller
                 'total_applications' => $applicationCount ? $applicationCount->total_applications : 0, // total_applications
                 'vacancy' => $vacancy, // vacancy
                 'work_arrangement' => $work_arrangement, // work_arrangement
+                'skills' => $skills // skills
             ];
         });
         return view('browse-roles', compact('roles'));
         // For testing purposes only, to view the JSON data
         return response()->json($roles);
     }
-
 }
-

@@ -41,8 +41,7 @@
             </ul>
         </div>
         <div class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
-                data-bs-toggle="dropdown" aria-expanded="false">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                 {{-- Default staff name [Lee Ji Eun, Role id = 1] from database --}}
                 Lee Ji Eun (Staff)
             </button>
@@ -94,8 +93,15 @@
                     <p class="card-text">Department: {{ $role['department'] }}</p>
                     <p class="card-text">Location: {{ $role['country'] }}</p>
                     <p class="card-text">Posted: {{ $role['created_at'] }}</p>
-                    <p class="card-text">Skills: Skill 1, Skill 2, Skill 3</p>
-                    <p class="card-text"><i>Application Closes on: 10 Oct 2023  </i></p>
+                    <p class="card-text">Skills:
+                        @foreach ($role['skills'] as $index => $skill)
+                            {{ $skill }}
+                            @if (!$loop->last)
+                                ,
+                            @endif
+                        @endforeach
+                    </p>
+                    <p class="card-text"><i>Application Closes on: 10 Oct 2023 </i></p>
                     <p class="card-text">Status: {{ $role['status'] }}</p>
                     <p class="card-text">Applicants: {{ $role['total_applications'] }}</p>
                     <a href="#" class="btn btn-primary">View Details</a>
@@ -104,4 +110,4 @@
             @endforeach
         </div>
 
-</div>
+    </div>

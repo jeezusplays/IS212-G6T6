@@ -24,28 +24,27 @@
 @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 
 <body>
-{{-- Top Menu Bar --}}
+    {{-- Top Menu Bar --}}
     <div id="app" class="container">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="http://localhost:8000/role-listings">
+            <a class="navbar-brand" href="http://localhost:8000/role-listings">
                 <img src="{{ asset('favicon-32x32.png') }}" alt="Company Logo">
             </a>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item active">
                         <a class="nav-link" href="http://localhost:8000/role-listings">View Role Listings</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="http://localhost:8000/create-role">Create Role Listing</a>
-                        </li>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="http://localhost:8000/create-role">Create Role Listing</a>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="http://localhost:8000/update-role">Edit Role Listing</a>
                     </li>
                 </ul>
             </div>
             <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
-                    data-bs-toggle="dropdown" aria-expanded="false">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                     {{-- Retrieve default HR staff name [Park Bo Gum, Role id = 5] from database --}}
                     {{ $roles[4]['full_name'] }} (HR Staff)
                 </button>
@@ -63,75 +62,69 @@
         <div class="row justify-content-between">
             <div class="col-md-5 p-3 d-flex">
                 <div class="input-group">
-                    <input style="display:inline-block; position:relative" type="text" class="form-control"
-                        placeholder="Search for roles" id="myInput">
+                    <input style="display:inline-block; position:relative" type="text" class="form-control" placeholder="Search for roles" id="myInput">
                     <div class="input-group-append">
-                        <button class="btn btn-primary" type="button" onclick="searchJobs()"
-                            id="searchbutton">Search</button>
+                        <button class="btn btn-primary" type="button" onclick="searchJobs()" id="searchbutton">Search</button>
                     </div>
                 </div>
             </div>
         </div>
-            <!-- Filter by Status Dropdown Checkbox -->
-            <div class="col-md-6 p-3 d-flex justify-content-end">
-                <div class="btn-group">
-                    <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false" id="filterButton">
-                        Filter by Status
-                    </button>
-                    <div class="dropdown-menu" id="filterDropdown" style="max-height: 200px; overflow-y: auto;">
-                        <label class="dropdown-item">
-                            <input type="checkbox" class="status-filter" value="Open" checked> Open
-                        </label>
-                        <label class="dropdown-item">
-                            <input type="checkbox" class="status-filter" value="Closed" checked> Closed
-                        </label>
-                    </div>
+        <!-- Filter by Status Dropdown Checkbox -->
+        <div class="col-md-6 p-3 d-flex justify-content-end">
+            <div class="btn-group">
+                <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="filterButton">
+                    Filter by Status
+                </button>
+                <div class="dropdown-menu" id="filterDropdown" style="max-height: 200px; overflow-y: auto;">
+                    <label class="dropdown-item">
+                        <input type="checkbox" class="status-filter" value="Open" checked> Open
+                    </label>
+                    <label class="dropdown-item">
+                        <input type="checkbox" class="status-filter" value="Closed" checked> Closed
+                    </label>
                 </div>
             </div>
         </div>
+    </div>
 
-        <div id="searchErrorAlert" class="alert alert-danger" style="display: none;">
-            Your search input contains invalid characters and is not supported.
-        </div>
+    <div id="searchErrorAlert" class="alert alert-danger" style="display: none;">
+        Your search input contains invalid characters and is not supported.
+    </div>
 
-        <h1 class="my-3">Role Listings</h1>
+    <h1 class="my-3">Role Listings</h1>
 
-        {{-- Loop through your role data and display each role in a card --}}
-        <div class="row" id="roleCardsContainer">
-            @foreach ($roles as $role)
-            <div
-                class="col-xl-4 col-md-6 col-sm-12 role-card @if ($role['status'] == 'Open') open-role @else closed-role @endif">
-                <div class="card mb-3">
-                    <a href="http://localhost:8000/view/roleID={{ $role['role_id'] }}/listingID={{ $role['listing_id'] }}"
-                        class="card-title-link">
-                        <div class="card-header card-title p-3 d-flex justify-content-between align-items-center">
-                            <h5 class="m-0">{{ $role['role'] }}</h5>
-                            <a href="http://localhost:8000/edit/roleID={{ $role['role_id'] }}/listingID={{ $role['listing_id'] }}"
-                                class="btn btn-sm btn-outline-primary">
-                                Edit Listing
-                            </a>
-                        </div>
-                    </a>
-                    <div class="card-body">
-                        <p class="card-text">Applications received:
-                            {{ $role['total_applications'] }}
-                            <a href="#" class="@if ($role['total_applications'] > 0)  @endif">[View
-                                Applications]</a>
-                        </p>
-                        <p class="card-text">Creation Date: {{ $role['created_at'] }}</p>
-                        <p class="card-text">Listed By: {{ $role['full_name'] }}</p>
-                        <p class="card-text" id="card-status">
-                            Status:
-                            @if ($role['status'] == 'Open')
-                                <span class="text-success">Open</span>
-                            @else
-                                <span class="text-danger">Closed</span>
-                            @endif
-                        </p>
+    {{-- Loop through your role data and display each role in a card --}}
+    <div class="row" id="roleCardsContainer">
+        @foreach ($roles as $role)
+        <div class="col-xl-4 col-md-6 col-sm-12 role-card @if ($role['status'] == 'Open') open-role @else closed-role @endif">
+            <div class="card mb-3">
+                <a href="http://localhost:8000/view/roleID={{ $role['role_id'] }}/listingID={{ $role['listing_id'] }}" class="card-title-link">
+                    <div class="card-header card-title p-3 d-flex justify-content-between align-items-center">
+                        <h5 class="m-0">{{ $role['role'] }}</h5>
+                        <a href="http://localhost:8000/edit/roleID={{ $role['role_id'] }}/listingID={{ $role['listing_id'] }}" class="btn btn-sm btn-outline-primary">
+                            Edit Listing
+                        </a>
                     </div>
+                </a>
+                <div class="card-body">
+                    <p class="card-text">Applications received:
+                        {{ $role['total_applications'] }}
+                        <a href="#" class="@if ($role['total_applications'] > 0)  @endif">[View
+                            Applications]</a>
+                    </p>
+                    <p class="card-text">Creation Date: {{ $role['created_at'] }}</p>
+                    <p class="card-text">Listed By: {{ $role['full_name'] }}</p>
+                    <p class="card-text" id="card-status">
+                        Status:
+                        @if ($role['status'] == 'Open')
+                        <span class="text-success">Open</span>
+                        @else
+                        <span class="text-danger">Closed</span>
+                        @endif
+                    </p>
                 </div>
             </div>
+        </div>
         @endforeach
     </div>
 
@@ -188,18 +181,17 @@
             if (selectedStatusFilters.length == 0) {
                 card.style.display = "none";
                 counter++;
-            }
-            else if (jobTitle.indexOf(currentSearchInput) > -1 &&
+            } else if (jobTitle.indexOf(currentSearchInput) > -1 &&
                 (selectedStatusFilters.length === 0 || selectedStatusFilters.includes(status))
             ) {
                 card.style.display = "";
-            
+
             } else {
                 card.style.display = "none";
                 counter++;
             }
         });
-        
+
         // Check if there are any visible cards
         if (counter == document.querySelectorAll(".role-card").length) {
             // If no visible cards, display the placeholder card
@@ -222,11 +214,10 @@
 
         if (!isValid && sanitizedInput !== "") {
             document.getElementById("searchErrorAlert").style.display = "block";
-        }
-        else {
+        } else {
             document.getElementById("searchErrorAlert").style.display = "none";
         }
     }
-
 </script>
+
 </html>

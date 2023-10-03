@@ -13,8 +13,8 @@ class Hiring_Manager extends Model
     // links to factory for seeding
     use HasFactory;
 
-       // Many-to-one relationship with `Role` Model
-       protected $table = 'Hiring_Manager';
+    // Many-to-one relationship with `Role` Model
+    protected $table = 'Hiring_Manager';
 
     // Many-to-one relationship with `Staff` Model
     public function role_manager_staff(): BelongsTo
@@ -29,6 +29,6 @@ class Hiring_Manager extends Model
     }
 
     protected $primaryKey = ['listing_id', 'staff_id'];
-    protected $fillable = ['listing_id','staff_id'];
+    protected $fillable = ['listing_id', 'staff_id'];
     public $incrementing = false; // Set to false for composite primary key
 }

@@ -68,20 +68,32 @@
     {{-- Sample Job Listing Card --}}
     <div class="row">
         <div class="col-md-3 my-3">
-            <!-- Filters Section (3 columns) -->
-            <select class="form-select mb-3">
-                <option value="" selected>Filter by Department</option>
-                {{-- Add department options dynamically --}}
-            </select>
-            <select class="form-select mb-3">
-                <option value="" selected>Filter by Location</option>
-                {{-- Add location options dynamically --}}
-            </select>
-            <select class="form-select mb-3">
-                <option value="" selected>Filter by Skillsets</option>
-                {{-- Add skillset options dynamically --}}
-            </select>
-            <button class="btn btn-primary w-100">Apply Filters</button>
+            <form action="{{ route('browse-roles') }}" method="GET">
+                @csrf
+                <!-- Filters Section (3 columns) -->
+                <select class="form-select mb-3">
+                    <option value="" selected>Filter by Department</option>
+                    <!-- {{-- Add department options dynamically --}} -->
+                    @foreach ($departments as $department)
+                    <option value="{{ $department }}">{{ $department }}</option>
+                    @endforeach
+                </select>
+                <select class="form-select mb-3">
+                    <option value="" selected>Filter by Location</option>
+                    {{-- Add location options dynamically --}}
+                    @foreach ($countries as $country)
+                        <option value="{{ $country }}">{{ $country }}</option>
+                    @endforeach
+                </select>
+                <select class="form-select mb-3">
+                    <option value="" selected>Filter by Skillsets</option>
+                    {{-- Add skillset options dynamically --}}
+                    @foreach ($skills as $skill)
+                        <option value="{{ $skill }}">{{ $skill }}</option>
+                    @endforeach
+                </select>
+                <button class="btn btn-primary w-100">Apply Filters</button>
+            </form>
         </div>
 
         <div class="col-md-9">
@@ -95,7 +107,7 @@
                     <p class="card-text">Posted: {{ $role['created_at'] }}</p>
                     <p class="card-text">Skills:
                         @foreach ($role['skills'] as $index => $skill)
-                            {{ $skill }}@if (!$loop->last), @endif
+                        {{ $skill }}@if (!$loop->last), @endif
                         @endforeach
                     </p>
                     <p class="card-text"><i>Application Closes on: {{ $role['deadline'] }} </i></p>

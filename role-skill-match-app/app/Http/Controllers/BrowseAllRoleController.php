@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\DB;
 
 class BrowseAllRoleController extends Controller
 {
-    public function index_view()
+    public function index_view(Request $request)
     {
         // Retrieve all role listing data
         $RoleListing_Table = Role_Listing::all();
@@ -49,6 +49,26 @@ class BrowseAllRoleController extends Controller
         // Retrieve skill_id values for each listing_id
         $SkillIds = Role_Skill::select('listing_id', 'skill_id')->get();
 
+        // Define arrays for departments, skills, and countries
+        $departments = DB::table('department')->pluck('department')->toArray();
+        $skills = DB::table('skill')->pluck('skill')->toArray();
+        $countries = DB::table('country')->pluck('country')->toArray();
+
+        // Apply filters
+        $filteredRoles = $RoleListing_Table;
+
+        if ($request->has('department_filter')) {
+            $filteredRoles = $filteredRoles->whereIn('department_id', $Department_Table->pluck('department_id')->toArray());
+        }
+
+        if ($request->has('skill_filter')) {
+            $filteredRoles = $filteredRoles->whereIn('listing_id', $SkillIds->whereIn('skill_id', $skills)->pluck('listing_id')->toArray());
+        }
+
+        if ($request->has('country_filter')) {
+            $filteredRoles = $filteredRoles->whereIn('country_id', $Country_Table->pluck('country_id')->toArray());
+        }
+
         $roles = $RoleListing_Table->map(function ($role) use ($Role_Table, $Department_Table, $Staff_Table, $Application_Table, $Country_Table, $SkillIds) {
 
             $matchingRole = $Role_Table->firstWhere('role_id', $role->role_id);
@@ -58,18 +78,8 @@ class BrowseAllRoleController extends Controller
             $country = $Country_Table->firstWhere('country_id', $role->country_id); // country
             $staffRecord = $Staff_Table->where('role_id', $role->role_id)->first();
             $applicationCount = $Application_Table->where('listing_id', $role->listing_id)->first();
-            // Find the skill_id values for the current listing_id
-            // $skills = $SkillIds->where('listing_id', $role->listing_id)->pluck('skill_id')->toArray();
-
-            // Find the skill_id values for the current listing_id
-            $skillIds = $SkillIds->where('listing_id', $role->listing_id)->pluck('skill_id')->toArray();
-
-            // Retrieve skill names from the Skills table based on the skill IDs
-            $skills = DB::table('skill')
-                ->whereIn('skill_id', $skillIds)
-                ->pluck('skill')
-                ->toArray();
-
+            $skillIds = $SkillIds->where('listing_id', $role->listing_id)->pluck('skill_id')->toArray(); // Find the skill_id values for the current listing_id
+            $skills = DB::table('skill')->whereIn('skill_id', $skillIds)->pluck('skill')->toArray(); // Retrieve skill names from the Skills table based on the skill IDs
             $vacancy = $role->vacancy;
             $status = $role->status === 1 ? 'Open' : 'Closed';
             $work_arrangement = $role->work_arrangement === 1 ? 'Part Time' : 'Full Time';
@@ -90,7 +100,7 @@ class BrowseAllRoleController extends Controller
                 'deadline' => $role->deadline, // deadline
             ];
         });
-        return view('browse-roles', compact('roles'));
+        return view('browse-roles', compact('roles', 'departments', 'skills', 'countries'));
         // For testing purposes only, to view the JSON data
         return response()->json($roles);
     }

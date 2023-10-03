@@ -216,10 +216,10 @@
             icon: "error",
             button: "Back to form",
           });
-        } else if (selectedDate < currentDate)
+        } else if (selectedDate.getDate() < currentDate.getDate())
           swal({
             title: "Deadline Field is Wrong",
-            text: "Your deadline date cannot be in the past",
+            text: "Your deadline date cannot be in the past" + currentDate,
             icon: "error",
             button: "Back to form",
           })

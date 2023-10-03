@@ -152,6 +152,8 @@ class UpdateRoleController extends Controller
             ->first();
 
         if (! $role) {
+            // Return view to the user current page on error, back to the form
+            // return redirect()->back()->withErrors(['Job title does not exist']);
             return response()->json(['error' => 'Job title does not exist'], 400);
         }
 
@@ -161,6 +163,8 @@ class UpdateRoleController extends Controller
             ->value('department_id');
 
         if (! $dept) {
+            // Return view to the user current page on error, back to the form
+            // return redirect()->back()->withErrors(['Department does not exist']);
             return response()->json(['error' => 'Department does not exist'], 400);
         }
 
@@ -181,7 +185,8 @@ class UpdateRoleController extends Controller
                 'deleted_at' => null, // Set the deleted_at column to null for soft delete
             ]
         );
-
+        // Return view to the user current page on success, back to the form
+        return redirect()->back()->with('success', 'Role updated successfully');
         return response()->json(['message' => 'Fields updated successfully']);
     }
 
@@ -263,7 +268,7 @@ class UpdateRoleController extends Controller
         $countries = $this->retrieveAllCountries();
         $rolesDDL = $this->retrieveAllRoles();
 
-        return view('updateRole', compact('roles', 'rolesDDL', 'departments', 'hiringManagers', 'skills', 'countries'));
+        return view('update-role', compact('roles', 'rolesDDL', 'departments', 'hiringManagers', 'skills', 'countries'));
 
         return response()->json($roles);
     }

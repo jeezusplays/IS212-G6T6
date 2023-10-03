@@ -91,7 +91,7 @@
             <div class="card my-3">
                 <div class="card-body">
                     <h5 class="card-title">{{ $role['role'] }} ({{ $role['work_arrangement'] }})</h5>
-                    <p class="card-text">Department: Department 1</p>
+                    <p class="card-text">Department: {{ $role['department'] }}</p>
                     <p class="card-text">Location: Location 1</p>
                     <p class="card-text">Posted: {{ $role['created_at'] }}</p>
                     <p class="card-text">Skills: Skill 1, Skill 2, Skill 3</p>

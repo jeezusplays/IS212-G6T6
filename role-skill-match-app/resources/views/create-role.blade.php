@@ -1,209 +1,200 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>All-In-One (HR)</title>
-    <!-- <link rel="icon" type="image/x-icon" href="../img/favicon.ico" /> -->
-    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
-    <!-- Bootstrap CSS -->
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
-      crossorigin="anonymous"
-    />
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>All-In-One (HR)</title>
+  <!-- <link rel="icon" type="image/x-icon" href="../img/favicon.ico" /> -->
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
-    <!-- select2 CDN -->
-    <!-- Styles --> 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />
-    <!-- Or for RTL support -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.rtl.min.css" />
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous" />
 
-    <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.0/dist/jquery.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+  <!-- select2 CDN -->
+  <!-- Styles -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />
+  <!-- Or for RTL support -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.rtl.min.css" />
 
-  </head>
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.0/dist/jquery.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
-  <body>
-    <div id="app">
+</head>
 
-      <!-- NAVBAR-->
-        <div class="container">
-        {{-- Top Menu Bar --}}
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="#">
-                <img src="{{ asset('favicon-32x32.png') }}" alt="Company Logo">
-            </a>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#">View Role Listings</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Create Role Listing</a>
-                    </li>
-                </ul>
-            </div>
-            <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                    Current User's Name (HR Staff)
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <li><a class="dropdown-item" href="#">HR Staff</a></li>
-                    <li><a class="dropdown-item" href="#">Staff</a></li>
-                    <li><a class="dropdown-item" href="#">Manager</a></li>
-                </ul>
-            </div>
-        </nav>
+<body>
+  <div id="app">
+
+    <!-- NAVBAR-->
+    <div class="container">
+      {{-- Top Menu Bar --}}
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">
+          <img src="{{ asset('favicon-32x32.png') }}" alt="Company Logo">
+        </a>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item active">
+              <a class="nav-link" href="#">View Role Listings</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Create Role Listing</a>
+            </li>
+          </ul>
+        </div>
+        <div class="dropdown">
+          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+            Current User's Name (HR Staff)
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <li><a class="dropdown-item" href="#">HR Staff</a></li>
+            <li><a class="dropdown-item" href="#">Staff</a></li>
+            <li><a class="dropdown-item" href="#">Manager</a></li>
+          </ul>
+        </div>
+      </nav>
     </div>
 
-      <!-- HEADER -->
-      <div class="container my-4">
-        
-        <h2>Create Role</h2>
-        <!-- <a class="btn btn-primary" href="" role="button">Link</a> -->
-      </div>
+    <!-- HEADER -->
+    <div class="container my-4">
 
-      <!-- FORM -->
-      <div class="container">
-            <form class="needs-validation" id="form" novalidate action="/create-role" method="POST">
+      <h2>Create Role</h2>
+      <!-- <a class="btn btn-primary" href="" role="button">Link</a> -->
+    </div>
 
-                @csrf
-                <div class="row">
+    <!-- FORM -->
+    <div class="container">
+      <form class="needs-validation" id="form" novalidate action="/create-role" method="POST">
 
-                <!-- Job status & Creator ID -->
-                <input type="hidden" id="Status" name="Status" value="{{$status}}">
-                <input type="hidden" id="Created_By" name="Created_By" value="{{ $Staff_ID }}">
+        @csrf
+        <div class="row">
 
-                <!-- Text input (roleTitle) -->
-                <div class="mb-3 col-lg-6">
-                    <label for="Role_Name" class="form-label">Role Title</label>
-                    <input required class="form-control" id="Role_Name" name="Role_Name" placeholder="Enter title" value="{{$Role_Name}}">
-                    <div class="invalid-feedback">Role Name cannot be empty</div>
-                </div>
-                
+          <!-- Job status & Creator ID -->
+          <input type="hidden" id="Status" name="Status" value="{{$status}}">
+          <input type="hidden" id="Created_By" name="Created_By" value="{{ $Staff_ID }}">
 
-                <!-- Select input (workArrangement) -->
-                <div class="mb-3 col-lg-6">
-                    <label for="Work_Arrangement" class="form-label">Work Arrangement</label>
-                    <select required class="form-select" id="Work_Arrangement" name="Work_Arrangement">
-                        <option value="" disabled selected>Select work arrangement</option>
-                        @foreach ($workArrangementDDL as $work)
-                          <option value = "{{ $work['id'] }}">
-                            {{ $work['name'] }}
-                          </option>
-                        @endforeach
-                    </select>
-                    <div class="invalid-feedback">Work Arrangement cannot be empty</div>
-                </div>
+          <!-- Text input (roleTitle) -->
+          <div class="mb-3 col-lg-6">
+            <label for="Role_Name" class="form-label">Role Title</label>
+            <input required class="form-control" id="Role_Name" name="Role_Name" placeholder="Enter title" value="{{$Role_Name}}">
+            <div class="invalid-feedback">Role Name cannot be empty</div>
+          </div>
 
-                <!-- Select input (department) -->
-                <div class="mb-3 col-lg-6">
-                    <label for="Department_ID" class="form-label">Select Department</label>
-                    <select required  class="form-select" id="Department_ID" name="Department_ID">
-                    <option value="" disabled selected>Select department</option>
-                        @foreach ($deptDDL as $department)
-                            <option value = "{{ $department->department_id }}">
-                                {{$department->department}}
-                            </option>
-                        @endforeach
-                    </select>
-                    <div class="invalid-feedback">Department cannot be empty</div>
-                </div>
 
-                <!-- Select input (hiringManager) -->
-                <div class="mb-3 col-lg-6">
-                    <label for="Staff_ID" class="form-label">Select Hiring Manager</label>
-                    <select required  id="Staff_ID"  style="width:100%"  name="Staff_ID[]" class= "form-select select2" multiple  aria-placeholder="Select hiring manager(s)">
-                        @foreach ($hiringManagerDDL as $hm)
-                            <option value = "{{ $hm->staff_id }}">
-                                {{$hm->staff_fname . ' ' . $hm->staff_lname}}
-                            </option>
-                        @endforeach
-                    </select>
-                    <div class="invalid-feedback">You must select at least 1 hiring manager</div>
-                </div>
+          <!-- Select input (workArrangement) -->
+          <div class="mb-3 col-lg-6">
+            <label for="Work_Arrangement" class="form-label">Work Arrangement</label>
+            <select required class="form-select" id="Work_Arrangement" name="Work_Arrangement">
+              <option value="" disabled selected>Select work arrangement</option>
+              @foreach ($workArrangementDDL as $work)
+              <option value="{{ $work['id'] }}">
+                {{ $work['name'] }}
+              </option>
+              @endforeach
+            </select>
+            <div class="invalid-feedback">Work Arrangement cannot be empty</div>
+          </div>
 
-                <!-- Number input (vacancy) -->
-                <div class="mb-3 col-lg-6">
-                    <label for="Vacancy" class="form-label">Vacancy</label>
-                    <input type="number" max="5" min="1" class="form-control" id="Vacancy" name="Vacancy" placeholder="Enter vacancy" value = "{{$vacancy}}">
-                    <div class="invalid-feedback">You must have between 1 and 5 vacancies.</div>
-                </div>
+          <!-- Select input (department) -->
+          <div class="mb-3 col-lg-6">
+            <label for="Department_ID" class="form-label">Select Department</label>
+            <select required class="form-select" id="Department_ID" name="Department_ID">
+              <option value="" disabled selected>Select department</option>
+              @foreach ($deptDDL as $department)
+              <option value="{{ $department->department_id }}">
+                {{$department->department}}
+              </option>
+              @endforeach
+            </select>
+            <div class="invalid-feedback">Department cannot be empty</div>
+          </div>
 
-                <!-- Date picker -->
-                <div class="mb-3 col-lg-6">
-                  <label for="Deadline" class="form-label">Deadline</label>
-                  <input type="date" required class="form-control" id="Deadline" name="Deadline" placeholder="DD/MM/YYYY" value="{{$deadline}}">
-                  <div class="invalid-feedback">You must select a date later than today.</div>
-                </div>
-                
+          <!-- Select input (hiringManager) -->
+          <div class="mb-3 col-lg-6">
+            <label for="Staff_ID" class="form-label">Select Hiring Manager</label>
+            <select required id="Staff_ID" style="width:100%" name="Staff_ID[]" class="form-select select2" multiple aria-placeholder="Select hiring manager(s)">
+              @foreach ($hiringManagerDDL as $hm)
+              <option value="{{ $hm->staff_id }}">
+                {{$hm->staff_fname . ' ' . $hm->staff_lname}}
+              </option>
+              @endforeach
+            </select>
+            <div class="invalid-feedback">You must select at least 1 hiring manager</div>
+          </div>
 
-                <!-- Country ID -->
-                <div class="mb-3 col-lg-6">
-                    <label for="Country_ID" class="form-label">Country</label>
-                    <select required  class="form-select" id="Country_ID" name="Country_ID">
-                        <option value="" disabled selected>Select country</option>
-                        @foreach ($countryID_DDL as $country)
-                          <option value = "{{ $country->country_id }}">
-                            {{$country->country}}
-                          </option>
-                        @endforeach
-                    </select>
-                    <div class="invalid-feedback">Country cannot be empty</div>
-                </div>
+          <!-- Number input (vacancy) -->
+          <div class="mb-3 col-lg-6">
+            <label for="Vacancy" class="form-label">Vacancy</label>
+            <input type="number" max="5" min="1" class="form-control" id="Vacancy" name="Vacancy" placeholder="Enter vacancy" value="{{$vacancy}}">
+            <div class="invalid-feedback">You must have between 1 and 5 vacancies.</div>
+          </div>
 
-                <!-- Skills Required -->
-                <div class="mb-3 col-lg-6">
-                  <label for="Skills" class="form-label">Skills</label>
-                  <br>
-                  <select required name="Skills[]" id="Skills" style="width:100%" multiple class= "select2">
-                        @foreach ($skills as $skill)
-                            <option value = "{{ $skill->skill_id }}" >
-                                {{$skill->skill}}
-                            </option>
-                        @endforeach
-                  </select>
-                  <div class="invalid-feedback">You must select at least 1 skill.</div>
-                </div>
-    
-                <!-- Textarea (description) -->
-                <div class="mb-3">
-                    <label for="Description" class="form-label">Description</label>
-                    <textarea required class="form-control" id="Description" name="Description" rows="4" placeholder="Enter description"value=" {{$description}} ">
-                    </textarea>
-                    <div class="invalid-feedback">Description cannot be empty</div>
-                </div>
-            
-                  <!-- Submit button -->
-                  <div class="container">
-                    <button type="submit" id="submit" class="btn btn-primary me-2">Create Role Listing</button>
-                    <!-- <button type="submit" class="btn btn-outline-danger">Cancel</button> -->
-                  </div>
-                </div>
+          <!-- Date picker -->
+          <div class="mb-3 col-lg-6">
+            <label for="Deadline" class="form-label">Deadline</label>
+            <input type="date" required class="form-control" id="Deadline" name="Deadline" placeholder="DD/MM/YYYY" value="{{$deadline}}">
+            <div class="invalid-feedback">You must select a date later than today.</div>
+          </div>
 
-            </form>
-      </div>
 
-       <!-- Bootstrap Bundle -->
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
-      crossorigin="anonymous"
-    ></script>
+          <!-- Country ID -->
+          <div class="mb-3 col-lg-6">
+            <label for="Country_ID" class="form-label">Country</label>
+            <select required class="form-select" id="Country_ID" name="Country_ID">
+              <option value="" disabled selected>Select country</option>
+              @foreach ($countryID_DDL as $country)
+              <option value="{{ $country->country_id }}">
+                {{$country->country}}
+              </option>
+              @endforeach
+            </select>
+            <div class="invalid-feedback">Country cannot be empty</div>
+          </div>
 
-        <!-- sweetalert -->
-      <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+          <!-- Skills Required -->
+          <div class="mb-3 col-lg-6">
+            <label for="Skills" class="form-label">Skills</label>
+            <br>
+            <select required name="Skills[]" id="Skills" style="width:100%" multiple class="select2">
+              @foreach ($skills as $skill)
+              <option value="{{ $skill->skill_id }}">
+                {{$skill->skill}}
+              </option>
+              @endforeach
+            </select>
+            <div class="invalid-feedback">You must select at least 1 skill.</div>
+          </div>
+
+          <!-- Textarea (description) -->
+          <div class="mb-3">
+            <label for="Description" class="form-label">Description</label>
+            <input required class="form-control" id="Description" name="Description" rows="4" placeholder="" value="{{$description}}">
+            </input>
+            <div class="invalid-feedback">Description cannot be empty</div>
+          </div>
+
+          <!-- Submit button -->
+          <div class="container">
+            <button type="submit" id="submit" class="btn btn-primary me-2">Create Role Listing</button>
+            <!-- <button type="submit" class="btn btn-outline-danger">Cancel</button> -->
+          </div>
+        </div>
+
+      </form>
+    </div>
+
+    <!-- Bootstrap Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+
+    <!-- sweetalert -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
     <script>
-        
       //Alert for successful role creation
       $("#submit").click(function() {
         var roleName = $("#Role_Name").val();
@@ -215,31 +206,29 @@
         var skills = $("#Skills").val();
         var description = $("#Description").val();
         var hiringManager = $("#Staff_ID").val();
-        
-        if (roleName == null || workArrangement == null || department == null || vacancy == null || deadline == null || country == null || skills.length == 0|| description == null || hiringManager.length == 0) {
+
+        if (roleName == null || workArrangement == null || department == null || vacancy == null || deadline == null || country == null || skills.length == 0 || description == null || hiringManager.length == 0) {
           swal({
             title: "All Fields Required",
             text: "Please fill in all fields before submitting",
             icon: "error",
             button: "Back to form",
           });
-        } 
-        else if (selectedDate < currentDate)
+        } else if (selectedDate < currentDate)
           swal({
             title: "Deadline Field is Wrong",
             text: "Your deadline date cannot be in the past",
             icon: "error",
             button: "Back to form",
           })
-        else if (vacancy > 5 || vacancy <1){
+        else if (vacancy > 5 || vacancy < 1) {
           swal({
             title: "Vacancy Field is Wrong",
             text: "The number of vacancy cannot be more than 5 or less than 1",
             icon: "error",
             button: "Back to form",
           })
-        }
-        else {
+        } else {
           swal({
             title: "Role Created",
             text: "Role has been created successfully",
@@ -270,7 +259,7 @@
       if (todayDate < 10) {
         todayDate = "0" + todayDate;
       }
-      var todayMonth = today.getMonth()+1;
+      var todayMonth = today.getMonth() + 1;
       if (todayMonth < 10) {
         todayMonth = "0" + todayMonth;
       }
@@ -283,9 +272,8 @@
       $(".select2").select2({
         theme: "classic"
       });
-
-
-      </script>
+    </script>
 
 </body>
+
 </html>

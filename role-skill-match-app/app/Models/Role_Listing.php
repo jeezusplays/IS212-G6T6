@@ -61,10 +61,14 @@ class Role_Listing extends Model
     protected $primaryKey = 'listing_id';   
 
     protected $fillable = [
+        'role_id',
         'description',
+        'department_id',
+        'country_id',
         'work_arrangement',
         'vacancy',
         'status',
-        'deadline'
+        'deadline',
+        'created_by',
     ];
 }

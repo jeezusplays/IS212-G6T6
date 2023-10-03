@@ -95,10 +95,7 @@
                     <p class="card-text">Posted: {{ $role['created_at'] }}</p>
                     <p class="card-text">Skills:
                         @foreach ($role['skills'] as $index => $skill)
-                            {{ $skill }}
-                            @if (!$loop->last)
-                                ,
-                            @endif
+                            {{ $skill }}@if (!$loop->last), @endif
                         @endforeach
                     </p>
                     <p class="card-text"><i>Application Closes on: 10 Oct 2023 </i></p>

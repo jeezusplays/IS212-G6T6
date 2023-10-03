@@ -86,7 +86,8 @@ class BrowseAllRoleController extends Controller
                 'total_applications' => $applicationCount ? $applicationCount->total_applications : 0, // total_applications
                 'vacancy' => $vacancy, // vacancy
                 'work_arrangement' => $work_arrangement, // work_arrangement
-                'skills' => $skills // skills
+                'skills' => $skills, // skills
+                'deadline' => $role->deadline, // deadline
             ];
         });
         return view('browse-roles', compact('roles'));

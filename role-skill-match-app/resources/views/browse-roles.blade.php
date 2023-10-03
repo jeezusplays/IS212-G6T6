@@ -98,7 +98,7 @@
                             {{ $skill }}@if (!$loop->last), @endif
                         @endforeach
                     </p>
-                    <p class="card-text"><i>Application Closes on: 10 Oct 2023 </i></p>
+                    <p class="card-text"><i>Application Closes on: {{ $role['deadline'] }} </i></p>
                     <p class="card-text">Status: {{ $role['status'] }}</p>
                     <p class="card-text">Applicants: {{ $role['total_applications'] }}</p>
                     <a href="#" class="btn btn-primary">View Details</a>

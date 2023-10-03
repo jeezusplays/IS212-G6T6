@@ -31,34 +31,36 @@
   <div id="app">
 
     <!-- NAVBAR-->
-    <div class="container">
-      {{-- Top Menu Bar --}}
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">
-          <img src="{{ asset('favicon-32x32.png') }}" alt="Company Logo">
-        </a>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav">
-            <li class="nav-item active">
-              <a class="nav-link" href="#">View Role Listings</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Create Role Listing</a>
-            </li>
-          </ul>
-        </div>
-        <div class="dropdown">
-          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-            Current User's Name (HR Staff)
-          </button>
-          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <li><a class="dropdown-item" href="#">HR Staff</a></li>
-            <li><a class="dropdown-item" href="#">Staff</a></li>
-            <li><a class="dropdown-item" href="#">Manager</a></li>
-          </ul>
-        </div>
-      </nav>
-    </div>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="http://localhost:8000/role-listings">
+                <img src="{{ asset('favicon-32x32.png') }}" alt="Company Logo">
+            </a>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="http://localhost:8000/role-listings">View Role Listings</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="http://localhost:8000/create-role">Create Role Listing</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="http://localhost:8000/update-role">Edit Role Listing</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                    {{-- Retrieve default HR staff name [Park Bo Gum, Role id = 5] from database --}}
+                    {{ $hiringManagerDDL[4]->staff_fname . ' ' . $hiringManagerDDL[4]->staff_lname }} (HR Staff)
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <li><a class="dropdown-item" href="http://localhost:8000/role-listings">HR Staff</a></li>
+                    <li><a class="dropdown-item" href="http://localhost:8000/role-listings-staff">Staff</a></li>
+                    <li><a class="dropdown-item" href="http://localhost:8000/role-listings-manager">Manager</a></li>
+                </ul>
+            </div>
+        </nav>
 
     <!-- HEADER -->
     <div class="container my-4">

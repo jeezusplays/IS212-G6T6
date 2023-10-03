@@ -38,12 +38,19 @@ class BrowseAllRoleController extends Controller
             ->selectRaw('role_listing.role_id, CONCAT(staff.staff_lname, " ", staff.staff_fname) AS full_name')
             ->get();
 
-        $roles = $RoleListing_Table->map(function ($role) use ($Role_Table, $Department_Table, $Staff_Table, $Application_Table) {
+        // Retrieve all country data where country_id is in the Role_Listing table
+        $Country_Table = DB::table('country')
+            ->join('role_listing', 'country.country_id', '=', 'role_listing.country_id')
+            ->selectRaw('role_listing.country_id, country.country')
+            ->get();
+
+        $roles = $RoleListing_Table->map(function ($role) use ($Role_Table, $Department_Table, $Staff_Table, $Application_Table, $Country_Table) {
 
             $matchingRole = $Role_Table->firstWhere('role_id', $role->role_id);
 
             // Find the corresponding staff record using the role_id
             $department = $Department_Table->firstWhere('department_id', $role->department_id); // department
+            $country = $Country_Table->firstWhere('country_id', $role->country_id); // country
             $staffRecord = $Staff_Table->where('role_id', $role->role_id)->first();
             $applicationCount = $Application_Table->where('listing_id', $role->listing_id)->first();
             $vacancy = $role->vacancy;
@@ -55,6 +62,7 @@ class BrowseAllRoleController extends Controller
                 'role_id' => $role->role_id, // role_id
                 'role' => $matchingRole ? $matchingRole->role : null, // job title
                 'department' => $department ? $department->department : null, // department
+                'country' => $country ? $country->country : null, // country
                 'created_at' => $role->created_at->format('Y-m-d'), // creation_date
                 'full_name' => $staffRecord ? $staffRecord->full_name : null, // listed by
                 'status' => $status, // status

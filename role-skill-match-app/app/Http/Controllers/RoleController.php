@@ -149,8 +149,9 @@ class RoleController extends Controller
             $staffRecord = $Staff_Table->where('role_id', $role->role_id)->first();
 
             $applicationCount = $Application_Table->where('listing_id', $role->listing_id)->first();
-
+            $vacancy = $role->vacancy;
             $status = $role->status === 1 ? 'Open' : 'Closed';
+            $work_arrangement = $role->work_arrangement === 1 ? 'Part Time' : 'Full Time';
 
             return [
                 //'role_id' => $matchingRole ? $matchingRole->role_id : null,
@@ -159,7 +160,8 @@ class RoleController extends Controller
                 'full_name' => $staffRecord ? $staffRecord->full_name : null, //listed by
                 'status' => $status,
                 'total_applications' => $applicationCount ? $applicationCount->total_applications : 0, // total_applications
-
+                'vacancy' => $vacancy, // vacancy
+                'work_arrangement' => $work_arrangement, // work_arrangement
             ];
         });
 

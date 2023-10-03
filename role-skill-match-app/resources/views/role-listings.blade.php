@@ -51,8 +51,8 @@
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     <li><a class="dropdown-item" href="http://localhost:8000/role-listings">HR Staff</a></li>
-                    <li><a class="dropdown-item" href="http://localhost:8000/role-listings-staff">Staff</a></li>
-                    <li><a class="dropdown-item" href="http://localhost:8000/role-listings-manager">Manager</a></li>
+                    <li><a class="dropdown-item" href="http://localhost:8000/browse-roles">Staff</a></li>
+                    <li><a class="dropdown-item" href="http://localhost:8000/role-listings-management">Manager</a></li>
                 </ul>
             </div>
         </nav>

@@ -9,6 +9,7 @@
 - [ ] Code reviewed
 - [ ] Acceptance criteria met
 - [ ] Test cases passed
+- [ ] C4 diagram checked
 - [ ] Product owner accepted
 
 ## Screenshots (if applicable)

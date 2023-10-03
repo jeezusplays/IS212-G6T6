@@ -46,7 +46,7 @@ class RoleController extends Controller
         // Check if role already exists in the database
         $role = Role::where('role', $request->input('Role_Name'))->first();
 
-        if (! $role) {
+        if (!$role) {
             // return error message
             return redirect()->back()->withErrors(['Role does not exist']);
         }
@@ -64,7 +64,8 @@ class RoleController extends Controller
                 'vacancy' => $request->input('Vacancy'),
                 'deadline' => $request->input('Deadline'),
                 'created_by' => $request->input('Created_By'),
-            ]);
+            ]
+        );
 
         // Check if role was recently created or not
         if ($role_listing->wasRecentlyCreated) {
@@ -98,14 +99,15 @@ class RoleController extends Controller
 
             // Role was created, return 200 OK HTTP code
             return redirect('/create-role')->with('success', 'Role created successfully!');
-
         } else {
             // Role already exists, return 409 Conflict HTTP code
             return response()->json(
                 [
                     'error' => 'Conflict, role already exists',
                     'listing_create' => $role_listing->wasRecentlyCreated,
-                ], 409);
+                ],
+                409
+            );
         }
     }
 
@@ -166,7 +168,6 @@ class RoleController extends Controller
         });
 
         return response()->json($roles);
-
     }
 
     public function setup()

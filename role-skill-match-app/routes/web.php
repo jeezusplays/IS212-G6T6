@@ -1,7 +1,11 @@
 <?php
 
-use App\Http\Controllers\RoleController;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\UpdateRoleController;
+use App\Http\Controllers\RoleController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -12,8 +16,6 @@ use Illuminate\Support\Facades\Auth;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-use Illuminate\Support\Facades\Route;
-
 Route::get('/role-listings', [RoleController::class, 'index']);
 
 Route::get('/create-role', [RoleController::class, 'setup']);
@@ -23,126 +25,19 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
+//store listing data
+Route::post('/updateRole', [UpdateRoleController::class, 'store']);
 
-// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+//get listing 
+Route::get('/edit/listingID={passedlisting}', [UpdateRoleController::class, 'autoFillRoleListing']);
 
 // Auth::routes();
 
-// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/alldept', [App\Http\Controllers\UpdateRoleController::class, 'retrieveAllSkills'])->name('home');
 
-// Route::get('/create-role', function () {
-//     return view('create-role', [
-//         'header' => 'Create Role',
-//         // 'role' =>$existingRole,
+Route::get('/alldepartments', [App\Http\Controllers\UpdateRoleController::class, 'retrieveAllDepartments'])->name('home');
 
-//         //this is the values to pass into frontend, possibly from backend
-//         //retrieved values from role listing
-//         'Role_Name' => '',
-//         'title' => '',
-//         'vacancy' => 0,
-//         'deadline' => '',
-//         'skills' => [],
-//         'description' => '',
-//         'deptDDL' => [
-//             1,
-//             2,
-//             3,
-//             4,
-//             5,
-//             6,
-//             7,
-//         ],
+Route::get('/hiringManagerDDL', [UpdateRoleController::class, 'retrieveAllHiringManagers']);
+Route::get('/skillsDDL', [UpdateRoleController::class, 'retrieveAllSkills']);
 
-//         'workArrangementDDL' => [
-//             1,
-//             2,
-//         ],
-
-//         'countryID_DDL' => [
-//             1,
-//             2,
-//             3,
-//             4,
-//             5,
-//         ],
-
-//         'Staff_ID' => 5,
-
-//         // New role will be open by default
-//         'status' => 1,
-
-//         'hiringManagerDDL' => [
-//             [
-//                 'Staff_ID' => 1,
-//                 'Staff_FullName' => 'Derek Tan',
-//             ],
-
-//             [
-//                 'Staff_ID' => 2,
-//                 'Staff_FullName' => 'Ernest Sim',
-//             ],
-
-//             [
-//                 'Staff_ID' => 3,
-//                 'Staff_FullName' => 'Eric Loh',
-//             ],
-//             [
-//                 'Staff_ID' => 4,
-//                 'Staff_FullName' => 'Philip Lee',
-//             ],
-//             [
-//                 'Staff_ID' => 5,
-//                 'Staff_FullName' => 'Sally Loh',
-//             ],
-//             [
-//                 'Staff_ID' => 6,
-//                 'Staff_FullName' => 'David Yap',
-//             ],
-//             [
-//                 'Staff_ID' => 7,
-//                 'Staff_FullName' => 'Peter Yap',
-//             ],
-//         ],
-
-//         'skillsDDL' => [
-//             1,
-//             2,
-//             3,
-//             4,
-//             5,
-//             6,
-//             7,
-//             8,
-//             9,
-//             10,
-//             11,
-//             12,
-//             13,
-//             14,
-//         ],
-
-//         'dummyRoleList' => [
-
-//             [
-//                 'Role_ID' => 1,
-//                 'Role_Name' => 'Sales Manager',
-//                 'Description' => 'Manage sales team',
-//                 'Department_ID' => 1, // Sales
-//                 'Country_ID' => 1, //Singapore
-//                 'Work_Arrangement' => 'Full-time',
-//                 'Vacancy' => 5,
-//                 'Status' => 1, //Open
-//                 'Deadline' => '31/12/2023',
-//                 'Creation_Date' => '20/9/2023',
-//                 'Created_By' => 'Park Bo Gum',
-//                 'Skills' => [
-//                     'Python',
-//                     'Excel',
-//                     'Management',
-//                 ],
-//             ],
-
-//         ],
-//     ]);
-// });

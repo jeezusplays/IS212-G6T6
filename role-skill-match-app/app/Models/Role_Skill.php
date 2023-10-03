@@ -28,9 +28,6 @@ class Role_Skill extends Model
     protected $table = 'Role_Skill';
 
     protected $primaryKey = ['listing_id', 'skill_id'];
-
-    protected $fillable = [
-        'listing_id',
-        'skill_id',
-    ];
+    protected $fillable = ['listing_id', 'skill_id'];
+    public $incrementing = false; // Set to false for composite primary key
 }

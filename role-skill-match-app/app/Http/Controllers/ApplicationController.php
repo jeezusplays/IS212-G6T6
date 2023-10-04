@@ -9,11 +9,6 @@ class ApplicationController extends Controller
 {
     //
 
-    public function index()
-    {
-        return csrf_token();
-    }
-
     public function store(Request $request)
     {
         $application = Application::firstOrCreate([

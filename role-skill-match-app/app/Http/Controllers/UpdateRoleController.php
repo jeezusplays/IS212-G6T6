@@ -187,7 +187,7 @@ class UpdateRoleController extends Controller
         );
         // Return view to the user current page on success, back to the form
         return redirect()->back()->with('success', 'Role updated successfully');
-        return response()->json(['message' => 'Fields updated successfully']);
+        //return response()->json(['message' => 'Fields updated successfully']);
     }
 
     public function autoFillRoleListing($passedlisting)

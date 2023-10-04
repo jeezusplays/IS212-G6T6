@@ -197,6 +197,14 @@
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
     <script>
+      @if(session('success'))
+        swal({
+          title: "Role Updated",
+          text: "Role has been updated successfully",
+          icon: "success",
+        });
+      @endif
+
       //Alert for successful role creation
       $("#submit").click(function() {
         var roleName = $("#Role_Name").val();
@@ -230,15 +238,7 @@
             icon: "error",
             button: "Back to form",
           })
-        } else {
-          swal({
-            title: "Role Created",
-            text: "Role has been created successfully",
-            icon: "success",
-            button: "Back",
-          });
-        }
-
+        } 
       });
 
 

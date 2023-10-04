@@ -61,7 +61,7 @@
         <div class="mb-3">
             <form class="d-flex" onsubmit="searchJobs(); return false;">
                 <input class="form-control me-2 form-control-lg" id="myInput" type="search" placeholder="Search by Job Title" aria-label="Search">
-                <button class="btn btn-outline-success form-control-lg" id="searchButton" type="submit">
+                <button class="btn btn-success form-control-lg" id="searchButton" type="submit">
                     Search
                 </button>
             </form>
@@ -108,7 +108,7 @@
                 <a href="http://localhost:8000/listingID={{ $role['listing_id'] }}" class="card-title-link">
                     <div class="card my-3 role-card">
                         <h5 class="card-title card-header p-3 d-flex justify-content-between align-items-center" style="background-color: #dbeffc">{{ $role['role'] }} ({{ $role['work_arrangement'] }})
-                            <a href="#" class="btn btn-primary">View Details</a>
+                            <a href="#" class="btn btn-sm btn-outline-primary">View Details</a>
                         </h5>
                 </a>
 

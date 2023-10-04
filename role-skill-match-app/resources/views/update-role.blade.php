@@ -232,8 +232,7 @@
         });
 
         //Alert for successful role creation
-        $("form.needs-validation").submit(function(event) {
-            event.preventDefault();
+        $("#submit").click(function() {
             var roleName = $("#roleTitle").val();
             var workArrangement = $("#workArrangement").val();
             var department = $("#department").val();

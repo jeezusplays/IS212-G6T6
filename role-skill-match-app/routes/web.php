@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\UpdateRoleController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\ViewRoleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,3 +42,4 @@ Route::get('/alldepartments', [App\Http\Controllers\UpdateRoleController::class,
 Route::get('/hiringManagerDDL', [UpdateRoleController::class, 'retrieveAllHiringManagers']);
 Route::get('/skillsDDL', [UpdateRoleController::class, 'retrieveAllSkills']);
 
+Route::get('/view-role', [ViewRoleController::class, 'index']);

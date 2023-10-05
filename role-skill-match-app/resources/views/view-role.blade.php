@@ -20,6 +20,19 @@
         #grey-box{
             background-color: rgb(223, 231, 242);
         }
+
+        .skill{
+            background-color: rgb(223, 231, 242);
+            border: none;
+            color: black;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 16px;
+        }
     </style>
   </head>
 
@@ -58,6 +71,7 @@
     </div>
 
     <div class="container-sm">
+        @foreach ($roles as $role)
         <div class="row mt-5 mb-4">
             <div class="col-12 col-sm-8 text-start">
                 <h1>Software Engineer</h1>
@@ -71,21 +85,66 @@
         
         <div class="row p-3 gy-2 gy-sm-0" id="grey-box">
             <div class="col-12 col-sm-4">
-                Department: Information Technology 
+                <b>Department</b> {{$role['department']}}
             </div>
             <div class="col-12 col-sm-4">
-                Work Arrangement: Part Time
+                <b>Work Arrangement</b> 
+                @if ($role['work_arrangement'] == 1)
+                Full Time
+                @else 
+                Part Time
+                @endif
             </div>
             <div class="col-12 col-sm-4">
-                Location: Singapore
+                <b>Location</b> {{$role['country']}}
             </div>
         </div>
 
-        <div class="row">
+        <div class="row mt-5">
             <div class="col">
-
+                <h3>Job Description</h3>
             </div>
         </div>
+
+        <div class="row mt-2">
+            <div class="col">
+                {{$role['description']}}
+            </div>
+        </div>
+
+        <div class="row mt-5">
+            <div class="col">
+                <h3>Skills</h3>
+            </div>
+        </div>
+
+
+        <div class="row mt-2">
+            <div class="col">
+                @foreach ($role['skills'] as $skill)
+                    <button class="skill">{{$skill}}</span>
+                @endforeach
+            </div>
+        </div>
+        
+        <div class="row mt-5">
+            <div class="col">
+                <h3>Vacancy</h3>
+            </div>
+        </div>
+
+        <div class="row mt-2">
+            <div class="col">
+                {{$role['vacancy']}} positions
+            </div>
+        </div>
+
+        <div class="row mt-5">
+            <div class="col text-danger">
+                This listing closes on {{$role['deadline']}}
+            </div>
+        </div>
+        @endforeach
     </div>
     <script>
         document.getElementById()

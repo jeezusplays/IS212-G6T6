@@ -141,40 +141,38 @@
         {{-- Filter --}}
         <div class="row">
             <div class="col-md-3 my-3">
-                <form action="{{ route('browse-roles') }}" method="GET">
-                    @csrf
-                    <!-- Filters Section (3 columns) -->
-                    <select class="form-select mb-3" id="filterDepartment">
-                        <option value="" selected>Filter by Department</option>
-                        <!-- {{-- Add department options dynamically --}} -->
-                        @foreach ($departments as $department)
-                        <option value="{{ $department }}">{{ $department }}</option>
-                        @endforeach
-                    </select>
-                    <select class="form-select mb-3" id="filterLocation">
-                        <option value="" selected>Filter by Location</option>
-                        {{-- Add location options dynamically --}}
-                        @foreach ($countries as $country)
-                        <option value="{{ $country }}">{{ $country }}</option>
-                        @endforeach
-                    </select>
-                    <select class="form-select mb-3" id="filterSkillsets">
-                        <option value="" selected>Filter by Skillsets</option>
-                        {{-- Add skillset options dynamically --}}
-                        @foreach ($skills as $skill)
-                        <option value="{{ $skill }}">{{ $skill }}</option>
-                        @endforeach
-                    </select>
-                    <button id="filterButton" class="btn btn-primary w-100" onclick="filterJobs()">Apply Filters</button>
-                </form>
+                <!-- Filters Section (3 columns) -->
+                <select class="form-select mb-3" id="filterDepartment">
+                    <option value="" selected>Filter by Department</option>
+                    <!-- Add department options dynamically -->
+                    @foreach ($departments as $department)
+                    <option value="{{ $department }}">{{ $department }}</option>
+                    @endforeach
+                </select>
+                <select class="form-select mb-3" id="filterLocation">
+                    <option value="" selected>Filter by Location</option>
+                    <!-- Add location options dynamically -->
+                    @foreach ($countries as $country)
+                    <option value="{{ $country }}">{{ $country }}</option>
+                    @endforeach
+                </select>
+                <select class="form-select mb-3" id="filterSkillsets">
+                    <option value="" selected>Filter by Skillsets</option>
+                    <!-- Add skillset options dynamically -->
+                    @foreach ($skills as $skill)
+                    <option value="{{ $skill }}">{{ $skill }}</option>
+                    @endforeach
+                </select>
+                <button id="filterButton" class="btn btn-primary w-100" onclick="filterJobs()">Apply Filters</button>
             </div>
+
 
             <!-- Job Listing Card -->
             <div class="col-md-9">
                 @foreach ($roles as $role)
                 @if ($role['status'] == 'Open')
                 <a href="http://localhost:8000/listingID={{ $role['listing_id'] }}" class="card-title-link">
-                    <div class="card my-3 role-card">
+                    <div class="card my-3 role-card" data-department="{{ $role['department'] }}" data-location="{{ $role['country'] }}">
                         <h5 class="card-title card-header p-3 d-flex justify-content-between align-items-center" style="background-color: #dbeffc">{{ $role['role'] }} ({{ $role['work_arrangement'] }})
                             <a href="#" class="btn btn-sm btn-outline-primary">View Details</a>
                         </h5>
@@ -200,7 +198,7 @@
                             <p class="card-text mb-0 mt-3 d-inline"><b>Skills:</b>
                             <div class="grid-container">
                                 @foreach ($role['skills'] as $index => $skill)
-                                <div class="skill-item">{{ $skill }}</div>
+                                <div class="skill-item" id = "skilldata" data-skillsets="{{ json_encode($role['skills']) }}">{{ $skill }}</div>
                                 @endforeach
                             </div>
                             </p>
@@ -340,10 +338,49 @@
 
     // Filter functionality for dropdowns to apply to role cards
     function filterJobs() {
-        // Collect selected filter values
         const departmentFilter = document.getElementById('filterDepartment').value;
         const locationFilter = document.getElementById('filterLocation').value;
         const skillsetFilter = document.getElementById('filterSkillsets').value;
+
+        console.log("Current Filters:")
+        console.log("Department: " + departmentFilter);
+        console.log("Location: " + locationFilter);
+        console.log("Skillset: " + skillsetFilter);
+
+        document.querySelectorAll(".role-card").forEach(card => {
+            const department = card.getAttribute('data-department');
+            const location = card.getAttribute('data-location');
+            const skillsets = JSON.parse(document.getElementById('skilldata').getAttribute('data-skillsets')).toString();
+            
+            console.log("Current Card Data:")
+            console.log("Department: " + department);
+            console.log("Location: " + location);
+            console.log("Skills: " + skillsets + "| " + typeof(skillsets));
+
+            // Check if the selected filters match the card's data attributes
+            const departmentMatch = departmentFilter === '' || department === departmentFilter;
+            const locationMatch = locationFilter === '' || location === locationFilter;
+            // SkillsetMatch must match the skillsetFilter exactly, so we convert the string into an array and loop through it
+            var skillsetMatch = false;
+            // Split skillset string into an array, read through each item and check if it matches the filter
+            const skillsetArray = skillsets.split(",");
+            for (var i = 0; i < skillsetArray.length; i++) {
+                if (skillsetArray[i] === skillsetFilter) {
+                    skillsetMatch = true;
+                    console.log("Array item:" + skillsetArray[i])
+                    console.log("Filter: " + skillsetFilter)
+                }
+            }
+            console.log("Department Match: " + departmentMatch);
+            console.log("Location Match: " + locationMatch);
+            console.log("Skillset Match: " + skillsetMatch);
+
+            if (departmentMatch && locationMatch) {
+                card.style.display = "";
+            } else {
+                card.style.display = "none";
+            }
+        });
     }
 </script>
 

@@ -227,6 +227,17 @@
         var description = $("#Description").val();
         var hiringManager = $("#Staff_ID").val();
 
+        // Extract date components
+        var selectedDate = new Date(deadline); // Convert the input value to a Date object
+        var currentDate = new Date(); // Get the current date
+        var selectedDay = selectedDate.getDate();
+        var selectedMonth = selectedDate.getMonth();
+        var selectedYear = selectedDate.getFullYear();
+
+        var currentDay = currentDate.getDate();
+        var currentMonth = currentDate.getMonth();
+        var currentYear = currentDate.getFullYear();
+
         if (roleID == null || workArrangement == null || department == null || vacancy == null || deadline == null || country == null || skills.length == 0 || description == null || hiringManager.length == 0) {
           swal({
             title: "All Fields Required",
@@ -234,13 +245,15 @@
             icon: "error",
             button: "Back to form",
           });
-        } else if (selectedDate.getDate() < currentDate.getDate())
-          swal({
-            title: "Deadline Field is Wrong",
-            text: "Your deadline date cannot be in the past" + currentDate,
-            icon: "error",
-            button: "Back to form",
-          })
+        } else if (selectedYear < currentYear || 
+        (selectedYear === currentYear && selectedMonth < currentMonth) || 
+        (selectedYear === currentYear && selectedMonth === currentMonth && selectedDay < currentDay)) 
+                swal({
+                    title: "Deadline Field is Wrong",
+                    text: "Deadline date cannot be in the past for the date that you have selected",
+                    icon: "error",
+                    // button: "Back to form",
+                })
         else if (vacancy > 5 || vacancy < 1) {
           swal({
             title: "Vacancy Field is Wrong",

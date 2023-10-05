@@ -85,11 +85,11 @@
 
           <!-- Select input (roleTitle) -->
           <div class="mb-3 col-lg-6">
-            <label for="Role_Name" class="form-label">Role Title</label>
-            <select required class="form-control" id="Role_Name" name="Role_Name" placeholder="Enter title" value="{{$roleName}}">
-              <option value="" disabled selected>Select role title</option>
-              @foreach ($rolesDDL as $roleTitle)
-              <option value="{{ $roleNameDDL ->role_id }}">
+            <label for="Role_ID" class="form-label">Role Name</label>
+            <select required class="form-control" id="Role_ID" name="Role_ID" placeholder="Enter role name">
+              <option value="" disabled selected>Select role name</option>
+              @foreach ($rolesDDL as $roleName)
+              <option value="{{ $roleName->role_id }}">
                 {{$roleName->role}}
               </option>
               @endforeach
@@ -209,15 +209,15 @@
     <script>
       @if(session('success'))
         swal({
-          title: "Role Created",
-          text: "Role has been created successfully",
+          title: "Role Listing Created",
+          text: "Role Listing has been created successfully",
           icon: "success",
         });
       @endif
 
       //Alert for successful role creation
       $("#submit").click(function() {
-        var roleName = $("#Role_Name").val();
+        var roleID = $("#Role_ID").val();
         var workArrangement = $("#Work_Arrangement").val();
         var department = $("#Department_ID").val();
         var vacancy = $("#Vacancy").val();
@@ -227,7 +227,7 @@
         var description = $("#Description").val();
         var hiringManager = $("#Staff_ID").val();
 
-        if (roleName == null || workArrangement == null || department == null || vacancy == null || deadline == null || country == null || skills.length == 0 || description == null || hiringManager.length == 0) {
+        if (roleID == null || workArrangement == null || department == null || vacancy == null || deadline == null || country == null || skills.length == 0 || description == null || hiringManager.length == 0) {
           swal({
             title: "All Fields Required",
             text: "Please fill in all fields before submitting",

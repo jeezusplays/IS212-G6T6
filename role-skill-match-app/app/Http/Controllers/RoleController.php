@@ -44,7 +44,7 @@ class RoleController extends Controller
         // ]);
 
         // Check if role already exists in the database
-        $role = Role::where('role', $request->input('Role_Name'))->first();
+        $role = Role::where('role_id', $request->input('Role_ID'))->first();
 
         if (! $role) {
             // return error message
@@ -189,34 +189,12 @@ class RoleController extends Controller
         // get all staff
         $hiring_managers = DB::table('staff')->select('staff.staff_id', 'staff_fname', 'staff_lname')->get();
 
-        // see what backend is sending to frontend
-        // return [
-        //     'header' => 'Create Role',
-
-        //     // replace when role title input bar has been changed to dropdown
-        //     'Role_Name' => $role_titles,
-        //     // 'Role_Name' => '',
-        //     'title' => '',
-        //     'vacancy' => 0,
-        //     'deadline' => '',
-        //     'skills' => $skills,
-        //     'description' => '',
-        //     'deptDDL' => $departments,
-        //     'workArrangementDDL' => $work_arrangements,
-        //     'countryID_DDL' => $countries,
-        //     'hiring_managers' => $hiring_managers,
-        //     // New role will be open by default
-        //     'status' => 1,
-        //     'Staff_ID' => 5,
-        // ];
-
         // return in format that frontend expects / can read
         return view('create-role', [
             'header' => 'Create Role',
 
             // replace when role title input bar has been changed to dropdown
-            // 'Role_Name' => $role_titles,
-            'Role_Name' => '',
+            'rolesDDL' => $role_titles,
             'title' => '',
             'vacancy' => 0,
             'deadline' => '',

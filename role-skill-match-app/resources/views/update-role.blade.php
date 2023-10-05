@@ -281,8 +281,8 @@
                 })
             } else {
                 swal({
-                    title: "Role Created",
-                    text: "Role has been created successfully",
+                    title: "Role Updated",
+                    text: "Role has been upeated successfully",
                     icon: "success",
                     // button: "Back",
                 });

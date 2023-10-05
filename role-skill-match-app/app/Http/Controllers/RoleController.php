@@ -46,14 +46,14 @@ class RoleController extends Controller
         // Check if role already exists in the database
         $role = Role::where('role', $request->input('Role_Name'))->first();
 
-        if (!$role) {
+        if (! $role) {
             // return error message
             return redirect()->back()->withErrors(['Role does not exist']);
         }
 
         $role_listing = Role_Listing::firstOrCreate(
             [
-                'role_id' => 1,
+                'role_id' => $role->role_id,
                 'description' => $request->input('Description'),
                 'department_id' => $request->input('Department_ID'),
                 'country_id' => $request->input('Country_ID'),
@@ -150,6 +150,7 @@ class RoleController extends Controller
                 'work_arrangement' => $work_arrangement, // work_arrangement
             ];
         });
+
         return view('role-listings', compact('roles'));
         // return response()->json($roles);
     }

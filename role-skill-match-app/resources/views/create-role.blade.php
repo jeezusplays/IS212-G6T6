@@ -71,7 +71,7 @@
 
     <!-- FORM -->
     <div class="container">
-      <form class="needs-validation" id="form" novalidate action="/create-role" method="POST">
+      <form class="needs-validation" id="form" target="_blank" novalidate action="/create-role" method="POST">
 
         @csrf
         <div class="row">

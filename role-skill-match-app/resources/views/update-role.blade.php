@@ -292,7 +292,7 @@
             } /* else {
                 swal({
                     title: "Role Updated",
-                    text: "Role has been updated successfully",
+                    text: "Role has been upeated successfully",
                     icon: "success",
                     // button: "Back",
                 });

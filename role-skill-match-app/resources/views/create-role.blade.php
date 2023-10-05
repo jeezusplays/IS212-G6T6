@@ -83,10 +83,17 @@
           <input type="hidden" id="Status" name="Status" value="{{$status}}">
           <input type="hidden" id="Created_By" name="Created_By" value="{{ $Staff_ID }}">
 
-          <!-- Text input (roleTitle) -->
+          <!-- Select input (roleTitle) -->
           <div class="mb-3 col-lg-6">
             <label for="Role_Name" class="form-label">Role Title</label>
-            <input required class="form-control" id="Role_Name" name="Role_Name" placeholder="Enter title" value="{{$Role_Name}}">
+            <select required class="form-control" id="Role_Name" name="Role_Name" placeholder="Enter title" value="{{$roleName}}">
+              <option value="" disabled selected>Select role title</option>
+              @foreach ($rolesDDL as $roleTitle)
+              <option value="{{ $roleNameDDL ->role_id }}">
+                {{$roleName->role}}
+              </option>
+              @endforeach
+            </select>
             <div class="invalid-feedback">Role Name cannot be empty</div>
           </div>
 

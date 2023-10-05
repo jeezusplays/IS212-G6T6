@@ -185,8 +185,7 @@
           <!-- Textarea (description) -->
           <div class="mb-3">
             <label for="Description" class="form-label">Description</label>
-            <input required class="form-control" id="Description" name="Description" rows="4" placeholder="" value="{{$description}}">
-            </input>
+            <textarea required class="form-control" id="Description" name="Description" rows="4" placeholder="" value="{{$description}}"></textarea>
             <div class="invalid-feedback">Description cannot be empty</div>
           </div>
 

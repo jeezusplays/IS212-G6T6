@@ -100,10 +100,10 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item active">
-                        <a class="nav-link" href="http://localhost:8000/role-listings">View Role Listings</a>
+                        <a class="nav-link" href="http://localhost:8000/browse-roles">Browse Role Listings</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="http://localhost:8000/create-role">Create Role Listing</a>
+                        <a class="nav-link" href="http://localhost:8000/my-applications">View Applications</a>
                     </li>
                 </ul>
             </div>
@@ -122,7 +122,7 @@
     </div>
 
     <div class="container">
-        <h1 class="mb-3">Browse Job Roles</h1>
+        <h1 class="mb-3">Browse Role Listings</h1>
 
         {{-- Search Bar --}}
         <div class="mb-3">
@@ -340,39 +340,39 @@
     function filterJobs() {
         const departmentFilter = document.getElementById('filterDepartment').value;
         const locationFilter = document.getElementById('filterLocation').value;
-        const skillsetFilter = document.getElementById('filterSkillsets').value;
+        // const skillsetFilter = document.getElementById('filterSkillsets').value;
 
         console.log("Current Filters:")
         console.log("Department: " + departmentFilter);
         console.log("Location: " + locationFilter);
-        console.log("Skillset: " + skillsetFilter);
+        // console.log("Skillset: " + skillsetFilter);
         console.log("")
         document.querySelectorAll(".role-card").forEach(card => {
             const department = card.getAttribute('data-department');
             const location = card.getAttribute('data-location');
-            const skillsets = JSON.parse(document.getElementById('skilldata').getAttribute('data-skillsets')).toString();
+            // const skillsets = JSON.parse(document.getElementById('skilldata').getAttribute('data-skillsets')).toString();
 
             console.log("Current Card Data:")
             console.log("Department: " + department);
             console.log("Location: " + location);
-            console.log("Skills: " + skillsets + "| " + typeof(skillsets));
+            // console.log("Skills: " + skillsets + "| " + typeof(skillsets));
             console.log("")
 
             // Check if the selected filters match the card's data attributes
             const departmentMatch = departmentFilter === '' || department === departmentFilter;
             const locationMatch = locationFilter === '' || location === locationFilter;
             // SkillsetMatch must match the skillsetFilter exactly, so we convert the string into an array and loop through it
-            var skillsetMatch = false;
+            // var skillsetMatch = false;
             // Split skillset string into an array, read through each item and check if it matches the filter
-            const skillsetArray = skillsets.split(",");
-            for (var i = 0; i < skillsetArray.length; i++) {
-                if (skillsetArray[i] === skillsetFilter) {
-                    skillsetMatch = true;
-                }
-            }
+            // const skillsetArray = skillsets.split(",");
+            // for (var i = 0; i < skillsetArray.length; i++) {
+            //     if (skillsetArray[i] === skillsetFilter) {
+            //         skillsetMatch = true;
+            //     }
+            // }
             console.log("Department Match: " + departmentMatch);
             console.log("Location Match: " + locationMatch);
-            console.log("Skillset Match: " + skillsetMatch);
+            // console.log("Skillset Match: " + skillsetMatch);
             console.log("")
 
             if (departmentMatch && locationMatch) {

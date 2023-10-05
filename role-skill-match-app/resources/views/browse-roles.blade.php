@@ -198,7 +198,7 @@
                             <p class="card-text mb-0 mt-3 d-inline"><b>Skills:</b>
                             <div class="grid-container">
                                 @foreach ($role['skills'] as $index => $skill)
-                                <div class="skill-item" id = "skilldata" data-skillsets="{{ json_encode($role['skills']) }}">{{ $skill }}</div>
+                                <div class="skill-item" id="skilldata" data-skillsets="{{ json_encode($role['skills']) }}">{{ $skill }}</div>
                                 @endforeach
                             </div>
                             </p>
@@ -346,16 +346,17 @@
         console.log("Department: " + departmentFilter);
         console.log("Location: " + locationFilter);
         console.log("Skillset: " + skillsetFilter);
-
+        console.log("")
         document.querySelectorAll(".role-card").forEach(card => {
             const department = card.getAttribute('data-department');
             const location = card.getAttribute('data-location');
             const skillsets = JSON.parse(document.getElementById('skilldata').getAttribute('data-skillsets')).toString();
-            
+
             console.log("Current Card Data:")
             console.log("Department: " + department);
             console.log("Location: " + location);
             console.log("Skills: " + skillsets + "| " + typeof(skillsets));
+            console.log("")
 
             // Check if the selected filters match the card's data attributes
             const departmentMatch = departmentFilter === '' || department === departmentFilter;
@@ -367,13 +368,12 @@
             for (var i = 0; i < skillsetArray.length; i++) {
                 if (skillsetArray[i] === skillsetFilter) {
                     skillsetMatch = true;
-                    console.log("Array item:" + skillsetArray[i])
-                    console.log("Filter: " + skillsetFilter)
                 }
             }
             console.log("Department Match: " + departmentMatch);
             console.log("Location Match: " + locationMatch);
             console.log("Skillset Match: " + skillsetMatch);
+            console.log("")
 
             if (departmentMatch && locationMatch) {
                 card.style.display = "";

@@ -31,8 +31,9 @@
   <div id="app">
 
     <!-- NAVBAR-->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="http://localhost:8000/role-listings">
+    <nav class="navbar navbar-expand-lg navbar-light">
+      <div class="container">
+      <a class="navbar-brand" href="http://localhost:8000/role-listings">
                 <img src="{{ asset('favicon-32x32.png') }}" alt="Company Logo">
             </a>
             <div class="collapse navbar-collapse" id="navbarNav">
@@ -60,6 +61,8 @@
                     <li><a class="dropdown-item" href="http://localhost:8000/role-listings-manager">Manager</a></li>
                 </ul>
             </div>
+      </div>
+            
         </nav>
 
     <!-- HEADER -->
@@ -199,8 +202,8 @@
     <script>
       @if(session('success'))
         swal({
-          title: "Role Updated",
-          text: "Role has been updated successfully",
+          title: "Role Created",
+          text: "Role has been created successfully",
           icon: "success",
         });
       @endif

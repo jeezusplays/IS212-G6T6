@@ -5,7 +5,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>All-In-One (HR)</title>
-  <!-- <link rel="icon" type="image/x-icon" href="../img/favicon.ico" /> -->
+  <link rel="icon" href="{{ asset('favicon-32x32.png') }}" type="image/x-icon">
   <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 

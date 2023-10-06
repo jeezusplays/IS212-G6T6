@@ -93,9 +93,16 @@ class ViewRoleController extends Controller
             ];
         });
 
-        return view('view-role', compact('roles'));
+        $roles = $roles->filter(function ($role) {
+            return $role['status'] == 1;
+        });
 
-        return response()->json($roles);
+        if ($roles->isEmpty()) {
+            // If no roles with status 1 are found, you can return a message or redirect
+            return 'Role listing is closed';
+        }
+
+        return view('view-role', compact('roles'));
     }
 
 }

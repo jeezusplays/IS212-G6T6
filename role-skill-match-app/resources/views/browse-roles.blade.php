@@ -126,7 +126,7 @@
 
         {{-- Search Bar --}}
         <div class="mb-3">
-            <form class="d-flex" onsubmit="searchJobs(); return false;">
+            <form class="d-flex" id = "searchSubmit" onsubmit="searchJobs(); return false;">
                 <input class="form-control me-2 form-control-lg" id="myInput" type="search" placeholder="Search by Job Title" aria-label="Search">
                 <button class="btn btn-success form-control-lg" id="searchButton" type="submit">
                     Search
@@ -163,7 +163,7 @@
                     <option value="{{ $skill }}">{{ $skill }}</option>
                     @endforeach
                 </select>
-                <button id="filterButton" class="btn btn-primary w-100" onclick="filterJobs()">Apply Filters</button>
+                <button id="filterButton" class="btn btn-primary w-100" onclick="searchJobs()">Apply Filters</button>
             </div>
 
 
@@ -299,7 +299,22 @@
         cardStatus.innerText = "Application closes in " + diffDays + " days";
     });
 
+    let selectedFilters = {
+        department: '',
+        location: '',
+        skillset: ''
+    };
 
+    // Add event listeners for the filter dropdowns
+    document.getElementById('filterDepartment').addEventListener('change', function() {
+        selectedFilters.department = this.value;
+        filterJobs();
+    });
+
+    document.getElementById('filterLocation').addEventListener('change', function() {
+        selectedFilters.location = this.value;
+        filterJobs();
+    });
 
     // Search bar functionality
     function searchJobs() {
@@ -310,8 +325,19 @@
             const title = card.querySelector(".card-title").innerText.toUpperCase();
             const text = card.querySelector(".card-text").innerText.toUpperCase();
             if (title.indexOf(filter) > -1 || text.indexOf(filter) > -1) {
-                card.style.display = "";
-                counter++;
+                // If department and location filter matches, display the card
+                let department_filter = document.getElementById("filterDepartment").value;
+                let location_filter = document.getElementById("filterLocation").value;
+                if (department_filter == "" || department_filter == card.getAttribute('data-department')) {
+                    if (location_filter == "" || location_filter == card.getAttribute('data-location')) {
+                        card.style.display = "";
+                        counter++;
+                    } else {
+                        card.style.display = "none";
+                    }
+                } else {
+                    card.style.display = "none";
+                }
             } else {
                 card.style.display = "none";
             }
@@ -321,67 +347,15 @@
         } else {
             document.getElementById("no-matching-results").style.display = "none";
         }
-    }
 
-    // Search bar error handling
-    const searchButton = document.getElementById('searchButton');
-    const searchErrorAlert = document.getElementById('searchErrorAlert');
-    const myInput = document.getElementById('myInput');
-    searchButton.addEventListener('click', () => {
-        const input = myInput.value;
-        if (input.match(/^[a-zA-Z0-9 ]*$/)) {
-            searchErrorAlert.style.display = 'none';
+        // Check if the search input contains invalid characters
+        if (filter.match(/^[a-zA-Z0-9 ]*$/)) {
+            document.getElementById("searchErrorAlert").style.display = "none";
         } else {
-            searchErrorAlert.style.display = '';
+            document.getElementById("searchErrorAlert").style.display = "";
         }
-    });
-
-    // Filter functionality for dropdowns to apply to role cards
-    function filterJobs() {
-        const departmentFilter = document.getElementById('filterDepartment').value;
-        const locationFilter = document.getElementById('filterLocation').value;
-        // const skillsetFilter = document.getElementById('filterSkillsets').value;
-
-        console.log("Current Filters:")
-        console.log("Department: " + departmentFilter);
-        console.log("Location: " + locationFilter);
-        // console.log("Skillset: " + skillsetFilter);
-        console.log("")
-        document.querySelectorAll(".role-card").forEach(card => {
-            const department = card.getAttribute('data-department');
-            const location = card.getAttribute('data-location');
-            // const skillsets = JSON.parse(document.getElementById('skilldata').getAttribute('data-skillsets')).toString();
-
-            console.log("Current Card Data:")
-            console.log("Department: " + department);
-            console.log("Location: " + location);
-            // console.log("Skills: " + skillsets + "| " + typeof(skillsets));
-            console.log("")
-
-            // Check if the selected filters match the card's data attributes
-            const departmentMatch = departmentFilter === '' || department === departmentFilter;
-            const locationMatch = locationFilter === '' || location === locationFilter;
-            // SkillsetMatch must match the skillsetFilter exactly, so we convert the string into an array and loop through it
-            // var skillsetMatch = false;
-            // Split skillset string into an array, read through each item and check if it matches the filter
-            // const skillsetArray = skillsets.split(",");
-            // for (var i = 0; i < skillsetArray.length; i++) {
-            //     if (skillsetArray[i] === skillsetFilter) {
-            //         skillsetMatch = true;
-            //     }
-            // }
-            console.log("Department Match: " + departmentMatch);
-            console.log("Location Match: " + locationMatch);
-            // console.log("Skillset Match: " + skillsetMatch);
-            console.log("")
-
-            if (departmentMatch && locationMatch) {
-                card.style.display = "";
-            } else {
-                card.style.display = "none";
-            }
-        });
     }
+
 </script>
 
 </html>

@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>All-In-One (HR)</title>
+    <title>View Role</title>
     <!-- <link rel="icon" type="image/x-icon" href="../img/favicon.ico" /> -->
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
@@ -34,6 +34,8 @@
             border-radius: 16px;
         }
     </style>
+
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon-32x32.png') }}">
   </head>
 
   <body>
@@ -74,7 +76,7 @@
         @foreach ($roles as $role)
         <div class="row mt-5 mb-4">
             <div class="col-12 col-sm-8 text-start">
-                <h1>Software Engineer</h1>
+                <h1>{{$role['role']}}</h1>
             </div>
             <div class="col-12 col-sm-4">
                 <div class="d-flex justify-content-start justify-content-sm-end">

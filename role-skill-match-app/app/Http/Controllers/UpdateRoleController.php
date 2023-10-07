@@ -263,7 +263,7 @@ class UpdateRoleController extends Controller
         $countries = $this->retrieveAllCountries();
         $rolesDDL = $this->retrieveAllRoles();
 
-        return view('updateRole', compact('roles', 'rolesDDL', 'departments', 'hiringManagers', 'skills', 'countries'));
+        return view('update-role', compact('roles', 'rolesDDL', 'departments', 'hiringManagers', 'skills', 'countries'));
 
         return response()->json($roles);
     }

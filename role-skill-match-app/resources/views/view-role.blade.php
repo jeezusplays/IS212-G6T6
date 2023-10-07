@@ -98,7 +98,7 @@
                 @endif
             </div>
             <div class="col-12 col-sm-4">
-                <b>Location</b> {{$role['country']}}
+                <b>Country</b> {{$role['country']}}
             </div>
         </div>
 

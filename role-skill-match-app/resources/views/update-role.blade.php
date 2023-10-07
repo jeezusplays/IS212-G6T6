@@ -102,12 +102,12 @@
                 <div class="mb-3 col-lg-6">
                     <label for="workArrangement" class="form-label">Work Arrangement</label>
                     <select required class="form-select" id="workArrangement" name="workArrangement">
-                        @if ($role['work_arrangement'] == '1')
+                        @if ($role['work_arrangement'] == '2')
                         <option selected value='1'>Part Time</option>
                         @else
                         <option value='1'>Part Time</option>
                         @endif
-                        @if ($role['work_arrangement'] == '2')
+                        @if ($role['work_arrangement'] == '1')
                         <option selected value ='2'>Full Time</option>
                         @else
                         <option value='2'>Full Time</option>

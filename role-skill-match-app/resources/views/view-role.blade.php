@@ -4,9 +4,9 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>View Role</title>
-    <!-- <link rel="icon" type="image/x-icon" href="../img/favicon.ico" /> -->
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
     <!-- Bootstrap CSS -->
     <link
@@ -39,6 +39,7 @@
   </head>
 
   <body>
+
     <div class="container" id="app">
 
     <nav class="navbar navbar-expand-lg">
@@ -71,85 +72,88 @@
             </div>
         </nav>
     </div>
-
+        
     <div class="container-sm">
-        @foreach ($roles as $role)
-        <div class="row mt-5 mb-4">
-            <div class="col-12 col-sm-8 text-start">
-                <h1>{{$role['role']}}</h1>
-            </div>
-            <div class="col-12 col-sm-4">
-                <div class="d-flex justify-content-start justify-content-sm-end">
-                    <button type="button" class="btn btn-success btn-md btn-lg">Apply Now</button>
+        @if ($isRoleValid)
+            @foreach ($roles as $role)
+            <div class="row mt-5 mb-4">
+                <div class="col-12 col-sm-8 text-start">
+                    <h1>{{$role['role']}}</h1>
+                </div>
+                <div class="col-12 col-sm-4">
+                    <div class="d-flex justify-content-start justify-content-sm-end">
+                        <button type="button" class="btn btn-success btn-md btn-lg">Apply Now</button>
+                    </div>
                 </div>
             </div>
-        </div>
-        
-        <div class="row p-3 gy-2 gy-sm-0" id="grey-box">
-            <div class="col-12 col-sm-4">
-                <b>Department</b> {{$role['department']}}
+            
+            <div class="row p-3 gy-2 gy-sm-0" id="grey-box">
+                <div class="col-12 col-sm-4">
+                    <b>Department</b> {{$role['department']}}
+                </div>
+                <div class="col-12 col-sm-4">
+                    <b>Work Arrangement</b> 
+                    @if ($role['work_arrangement'] == 1)
+                    Full Time
+                    @else 
+                    Part Time
+                    @endif
+                </div>
+                <div class="col-12 col-sm-4">
+                    <b>Country</b> {{$role['country']}}
+                </div>
             </div>
-            <div class="col-12 col-sm-4">
-                <b>Work Arrangement</b> 
-                @if ($role['work_arrangement'] == 1)
-                Full Time
-                @else 
-                Part Time
-                @endif
-            </div>
-            <div class="col-12 col-sm-4">
-                <b>Country</b> {{$role['country']}}
-            </div>
-        </div>
 
-        <div class="row mt-5">
-            <div class="col">
-                <h3>Job Description</h3>
+            <div class="row mt-5">
+                <div class="col">
+                    <h3>Job Description</h3>
+                </div>
             </div>
-        </div>
 
-        <div class="row mt-2">
-            <div class="col">
-                {{$role['description']}}
+            <div class="row mt-2">
+                <div class="col">
+                    {{$role['description']}}
+                </div>
             </div>
-        </div>
 
-        <div class="row mt-5">
-            <div class="col">
-                <h3>Skills</h3>
+            <div class="row mt-5">
+                <div class="col">
+                    <h3>Skills</h3>
+                </div>
             </div>
-        </div>
 
+            <div class="row mt-2">
+                <div class="col">
+                    @foreach ($role['skills'] as $skill)
+                        <button class="skill">{{$skill}}</button>
+                    @endforeach
+                </div>
+            </div>
+            
+            <div class="row mt-5">
+                <div class="col">
+                    <h3>Vacancy</h3>
+                </div>
+            </div>
 
-        <div class="row mt-2">
-            <div class="col">
-                @foreach ($role['skills'] as $skill)
-                    <button class="skill">{{$skill}}</span>
-                @endforeach
+            <div class="row mt-2">
+                <div class="col">
+                    {{$role['vacancy']}} positions
+                </div>
             </div>
-        </div>
-        
-        <div class="row mt-5">
-            <div class="col">
-                <h3>Vacancy</h3>
-            </div>
-        </div>
 
-        <div class="row mt-2">
-            <div class="col">
-                {{$role['vacancy']}} positions
+            <div class="row mt-5">
+                <div class="col text-danger">
+                    This listing closes on {{$role['deadline']}}
+                </div>
             </div>
-        </div>
-
-        <div class="row mt-5">
-            <div class="col text-danger">
-                This listing closes on {{$role['deadline']}}
+            @endforeach
+        @else
+            <div class="alert alert-danger">
+                Invalid Role
             </div>
-        </div>
-        @endforeach
+        @endif
     </div>
-    <script>
-        document.getElementById()
-    </script>
-  </body>
+
+    </body>
 </html>

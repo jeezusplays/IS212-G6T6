@@ -93,16 +93,22 @@ class ViewRoleController extends Controller
             ];
         });
 
-        $roles = $roles->filter(function ($role) {
+        /* $roles = $roles->filter(function ($role) {
             return $role['status'] == 1;
-        });
+        }); */
+        $isRoleValid = ($roles[0]['status'] != 2);
+        
 
-        if ($roles->isEmpty()) {
-            // If no roles with status 1 are found, you can return a message or redirect
-            return 'Role listing is closed';
+        if (!$isRoleValid) {
+            $nullifiedRole = [];
+            foreach ($roles[0] as $key => $value) {
+                $nullifiedRole[$key] = null;
+            }
+            $roles->splice(0, 1, [$nullifiedRole]);
         }
-
-        return view('view-role', compact('roles'));
+        
+        return view('view-role', compact('roles', 'isRoleValid'));
+        //return view('view-role', compact('roles'));
     }
 
 }

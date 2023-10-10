@@ -90,7 +90,7 @@
 <!-- Scripts -->
 @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 
-<body>
+<body onload="searchJobs()">
     {{-- Top Menu Bar --}}
     <div id="app" class="container mb-3">
         <nav class="navbar navbar-expand-lg">
@@ -165,6 +165,7 @@
                 </select>
                 <button id="filterButton" class="btn btn-primary w-100 form-control-lg" onclick="searchJobs()">Apply Filters</button>
                 <button id="clearFilterButton" class="btn btn-secondary w-100 mt-3 form-control-lg" onclick="clearFilters()">Clear Filters</button>
+                <p class = "mt-3" id = "jobListingsCount">0 Jobs found based on your filters</p>
             </div>
 
 
@@ -295,6 +296,7 @@
                 card.style.display = "none";
             }
         });
+
         if (counter == 0) {
             document.getElementById("no-matching-results").style.display = "";
         } else {
@@ -307,6 +309,9 @@
         } else {
             document.getElementById("searchErrorAlert").style.display = "";
         }
+
+        // Update and display the job listings count
+        document.getElementById('jobListingsCount').textContent = `${counter} Jobs found based on your filters`;
     }
 
     // Function to clear all filters
@@ -319,6 +324,7 @@
         document.querySelectorAll(".role-card").forEach(card => {
             card.style.display = "";
         });
+        searchJobs();
     }
 
 </script>

@@ -286,7 +286,8 @@
     $(document).ready(function() {
         $('[data-toggle="tooltip"]').tooltip();
     });
-
+    
+    // Find number of days from today until job listing deadline and append to card-status element
     document.querySelectorAll(".role-card").forEach(card => {
         const cardStatus = card.querySelector("#card-status");
         const deadline = cardStatus.getAttribute('data-laravel-variable');
@@ -297,23 +298,6 @@
 
         // Replace the text with the number of days
         cardStatus.innerText = "Application closes in " + diffDays + " days";
-    });
-
-    let selectedFilters = {
-        department: '',
-        location: '',
-        skillset: ''
-    };
-
-    // Add event listeners for the filter dropdowns
-    document.getElementById('filterDepartment').addEventListener('change', function() {
-        selectedFilters.department = this.value;
-        filterJobs();
-    });
-
-    document.getElementById('filterLocation').addEventListener('change', function() {
-        selectedFilters.location = this.value;
-        filterJobs();
     });
 
     // Search bar functionality

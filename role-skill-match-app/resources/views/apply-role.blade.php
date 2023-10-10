@@ -176,7 +176,11 @@
         // Trigger alerts
         $("#submit").click(function() {
             var roleSkillMatch = $role['skills']; // undersand that you will be hardcoding this
-            var numOngoingApplications = $existing_applications;
+            var numOngoingApplications = <? count($existing_applications) ?>;
+            var vacancy = <? $listing->vacancy ?>;
+            var currRoleId = <? $staff_role ?>;
+            var listId = <? $listing->role_id ?>;
+
 
         // Check if there are 5 ongoing applications
         if (numOngoingApplications >= 5) {
@@ -186,15 +190,46 @@
             icon: "error",
             button: "Back",
           });
+        }
 
         // Check if there is a skill match
-        } else if (roleSkillMatch == 0)
+        else if (roleSkillMatch == 0){
           swal({
             title: "Application Failed",
             text: "You do not have the required skills for this role",
             icon: "error",
             button: "Back",
-          })
+            });
+        }
+
+        // Check if it is the same role
+        else if (currRoleId == listId){
+            swal({
+                title: "Application Failed",
+                text: "You already have this role",
+                icon: "error",
+                button: "Back",
+                });
+            }
+
+        // Check if role is closed
+        else if (vacancy == 0){
+          swal({
+            title: "Application Failed",
+            text: "This role has no vacancies",
+            icon: "error",
+            button: "Back",
+            });
+        }
+        else if (currRoleId == listId){
+            swal({
+                title: "Application Failed",
+                text: "You already have this role",
+                icon: "error",
+                button: "Back",
+                });
+            }
+        
         else {
           swal({
             title: "Application Submitted",

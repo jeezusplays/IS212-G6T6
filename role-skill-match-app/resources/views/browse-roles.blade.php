@@ -163,7 +163,8 @@
                     <option value="{{ $skill }}">{{ $skill }}</option>
                     @endforeach
                 </select>
-                <button id="filterButton" class="btn btn-primary w-100" onclick="searchJobs()">Apply Filters</button>
+                <button id="filterButton" class="btn btn-primary w-100 form-control-lg" onclick="searchJobs()">Apply Filters</button>
+                <button id="clearFilterButton" class="btn btn-secondary w-100 mt-3 form-control-lg" onclick="clearFilters()">Clear Filters</button>
             </div>
 
 
@@ -306,6 +307,18 @@
         } else {
             document.getElementById("searchErrorAlert").style.display = "";
         }
+    }
+
+    // Function to clear all filters
+    function clearFilters() {
+        // Clear the filter inputs and show all role cards
+        document.getElementById('filterDepartment').selectedIndex = 0;
+        document.getElementById('filterLocation').selectedIndex = 0;
+        document.getElementById('filterSkillsets').selectedIndex = 0;
+
+        document.querySelectorAll(".role-card").forEach(card => {
+            card.style.display = "";
+        });
     }
 
 </script>

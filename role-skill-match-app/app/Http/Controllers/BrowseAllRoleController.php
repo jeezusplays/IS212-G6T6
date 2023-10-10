@@ -84,6 +84,18 @@ class BrowseAllRoleController extends Controller
             $status = $role->status === 1 ? 'Open' : 'Closed';
             $work_arrangement = $role->work_arrangement === 1 ? 'Part Time' : 'Full Time';
 
+            // Calculate current date and find out days until deadline
+            $currentDate = date('Y-m-d');
+            $deadline = $role->deadline;
+            $diff = strtotime($deadline) - strtotime($currentDate);
+            $daysUntilDeadline = round($diff / 86400);
+
+            // Calculate current date and find out days from creation
+            $currentDate = date('Y-m-d');
+            $creationDate = $role->created_at->format('Y-m-d');
+            $diff = strtotime($currentDate) - strtotime($creationDate);
+            $daysFromCreation = round($diff / 86400);
+            
             return [
                 'listing_id' => $role->listing_id, // listing_id
                 'role_id' => $role->role_id, // role_id
@@ -98,6 +110,8 @@ class BrowseAllRoleController extends Controller
                 'work_arrangement' => $work_arrangement, // work_arrangement
                 'skills' => $skills, // skills
                 'deadline' => $role->deadline, // deadline
+                'days_until_deadline' => $daysUntilDeadline, // days_until_deadline
+                'days_from_creation' => $daysFromCreation // days_from_creation
             ];
         });
         return view('browse-roles', compact('roles', 'departments', 'skills', 'countries'));

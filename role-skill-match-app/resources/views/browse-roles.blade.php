@@ -215,17 +215,21 @@
                         <div class="col-lg-3">
                             <div class="my-4">
                                 <p class="card-text"><i>{{ $role['total_applications'] }} applications</i></p>
-                                <p class="card-text" id="dateSincePost" data-laravel-variable="{{ $role['created_at'] }}" data-toggle="tooltip" data-placement="top" title=""></p>
-                                <p class="card-text" id="card-status" data-laravel-variable="{{ $role['deadline'] }}" data-toggle="tooltip" data-placement="top" title="Application Closes on {{ $role['deadline'] }}">
+                                <p class="card-text" id="dateSincePost" data-laravel-variable-1="{{ $role['created_at'] }}" data-toggle="tooltip" data-placement="top" title="">
+                                Created {{ $role['days_from_creation'] }} days ago
+                                </p>
+                                <p class="card-text" id="card-status" data-laravel-variable-2="{{ $role['deadline'] }}" data-toggle="tooltip" data-placement="top" title="Application Closes on {{ $role['deadline'] }}">
                                     <b>Status:</b>
                                     @if ($role['status'] == 'Open')
                                     <span class="text-success">Open</span>
-                                    (<i>Application Closes on: <span class="deadline">{{ $role['deadline'] }}</span></i>)
                                     @else
                                     <span class="text-danger">Closed</span>
-                                    (<i>Application Closes on: <b style="color:red"><span class="deadline">{{ $role['deadline'] }}</span></b></i>)
                                     @endif
                                 </p>
+                                <p class ="card-text">
+                                    <i>Application closes in <u>{{ $role['days_until_deadline'] }} days</u> on {{ $role['deadline'] }}</i>
+                                </p>
+
                             </div>
                             <div class="mt-3">
                                 <a href="#" class="btn btn-success">Apply Now</a>
@@ -254,52 +258,6 @@
 </body>
 
 <script>
-    // Calculate the number of days and set the dateSincePost text and title attribute
-    document.querySelectorAll(".role-card").forEach(card => {
-        var created_at = document.getElementById('dateSincePost').getAttribute('data-laravel-variable');
-        const dateSincePost = card.querySelector("#dateSincePost");
-        const date = new Date(created_at);
-        const today = new Date();
-        const diffTime = Math.abs(today - date);
-        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-
-        // Update the dateSincePost text
-        dateSincePost.innerText = "Posted " + diffDays + " days ago";
-
-        // Set the title attribute with the actual date
-        dateSincePost.setAttribute("title", "Posted on " + created_at);
-    });
-
-
-    // Find number of days from today until job listing deadline and append to card-status element
-    document.querySelectorAll(".role-card").forEach(card => {
-        var deadline = document.getElementById('card-status').getAttribute('data-laravel-variable');
-        const cardStatus = card.querySelector("#card-status");
-        const date = new Date(deadline);
-        const today = new Date();
-        const diffTime = Math.abs(date - today);
-        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-        cardStatus.innerHTML = "Application closes in " + "<u>" + diffDays + " days </u>";
-    });
-
-    // Initialize Bootstrap tooltips
-    $(document).ready(function() {
-        $('[data-toggle="tooltip"]').tooltip();
-    });
-    
-    // Find number of days from today until job listing deadline and append to card-status element
-    document.querySelectorAll(".role-card").forEach(card => {
-        const cardStatus = card.querySelector("#card-status");
-        const deadline = cardStatus.getAttribute('data-laravel-variable');
-        const date = new Date(deadline);
-        const today = new Date();
-        const diffTime = date - today;
-        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-
-        // Replace the text with the number of days
-        cardStatus.innerText = "Application closes in " + diffDays + " days";
-    });
-
     // Search bar functionality
     function searchJobs() {
         const input = document.getElementById('myInput');

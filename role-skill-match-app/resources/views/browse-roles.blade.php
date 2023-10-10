@@ -260,20 +260,30 @@
 <script>
     // Search bar functionality
     function searchJobs() {
+        const selectedSkillset = document.getElementById('filterSkillsets').value;
         const input = document.getElementById('myInput');
         const filter = input.value.toUpperCase();
         var counter = 0;
         document.querySelectorAll(".role-card").forEach(card => {
             const title = card.querySelector(".card-title").innerText.toUpperCase();
             const text = card.querySelector(".card-text").innerText.toUpperCase();
+            const skills = card.querySelector(".skill-item");
+
             if (title.indexOf(filter) > -1 || text.indexOf(filter) > -1) {
                 // If department and location filter matches, display the card
                 let department_filter = document.getElementById("filterDepartment").value;
                 let location_filter = document.getElementById("filterLocation").value;
                 if (department_filter == "" || department_filter == card.getAttribute('data-department')) {
                     if (location_filter == "" || location_filter == card.getAttribute('data-location')) {
-                        card.style.display = "";
-                        counter++;
+                        if (skills && skills.getAttribute('data-skillsets').includes(selectedSkillset)) {
+                            card.style.display = "";
+                            counter++;
+                        } else if (selectedSkillset == "") {
+                            card.style.display = "";
+                            counter++;
+                        } else {
+                            card.style.display = "none";
+                        }
                     } else {
                         card.style.display = "none";
                     }

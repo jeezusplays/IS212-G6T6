@@ -68,7 +68,17 @@ class BrowseAllRoleController extends Controller
         if ($request->has('country_filter')) {
             $filteredRoles = $filteredRoles->whereIn('country_id', $Country_Table->pluck('country_id')->toArray());
         }
-
+        
+        // Filter based on the selected skillset
+        if ($request->has('skill_filter')) {
+            $selectedSkillset = $request->input('skill_filter');
+            $filteredRoles = $filteredRoles->whereIn('listing_id', function ($query) use ($selectedSkillset) {
+                $query->select('listing_id')
+                    ->from('role_skill')
+                    ->join('skill', 'role_skill.skill_id', '=', 'skill.skill_id')
+                    ->where('skill.skill', $selectedSkillset);
+            });
+    }
         $roles = $RoleListing_Table->map(function ($role) use ($Role_Table, $Department_Table, $Staff_Table, $Application_Table, $Country_Table, $SkillIds) {
 
             $matchingRole = $Role_Table->firstWhere('role_id', $role->role_id);

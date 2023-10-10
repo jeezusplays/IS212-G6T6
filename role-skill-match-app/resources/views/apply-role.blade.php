@@ -83,7 +83,7 @@
                 </div>
                 <div class="col-12 col-sm-4">
                     <div class="d-flex justify-content-start justify-content-sm-end">
-                        <button type="button" class="btn btn-success btn-md btn-lg">Apply Now</button>
+                        <button type="submit" id="submit" type="button" class="btn btn-success btn-md btn-lg">Apply Now</button>
                     </div>
                 </div>
             </div>
@@ -163,6 +163,50 @@
             </div> -->
         <!-- @endif -->
     </div>
+
+        <!-- Bootstrap Bundle -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+
+        <!-- sweetalert -->
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+    
+    <!-- JS SCRIPTS TO TRIGGER THE ALERTS -->
+    <script>
+        // Trigger alerts
+        $("#submit").click(function() {
+            var roleSkillMatch = $role['skills']; // undersand that you will be hardcoding this
+            var numOngoingApplications = $existing_applications;
+
+        // Check if there are 5 ongoing applications
+        if (numOngoingApplications >= 5) {
+          swal({
+            title: "Application Failed",
+            text: "You cannot have more than 5 ongoing applications",
+            icon: "error",
+            button: "Back",
+          });
+
+        // Check if there is a skill match
+        } else if (roleSkillMatch == 0)
+          swal({
+            title: "Application Failed",
+            text: "You do not have the required skills for this role",
+            icon: "error",
+            button: "Back",
+          })
+        else {
+          swal({
+            title: "Application Submitted",
+            text: "You have successfully applied for this role",
+            icon: "success",
+            button: "Got it!",
+          });
+        }
+
+      });
+
+    </script>
 
     </body>
 </html>

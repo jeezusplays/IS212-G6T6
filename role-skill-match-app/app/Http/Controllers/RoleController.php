@@ -173,11 +173,11 @@ class RoleController extends Controller
         $work_arrangements = [
             [
                 'id' => 1,
-                'name' => 'Full-time',
+                'name' => 'Part-time',
             ],
             [
                 'id' => 2,
-                'name' => 'Part-time',
+                'name' => 'Full-time',
             ],
         ];
 

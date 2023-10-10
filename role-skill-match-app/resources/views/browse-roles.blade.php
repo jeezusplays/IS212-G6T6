@@ -171,10 +171,10 @@
             <div class="col-md-9">
                 @foreach ($roles as $role)
                 @if ($role['status'] == 'Open')
-                <a href="http://localhost:8000/viewRole/listingID={{ $role['listing_id'] }}" class="card-title-link">
+                <a href="http://localhost:8000/view-role/listingID={{ $role['listing_id'] }}" class="card-title-link">
                     <div class="card my-3 role-card" data-department="{{ $role['department'] }}" data-location="{{ $role['country'] }}">
                         <h5 class="card-title card-header p-3 d-flex justify-content-between align-items-center" style="background-color: #dbeffc">{{ $role['role'] }} ({{ $role['work_arrangement'] }})
-                            <a href="http://localhost:8000/viewRole/listingID={{ $role['listing_id'] }}" class="btn btn-sm btn-outline-primary">View Details</a>
+                            <a href="http://localhost:8000/view-role/listingID={{ $role['listing_id'] }}" class="btn btn-sm btn-outline-primary">View Details</a>
                         </h5>
                 </a>
 

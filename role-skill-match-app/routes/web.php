@@ -7,6 +7,7 @@ use App\Http\Controllers\UpdateRoleController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ViewRoleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,6 +20,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::get('/role-listings', [RoleController::class, 'index']);
+
+# Route for browse-roles page
+Route::get('browse-roles', [App\Http\Controllers\BrowseAllRoleController::class, 'index_view'])->name('browse-roles');
 
 Route::get('/create-role', [RoleController::class, 'setup']);
 Route::post('/create-role', [RoleController::class, 'store'])->name('create-role');
@@ -49,3 +53,4 @@ Route::post('/apply', [ApplicationController::class, 'store'])->name('apply-role
 Route::get('/apply', function () {
     return view('apply-role');
 });
+Route::get('/view-role/listingID={passedlisting}', [ViewRoleController::class, 'getListing']);

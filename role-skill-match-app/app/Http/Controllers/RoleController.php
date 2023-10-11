@@ -44,16 +44,16 @@ class RoleController extends Controller
         // ]);
 
         // Check if role already exists in the database
-        $role = Role::where('role', $request->input('Role_Name'))->first();
+        $role = Role::where('role_id', $request->input('Role_ID'))->first();
 
-        if (!$role) {
+        if (! $role) {
             // return error message
             return redirect()->back()->withErrors(['Role does not exist']);
         }
 
         $role_listing = Role_Listing::firstOrCreate(
             [
-                'role_id' => 1,
+                'role_id' => $role->role_id,
                 'description' => $request->input('Description'),
                 'department_id' => $request->input('Department_ID'),
                 'country_id' => $request->input('Country_ID'),
@@ -116,32 +116,16 @@ class RoleController extends Controller
         // Retrieve all role data from the database
         $RoleListing_Table = Role_Listing::all();
         $Role_Table = Role::whereIn('role_id', $RoleListing_Table->pluck('role_id'))->get(['role_id', 'role']);
-        $HiringManager_Table = Hiring_Manager::whereIn('listing_id', $RoleListing_Table->pluck('listing_id'))->get(['listing_id', 'staff_id']);
-        $Staff_Table = Staff::whereIn('role_id', $RoleListing_Table->pluck('role_id'))->get(['role_id', DB::raw('CONCAT(staff_lname, " ", staff_fname) AS full_name')]);
-        //$Application_Table = Application::whereIn('listing_id', $RoleListing_Table->pluck('listing_id'))->get(['listing_id','staff_id']);
 
         $Application_Table = Application::whereIn('listing_id', $RoleListing_Table->pluck('listing_id'))
             ->selectRaw('listing_id, COUNT(application_id) as total_applications')
             ->groupBy('listing_id')
             ->get();
 
-        // Map the database records to the desired format
-        /*$roles = [
-            [
-                'job_title' => 'Software Developer',
-                'total_applications' => 50,
-                'creation_date' => '2023-09-12',
-                'listed_by' => 'John Doe',
-                'status' => 'Open',
-            ],
-            [
-                'job_title' => 'UX Designer',
-                'total_applications' => 30,
-                'creation_date' => '2023-09-14',
-                'listed_by' => 'Jane Smith',
-                'status' => 'Closed',
-            ],
-        ];*/
+        $Staff_Table = DB::table('staff')
+            ->join('role_listing', 'staff.staff_id', '=', 'role_listing.created_by')
+            ->selectRaw('role_listing.role_id, CONCAT(staff.staff_lname, " ", staff.staff_fname) AS full_name')
+            ->get();
 
         $roles = $RoleListing_Table->map(function ($role) use ($Role_Table, $Staff_Table, $Application_Table) {
 
@@ -149,25 +133,26 @@ class RoleController extends Controller
 
             // Find the corresponding staff record using the role_id
             $staffRecord = $Staff_Table->where('role_id', $role->role_id)->first();
-
             $applicationCount = $Application_Table->where('listing_id', $role->listing_id)->first();
             $vacancy = $role->vacancy;
             $status = $role->status === 1 ? 'Open' : 'Closed';
             $work_arrangement = $role->work_arrangement === 1 ? 'Part Time' : 'Full Time';
 
             return [
-                //'role_id' => $matchingRole ? $matchingRole->role_id : null,
-                'role' => $matchingRole ? $matchingRole->role : null,  //job title
-                'created_at' => $role->created_at->format('Y-m-d'),  //creation_date
-                'full_name' => $staffRecord ? $staffRecord->full_name : null, //listed by
-                'status' => $status,
+                'listing_id' => $role->listing_id, // listing_id
+                'role_id' => $role->role_id, // role_id
+                'role' => $matchingRole ? $matchingRole->role : null, // job title
+                'created_at' => $role->created_at->format('Y-m-d'), // creation_date
+                'full_name' => $staffRecord ? $staffRecord->full_name : null, // listed by
+                'status' => $status, // status
                 'total_applications' => $applicationCount ? $applicationCount->total_applications : 0, // total_applications
                 'vacancy' => $vacancy, // vacancy
                 'work_arrangement' => $work_arrangement, // work_arrangement
             ];
         });
 
-        return response()->json($roles);
+        return view('role-listings', compact('roles'));
+        // return response()->json($roles);
     }
 
     public function setup()
@@ -188,11 +173,11 @@ class RoleController extends Controller
         $work_arrangements = [
             [
                 'id' => 1,
-                'name' => 'Full-time',
+                'name' => 'Part-time',
             ],
             [
                 'id' => 2,
-                'name' => 'Part-time',
+                'name' => 'Full-time',
             ],
         ];
 
@@ -204,34 +189,12 @@ class RoleController extends Controller
         // get all staff
         $hiring_managers = DB::table('staff')->select('staff.staff_id', 'staff_fname', 'staff_lname')->get();
 
-        // see what backend is sending to frontend
-        // return [
-        //     'header' => 'Create Role',
-
-        //     // replace when role title input bar has been changed to dropdown
-        //     'Role_Name' => $role_titles,
-        //     // 'Role_Name' => '',
-        //     'title' => '',
-        //     'vacancy' => 0,
-        //     'deadline' => '',
-        //     'skills' => $skills,
-        //     'description' => '',
-        //     'deptDDL' => $departments,
-        //     'workArrangementDDL' => $work_arrangements,
-        //     'countryID_DDL' => $countries,
-        //     'hiring_managers' => $hiring_managers,
-        //     // New role will be open by default
-        //     'status' => 1,
-        //     'Staff_ID' => 5,
-        // ];
-
         // return in format that frontend expects / can read
         return view('create-role', [
             'header' => 'Create Role',
 
             // replace when role title input bar has been changed to dropdown
-            // 'Role_Name' => $role_titles,
-            'Role_Name' => '',
+            'rolesDDL' => $role_titles,
             'title' => '',
             'vacancy' => 0,
             'deadline' => '',

@@ -174,23 +174,20 @@
         @if(session('success'))
         swal({
           title: "Application successful",
-          text: "{{Session::get('message')}}",
+          text: "{{session:('success')}}",
           icon: "success",
         });
+
         @elseif(session('error')){
         swal({
           title: "Application unsuccessful",
-          text: "{{Session::get('message')}}",
+          text: "{{session('error')}}",
           icon: "error",
         });
         };
         @endif
         
-    </script>
-        <!-- JS SCRIPTS TO TRIGGER THE ALERTS -->
-        
-
-        
+    </script>        
     <script>
         // listing_id and staff_id are passed from the view-role backend(?), hardcoded for now
 

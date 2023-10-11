@@ -45,6 +45,7 @@ Route::get('/skillsDDL', [UpdateRoleController::class, 'retrieveAllSkills']);
 
 // post request to apply for a role as staff
 Route::get('/apply', [ApplicationController::class, 'store'])->name('apply-role');
+Route::post('/apply', [ApplicationController::class, 'store'])->name('apply-role');
 Route::get('/apply', function () {
     return view('apply-role');
 });

@@ -82,10 +82,19 @@
                 </div>
                 <div class="col-12 col-sm-4">
                     <div class="d-flex justify-content-start justify-content-sm-end">
-                        <button type="submit" id="submit" type="button" class="btn btn-success btn-md btn-lg">Apply Now</button>
+                        <a href="{{route('apply-role')}}" type="submit" id="submit" role="button" class="btn btn-success btn-md btn-lg">Apply Now</a>
                     </div>
                 </div>
             </div>
+
+        <!-- Hard coded staff_id and role_id for now -->
+        <!-- <form action="/apply-role" id="form" method="POST">
+            @csrf
+            <input type="hidden" id="listing_id" name="listing_id" value="1">
+            <input type="hidden" id="staff_id" name="staff_id" value="1">
+        </form> -->
+        
+        <div class="row">
             
             <div class="row p-3 gy-2 gy-sm-0" id="grey-box">
 
@@ -154,7 +163,7 @@
     <!-- JS SCRIPTS TO TRIGGER THE ALERTS -->
 
     <!-- Import AJAX -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <script>
         // listing_id and staff_id are passed from the view-role backend(?), hardcoded for now
@@ -167,7 +176,7 @@
 
         //send listing_id and staff_id to ApplicationController
         $.ajax({
-            url: '/apply-role',
+            url: 'route("apply-role")',
             data: {
                 Role_ID: listing_id,
                 Staff_ID: staff_id  
@@ -181,7 +190,7 @@
           if (outcomeMessage == "Application created successfully") {
             swal({
             title: "succcess",
-            text: "{{{$outcomeMessage}}}",
+            text: "$outcomeMessage",
             icon: "success",
             button: "Back",
           })
@@ -189,13 +198,13 @@
           else {
             swal({
             title: "error",
-            text: "{{{$outcomeMessage}}}",
+            text: "$outcomeMessage",
             icon: "error",
             button: "Back",
           });
           }
         });
-    </script>
+    </script> -->
 
     </body>
 </html>

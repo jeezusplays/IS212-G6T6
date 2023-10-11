@@ -5,7 +5,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>All-In-One (HR)</title>
-  <!-- <link rel="icon" type="image/x-icon" href="../img/favicon.ico" /> -->
+  <link rel="icon" href="{{ asset('favicon-32x32.png') }}" type="image/x-icon">
   <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
@@ -31,8 +31,9 @@
   <div id="app">
 
     <!-- NAVBAR-->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="http://localhost:8000/role-listings">
+    <nav class="navbar navbar-expand-lg navbar-light">
+      <div class="container">
+      <a class="navbar-brand" href="http://localhost:8000/role-listings">
                 <img src="{{ asset('favicon-32x32.png') }}" alt="Company Logo">
             </a>
             <div class="collapse navbar-collapse" id="navbarNav">
@@ -60,6 +61,8 @@
                     <li><a class="dropdown-item" href="http://localhost:8000/role-listings-manager">Manager</a></li>
                 </ul>
             </div>
+      </div>
+            
         </nav>
 
     <!-- HEADER -->
@@ -80,10 +83,17 @@
           <input type="hidden" id="Status" name="Status" value="{{$status}}">
           <input type="hidden" id="Created_By" name="Created_By" value="{{ $Staff_ID }}">
 
-          <!-- Text input (roleTitle) -->
+          <!-- Select input (roleTitle) -->
           <div class="mb-3 col-lg-6">
-            <label for="Role_Name" class="form-label">Role Title</label>
-            <input required class="form-control" id="Role_Name" name="Role_Name" placeholder="Enter title" value="{{$Role_Name}}">
+            <label for="Role_ID" class="form-label">Role Name</label>
+            <select required class="form-control" id="Role_ID" name="Role_ID" placeholder="Enter role name">
+              <option value="" disabled selected>Select role name</option>
+              @foreach ($rolesDDL as $roleName)
+              <option value="{{ $roleName->role_id }}">
+                {{$roleName->role}}
+              </option>
+              @endforeach
+            </select>
             <div class="invalid-feedback">Role Name cannot be empty</div>
           </div>
 
@@ -175,8 +185,7 @@
           <!-- Textarea (description) -->
           <div class="mb-3">
             <label for="Description" class="form-label">Description</label>
-            <input required class="form-control" id="Description" name="Description" rows="4" placeholder="" value="{{$description}}">
-            </input>
+            <textarea required class="form-control" id="Description" name="Description" rows="4" placeholder="" value="{{$description}}"></textarea>
             <div class="invalid-feedback">Description cannot be empty</div>
           </div>
 
@@ -197,9 +206,17 @@
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
     <script>
+      @if(session('success'))
+        swal({
+          title: "Role Listing Created",
+          text: "Role Listing has been created successfully",
+          icon: "success",
+        });
+      @endif
+
       //Alert for successful role creation
       $("#submit").click(function() {
-        var roleName = $("#Role_Name").val();
+        var roleID = $("#Role_ID").val();
         var workArrangement = $("#Work_Arrangement").val();
         var department = $("#Department_ID").val();
         var vacancy = $("#Vacancy").val();
@@ -209,20 +226,33 @@
         var description = $("#Description").val();
         var hiringManager = $("#Staff_ID").val();
 
-        if (roleName == null || workArrangement == null || department == null || vacancy == null || deadline == null || country == null || skills.length == 0 || description == null || hiringManager.length == 0) {
+        // Extract date components
+        var selectedDate = new Date(deadline); // Convert the input value to a Date object
+        var currentDate = new Date(); // Get the current date
+        var selectedDay = selectedDate.getDate();
+        var selectedMonth = selectedDate.getMonth();
+        var selectedYear = selectedDate.getFullYear();
+
+        var currentDay = currentDate.getDate();
+        var currentMonth = currentDate.getMonth();
+        var currentYear = currentDate.getFullYear();
+
+        if (roleID == null || workArrangement == null || department == null || vacancy == null || deadline == null || country == null || skills.length == 0 || description == null || hiringManager.length == 0) {
           swal({
             title: "All Fields Required",
             text: "Please fill in all fields before submitting",
             icon: "error",
             button: "Back to form",
           });
-        } else if (selectedDate.getDate() < currentDate.getDate())
-          swal({
-            title: "Deadline Field is Wrong",
-            text: "Your deadline date cannot be in the past" + currentDate,
-            icon: "error",
-            button: "Back to form",
-          })
+        } else if (selectedYear < currentYear || 
+        (selectedYear === currentYear && selectedMonth < currentMonth) || 
+        (selectedYear === currentYear && selectedMonth === currentMonth && selectedDay < currentDay)) 
+                swal({
+                    title: "Deadline Field is Wrong",
+                    text: "Deadline date cannot be in the past for the date that you have selected",
+                    icon: "error",
+                    // button: "Back to form",
+                })
         else if (vacancy > 5 || vacancy < 1) {
           swal({
             title: "Vacancy Field is Wrong",
@@ -230,15 +260,7 @@
             icon: "error",
             button: "Back to form",
           })
-        } else {
-          swal({
-            title: "Role Created",
-            text: "Role has been created successfully",
-            icon: "success",
-            button: "Back",
-          });
-        }
-
+        } 
       });
 
 

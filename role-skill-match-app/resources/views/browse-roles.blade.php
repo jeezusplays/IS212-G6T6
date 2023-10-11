@@ -165,7 +165,7 @@
                 </select>
                 <button id="filterButton" class="btn btn-primary w-100 form-control-lg" onclick="searchJobs()">Apply Filters</button>
                 <button id="clearFilterButton" class="btn btn-secondary w-100 mt-3 form-control-lg" onclick="clearFilters()">Clear Filters</button>
-                <p class = "mt-3" id = "jobListingsCount">0 Jobs found based on your filters</p>
+                <p class = "mt-3" id = "jobListingsCount">0 roles found based on your filters</p>
             </div>
 
 
@@ -311,7 +311,7 @@
         }
 
         // Update and display the job listings count
-        document.getElementById('jobListingsCount').textContent = `${counter} Jobs found based on your filters`;
+        document.getElementById('jobListingsCount').textContent = `${counter} roles found based on your filters`;
     }
 
     // Function to clear all filters

@@ -139,7 +139,6 @@
 
             <div class="row mt-5">
                 <div class="col text-danger">
-
                     This listing closes on 2021-10-31
                 </div>
             </div>
@@ -158,7 +157,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <script>
-        // listing_id and staff_id are passed from the backend
+        // listing_id and staff_id are passed from the view-role backend(?), hardcoded for now
         var listing_id = 1;
         var staff_id = 1;
 
@@ -196,7 +195,6 @@
           });
           }
         });
-
     </script>
 
     </body>

@@ -19,6 +19,9 @@ use App\Http\Controllers\ViewRoleController;
 */
 Route::get('/role-listings', [RoleController::class, 'index']);
 
+# Route for browse-roles page
+Route::get('browse-roles', [App\Http\Controllers\BrowseAllRoleController::class, 'index_view'])->name('browse-roles');
+
 Route::get('/create-role', [RoleController::class, 'setup']);
 Route::post('/create-role', [RoleController::class, 'store'])->name('create-role');
 

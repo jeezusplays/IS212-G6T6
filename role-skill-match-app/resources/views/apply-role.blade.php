@@ -163,57 +163,72 @@
 
     
     <script>
+        // set application date to today's date
         const today = new Date(); 
         document.getElementById('application_date').value =
         today.getFullYear() + "-" + 
         (today.getMonth()+1) + "-" +
         today.getDate();
+
+        // render alerts depending on backend response
+        @if(session('success'))
+        swal({
+          title: "Application successful",
+          text: "{{Session::get('message')}}",
+          icon: "success",
+        });
+        @elseif(session('error')){
+        swal({
+          title: "Application unsuccessful",
+          text: "{{Session::get('message')}}",
+          icon: "error",
+        });
+        };
+        @endif
+        
     </script>
         <!-- JS SCRIPTS TO TRIGGER THE ALERTS -->
+        
 
-    <!-- Import AJAX -->
-    <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
+        
     <script>
         // listing_id and staff_id are passed from the view-role backend(?), hardcoded for now
-        var listing_id = 1;
-        var staff_id = 1;
 
         // bind Message from backend to JS variable
         // Trigger alerts
-        $("#submit").click(function() {
+        // $("#submit").click(function() {
 
-        //send listing_id and staff_id to ApplicationController
-        $.ajax({
-            url: 'route("apply-role")',
-            data: {
-                Role_ID: listing_id,
-                Staff_ID: staff_id  
-            },
-            success: function(response) {
-                console.log(response);
-                var outcomeMessage = response; //assuming this is the message
-                }
-            });
+        // //send listing_id and staff_id to ApplicationController
+        // $.ajax({
+        //     url: 'route("apply-role")',
+        //     data: {
+        //         Role_ID: listing_id,
+        //         Staff_ID: staff_id  
+        //     },
+        //     success: function(response) {
+        //         console.log(response);
+        //         var outcomeMessage = response; //assuming this is the message
+        //         }
+        //     });
 
-          if (outcomeMessage == "Application created successfully") {
-            swal({
-            title: "succcess",
-            text: outcomeMessage,
-            icon: "success",
-            button: "Back",
-          })
-        }
-          else {
-            swal({
-            title: "error",
-            text: outcomeMessage,
-            icon: "error",
-            button: "Back",
-          });
-          }
-        });
-    </script> -->
+        //   if (outcomeMessage == "Application created successfully") {
+        //     swal({
+        //     title: "succcess",
+        //     text: outcomeMessage,
+        //     icon: "success",
+        //     button: "Back",
+        //   })
+        // }
+        //   else {
+        //     swal({
+        //     title: "error",
+        //     text: outcomeMessage,
+        //     icon: "error",
+        //     button: "Back",
+        //   });
+        //   }
+        // });
+    </script>
 
     </body>
 </html>

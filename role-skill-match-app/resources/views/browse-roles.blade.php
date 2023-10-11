@@ -127,7 +127,7 @@
         {{-- Search Bar --}}
         <div class="mb-3">
             <form class="d-flex" id = "searchSubmit" onsubmit="searchJobs(); return false;">
-                <input class="form-control me-2 form-control-lg" id="myInput" type="search" placeholder="Search by Job Title" aria-label="Search">
+                <input class="form-control me-2 form-control-lg" id="myInput" type="search" placeholder="Search by role title" aria-label="Search">
                 <button class="btn btn-success form-control-lg" id="searchButton" type="submit">
                     Search
                 </button>

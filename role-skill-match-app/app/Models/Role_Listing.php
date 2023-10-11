@@ -2,17 +2,17 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Role_Listing extends Model
 {
-    use SoftDeletes;
     // links to factory for seeding
     use HasFactory;
+    use SoftDeletes;
 
     // Many-to-one relationship with `Department` Model
     public function department(): BelongsTo
@@ -35,30 +35,30 @@ class Role_Listing extends Model
     // Many-to-many relationship with `Skill` Model through `Role_Skill` Model
     // public function skills(): BelongsToMany
     // {
-    //     return $this->belongsToMany(Skill::class, 'role_skill', 'role_id', 'skill_id'); 
+    //     return $this->belongsToMany(Skill::class, 'role_skill', 'role_id', 'skill_id');
     // }
 
     // One-to-many relationship with `Role_Skill` Model
     public function skills(): BelongsToMany
     {
-        return $this->belongsToMany(Skill::class, 'role_skill', 'role_id', 'skill_id');
+        return $this->belongsToMany(Skill::class, 'role_skill', 'listing_id', 'skill_id');
     }
 
     // Many-to-many relationship with `Application` Model
     public function applications(): BelongsToMany
     {
-        return $this->belongsToMany(Application::class, 'application_role', 'role_id', 'application_id');
+        return $this->belongsToMany(Application::class, 'application_role', 'listing_id', 'application_id');
     }
 
     // Many-to-many relationship with `Hiring_Manager` Model
     public function managers(): BelongsToMany
     {
-        return $this->belongsToMany(Hiring_Manager::class, 'hiring_manager', 'role_id', 'staff_id');
+        return $this->belongsToMany(Hiring_Manager::class, 'hiring_manager', 'listing_id', 'staff_id');
     }
 
     protected $table = 'Role_Listing';
 
-    protected $primaryKey = 'listing_id';   
+    protected $primaryKey = 'listing_id';
 
     protected $fillable = [
         'role_id',

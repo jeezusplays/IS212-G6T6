@@ -15,7 +15,7 @@ class ApplicationController extends Controller
         //check that skills for role listing match at least 1 skill for staff applying for this role
         $role_listing_skills = Role_Listing::where('listing_id', $request->listing_id)->first()->skills;
         $staff_skills = Staff::where('staff_id', $request->staff_id)->first()->skills;
-        $matching_skills = array_intersect($role_listing_skills, $staff_skills);
+        $matching_skills = $role_listing_skills->intersect($staff_skills);
         if (count($matching_skills) == 0) {
             return redirect()->back()->with('error', 'You do not have the required skills for this role!');
         }

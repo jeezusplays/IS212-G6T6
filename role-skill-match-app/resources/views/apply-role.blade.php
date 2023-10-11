@@ -82,17 +82,19 @@
                 </div>
                 <div class="col-12 col-sm-4">
                     <div class="d-flex justify-content-start justify-content-sm-end">
-                        <a href="{{route('apply-role')}}" type="submit" id="submit" role="button" class="btn btn-success btn-md btn-lg">Apply Now</a>
+                    <form action="{{route('apply-role')}}" id="form" method="POST">
+                        @csrf
+                        <input type="hidden" id="listing_id" name="listing_id" value="1">
+                        <input type="hidden" id="staff_id" name="staff_id" value="1">
+                        <input type="hidden" id="application_date" name="application_date">
+                        <button type="submit" id="submit" role="button" class="btn btn-success btn-md btn-lg">Apply Now</button>
+                    </form>
                     </div>
                 </div>
             </div>
 
         <!-- Hard coded staff_id and role_id for now -->
-        <!-- <form action="/apply-role" id="form" method="POST">
-            @csrf
-            <input type="hidden" id="listing_id" name="listing_id" value="1">
-            <input type="hidden" id="staff_id" name="staff_id" value="1">
-        </form> -->
+
         
         <div class="row">
             
@@ -160,7 +162,14 @@
         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
     
-    <!-- JS SCRIPTS TO TRIGGER THE ALERTS -->
+    <script>
+        const today = new Date(); 
+        document.getElementById('application_date').value =
+        today.getFullYear() + "-" + 
+        (today.getMonth()+1) + "-" +
+        today.getDate();
+    </script>
+        <!-- JS SCRIPTS TO TRIGGER THE ALERTS -->
 
     <!-- Import AJAX -->
     <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

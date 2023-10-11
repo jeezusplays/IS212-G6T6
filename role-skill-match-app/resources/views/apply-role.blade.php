@@ -153,19 +153,49 @@
 
     
     <!-- JS SCRIPTS TO TRIGGER THE ALERTS -->
+
+    <!-- Import AJAX -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
     <script>
+        // listing_id and staff_id are passed from the backend
+        var listing_id = 1;
+        var staff_id = 1;
+
+        // bind Message from backend to JS variable
         // Trigger alerts
         $("#submit").click(function() {
 
-        // Check if there are 5 ongoing applications
-          swal({
-            title: "{{{$status}}}",
-            text: "{{{$message}}}",
-            icon: "{{$status}}",
+        //send listing_id and staff_id to ApplicationController
+        $.ajax({
+            url: '/apply-role',
+            data: {
+                Role_ID: listing_id,
+                Staff_ID: staff_id  
+            },
+            success: function(response) {
+                console.log(response);
+                var outcomeMessage = response; //assuming this is the message
+                }
+            });
+
+          if (outcomeMessage == "Application created successfully") {
+            swal({
+            title: "succcess",
+            text: "{{{$outcomeMessage}}}",
+            icon: "success",
+            button: "Back",
+          })
+        }
+          else {
+            swal({
+            title: "error",
+            text: "{{{$outcomeMessage}}}",
+            icon: "error",
             button: "Back",
           });
-
-      });
+          }
+        });
 
     </script>
 

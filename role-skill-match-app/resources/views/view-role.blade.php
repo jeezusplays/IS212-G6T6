@@ -16,6 +16,9 @@
       crossorigin="anonymous"
     />
 
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+    
     <style>
         #grey-box{
             background-color: rgb(223, 231, 242);
@@ -39,35 +42,30 @@
   </head>
 
   <body>
-
-    <div class="container" id="app">
-
-    <nav class="navbar navbar-expand-lg">
-        <a class="navbar-brand" href="http://localhost:8000/role-listings">
+  <div id="app" class="container mb-3">
+        <nav class="navbar navbar-expand-lg">
+            <a class="navbar-brand" href="http://localhost:8000/browse-roles">
                 <img src="{{ asset('favicon-32x32.png') }}" alt="Company Logo">
             </a>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item active">
-                        <a class="nav-link" href="http://localhost:8000/role-listings">View Role Listings</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="http://localhost:8000/create-role">Create Role Listing</a>
-                        </li>
+                        <a class="nav-link" href="http://localhost:8000/browse-roles">Browse Role Listings</a>
+                    </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="http://localhost:8000/update-role">Edit Role Listing</a>
+                        <a class="nav-link" href="http://localhost:8000/my-applications">View Applications</a>
                     </li>
                 </ul>
             </div>
             <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
-                    data-bs-toggle="dropdown" aria-expanded="false">
-                    Staff Name (HR Staff)
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="true">
+                   <!-- {{-- Default staff name [Lee Ji Eun, Role id = 1] from database --}} -->
+                    Lee Ji Eun (Staff)
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     <li><a class="dropdown-item" href="http://localhost:8000/role-listings">HR Staff</a></li>
-                    <li><a class="dropdown-item" href="http://localhost:8000/role-listings-staff">Staff</a></li>
-                    <li><a class="dropdown-item" href="http://localhost:8000/role-listings-manager">Manager</a></li>
+                    <li><a class="dropdown-item" href="http://localhost:8000/browse-roles">Staff</a></li>
+                    <li><a class="dropdown-item" href="http://localhost:8000/role-listings-management">Manager</a></li>
                 </ul>
             </div>
         </nav>
@@ -94,9 +92,9 @@
                 <div class="col-12 col-sm-4">
                     <b>Work Arrangement</b> 
                     @if ($role['work_arrangement'] == 1)
-                    Full Time
-                    @else 
                     Part Time
+                    @else 
+                    Full Time
                     @endif
                 </div>
                 <div class="col-12 col-sm-4">

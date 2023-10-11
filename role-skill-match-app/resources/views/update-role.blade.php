@@ -121,6 +121,7 @@
                         <div class="invalid-feedback">Work Arrangement cannot be empty</div>
                     </div>
 
+
                     <!-- Select input (department) -->
                     <div class="mb-3 col-lg-6">
                         <label for="department" class="form-label">Select Department</label>

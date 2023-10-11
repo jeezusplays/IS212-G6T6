@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\UpdateRoleController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\ViewRoleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,6 +21,8 @@ Route::get('/role-listings', [RoleController::class, 'index']);
 
 # Route for browse-roles page
 Route::get('browse-roles', [App\Http\Controllers\BrowseAllRoleController::class, 'index_view'])->name('browse-roles');
+Route::get('/create-role', [RoleController::class, 'setup']);
+Route::post('/create-role', [RoleController::class, 'store'])->name('create-role');
 
 Route::get('/', function () {
     return view('welcome');
@@ -31,7 +34,7 @@ Route::post('/updateRole', [UpdateRoleController::class, 'store']);
 //get listing 
 Route::get('/edit/listingID={passedlisting}', [UpdateRoleController::class, 'autoFillRoleListing']);
 
-Auth::routes();
+// Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/alldept', [App\Http\Controllers\UpdateRoleController::class, 'retrieveAllSkills'])->name('home');
@@ -41,3 +44,4 @@ Route::get('/alldepartments', [App\Http\Controllers\UpdateRoleController::class,
 Route::get('/hiringManagerDDL', [UpdateRoleController::class, 'retrieveAllHiringManagers']);
 Route::get('/skillsDDL', [UpdateRoleController::class, 'retrieveAllSkills']);
 
+Route::get('/view-role/listingID={passedlisting}', [ViewRoleController::class, 'getListing']);

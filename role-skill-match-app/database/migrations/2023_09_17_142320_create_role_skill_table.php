@@ -4,11 +4,14 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
+
 return new class extends Migration
 {
     /**
      * Run the migrations.
      */
+    protected $table = 'role_skill';
+    
     public function up(): void
     {
         Schema::create('role_skill', function (Blueprint $table) {
@@ -16,6 +19,7 @@ return new class extends Migration
             $table->unsignedInteger('skill_id');
             $table->timestamps();
             $table->Softdeletes();
+            
             // Foreign Keys
             $table->foreign('listing_id')->references('listing_id')->on('role_listing');
             $table->foreign('skill_id')->references('skill_id')->on('skill');

@@ -44,7 +44,7 @@
                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
                     data-bs-toggle="dropdown" aria-expanded="false">
                     {{-- Retrieve default HR staff name [Park Bo Gum, Role id = 5] from database --}}
-                    {{ $roles[4]['full_name'] }} (HR Staff)
+                    Park Bo Gum (HR Staff)
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     <li><a class="dropdown-item" href="http://localhost:8000/role-listings">HR Staff</a></li>

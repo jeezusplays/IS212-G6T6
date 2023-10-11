@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>All-In-One (HR)</title>
+    <link rel="icon" type="image/x-icon" href="../img/favicon.ico" />
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
+      crossorigin="anonymous"
+    />
+
+    <!-- Datatables for table styling -->
+    <link
+      href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Datatables JS scripts -->
+    <script defer src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script
+      defer
+      src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"
+    ></script>
+    <script
+      defer
+      src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"
+    ></script>
+    <script defer src="../script.js"></script>
+  </head>
+
+  <body>
+    <div id="app">
+
+      <!-- NAVBAR-->
+      <nav
+        class="navbar navbar-light navbar-expand-lg bg-body-secondary"
+        style="background-color: #e3f2fd"
+      >
+        <div class="container-fluid">
+          <!-- Shows account type -->
+          <a class="navbar-brand" href="manageRoles.html"
+            >All-In-One (HR)</a
+          >
+
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <!-- Navbar tabs for HR -->
+
+              <!-- Manage Roles tab -->
+              <li class="nav-item">
+                <a
+                  class="nav-link active"
+                  aria-current="page"
+                  href="manageRoles.html"
+                  >Manage Roles</a
+                >
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="">Manage Candidates</a>
+              </li>
+            </ul>
+
+            <!-- Switches between account types -->
+            <button
+              class="btn btn-outline-primary"
+              onclick=""
+            >
+              Switch to Staff View (for demo purpose)
+            </button>
+          </div>
+        </div>
+      </nav>
+
+      <!-- HEADER -->
+      <div class="container-fluid my-4">
+        <h2>{{header}}</h2>
+        <a class="btn btn-primary" href="" role="button">Link</a>
+      </div>
+
+      <!-- SEARCH -->
+
+
+      <!-- OPEN ROLES -->
+      <div class="container-fluid my-4">
+        <div class="row">
+          <div v-for="openRole in openRoles" class="col-lg-4 col-md-6 col-s-12">
+            <div class="card">
+              <div class="card-header">
+                {{openRole.department}}
+              </div>
+              <div class="card-body">
+                <blockquote class="blockquote mb-0">
+                  <h4>{{openRole.jobTitle}}</h4>
+                  <h6 class="card-subtitle mb-2 text-muted">Role ID: {{openRole.roleID}}</h6>
+                  <ul class="list-group mb-3">
+                    <li class="list-group-item">Work Arrangement: {{openRole.workArrangement}}</li>
+                    <li class="list-group-item">Expires On: {{openRole.expiryDate}}</li>
+                  </ul>
+
+                  <div class="btn-group pb-3" role="group" aria-label="Button Group">
+                    <button type="button" class="btn btn-outline-primary">View applicants</button>
+                    <button type="button" class="btn btn-outline-secondary">Edit Role</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+      </div>
+
+
+
+      
+
+    </div>
+      </div>
+    </div>
+    <script>
+      const app = Vue.createApp({
+        data() {
+          return {
+            // Header
+            header: "Manage Roles",
+
+            // openRoles
+            openRoles: [
+            {
+              roleID: 1,
+              jobTitle: "HR Associate",
+              skillsRequired: ['item 01', 'item 02'],
+              department: "HR and Admin",
+              hiringManager: "Sally Loh",
+              expiryDate: "2021-10-30",
+              workArrangement: "Part-time",
+              vacancy: 1,
+              creationDate: "2021-09-30",
+              location: "Singapore",
+              description: ''
+            },
+            {
+              roleID: 1,
+              jobTitle: "HR Associate",
+              skillsRequired: ['item 01', 'item 02'],
+              department: "HR and Admin",
+              hiringManager: "Sally Loh",
+              expiryDate: "2021-10-30",
+              workArrangement: "Part-time",
+              vacancy: 1,
+              creationDate: Date("2021-09-30"),
+              location: "Singapore",
+              description: ''
+            },
+
+          ],
+          };
+        },
+
+        methods: {
+          // header
+          getHeader(header) {
+            return header;
+          },
+
+          
+      }
+    });
+      app.mount("#app");
+    </script>
+
+    <!-- Bootstrap Bundle -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

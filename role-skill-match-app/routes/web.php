@@ -36,12 +36,15 @@ Route::get('/edit/listingID={passedlisting}', [UpdateRoleController::class, 'aut
 // Auth::routes();
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
-Route::get('/alldept', [UpdateRoleController::class, 'retrieveAllSkills'])->name('home');
+// Route::get('/alldept', [UpdateRoleController::class, 'retrieveAllSkills'])->name('home');
 
-Route::get('/alldepartments', [UpdateRoleController::class, 'retrieveAllDepartments'])->name('home');
+// Route::get('/alldepartments', [UpdateRoleController::class, 'retrieveAllDepartments'])->name('home');
 
 Route::get('/hiringManagerDDL', [UpdateRoleController::class, 'retrieveAllHiringManagers']);
 Route::get('/skillsDDL', [UpdateRoleController::class, 'retrieveAllSkills']);
 
 // post request to apply for a role as staff
-Route::get('/apply', [ApplicationController::class, 'store'])->name('apply');
+Route::get('/apply', [ApplicationController::class, 'store'])->name('apply-role');
+Route::get('/apply', function () {
+    return view('apply-role');
+});

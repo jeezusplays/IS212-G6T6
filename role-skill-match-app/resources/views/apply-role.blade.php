@@ -74,11 +74,10 @@
     </div>
         
     <div class="container-sm">
-        <!-- @if ($isRoleValid)
-            @foreach ($roles as $role) -->
+
             <div class="row mt-5 mb-4">
                 <div class="col-12 col-sm-8 text-start">
-                    <!-- <h1>{{$role['role']}}</h1> -->
+
                     <h1>Financial Analyst</h1>
                 </div>
                 <div class="col-12 col-sm-4">
@@ -89,23 +88,15 @@
             </div>
             
             <div class="row p-3 gy-2 gy-sm-0" id="grey-box">
-                <!-- <div class="col-12 col-sm-4">
-                    <b>Department</b> {{$role['department']}}
-                </div> -->
+
                 <div class="col-12 col-sm-4">
                     <b>Department</b> Finance
                 </div>
                 <div class="col-12 col-sm-4">
                     <b>Work Arrangement</b> 
-                    <!-- @if ($role['work_arrangement'] == 1)
-                    Full Time
-                    @else 
-                    Part Time
-                    @endif -->
                     Full Time
                 </div>
                 <div class="col-12 col-sm-4">
-                    <!-- <b>Country</b> {{$role['country']}} -->
                     <b>Country</b> Singapore
                 </div>
             </div>
@@ -118,7 +109,6 @@
 
             <div class="row mt-2">
                 <div class="col">
-                    <!-- {{$role['description']}} -->
                     Test Description
                 </div>
             </div>
@@ -131,9 +121,7 @@
 
             <div class="row mt-2">
                 <div class="col">
-                    <!-- @foreach ($role['skills'] as $skill) -->
                         <button class="skill">Capital Management</button>
-                    <!-- @endforeach -->
                 </div>
             </div>
             
@@ -145,23 +133,16 @@
 
             <div class="row mt-2">
                 <div class="col">
-                    <!-- {{$role['vacancy']}} positions -->
                     1 positions
                 </div>
             </div>
 
             <div class="row mt-5">
                 <div class="col text-danger">
-                    <!-- This listing closes on {{$role['deadline']}} -->
+
                     This listing closes on 2021-10-31
                 </div>
             </div>
-            <!-- @endforeach -->
-        <!-- @else -->
-            <!-- <div class="alert alert-danger">
-                Invalid Role
-            </div> -->
-        <!-- @endif -->
     </div>
 
         <!-- Bootstrap Bundle -->
@@ -175,69 +156,14 @@
     <script>
         // Trigger alerts
         $("#submit").click(function() {
-            var roleSkillMatch = $role['skills']; // undersand that you will be hardcoding this
-            var numOngoingApplications = <? count($existing_applications) ?>;
-            var vacancy = <? $listing->vacancy ?>;
-            var currRoleId = <? $staff_role ?>;
-            var listId = <? $listing->role_id ?>;
-
 
         // Check if there are 5 ongoing applications
-        if (numOngoingApplications >= 5) {
           swal({
-            title: "Application Failed",
-            text: "You cannot have more than 5 ongoing applications",
-            icon: "error",
+            title: "{{{$status}}}",
+            text: "{{{$message}}}",
+            icon: "{{$status}}",
             button: "Back",
           });
-        }
-
-        // Check if there is a skill match
-        else if (roleSkillMatch == 0){
-          swal({
-            title: "Application Failed",
-            text: "You do not have the required skills for this role",
-            icon: "error",
-            button: "Back",
-            });
-        }
-
-        // Check if it is the same role
-        else if (currRoleId == listId){
-            swal({
-                title: "Application Failed",
-                text: "You already have this role",
-                icon: "error",
-                button: "Back",
-                });
-            }
-
-        // Check if role is closed
-        else if (vacancy == 0){
-          swal({
-            title: "Application Failed",
-            text: "This role has no vacancies",
-            icon: "error",
-            button: "Back",
-            });
-        }
-        else if (currRoleId == listId){
-            swal({
-                title: "Application Failed",
-                text: "You already have this role",
-                icon: "error",
-                button: "Back",
-                });
-            }
-        
-        else {
-          swal({
-            title: "Application Submitted",
-            text: "You have successfully applied for this role",
-            icon: "success",
-            button: "Got it!",
-          });
-        }
 
       });
 

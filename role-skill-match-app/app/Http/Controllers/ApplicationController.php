@@ -9,10 +9,17 @@ use Illuminate\Http\Request;
 
 class ApplicationController extends Controller
 {
-    //
-
+    // request contains listing_id and staff_id from frontend only
     public function store(Request $request)
     {
+        //check that skills for role listing match at least 1 skill for staff applying for this role
+        $role_listing_skills = Role_Listing::where('listing_id', $request->listing_id)->first()->skills;
+        $staff_skills = Staff::where('staff_id', $request->staff_id)->first()->skills;
+        $matching_skills = array_intersect($role_listing_skills, $staff_skills);
+        if (count($matching_skills) == 0) {
+            return redirect()->back()->with('error', 'You do not have the required skills for this role!');
+        }
+
         //check that application is for role that staff does not have
         $staff_role = Staff::where('staff_id', $request->staff_id)->first()->role_id;
         if ($staff_role == $request->role_id) {
@@ -34,7 +41,7 @@ class ApplicationController extends Controller
         $application = Application::firstOrCreate([
             'listing_id' => $request->listing_id,
             'staff_id' => $request->staff_id,
-            'status' => $request->status,
+            'status' => 1,
             'application_date' => $request->application_date,
         ]);
 

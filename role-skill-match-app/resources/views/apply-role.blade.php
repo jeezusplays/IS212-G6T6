@@ -182,7 +182,7 @@
           if (outcomeMessage == "Application created successfully") {
             swal({
             title: "succcess",
-            text: "{{{$outcomeMessage}}}",
+            text: outcomeMessage,
             icon: "success",
             button: "Back",
           })
@@ -190,7 +190,7 @@
           else {
             swal({
             title: "error",
-            text: "{{{$outcomeMessage}}}",
+            text: outcomeMessage,
             icon: "error",
             button: "Back",
           });

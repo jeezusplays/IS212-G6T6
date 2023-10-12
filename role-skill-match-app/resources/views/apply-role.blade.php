@@ -174,7 +174,7 @@
         @if(session('success'))
         swal({
           title: "Application successful",
-          text: "{{session:('success')}}",
+          text: "{{session('success')}}",
           icon: "success",
         });
 

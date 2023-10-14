@@ -36,7 +36,7 @@ class RoleListingSeeder extends Seeder
             'work_arrangement' => 1, 
             'vacancy' => 5,
             'status' => 2,
-            'deadline' => '2023-12-31',
+            'deadline' => '2023-05-05',
             'created_by' => 5,
         ]);
         Role_Listing::create([

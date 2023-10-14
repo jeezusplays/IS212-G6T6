@@ -16,6 +16,13 @@ class ApplicationSeeder extends Seeder
     {
         Application::create([
             'Status' => 1, 
+            'Application_Date' => '2023-07-15',
+            'listing_id' =>3,
+            'Staff_id' => 1
+        ]);
+        ///////
+        Application::create([
+            'Status' => 1, 
             'Application_Date' => '2023-01-01',
             'listing_id' =>1,
             'Staff_id' => 2
@@ -41,7 +48,7 @@ class ApplicationSeeder extends Seeder
             'Staff_id' => 3
         ]);
         Application::create([
-            'Status' => 4, 
+            'Status' => 3, 
             'Application_Date' => '2023-04-04',
             'listing_id' =>4, 
             'Staff_id' => 3
@@ -69,7 +76,7 @@ class ApplicationSeeder extends Seeder
             'Staff_id' => 4
         ]);
         Application::create([
-            'Status' => 2, 
+            'Status' => 4, 
             'Application_Date' => '2023-08-02',
             'listing_id' =>4,
             'Staff_id' => 4

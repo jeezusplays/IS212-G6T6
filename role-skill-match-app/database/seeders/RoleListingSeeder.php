@@ -32,7 +32,7 @@ class RoleListingSeeder extends Seeder
             'role_id' => 2,
             'description' => 'Lorem ipsum dolor sit amet',
             'department_id' => 2,
-            'country_id' => 1,
+            'country_id' => 2,
             'work_arrangement' => 1, 
             'vacancy' => 5,
             'status' => 2,
@@ -44,7 +44,7 @@ class RoleListingSeeder extends Seeder
             'role_id' => 3,
             'description' => 'Lorem ipsum dolor sit amet',
             'department_id' => 3,
-            'country_id' => 1,
+            'country_id' => 3,
             'work_arrangement' => 2, 
             'vacancy' => 5,
             'status' => 1,
@@ -56,7 +56,7 @@ class RoleListingSeeder extends Seeder
             'role_id' => 4,
             'description' => 'Lorem ipsum dolor sit amet',
             'department_id' => 4,
-            'country_id' => 1,
+            'country_id' => 4,
             'work_arrangement' => 1, 
             'vacancy' => 5,
             'status' => 1,
@@ -74,6 +74,18 @@ class RoleListingSeeder extends Seeder
             'status' => 1,
             'deadline' => '2023-12-31',
             'created_by' => 5,
+        ]);
+        Role_Listing::create([
+            'listing_id' => 6,
+            'role_id' => 6,
+            'description' => 'Lorem ipsum dolor sit amet',
+            'department_id' => 1,
+            'country_id' => 4,
+            'work_arrangement' => 1, 
+            'vacancy' => 3,
+            'status' => 1,
+            'deadline' => '2023-12-31',
+            'created_by' => 4,
         ]);
             // Add more role_listing entries here
     }

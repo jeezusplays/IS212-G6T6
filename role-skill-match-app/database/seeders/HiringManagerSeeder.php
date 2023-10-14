@@ -33,5 +33,8 @@ class HiringManagerSeeder extends Seeder
         Hiring_Manager::create([
             'listing_id' => 5, 'staff_id' => 7, 'created_at' => now(), 'updated_at' => now()
         ]);
+        Hiring_Manager::create([
+            'listing_id' => 6, 'staff_id' => 6, 'created_at' => now(), 'updated_at' => now()
+        ]);
     }
 }

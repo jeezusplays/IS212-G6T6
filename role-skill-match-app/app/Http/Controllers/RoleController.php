@@ -176,11 +176,11 @@ class RoleController extends Controller
         $work_arrangements = [
             [
                 'id' => 1,
-                'name' => 'Part-time',
+                'name' => 'Part Time',
             ],
             [
                 'id' => 2,
-                'name' => 'Full-time',
+                'name' => 'Full Time',
             ],
         ];
 
@@ -191,6 +191,11 @@ class RoleController extends Controller
 
         // get all staff
         $hiring_managers = DB::table('staff')->select('staff.staff_id', 'staff_fname', 'staff_lname')->get();
+
+        $hiring_managers = DB::table('staff')
+    ->select('staff.staff_id', 'staff_lname', 'staff_fname')
+    ->where('access_Id', 2)
+    ->get();
 
         // return in format that frontend expects / can read
         return view('create-role', [

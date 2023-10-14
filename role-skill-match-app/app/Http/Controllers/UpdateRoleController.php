@@ -236,6 +236,7 @@ class UpdateRoleController extends Controller
                 ->where('hiring_manager.listing_id', $passedlisting)
                 ->join('hiring_manager', 'role_listing.listing_id', '=', 'hiring_manager.listing_id')
                 ->join('staff', 'hiring_manager.staff_id', '=', 'staff.staff_id')
+                ->whereNull('hiring_manager.deleted_at') // Add this condition
                 ->selectRaw('DISTINCT CONCAT(staff.staff_fname, " ", staff.staff_lname) as staff_name')
                 ->pluck('staff_name')
                 ->toArray();

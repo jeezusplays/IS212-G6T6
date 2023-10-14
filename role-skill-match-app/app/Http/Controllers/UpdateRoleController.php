@@ -236,7 +236,7 @@ class UpdateRoleController extends Controller
                 ->where('hiring_manager.listing_id', $passedlisting)
                 ->join('hiring_manager', 'role_listing.listing_id', '=', 'hiring_manager.listing_id')
                 ->join('staff', 'hiring_manager.staff_id', '=', 'staff.staff_id')
-                ->selectRaw('DISTINCT CONCAT(staff.staff_lname, " ", staff.staff_fname) as staff_name')
+                ->selectRaw('DISTINCT CONCAT(staff.staff_fname, " ", staff.staff_lname) as staff_name')
                 ->pluck('staff_name')
                 ->toArray();
 
@@ -290,7 +290,7 @@ class UpdateRoleController extends Controller
             $query->select('staff_id')
                 ->from('Hiring_Manager');
         })
-            ->selectRaw("staff_id, CONCAT(staff_lname, ' ', staff_fname) as hiring_manager_name")
+            ->selectRaw("staff_id, CONCAT(staff_fname, ' ', staff_lname) as hiring_manager_name")
             ->get();
 
         return $hiringManagers;

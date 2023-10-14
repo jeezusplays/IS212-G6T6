@@ -193,9 +193,9 @@ class RoleController extends Controller
         $hiring_managers = DB::table('staff')->select('staff.staff_id', 'staff_fname', 'staff_lname')->get();
 
         $hiring_managers = DB::table('staff')
-    ->select('staff.staff_id', 'staff_lname', 'staff_fname')
-    ->where('access_Id', 2)
-    ->get();
+            ->select('staff.staff_id', 'staff_lname', 'staff_fname')
+            ->where('access_Id', 2)
+            ->get();
 
         // return in format that frontend expects / can read
         return view('create-role', [

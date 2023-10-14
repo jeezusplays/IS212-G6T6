@@ -35,7 +35,7 @@ class RoleListingSeeder extends Seeder
             'country_id' => 1,
             'work_arrangement' => 1, 
             'vacancy' => 5,
-            'status' => 1,
+            'status' => 2,
             'deadline' => '2023-12-31',
             'created_by' => 5,
         ]);

@@ -18,9 +18,20 @@ class HiringManagerSeeder extends Seeder
         // ]);
         // TODO: Will add in role_id when we modify the role table into 1. Full roles 2. Current Role 3. Role listings
         // currently populated with random role_id, to test inputting data into D
-        DB::table('hiring_manager')->insert([
-            ['listing_id' => 1, 'staff_id' => 6, 'created_at' => now(), 'updated_at' => now()],
-            // Add more permissions here
+        Hiring_Manager::create([
+            'listing_id' => 1, 'staff_id' => 4, 'created_at' => now(), 'updated_at' => now()
+        ]);
+        Hiring_Manager::create([
+            'listing_id' => 2, 'staff_id' => 4, 'created_at' => now(), 'updated_at' => now()
+        ]);
+        Hiring_Manager::create([
+            'listing_id' => 3, 'staff_id' => 5, 'created_at' => now(), 'updated_at' => now()
+        ]);
+        Hiring_Manager::create([
+            'listing_id' => 4, 'staff_id' => 5, 'created_at' => now(), 'updated_at' => now()
+        ]);
+        Hiring_Manager::create([
+            'listing_id' => 5, 'staff_id' => 5, 'created_at' => now(), 'updated_at' => now()
         ]);
     }
 }

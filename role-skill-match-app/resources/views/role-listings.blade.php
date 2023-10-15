@@ -113,7 +113,7 @@
                         <div class="card-body">
                             <p class="card-text">Applications received:
                                 {{ $role['total_applications'] }}
-                                <a href="#" class="@if ($role['total_applications'] > 0)  @endif">[View
+                                <a href="http://localhost:8000/view-role-applicants/listingID={{ $role['listing_id'] }}" class="@if ($role['total_applications'] > 0)  @endif">[View
                                     Applications]</a>
                             </p>
                             <p class="card-text">Creation Date: {{ $role['created_at'] }}</p>

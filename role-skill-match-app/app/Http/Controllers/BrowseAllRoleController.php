@@ -12,11 +12,21 @@ use App\Models\Role_Skill;
 use App\Models\Application;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+use App\Http\Controllers\ExpiredDeadlineController;
 
 class BrowseAllRoleController extends Controller
 {
+    protected $ExpiredDeadlineController;
+
+    public function __construct(ExpiredDeadlineController $ExpiredDeadlineController)
+    {
+        $this->ExpiredDeadlineController = $ExpiredDeadlineController;
+    }
+
     public function index_view(Request $request)
     {
+        // update status for expired role listings
+        $this->ExpiredDeadlineController->updateStatusForExpiredDeadlines();
         // Retrieve all role listing data
         $RoleListing_Table = Role_Listing::all();
 

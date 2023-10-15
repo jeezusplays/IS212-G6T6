@@ -149,7 +149,7 @@
           <!-- Date picker -->
           <div class="mb-3 col-lg-6">
             <label for="Deadline" class="form-label">Deadline</label>
-            <input type="date" required class="form-control" id="Deadline" name="Deadline" placeholder="DD/MM/YYYY" value="{{$deadline}}">
+            <input type="date" required class="form-control" id="Deadline" name="Deadline" placeholder="DD/MM/YYYY" value="{{$deadline}}" onkeydown="return false">
             <div class="invalid-feedback">You must select a date later than today.</div>
           </div>
 

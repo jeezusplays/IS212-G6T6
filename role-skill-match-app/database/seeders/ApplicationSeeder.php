@@ -114,6 +114,37 @@ class ApplicationSeeder extends Seeder
             'listing_id' =>3,
             'Staff_id' => 7
         ]);
+        /////////////////////////////////////////////
+        Application::create([
+            'Status' => 1, 
+            'Application_Date' => '2023-07-20',
+            'listing_id' =>1,
+            'Staff_id' => 5
+        ]);
+        Application::create([
+            'Status' => 2, 
+            'Application_Date' => '2023-07-20',
+            'listing_id' =>2,
+            'Staff_id' => 5
+        ]);
+        Application::create([
+            'Status' => 2, 
+            'Application_Date' => '2023-07-20',
+            'listing_id' =>3,
+            'Staff_id' => 5
+        ]);
+        Application::create([
+            'Status' => 3, 
+            'Application_Date' => '2023-07-20',
+            'listing_id' =>4,
+            'Staff_id' => 5
+        ]);
+        Application::create([
+            'Status' => 3, 
+            'Application_Date' => '2023-07-20',
+            'listing_id' =>6,
+            'Staff_id' => 5
+        ]);
 
     }
 }

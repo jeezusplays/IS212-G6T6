@@ -164,7 +164,7 @@
                     <div class="mb-3 col-lg-6">
                         <label for="deadline" class="form-label">Deadline</label>
                         <input required type="date" class="form-control" id="deadline" name="deadline"
-                            placeholder="DD/MM/YYYY" value="{{ $role['deadline'] }}">
+                            placeholder="DD/MM/YYYY" value="{{ $role['deadline'] }}" onkeydown="return false">
                         <div class="invalid-feedback">Deadline date cannot be in the past</div>
                     </div>
 

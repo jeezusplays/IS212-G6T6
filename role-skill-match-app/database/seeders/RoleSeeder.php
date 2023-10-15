@@ -40,5 +40,10 @@ class RoleSeeder extends Seeder
             'role' => 'Employer Branding Specialist',
             
         ]);
+        Role::create([
+            'role_id' => 6,
+            'role' => 'Customer Service Expert',
+            
+        ]);
     }
 }

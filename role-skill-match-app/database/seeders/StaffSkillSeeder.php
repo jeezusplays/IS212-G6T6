@@ -28,6 +28,9 @@ class StaffSkillSeeder extends Seeder
             ['staff_id' => 5, 'skill_id' => 10, 'proficiency_id' => 1, 'created_at' => now(), 'updated_at' => now()],
             ['staff_id' => 6, 'skill_id' => 11, 'proficiency_id' => 2, 'created_at' => now(), 'updated_at' => now()],
             ['staff_id' => 6, 'skill_id' => 12, 'proficiency_id' => 3, 'created_at' => now(), 'updated_at' => now()],
+            ['staff_id' => 7, 'skill_id' => 5, 'proficiency_id' => 1, 'created_at' => now(), 'updated_at' => now()],
+            ['staff_id' => 7, 'skill_id' => 6, 'proficiency_id' => 2, 'created_at' => now(), 'updated_at' => now()],
+            ['staff_id' => 7, 'skill_id' => 7, 'proficiency_id' => 3, 'created_at' => now(), 'updated_at' => now()],
         ]);
     }
 }

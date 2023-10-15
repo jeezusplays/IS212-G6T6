@@ -11,6 +11,7 @@ use App\Models\Role_Skill;
 
 use App\Models\Application;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class BrowseAllRoleController extends Controller
 {
@@ -96,7 +97,8 @@ class BrowseAllRoleController extends Controller
 
             // Calculate current date and find out days until deadline
             $currentDate = date('Y-m-d');
-            $deadline = $role->deadline;
+            //$deadline = $role->deadline;
+            $deadline = Carbon::parse($role->deadline)->format('d-m-Y');
             $diff = strtotime($deadline) - strtotime($currentDate);
             $daysUntilDeadline = round($diff / 86400);
 
@@ -119,7 +121,7 @@ class BrowseAllRoleController extends Controller
                 'vacancy' => $vacancy, // vacancy
                 'work_arrangement' => $work_arrangement, // work_arrangement
                 'skills' => $skills, // skills
-                'deadline' => $role->deadline, // deadline
+                'deadline' => $deadline, // deadline
                 'days_until_deadline' => $daysUntilDeadline, // days_until_deadline
                 'days_from_creation' => $daysFromCreation // days_from_creation
             ];

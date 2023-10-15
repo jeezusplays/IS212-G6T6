@@ -53,7 +53,7 @@
                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
                     data-bs-toggle="dropdown" aria-expanded="false">
                     {{-- Retrieve default HR staff name [Park Bo Gum, Role id = 5] from database --}}
-                    {{ $hiringManagerDDL[4]->staff_fname . ' ' . $hiringManagerDDL[4]->staff_lname }} (HR Staff)
+                    {{ $hiringManagerDDL[0]->staff_fname . ' ' . $hiringManagerDDL[0]->staff_lname }} (HR Staff)
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     <li><a class="dropdown-item" href="http://localhost:8000/role-listings">HR Staff</a></li>
@@ -149,7 +149,7 @@
           <!-- Date picker -->
           <div class="mb-3 col-lg-6">
             <label for="Deadline" class="form-label">Deadline</label>
-            <input type="date" required class="form-control" id="Deadline" name="Deadline" placeholder="DD/MM/YYYY" value="{{$deadline}}">
+            <input type="date" required class="form-control" id="Deadline" name="Deadline" placeholder="DD/MM/YYYY" value="{{$deadline}}" onkeydown="return false">
             <div class="invalid-feedback">You must select a date later than today.</div>
           </div>
 

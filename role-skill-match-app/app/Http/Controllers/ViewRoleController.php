@@ -13,6 +13,7 @@ use App\Models\Staff;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\View;
+use Carbon\Carbon;
 
 class ViewRoleController extends Controller
 {
@@ -49,7 +50,8 @@ class ViewRoleController extends Controller
             $matchingRole = $Role_Table->firstWhere('role_id', $role->role_id);
             $workArrangement = $RoleListing_Table->first()->work_arrangement;
             $vacancy = $RoleListing_Table->first()->vacancy;
-            $deadline = $RoleListing_Table->first()->deadline;
+            //$deadline = $RoleListing_Table->first()->deadline;
+            $deadline = Carbon::parse($RoleListing_Table->first()->deadline)->format('d-m-Y');
             $department = $Department_Table->first()->department;
             $department_id = $Department_Table->first()->department_id;
             $country = $Country_Table->first()->country;
@@ -64,7 +66,7 @@ class ViewRoleController extends Controller
                 ->where('hiring_manager.listing_id', $passedlisting)
                 ->join('hiring_manager', 'role_listing.listing_id', '=', 'hiring_manager.listing_id')
                 ->join('staff', 'hiring_manager.staff_id', '=', 'staff.staff_id')
-                ->selectRaw('DISTINCT CONCAT(staff.staff_lname, " ", staff.staff_fname) as staff_name')
+                ->selectRaw('DISTINCT CONCAT(staff.staff_fname, " ", staff.staff_lname) as staff_name')
                 ->pluck('staff_name')
                 ->toArray();
 

@@ -86,8 +86,6 @@
 
                 </div>
                 <div class="row p-3 gy-2 gy-sm-0" id="grey-box">
-                    <h4>Role Information:</h2>
-
                         <div class="col-12 col-sm-4">
                             <b>Department:</b> {{ $role['department'] }}
                         </div>
@@ -134,6 +132,7 @@
 
                 {{-- Create a bootstrap table containing columns 'Name, 'Application Date', 'Skillset', 'Status', 'Email' --}}
                 <div class="row mt-5">
+                    <h4>Applicants</h4>
                     <div class="col">
                         <table class="table table-striped table-bordered align-middle">
                             <thead class = "align-middle" style = "background-color: rgb(223, 231, 242);">

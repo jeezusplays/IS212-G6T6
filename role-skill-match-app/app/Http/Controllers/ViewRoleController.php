@@ -13,6 +13,7 @@ use App\Models\Staff;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\View;
+use Carbon\Carbon;
 
 class ViewRoleController extends Controller
 {
@@ -49,7 +50,8 @@ class ViewRoleController extends Controller
             $matchingRole = $Role_Table->firstWhere('role_id', $role->role_id);
             $workArrangement = $RoleListing_Table->first()->work_arrangement;
             $vacancy = $RoleListing_Table->first()->vacancy;
-            $deadline = $RoleListing_Table->first()->deadline;
+            //$deadline = $RoleListing_Table->first()->deadline;
+            $deadline = Carbon::parse($RoleListing_Table->first()->deadline)->format('d-m-Y');
             $department = $Department_Table->first()->department;
             $department_id = $Department_Table->first()->department_id;
             $country = $Country_Table->first()->country;

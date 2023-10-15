@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>View Role</title>
+    <title>{{ $roles[0]['role'] }} Applicants</title>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
@@ -147,6 +147,12 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @if (count($role['applicants']) === 0)
+                                    <tr>
+                                        <td colspan="6" style="text-align: center;">There are no applicants for this role listing yet.
+                                        </td>
+                                    </tr>
+                                @else
                                 @foreach ($role['applicants'] as $applicant)
                                     <tr>
                                         <td>{{ $applicant['staff_name'] }}</td>
@@ -182,14 +188,15 @@
                                         <td>50% - Placeholder</td>
                                     </tr>
                                 @endforeach
-
+                                @endif
                             </tbody>
                         </table>
                     </div>
             @endforeach
         @else
             <div class="alert alert-danger">
-                No applications found for this role listing!
+                Notice: Role has been closed! 
+                Please reopen the role listing to view role applicants.
             </div>
         @endif
     </div>

@@ -97,10 +97,12 @@ class ViewRoleApplicants extends Controller
                     })
                     ->select('proficiency.proficiency')
                     ->get();
+
                 return [
                     'staff_id' => $applicant->staff_id, //main DONE
                     'staff_name' => $staff->staff_fname . ' ' . $staff->staff_lname, //ext DONE
-                    'application_date' => $applicant->application_date, //main DONE
+                    // parse the application date via Carbon to d-m-Y format
+                    'application_date' => Carbon::parse($applicant->application_date)->format('d-m-Y'), //ext DONE
                     'skillset' => $person_skills, //ext DONE
                     'proficiency' => $Proficiency_Table->pluck('proficiency')->toArray(), //ext DONE
                     'status' => $applicant->status, //ext DONE

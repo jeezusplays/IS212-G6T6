@@ -90,7 +90,7 @@
 <!-- Scripts -->
 @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 
-<body onload="searchJobs()">
+<body onload="start()">
     {{-- Top Menu Bar --}}
     <div id="app" class="container mb-3">
         <nav class="navbar navbar-expand-lg">
@@ -205,14 +205,20 @@
                             </div>
                             </p>
                             <!-- Insert placeholder Dotted Progress Bar here to represent skill match, should not overlap past 9 column-->
-                            <span class="sr-only text-success"><b>30% Skills Matched</b></span>
+                            @php
+                                $match = array_intersect($role['skills'],$staff_skills);
+                                $skill_match_percent = count($match) / count($role['skills']) * 100;
+
+                                $missing_skills = array_diff($role['skills'], $match);
+                                $width = $skill_match_percent . '%';
+                            @endphp
+                            <span class="sr-only skill-match-text" style="color:darkgreen;"><b>{{$skill_match_percent}}% Skills Matched</b></span>
                             <div class="progress my-3">
                                 <!-- Adjust both valuenow and width to reflect progress -->
-                                <div class="progress-bar bg-success" role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100" style="width: 30%">
+                                <div class="progress-bar skill-match-progressbar"  role="progressbar" aria-valuenow="{{$skill_match_percent}}" aria-valuemin="0" aria-valuemax="100" style="background-color:darkgreen; width: {{ $width }};"> <!-- width: {{$width}}; -->
                                     <div class="progress-stripes"></div>
                                 </div>
                             </div>
-
                         </div>
                         <div class="col-lg-3">
                             <div class="my-4">
@@ -261,6 +267,11 @@
 
 <script>
     // Search bar functionality
+    function start(){
+        searchJobs();
+        progressColorChange();
+    }
+
     function searchJobs() {
         const selectedSkillset = document.getElementById('filterSkillsets').value;
         const input = document.getElementById('myInput');
@@ -325,6 +336,36 @@
             card.style.display = "";
         });
         searchJobs();
+    }
+
+    function progressColorChange(){
+        var text_arr = document.getElementsByClassName('skill-match-text')
+        var progress_arr = document.getElementsByClassName('skill-match-progressbar')
+        for (var i = 0; i < text_arr.length; i++) {
+            var skill_match_text = text_arr[i]
+            var skill_match_progress = progress_arr[i]
+            var percent = skill_match_progress.getAttribute('aria-valuenow')
+
+            console.log(skill_match_progress)
+            console.log(skill_match_text)
+            
+            var colour = ""
+            if (percent < 50){
+                colour = "red"
+            }
+            else if (percent >=50 & percent < 75){
+                colour = "#e3bd42"
+            }
+            else{
+                colour = "darkgreen"
+            }
+            skill_match_text.style.color = colour
+            skill_match_progress.style.backgroundColor = colour
+        }
+        // var skill_match_text = document.getElementById('skill-match-text');
+        // var skill_match_progress = document.getElementById('skill-match-progressbar');
+        // var percent = skill_match_progress.getAttribute('aria-valuenow');
+        
     }
 
 </script>

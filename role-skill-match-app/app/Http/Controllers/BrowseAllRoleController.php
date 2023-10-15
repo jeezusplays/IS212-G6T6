@@ -121,10 +121,13 @@ class BrowseAllRoleController extends Controller
                 'skills' => $skills, // skills
                 'deadline' => $role->deadline, // deadline
                 'days_until_deadline' => $daysUntilDeadline, // days_until_deadline
-                'days_from_creation' => $daysFromCreation // days_from_creation
+                'days_from_creation' => $daysFromCreation, // days_from_creation
             ];
         });
-        return view('browse-roles', compact('roles', 'departments', 'skills', 'countries'));
+
+        $staff_skills = ["Capital Management", "Python", "People Management", "Stakeholder Management"]; //dummy value
+
+        return view('browse-roles', compact('roles', 'departments', 'skills', 'countries', 'staff_skills'));
         // For testing purposes only, to view the JSON data
         return response()->json($roles);
     }

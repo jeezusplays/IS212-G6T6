@@ -122,28 +122,31 @@ class RoleController extends Controller
             ->groupBy('listing_id')
             ->get();
 
-        $Staff_Table = DB::table('staff')
-            ->join('role_listing', 'staff.staff_id', '=', 'role_listing.created_by')
-            ->selectRaw('role_listing.role_id, CONCAT(staff.staff_lname, " ", staff.staff_fname) AS full_name')
-            ->get();
+        
 
-        $roles = $RoleListing_Table->map(function ($role) use ($Role_Table, $Staff_Table, $Application_Table) {
+        $roles = $RoleListing_Table->map(function ($role) use ($Role_Table, $Application_Table) {
 
             $matchingRole = $Role_Table->firstWhere('role_id', $role->role_id);
 
             // Find the corresponding staff record using the role_id
-            $staffRecord = $Staff_Table->where('role_id', $role->role_id)->first();
             $applicationCount = $Application_Table->where('listing_id', $role->listing_id)->first();
             $vacancy = $role->vacancy;
             $status = $role->status === 1 ? 'Open' : 'Closed';
             $work_arrangement = $role->work_arrangement === 1 ? 'Part Time' : 'Full Time';
-
+            
+            $staffNames = DB::table('hiring_manager')
+            ->join('staff', 'hiring_manager.staff_id', '=', 'staff.staff_id')
+            ->where('hiring_manager.listing_id', $role->listing_id)
+            ->selectRaw('DISTINCT CONCAT(staff.staff_lname, " ", staff.staff_fname) as staff_name')
+            ->pluck('staff_name')
+            ->toArray();
+                
             return [
                 'listing_id' => $role->listing_id, // listing_id
                 'role_id' => $role->role_id, // role_id
                 'role' => $matchingRole ? $matchingRole->role : null, // job title
                 'created_at' => $role->created_at->format('Y-m-d'), // creation_date
-                'full_name' => $staffRecord ? $staffRecord->full_name : null, // listed by
+                'full_name' => implode(', ', $staffNames), // listed by
                 'status' => $status, // status
                 'total_applications' => $applicationCount ? $applicationCount->total_applications : 0, // total_applications
                 'vacancy' => $vacancy, // vacancy
@@ -173,11 +176,11 @@ class RoleController extends Controller
         $work_arrangements = [
             [
                 'id' => 1,
-                'name' => 'Part-time',
+                'name' => 'Part Time',
             ],
             [
                 'id' => 2,
-                'name' => 'Full-time',
+                'name' => 'Full Time',
             ],
         ];
 
@@ -188,6 +191,11 @@ class RoleController extends Controller
 
         // get all staff
         $hiring_managers = DB::table('staff')->select('staff.staff_id', 'staff_fname', 'staff_lname')->get();
+
+        $hiring_managers = DB::table('staff')
+            ->select('staff.staff_id', 'staff_lname', 'staff_fname')
+            ->where('access_Id', 2)
+            ->get();
 
         // return in format that frontend expects / can read
         return view('create-role', [

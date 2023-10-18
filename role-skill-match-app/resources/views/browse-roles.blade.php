@@ -361,11 +361,7 @@
             }
             skill_match_text.style.color = colour
             skill_match_progress.style.backgroundColor = colour
-        }
-        // var skill_match_text = document.getElementById('skill-match-text');
-        // var skill_match_progress = document.getElementById('skill-match-progressbar');
-        // var percent = skill_match_progress.getAttribute('aria-valuenow');
-        
+        }      
     }
 
 </script>

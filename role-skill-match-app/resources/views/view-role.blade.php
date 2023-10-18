@@ -24,7 +24,7 @@
             background-color: rgb(223, 231, 242);
         }
 
-        .skill{
+        .skill-item{
             background-color: rgb(223, 231, 242);
             border: none;
             color: black;
@@ -36,12 +36,43 @@
             cursor: pointer;
             border-radius: 16px;
         }
+
+        .progress {
+            border-radius: 25;
+            background-color: lightgrey;
+            /* Set the background color to light grey */
+            box-shadow: none;
+            width: 75%;
+            position: relative;
+        }
+
+        .progress-bar {
+            background-color: green;
+            /* Set the background color to green for the matched percentage */
+            height: 100%;
+        }
+
+        .progress-stripes {
+            background: repeating-linear-gradient(to right,
+                    rgba(0, 0, 0, 0),
+                    rgba(0, 0, 0, 0) 9%,
+                    white 9%,
+                    white 10.1%);
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        
+
     </style>
 
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon-32x32.png') }}">
   </head>
 
-  <body>
+  <body onload = "progressColorChange()">
   <div id="app" class="container mb-3">
         <nav class="navbar navbar-expand-lg">
             <a class="navbar-brand" href="http://localhost:8000/browse-roles">
@@ -123,12 +154,30 @@
             <div class="row mt-2">
                 <div class="col">
                     @foreach ($role['skills'] as $skill)
-                        <button class="skill">{{$skill}}</button>
+                        <button class="skill-item">{{$skill}}</button>
                     @endforeach
                 </div>
             </div>
+            <div class="row mt-3">
+                <div class="col">
+                    @php
+                        $match = array_intersect($role['skills'],$staff_skills);
+                        $skill_match_percent = count($match) / count($role['skills']) * 100;
+
+                        $missing_skills = array_diff($role['skills'], $match);
+                        $width = $skill_match_percent . '%';
+                    @endphp
+                        <span class="sr-only skill-match-text" style="color:darkgreen;"><b>{{$skill_match_percent}}% Skills Matched</b></span>
+                        <div class="progress my-3">
+                            <!-- Adjust both valuenow and width to reflect progress -->
+                            <div class="progress-bar skill-match-progressbar"  role="progressbar" aria-valuenow="{{$skill_match_percent}}" aria-valuemin="0" aria-valuemax="100" style="background-color:darkgreen; width: {{ $width }};"> <!-- width: {{$width}}; -->
+                                <div class="progress-stripes"></div>
+                            </div>
+                        </div>
+                </div>
+            </div>
             
-            <div class="row mt-5">
+            <div class="row mt-4">
                 <div class="col">
                     <h3>Vacancy</h3>
                 </div>
@@ -140,7 +189,7 @@
                 </div>
             </div>
 
-            <div class="row mt-5">
+            <div class="row mt-4">
                 <div class="col text-danger">
                     This listing closes on {{$role['deadline']}}
                 </div>
@@ -154,4 +203,33 @@
     </div>
 
     </body>
+
+    <script>
+        function progressColorChange(){
+        var text_arr = document.getElementsByClassName('skill-match-text')
+        var progress_arr = document.getElementsByClassName('skill-match-progressbar')
+        for (var i = 0; i < text_arr.length; i++) {
+            var skill_match_text = text_arr[i]
+            var skill_match_progress = progress_arr[i]
+            var percent = skill_match_progress.getAttribute('aria-valuenow')
+
+            console.log(skill_match_progress)
+            console.log(skill_match_text)
+            
+            var colour = ""
+            if (percent < 50){
+                colour = "red"
+            }
+            else if (percent >=50 & percent < 75){
+                colour = "#e3bd42"
+            }
+            else{
+                colour = "darkgreen"
+            }
+            skill_match_text.style.color = colour
+            skill_match_progress.style.backgroundColor = colour
+        }      
+    }
+    </script>
+
 </html>

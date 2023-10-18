@@ -109,7 +109,10 @@ class ViewRoleController extends Controller
             $roles->splice(0, 1, [$nullifiedRole]);
         }
         
-        return view('view-role', compact('roles', 'isRoleValid'));
+        //dummy data
+        $staff_skills = ["Capital Management", "Python", "People Management", "Stakeholder Management"]; 
+
+        return view('view-role', compact('roles', 'isRoleValid', 'staff_skills'));
         //return view('view-role', compact('roles'));
     }
 

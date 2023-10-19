@@ -12,6 +12,12 @@ class ApplicationController extends Controller
     // request contains listing_id and staff_id from frontend only
     public function store(Request $request)
     {
+        //check that role listing status is open
+        $listing = Role_Listing::where('listing_id', $request->listing_id)->first();
+        if ($listing->status != 1) {
+            return redirect()->back()->with('error', 'This role is not open!');
+        }
+
         //check that skills for role listing match at least 1 skill for staff applying for this role
         $role_listing_skills = Role_Listing::where('listing_id', $request->listing_id)->first()->skills;
         $staff_skills = Staff::where('staff_id', $request->staff_id)->first()->skills;
@@ -22,8 +28,11 @@ class ApplicationController extends Controller
 
         //check that application is for role that staff does not have
         $staff_role = Staff::where('staff_id', $request->staff_id)->first()->role_id;
-        if ($staff_role == $request->role_id) {
-            return redirect()->back()->with('error', 'You already have this role!');
+        $listing_role = Role_Listing::where('listing_id', $request->listing_id)->first()->role_id;
+        $staff_department = Staff::where('staff_id', $request->staff_id)->first()->department_id;
+        $listing_department = Role_Listing::where('listing_id', $request->listing_id)->first()->department_id;
+        if ($staff_role == $listing_role && $staff_department == $listing_department) {
+            return redirect()->back()->with('error', 'You already have this role in this department!');
         }
 
         //check that listing has more than one vacancy slot

@@ -18,12 +18,10 @@ class ApplicationController extends Controller
             return redirect()->back()->with('error', 'This role is not open!');
         }
 
-        //check that skills for role listing match at least 1 skill for staff applying for this role
-        $role_listing_skills = Role_Listing::where('listing_id', $request->listing_id)->first()->skills;
-        $staff_skills = Staff::where('staff_id', $request->staff_id)->first()->skills;
-        $matching_skills = $role_listing_skills->intersect($staff_skills);
-        if (count($matching_skills) == 0) {
-            return redirect()->back()->with('error', 'You do not have the required skills for this role!');
+        //check that less than 5 applications exist for staff
+        $existing_applications = Application::where('staff_id', $request->staff_id)->get();
+        if (count($existing_applications) >= 5) {
+            return redirect()->back()->with('error', 'You have reached the maximum number of applications!');
         }
 
         //check that application is for role that staff does not have
@@ -41,10 +39,12 @@ class ApplicationController extends Controller
             return redirect()->back()->with('error', 'This role has no vacancies!');
         }
 
-        //check that less than 5 applications exist for staff
-        $existing_applications = Application::where('staff_id', $request->staff_id)->get();
-        if (count($existing_applications) >= 5) {
-            return redirect()->back()->with('error', 'You have reached the maximum number of applications!');
+        //check that skills for role listing match at least 1 skill for staff applying for this role
+        $role_listing_skills = Role_Listing::where('listing_id', $request->listing_id)->first()->skills;
+        $staff_skills = Staff::where('staff_id', $request->staff_id)->first()->skills;
+        $matching_skills = $role_listing_skills->intersect($staff_skills);
+        if (count($matching_skills) == 0) {
+            return redirect()->back()->with('error', 'You do not have the required skills for this role!');
         }
 
         $application = Application::firstOrCreate([

@@ -2,16 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\Role_Listing;
-use App\Models\Role;
-use App\Models\Hiring_Manager;
-use App\Models\Staff;
-use App\Models\Role_Skill;
-
 use App\Models\Application;
-use Illuminate\Support\Facades\DB;
+use App\Models\Role;
+use App\Models\Role_Listing;
+use App\Models\Role_Skill;
+use App\Models\Staff;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class BrowseAllRoleController extends Controller
 {
@@ -69,7 +67,7 @@ class BrowseAllRoleController extends Controller
         if ($request->has('country_filter')) {
             $filteredRoles = $filteredRoles->whereIn('country_id', $Country_Table->pluck('country_id')->toArray());
         }
-        
+
         // Filter based on the selected skillset
         if ($request->has('skill_filter')) {
             $selectedSkillset = $request->input('skill_filter');
@@ -79,7 +77,7 @@ class BrowseAllRoleController extends Controller
                     ->join('skill', 'role_skill.skill_id', '=', 'skill.skill_id')
                     ->where('skill.skill', $selectedSkillset);
             });
-    }
+        }
         $roles = $RoleListing_Table->map(function ($role) use ($Role_Table, $Department_Table, $Staff_Table, $Application_Table, $Country_Table, $SkillIds) {
 
             $matchingRole = $Role_Table->firstWhere('role_id', $role->role_id);
@@ -107,7 +105,7 @@ class BrowseAllRoleController extends Controller
             $creationDate = $role->created_at->format('Y-m-d');
             $diff = strtotime($currentDate) - strtotime($creationDate);
             $daysFromCreation = round($diff / 86400);
-            
+
             return [
                 'listing_id' => $role->listing_id, // listing_id
                 'role_id' => $role->role_id, // role_id
@@ -127,9 +125,15 @@ class BrowseAllRoleController extends Controller
             ];
         });
 
-        $staff_skills = ["Capital Management", "Python", "People Management", "Stakeholder Management"]; //dummy value
+        //return skills of current staff user
+        $staff_skills = DB::table('staff_skill')
+            ->join('skill', 'staff_skill.skill_id', '=', 'skill.skill_id')
+            ->where('staff_skill.staff_id', '=', $request->staff_id)
+            ->select('skill.skill_id', 'skill.skill')
+            ->get();
 
         return view('browse-roles', compact('roles', 'departments', 'skills', 'countries', 'staff_skills'));
+
         // For testing purposes only, to view the JSON data
         return response()->json($roles);
     }

@@ -1,11 +1,10 @@
 <?php
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\UpdateRoleController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\UpdateRoleController;
 use App\Http\Controllers\ViewRoleController;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,7 +18,7 @@ use App\Http\Controllers\ViewRoleController;
 */
 Route::get('/role-listings', [RoleController::class, 'index']);
 
-# Route for browse-roles page
+// Route for browse-roles page
 Route::get('browse-roles', [App\Http\Controllers\BrowseAllRoleController::class, 'index_view'])->name('browse-roles');
 
 Route::get('/create-role', [RoleController::class, 'setup']);
@@ -32,7 +31,7 @@ Route::get('/', function () {
 //store listing data
 Route::post('/updateRole', [UpdateRoleController::class, 'store']);
 
-//get listing 
+//get listing
 Route::get('/edit/listingID={passedlisting}', [UpdateRoleController::class, 'autoFillRoleListing']);
 
 // Auth::routes();

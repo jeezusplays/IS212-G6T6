@@ -83,7 +83,7 @@
                 <div class="dropdown">
                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
                         data-bs-toggle="dropdown" aria-expanded="false">
-                        Li Ji Eun (Staff)
+                        {{ $staff_skillset_proficiency[0]['staff_name'] }} (Staff)
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                         <li><a class="dropdown-item" href="http://localhost:8000/role-listings">HR Staff</a></li>
@@ -104,66 +104,26 @@
             </tr>
         </thead>
         <tbody>
-
-            <tr>
-
-                <td><button class="skill" style ="text-align: left;">Capital Management</button></td>
-                {{-- Dropdown box with 3 selections: Beginner, Intermediate, Expert--}}
-                <td class = "centerAll">
-                    <select class="form-select" id ="skill_1" aria-label="Default select example">
-                        <option selected value ="1">Beginner</option>
-                        <option value="2">Intermediate</option>
-                        <option value="3">Expert</option>
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td><button class="skill" style ="text-align: left;">Capital Expenditure and Investment Evaluation</button></td>
-                <td class = "centerAll">
-                    <select class="form-select" id ="skill_2" aria-label="Default select example">
-                        <option selected value ="1">Beginner</option>
-                        <option value="2">Intermediate</option>
-                        <option value="3">Expert</option>
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td><button class="skill" style ="text-align: left;">People Management</button></td>
-                <td class = "centerAll">
-                    <select class="form-select" id ="skill_3" aria-label="Default select example">
-                        <option selected value ="1">Beginner</option>
-                        <option value="2">Intermediate</option>
-                        <option value="3">Expert</option>
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td><button class="skill" style ="text-align: left;">Stakeholder Management</button></td>
-                <td class = "centerAll">
-                    <select class="form-select" id ="skill_4" aria-label="Default select example">
-                        <option selected value ="1">Beginner</option>
-                        <option value="2">Intermediate</option>
-                        <option value="3">Expert</option>
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td><button class="skill" style ="text-align: left;">Strategy Implementation</button></td>
-                <td class = "centerAll">
-                    <select class="form-select" id ="skill_5" aria-label="Default select example">
-                        <option selected value ="1">Beginner</option>
-                        <option value="2">Intermediate</option>
-                        <option value="3">Expert</option>
-                    </select>
-                </td>
-            </tr>
+            @foreach ($staff_skillset_proficiency[0]['staff_skills'] as $skill)
+                <tr>
+                    <td>
+                        <button class="skill" style ="text-align: left;">{{ $skill['skill_name'] }}</button>
+                    </td>
+                    <td>
+                        <select class="form-select" id ="skill_{{ $skill['proficiency_id'] }}" aria-label="Default select example">
+                            <option selected value ="1">Beginner</option>
+                            <option value="2">Intermediate</option>
+                            <option value="3">Expert</option>
+                        </select>
+                    </td>
+                <tr>
+            @endforeach
         </tbody>
     </table>
     <div class="d-grid gap-2 col-2 mx-auto">
         <button class="btn btn-success" type="button">Save Changes</button>
 </div>
 
-<!-- Include Bootstrap JS and jQuery -->
 </body>
 <!-- Include Bootstrap JS and jQuery -->
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>

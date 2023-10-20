@@ -82,12 +82,85 @@ class RoleListingSeeder extends Seeder
             'department_id' => 1,
             'country_id' => 4,
             'work_arrangement' => 1, 
-            'vacancy' => 3,
+            'vacancy' => 0,
             'status' => 1,
             'deadline' => '2023-12-31',
             'created_by' => 4,
         ]);
-            // Add more role_listing entries here
+            // duplicate roles for diff deptartments
+
+            Role_Listing::create([
+                'listing_id' => 7,
+                'role_id' => 1,
+                'description' => 'Analyze financial data to provide financial advice.',
+                'department_id' => 2,
+                'country_id' => 1,
+                'work_arrangement' => 1, 
+                'vacancy' => 5,
+                'status' => 1,
+                'deadline' => '2023-12-31',
+                'created_by' => 5,
+            ]);
+            Role_Listing::create([
+                'listing_id' => 8,
+                'role_id' => 2,
+                'description' => 'Lorem ipsum dolor sit amet',
+                'department_id' => 3,
+                'country_id' => 2,
+                'work_arrangement' => 1, 
+                'vacancy' => 5,
+                'status' => 1,
+                'deadline' => '2023-05-05',
+                'created_by' => 5,
+            ]);
+            Role_Listing::create([
+                'listing_id' => 9,
+                'role_id' => 3,
+                'description' => 'Lorem ipsum dolor sit amet',
+                'department_id' => 4,
+                'country_id' => 3,
+                'work_arrangement' => 2, 
+                'vacancy' => 5,
+                'status' => 1,
+                'deadline' => '2023-12-31',
+                'created_by' => 5,
+            ]);
+            Role_Listing::create([
+                'listing_id' => 10,
+                'role_id' => 4,
+                'description' => 'Lorem ipsum dolor sit amet',
+                'department_id' => 5,
+                'country_id' => 4,
+                'work_arrangement' => 1, 
+                'vacancy' => 5,
+                'status' => 1,
+                'deadline' => '2023-12-31',
+                'created_by' => 5,
+            ]);
+            Role_Listing::create([
+                'listing_id' => 11,
+                'role_id' => 5,
+                'description' => 'Lorem ipsum dolor sit amet',
+                'department_id' => 1,
+                'country_id' => 1,
+                'work_arrangement' => 1, 
+                'vacancy' => 5,
+                'status' => 1,
+                'deadline' => '2023-12-31',
+                'created_by' => 5,
+            ]);
+            Role_Listing::create([
+                'listing_id' => 12,
+                'role_id' => 6,
+                'description' => 'Lorem ipsum dolor sit amet',
+                'department_id' => 2,
+                'country_id' => 4,
+                'work_arrangement' => 1, 
+                'vacancy' => 3,
+                'status' => 1,
+                'deadline' => '2023-12-31',
+                'created_by' => 4,
+            ]);
     }
 }
 

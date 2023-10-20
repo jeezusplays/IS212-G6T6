@@ -2,17 +2,17 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Staff extends Model
 {
-    use SoftDeletes;
     // links to factory for seeding
     use HasFactory;
+    use SoftDeletes;
 
     // Many-to-one relationship with `Department` model
     public function department(): BelongsTo
@@ -26,10 +26,10 @@ class Staff extends Model
         return $this->belongsTo(Country::class, 'country_id');
     }
 
-    // Many-to-one relationship with `AccessRight` model
+    // Many-to-one relationship with `Access_Rights` model
     public function access(): BelongsTo
     {
-        return $this->belongsTo(AccessRight::class, 'access_id');
+        return $this->belongsTo(Access_Rights::class, 'access_id');
     }
 
     // TODO: Check everything below this line ------------------------------------------------
@@ -37,7 +37,7 @@ class Staff extends Model
     // One-to-many relationship with `Staff_Skill` model
     public function skills(): BelongsToMany
     {
-        return $this->belongsToMany(Staff_Skill::class, 'staff_skill', 'staff_id', 'skill_id');
+        return $this->belongsToMany(Skill::class, 'staff_skill', 'staff_id', 'skill_id');
     }
 
     // One-to-many relationship with `Application` model
@@ -53,12 +53,12 @@ class Staff extends Model
     }
 
     protected $table = 'Staff';
+
     protected $primaryKey = 'staff_id';
 
     protected $fillable = [
         'staff_fname',
         'staff_lname',
-        'email'
+        'email',
     ];
-
 }

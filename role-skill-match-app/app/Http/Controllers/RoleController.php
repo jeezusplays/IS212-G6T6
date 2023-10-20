@@ -12,6 +12,7 @@ use App\Models\Skill;
 use App\Models\Staff;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class RoleController extends Controller
 {
@@ -145,7 +146,8 @@ class RoleController extends Controller
                 'listing_id' => $role->listing_id, // listing_id
                 'role_id' => $role->role_id, // role_id
                 'role' => $matchingRole ? $matchingRole->role : null, // job title
-                'created_at' => $role->created_at->format('Y-m-d'), // creation_date
+                // parse the created_at date via Carbon to d-m-Y format
+                'created_at' => Carbon::parse($role->created_at)->format('d-m-Y'), // created_at
                 'full_name' => implode(', ', $staffNames), // listed by
                 'status' => $status, // status
                 'total_applications' => $applicationCount ? $applicationCount->total_applications : 0, // total_applications

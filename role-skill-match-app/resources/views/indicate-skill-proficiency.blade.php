@@ -18,8 +18,30 @@
         integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous">
     </script>
 
+    <link rel="icon" href="{{ asset('favicon-32x32.png') }}" type="image/x-icon">
+
+
 </head>
 <style>
+    .centerAll{
+        text-align: center;
+        align-items: center;
+        justify-content: center;
+        place-items: center;
+        vertical-align: middle;
+        /* line-height: 0px; */
+        margin: auto;
+        /* display: flex;
+        display: block; */
+        /* position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%); */
+        /* Bootstrap */
+        /* <div class = "mx-auto">*/
+        /* <div class = "row-justify-content-center/end/around/between"> */
+        /* <p class = "text-center"> */
+    }
     #grey-box {
         background-color: rgb(223, 231, 242);
     }
@@ -74,7 +96,7 @@
 
 <div class="container mt-5">
     <h2>My Skills and Proficiency</h2>
-    <table class="table centerAll">
+    <table class="table">
         <thead>
             <tr>
                 <th>Skill</th>
@@ -82,62 +104,80 @@
             </tr>
         </thead>
         <tbody>
+
             <tr>
+
                 <td><button class="skill" style ="text-align: left;">Capital Management</button></td>
                 {{-- Dropdown box with 3 selections: Beginner, Intermediate, Expert--}}
-                <td>
-                    <select class="form-select" aria-label="Default select example">
-                        <option selected>Beginner</option>
-                        <option value="1">Intermediate</option>
-                        <option value="2">Expert</option>
+                <td class = "centerAll">
+                    <select class="form-select" id ="skill_1" aria-label="Default select example">
+                        <option selected value ="1">Beginner</option>
+                        <option value="2">Intermediate</option>
+                        <option value="3">Expert</option>
                     </select>
                 </td>
             </tr>
             <tr>
                 <td><button class="skill" style ="text-align: left;">Capital Expenditure and Investment Evaluation</button></td>
-                <td>
-                    <select class="form-select" aria-label="Default select example">
-                        <option selected>Beginner</option>
-                        <option value="1">Intermediate</option>
-                        <option value="2">Expert</option>
+                <td class = "centerAll">
+                    <select class="form-select" id ="skill_2" aria-label="Default select example">
+                        <option selected value ="1">Beginner</option>
+                        <option value="2">Intermediate</option>
+                        <option value="3">Expert</option>
                     </select>
                 </td>
             </tr>
             <tr>
                 <td><button class="skill" style ="text-align: left;">People Management</button></td>
-                <td>
-                    <select class="form-select" aria-label="Default select example">
-                        <option selected>Beginner</option>
-                        <option value="1">Intermediate</option>
-                        <option value="2">Expert</option>
+                <td class = "centerAll">
+                    <select class="form-select" id ="skill_3" aria-label="Default select example">
+                        <option selected value ="1">Beginner</option>
+                        <option value="2">Intermediate</option>
+                        <option value="3">Expert</option>
                     </select>
                 </td>
             </tr>
             <tr>
                 <td><button class="skill" style ="text-align: left;">Stakeholder Management</button></td>
-                <td>
-                    <select class="form-select" aria-label="Default select example">
-                        <option selected>Beginner</option>
-                        <option value="1">Intermediate</option>
-                        <option value="2">Expert</option>
+                <td class = "centerAll">
+                    <select class="form-select" id ="skill_4" aria-label="Default select example">
+                        <option selected value ="1">Beginner</option>
+                        <option value="2">Intermediate</option>
+                        <option value="3">Expert</option>
                     </select>
                 </td>
             </tr>
             <tr>
                 <td><button class="skill" style ="text-align: left;">Strategy Implementation</button></td>
-                <td>
-                    <select class="form-select" aria-label="Default select example">
-                        <option selected>Beginner</option>
-                        <option value="1">Intermediate</option>
-                        <option value="2">Expert</option>
+                <td class = "centerAll">
+                    <select class="form-select" id ="skill_5" aria-label="Default select example">
+                        <option selected value ="1">Beginner</option>
+                        <option value="2">Intermediate</option>
+                        <option value="3">Expert</option>
                     </select>
                 </td>
             </tr>
-
         </tbody>
     </table>
+    <div class="d-grid gap-2 col-2 mx-auto">
+        <button class="btn btn-success" type="button">Save Changes</button>
 </div>
 
 <!-- Include Bootstrap JS and jQuery -->
 </body>
+<!-- Include Bootstrap JS and jQuery -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const saveChangesButton = document.querySelector('.btn-success');
+
+        saveChangesButton.addEventListener('click', function () {
+            // store the value of the selected option in a variable
+
+            swal("Success!", "Skillset proficiency changes have been saved.", "success");
+        });
+    });
+</script>
+</html>
+
 </html>

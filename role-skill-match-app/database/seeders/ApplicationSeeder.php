@@ -42,12 +42,6 @@ class ApplicationSeeder extends Seeder
 
         //////////////////////////
         Application::create([
-            'Status' => 6, 
-            'Application_Date' => '2023-03-03',
-            'listing_id' =>3,
-            'Staff_id' => 3
-        ]);
-        Application::create([
             'Status' => 3, 
             'Application_Date' => '2023-04-04',
             'listing_id' =>4, 
@@ -73,12 +67,6 @@ class ApplicationSeeder extends Seeder
             'Status' => 3, 
             'Application_Date' => '2023-08-01',
             'listing_id' =>3,
-            'Staff_id' => 4
-        ]);
-        Application::create([
-            'Status' => 4, 
-            'Application_Date' => '2023-08-02',
-            'listing_id' =>4,
             'Staff_id' => 4
         ]);
         Application::create([
@@ -108,11 +96,37 @@ class ApplicationSeeder extends Seeder
             'listing_id' =>4,
             'Staff_id' => 7
         ]);
+        
+        /////////////////////////////////////////////
         Application::create([
-            'Status' => 6, 
-            'Application_Date' => '2022-01-21',
+            'Status' => 1, 
+            'Application_Date' => '2023-07-20',
+            'listing_id' =>1,
+            'Staff_id' => 5
+        ]);
+        Application::create([
+            'Status' => 2, 
+            'Application_Date' => '2023-07-20',
+            'listing_id' =>2,
+            'Staff_id' => 5
+        ]);
+        Application::create([
+            'Status' => 2, 
+            'Application_Date' => '2023-07-20',
             'listing_id' =>3,
-            'Staff_id' => 7
+            'Staff_id' => 5
+        ]);
+        Application::create([
+            'Status' => 3, 
+            'Application_Date' => '2023-07-20',
+            'listing_id' =>4,
+            'Staff_id' => 5
+        ]);
+        Application::create([
+            'Status' => 3, 
+            'Application_Date' => '2023-07-20',
+            'listing_id' =>6,
+            'Staff_id' => 5
         ]);
 
     }

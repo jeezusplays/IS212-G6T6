@@ -19,6 +19,8 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+// Route for indicate-skill-proficiency page
+Route::get('/indicate-skill-proficiency', [App\Http\Controllers\IndicateSkillProficiency::class, 'index']);
 // Route for role listings page
 Route::get('/role-listings', [RoleController::class, 'index']);
 

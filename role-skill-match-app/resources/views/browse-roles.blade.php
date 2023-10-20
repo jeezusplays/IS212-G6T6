@@ -105,6 +105,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="http://localhost:8000/my-applications">View Applications</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="http://localhost:8000/indicate-skill-proficiency">My Skill Proficiency</a>
+                    </li>
                 </ul>
             </div>
             <div class="dropdown">

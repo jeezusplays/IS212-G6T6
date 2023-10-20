@@ -75,7 +75,7 @@
                                 <a class="nav-link" href="http://localhost:8000/my-applications">View Applications</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="http://localhost:8000/indicate-skill-proficiency">My Skill Proficiency</a>
+                                <a class="nav-link" href="http://localhost:8000/indicate-skill-proficiency/staffID=1">My Skill Proficiency</a>
                             </li>
 
                     </ul>
@@ -109,11 +109,22 @@
                     <td>
                         <button class="skill" style ="text-align: left;">{{ $skill['skill_name'] }}</button>
                     </td>
-                    <td>
-                        <select class="form-select" id ="skill_{{ $skill['proficiency_id'] }}" aria-label="Default select example">
-                            <option selected value ="1">Beginner</option>
-                            <option value="2">Intermediate</option>
-                            <option value="3">Expert</option>
+                    <td class = "centerAll">
+                        <select class="form-select" id ="skill_{{ $skill['skill_name'] }}_{{ $skill['proficiency_id'] }}" aria-label="Default select example">
+                            {{-- Make default selected value the current proficiency id --}}
+                            <option value="{{ $skill['proficiency_id'] }}" selected disabled>
+                                @if ($skill['proficiency_id'] == 1)
+                                    Existing Proficiency: Beginner
+                                @elseif ($skill['proficiency_id'] == 2)
+                                    Existing Proficiency: Intermediate
+                                @elseif ($skill['proficiency_id'] == 3)
+                                    Existing Proficiency: Expert
+                                @endif
+                            </option>
+                            {{-- Provide Beginner, Intermediate, Expert option values with respective unique id skill_name_proficiency_value --}}
+                            <option value="1" id= "{{ $skill['proficiency_id'] }}_1">Beginner</option>
+                            <option value="2" id= "{{ $skill['proficiency_id'] }}_2">Intermediate</option>
+                            <option value="3" id= "{{ $skill['proficiency_id'] }}_3">Expert</option>
                         </select>
                     </td>
                 <tr>
@@ -132,12 +143,36 @@
         const saveChangesButton = document.querySelector('.btn-success');
 
         saveChangesButton.addEventListener('click', function () {
-            // store the value of the selected option in a variable
+            const proficiencyData = [];
+            const proficiencyDropdowns = document.querySelectorAll('select.form-select');
+            
+            proficiencyDropdowns.forEach((dropdown) => {
+                const proficiencyId = dropdown.id.split('_').pop(); // Extract proficiency_id
+                const selectedValue = dropdown.value; // Selected proficiency value
 
-            swal("Success!", "Skillset proficiency changes have been saved.", "success");
+                proficiencyData.push({
+                    proficiency_id: proficiencyId,
+                    value: selectedValue,
+                });
+            });
+
+            // Send proficiency data to the controller via an AJAX request
+            axios.post('/update-skill-proficiency', {
+                data: proficiencyData,
+            })
+            .then((response) => {
+                // Handle the response from the controller (e.g., display a success message)
+                swal("Success!", response.data.message, "success");
+            })
+            .catch((error) => {
+                // Handle errors, if any
+                console.error(error);
+                swal("Error", "Failed to update skillset proficiency", "error");
+            });
         });
     });
 </script>
+
 </html>
 
 </html>

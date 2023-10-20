@@ -28,7 +28,8 @@ class IndicateSkillProficiency extends Controller
         foreach ($skills as $key => $skill) {
             $staff->skills()->attach($skill, ['proficiency_id' => $proficiencies[$key]]);
         }
-        return redirect('/indicate-skill-proficiency');
+
+        return redirect('/indicate-skill-proficiency', compact('staff_skillset_proficiency'));
     }
     public function autoFillSkills($passedlisting)
     {
@@ -39,8 +40,7 @@ class IndicateSkillProficiency extends Controller
         $proficiency_table = Proficiency::all();
 
         $staff_skillset_proficiency = $staff_table->map(function ($staff) use ($staff_skill_table, $skill_table, $proficiency_table, $passedlisting) {
-            $staff_name = [];
-            $staff_name = $staff->staff_fname;
+            $staff_name = $staff->staff_lname . " " . $staff->staff_fname;
             // Join staff_skill table with staff table
             $staff_skill_table = DB::table('staff_skill')
                 ->join('staff', 'staff.staff_id', '=', 'staff_skill.staff_id')
@@ -50,7 +50,6 @@ class IndicateSkillProficiency extends Controller
 
             // Display skill name instead of skill id, using skill_id from Staff_Skill to map with skill_id from Skill table
             $staff_skill_table = $staff_skill_table->map(function ($staff_skill) use ($skill_table) {
-                $skill_name = [];
                 $skill_name = $skill_table->where('skill_id', $staff_skill->skill_id)->first()->skill;
                 return [
                     'skill_name' => $skill_name,

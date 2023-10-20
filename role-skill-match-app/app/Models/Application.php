@@ -2,17 +2,17 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Application extends Model
 {
-    use SoftDeletes;
     // links to factory for seeding
     use HasFactory;
+    use SoftDeletes;
 
     // Many-to-one relationship with `Staff` model
     public function staff_application(): BelongsTo
@@ -31,8 +31,9 @@ class Application extends Model
     protected $primaryKey = 'application_id';
 
     protected $fillable = [
-        'is_selected',
+        'listing_id',
+        'staff_id',
+        'status',
         'application_date',
-
     ];
 }

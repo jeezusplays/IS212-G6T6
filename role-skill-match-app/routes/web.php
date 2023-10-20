@@ -1,11 +1,13 @@
 <?php
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\UpdateRoleController;
+use App\Http\Controllers\ApplicationController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\UpdateRoleController;
 use App\Http\Controllers\ViewRoleController;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,9 +19,13 @@ use App\Http\Controllers\ViewRoleController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+// Route for role listings page
 Route::get('/role-listings', [RoleController::class, 'index']);
 
-# Route for browse-roles page
+// Route for view-role-applicants page
+Route::get('/view-role-applicants/listingID={passedlisting}', [App\Http\Controllers\ViewRoleApplicants::class, 'getApplicantListing']);
+
+// Route for browse-roles page
 Route::get('browse-roles', [App\Http\Controllers\BrowseAllRoleController::class, 'index_view'])->name('browse-roles');
 
 Route::get('/create-role', [RoleController::class, 'setup']);
@@ -32,17 +38,22 @@ Route::get('/', function () {
 //store listing data
 Route::post('/updateRole', [UpdateRoleController::class, 'store']);
 
-//get listing 
+//get listing
 Route::get('/edit/listingID={passedlisting}', [UpdateRoleController::class, 'autoFillRoleListing']);
 
 // Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/alldept', [App\Http\Controllers\UpdateRoleController::class, 'retrieveAllSkills'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
+// Route::get('/alldept', [UpdateRoleController::class, 'retrieveAllSkills'])->name('home');
 
-Route::get('/alldepartments', [App\Http\Controllers\UpdateRoleController::class, 'retrieveAllDepartments'])->name('home');
+// Route::get('/alldepartments', [UpdateRoleController::class, 'retrieveAllDepartments'])->name('home');
 
 Route::get('/hiringManagerDDL', [UpdateRoleController::class, 'retrieveAllHiringManagers']);
 Route::get('/skillsDDL', [UpdateRoleController::class, 'retrieveAllSkills']);
 
+// post request to apply for a role as staff
+Route::post('/apply', [ApplicationController::class, 'store'])->name('apply-role');
+Route::get('/apply', function () {
+    return view('apply-role');
+});
 Route::get('/view-role/listingID={passedlisting}', [ViewRoleController::class, 'getListing']);

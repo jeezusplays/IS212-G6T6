@@ -143,21 +143,21 @@
             <div class="col-md-3 my-3">
                 <!-- Filters Section (3 columns) -->
                 <select class="form-select mb-3" id="filterDepartment">
-                    <option value="" selected>Filter by Department</option>
+                    <option value="" selected disabled>Filter by Department</option>
                     <!-- Add department options dynamically -->
                     @foreach ($departments as $department)
                     <option value="{{ $department }}">{{ $department }}</option>
                     @endforeach
                 </select>
                 <select class="form-select mb-3" id="filterLocation">
-                    <option value="" selected>Filter by Location</option>
+                    <option value="" selected disabled>Filter by Location</option>
                     <!-- Add location options dynamically -->
                     @foreach ($countries as $country)
                     <option value="{{ $country }}">{{ $country }}</option>
                     @endforeach
                 </select>
                 <select class="form-select mb-3" id="filterSkillsets">
-                    <option value="" selected>Filter by Skillsets</option>
+                    <option value="" selected disabled>Filter by Skillsets</option>
                     <!-- Add skillset options dynamically -->
                     @foreach ($skills as $skill)
                     <option value="{{ $skill }}">{{ $skill }}</option>

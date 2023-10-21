@@ -1,6 +1,6 @@
 <div id="app" class="container mb-3">
         <nav class="navbar navbar-expand-lg">
-            <a class="navbar-brand" href="http://localhost:8000/browse-roles">
+            <a class="navbar-brand" href="javascript:void(0);" onclick="gotoBrowseRoles()">
                 <img src="{{ asset('favicon-32x32.png') }}" alt="Company Logo">
             </a>
             <div class="collapse navbar-collapse" id="navbarNav">
@@ -15,18 +15,18 @@
                         <a class="nav-link"href="javascript:void(0);" onclick="gotoCreateRole()">Create Role Listing</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link"href="javascript:void(0);" onclick="gotoMyRoleListings()">All Role Listings</a>
+                        <a class="nav-link"href="javascript:void(0);" onclick="gotoAllRoleListings()">All Role Listings</a>
                     </li>
                 </ul>
             </div>
             <div class="dropdown">
                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                     <span id="selectedName">{{ $selectedName ?? 'Lee Ji Eun (Staff)' }}</span>
-                </button>
+                </button>   
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <li><a class="dropdown-item" href="javascript:void(0);" onclick="changeAccess('hr', 'Ji Eun Lee')">Ji Eun Lee (Staff)</a></li>
-                <li><a class="dropdown-item" href="javascript:void(0);" onclick="changeAccess('staff','Sejeong Kim')">Sejeong Kim (Hiring Manager)</a></li>
-                <li><a class="dropdown-item" href="javascript:void(0);" onclick="changeAccess('manager','Bo Gum Park')">Bo Gum Park (HR Admin)</a></li>
+                <li><a class="dropdown-item" href="javascript:void(0);" onclick="changeAccess('hr', 'Bo Gum Park')">Bo Gum Park (HR Admin)</a></li>
+                <li><a class="dropdown-item" href="javascript:void(0);" onclick="changeAccess('staff','Ji Eun Lee')">Ji Eun Lee (Regular Staff)</a></li>
+                <li><a class="dropdown-item" href="javascript:void(0);" onclick="changeAccess('manager','Sejeong Kim')">Sejeong Kim (Hiring Manager)</a></li>
                 </ul>
             </div>
         </nav>
@@ -106,7 +106,7 @@
         window.location.href = newUrl;
         }
 
-    function gotoMyRoleListings() {
+    function gotoAllRoleListings() {
 
         const currentUrl = window.location.href;
 

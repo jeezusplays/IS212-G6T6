@@ -146,10 +146,10 @@
             <div class="col-md-9">
                 @foreach ($roles as $role)
                 @if ($role['status'] == 'Open')
-                <a href="http://localhost:8000/view-role/listingID={{ $role['listing_id'] }}" class="card-title-link">
+                <a href="javascript:void(0);" onclick="gotoViewRole({{ $role['listing_id'] }})" class="card-title-link">
                     <div class="card my-3 role-card" data-department="{{ $role['department'] }}" data-location="{{ $role['country'] }}">
                         <h5 class="card-title card-header p-3 d-flex justify-content-between align-items-center" style="background-color: #dbeffc">{{ $role['role'] }} ({{ $role['work_arrangement'] }})
-                            <a href="http://localhost:8000/view-role/listingID={{ $role['listing_id'] }}" class="btn btn-sm btn-outline-primary">View Details</a>
+                            <a href="javascript:void(0);" onclick="gotoViewRole({{ $role['listing_id'] }})" class="btn btn-sm btn-outline-primary">View Details</a>
                         </h5>
                 </a>
 
@@ -298,6 +298,26 @@
             card.style.display = "";
         });
         searchJobs();
+    }
+
+    function gotoViewRole(listingid){
+
+        const currentUrl = window.location.href;
+
+        // Extract the part of the URL after the domain, which includes the page
+        const urlSegments = currentUrl.split(window.location.origin)[1];
+        
+        // Split the URL segments by '/'
+        const segments = urlSegments.split('/');  
+        access=segments[1]
+        
+        // Construct the new URL with the selected access and the current page
+        const newUrl = `${window.location.origin}/${access}/view-role/listingID=${listingid}`;
+
+        // Navigate to the new URL
+        window.location.href = newUrl;
+
+        //href="http://localhost:8000/view-role/listingID={{ $role['listing_id'] }}"
     }
 
 </script>

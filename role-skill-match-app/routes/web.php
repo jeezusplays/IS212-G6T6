@@ -39,31 +39,27 @@ Route::post('/hr/create-role', [RoleController::class, 'store'])->name('create-r
 Route::get('/manager/create-role', [RoleController::class, 'setup']);
 Route::post('/manager/create-role', [RoleController::class, 'store'])->name('create-role');
 
-
-Route::get('/', function () {
-    return view('welcome');
-});
+//Route for edit listing
+Route::get('/hr/edit/listingID={passedlisting}', [UpdateRoleController::class, 'autoFillRoleListing']);
+Route::get('/manager/edit/listingID={passedlisting}', [UpdateRoleController::class, 'autoFillRoleListing']);
 
 //store listing data
 Route::post('/updateRole', [UpdateRoleController::class, 'store']);
 
-//get listing
-Route::get('/hr/edit/listingID={passedlisting}', [UpdateRoleController::class, 'autoFillRoleListing']);
-Route::get('/manager/edit/listingID={passedlisting}', [UpdateRoleController::class, 'autoFillRoleListing']);
-
-// Auth::routes();
-
 Route::get('/home', [HomeController::class, 'index'])->name('home');
-// Route::get('/alldept', [UpdateRoleController::class, 'retrieveAllSkills'])->name('home');
-
-// Route::get('/alldepartments', [UpdateRoleController::class, 'retrieveAllDepartments'])->name('home');
-
-Route::get('/hiringManagerDDL', [UpdateRoleController::class, 'retrieveAllHiringManagers']);
-Route::get('/skillsDDL', [UpdateRoleController::class, 'retrieveAllSkills']);
 
 // post request to apply for a role as staff
 Route::post('/apply', [ApplicationController::class, 'store'])->name('apply-role');
 Route::get('/apply', function () {
     return view('apply-role');
 });
-Route::get('/view-role/listingID={passedlisting}', [ViewRoleController::class, 'getListing']);
+
+// Route for view role details from browse roles page
+Route::get('/hr/view-role/listingID={passedlisting}', [ViewRoleController::class, 'getListing']);
+Route::get('/manager/view-role/listingID={passedlisting}', [ViewRoleController::class, 'getListing']);
+Route::get('/staff/view-role/listingID={passedlisting}', [ViewRoleController::class, 'getListing']);
+
+
+Route::get('/', function () {
+    return view('welcome');
+});

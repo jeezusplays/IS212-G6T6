@@ -19,17 +19,11 @@ class IndicateSkillProficiency extends Controller
     }
     public function store(Request $request)
     {
-        $requestData = $request->input();
-        $skills = $requestData['skills'];
-        $proficiencies = $requestData['proficiencies'];
-        $staff_id = $requestData['staff_id'];
-        $staff = Staff::find($staff_id);
-        $staff->skills()->detach();
-        foreach ($skills as $key => $skill) {
-            $staff->skills()->attach($skill, ['proficiency_id' => $proficiencies[$key]]);
-        }
+        $requestData = $request;
+        // requestData is a array of objects, where each object has old proficiency id and new proficiency id, skill id and staff id, skill_name
+        // Store each object into staff_skill table
 
-        return redirect('/indicate-skill-proficiency', compact('staff_skillset_proficiency'));
+        return response()->json(['message' => 'Successfully updated skill proficiency'], 200);
     }
     public function autoFillSkills($passedlisting)
     {
@@ -52,6 +46,7 @@ class IndicateSkillProficiency extends Controller
             $staff_skill_table = $staff_skill_table->map(function ($staff_skill) use ($skill_table) {
                 $skill_name = $skill_table->where('skill_id', $staff_skill->skill_id)->first()->skill;
                 return [
+                    'skill_id' => $staff_skill->skill_id,
                     'skill_name' => $skill_name,
                     'proficiency_id' => $staff_skill->proficiency_id
                 ];

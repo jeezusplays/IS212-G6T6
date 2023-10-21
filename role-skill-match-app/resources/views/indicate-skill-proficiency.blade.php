@@ -120,22 +120,21 @@
                         </td>
                         <td class = "centerAll">
                             <select class="form-select"
-                                id ="skill_{{ $skill['skill_name'] }}_{{ $skill['proficiency_id'] }}"
+                                id ="{{ $skill['skill_name'] }}_{{ $skill['skill_id'] }}_{{ $skill['proficiency_id'] }}"
                                 aria-label="Default select example">
                                 {{-- Make default selected value the current proficiency id --}}
                                 @if ($skill['proficiency_id'] == 1)
-                                    <option value="{{ $skill['proficiency_id'] }}" id= "{{ $skill['proficiency_id'] }}_1" selected >Beginner</option>
-                                    <option value="2" id= "{{ $skill['proficiency_id'] }}_2">Intermediate</option>
-                                    <option value="3" id= "{{ $skill['proficiency_id'] }}_3">Expert</option>
+                                    <option value="{{ $skill['proficiency_id'] }}" selected>Beginner</option>
+                                    <option value="2">Intermediate</option>
+                                    <option value="3">Expert</option>
                                 @elseif ($skill['proficiency_id'] == 2)
-                                    <option value="{{ $skill['proficiency_id'] }}" id= "{{ $skill['proficiency_id'] }}_1">Beginner</option>
-                                    <option value="2" id= "{{ $skill['proficiency_id'] }}_2" selected >Intermediate</option>
-                                    <option value="3" id= "{{ $skill['proficiency_id'] }}_3">Expert</option>
+                                    <option value="1">Beginner</option>
+                                    <option value="{{ $skill['proficiency_id'] }}" selected>Intermediate</option>
+                                    <option value="3">Expert</option>
                                 @elseif ($skill['proficiency_id'] == 3)
-                                    Currently Set Proficiency: Expert
-                                    <option value="1" id= "{{ $skill['proficiency_id'] }}_1">Beginner</option>
-                                    <option value="2" id= "{{ $skill['proficiency_id'] }}_2">Intermediate</option>
-                                    <option value="{{ $skill['proficiency_id'] }}" id= "{{ $skill['proficiency_id'] }}_3" selected >Expert</option>
+                                    <option value="1">Beginner</option>
+                                    <option value="2">Intermediate</option>
+                                    <option value="{{ $skill['proficiency_id'] }}" selected>Expert</option>
                                 @endif
 
                             </select>
@@ -152,38 +151,47 @@
 <!-- Include Bootstrap JS and jQuery -->
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const saveChangesButton = document.querySelector('.btn-success');
+document.addEventListener("DOMContentLoaded", function() {
+    const saveChangesButton = document.querySelector('.btn-success');
+    const staff_id = window.location.href.split('=').pop(); // Extract staff_id from URL
+    saveChangesButton.addEventListener('click', function() {
+        const proficiencyData = [];
+        const proficiencyDropdowns = document.querySelectorAll('select.form-select');
 
-        saveChangesButton.addEventListener('click', function() {
-            const proficiencyData = [];
-            const proficiencyDropdowns = document.querySelectorAll('select.form-select');
+        proficiencyDropdowns.forEach((dropdown) => {
+            const proficiencyId = dropdown.id.split('_').pop(); // Extract proficiency_id
+            const skill_name = dropdown.id.split('_')[0]; // Extract skill name
+            const skill_id = dropdown.id.split('_')[1]; // Extract skill id
 
-            proficiencyDropdowns.forEach((dropdown) => {
-                const proficiencyId = dropdown.id.split('_').pop(); // Extract proficiency_id
-                const selectedValue = dropdown.value; // Selected proficiency value
+            const selectedValue = dropdown.value; // Selected proficiency value
 
-                proficiencyData.push({
-                    proficiency_id: proficiencyId,
-                    value: selectedValue,
-                });
+            proficiencyData.push({
+                staff_id: staff_id,
+                skill_id: skill_id,
+                skill_name: skill_name, // Include the skill name in the data
+                proficiency_id: proficiencyId,
+                proficiency_id_new_value: selectedValue,
             });
-
-            // Send proficiency data to the controller via an AJAX request
-            axios.post('/update-skill-proficiency', {
-                    data: proficiencyData,
-                })
-                .then((response) => {
-                    // Handle the response from the controller (e.g., display a success message)
-                    swal("Success!", response.data.message, "success");
-                })
-                .catch((error) => {
-                    // Handle errors, if any
-                    console.error(error);
-                    swal("Error", "Failed to update skillset proficiency", "error");
-                });
         });
+
+        console.log(proficiencyData)
+
+        // Send proficiency data to the controller via an AJAX request
+        axios.post('http://localhost:8000/update-skill-proficiency', {
+                data: proficiencyData,
+            })
+            .then((response) => {
+                // Handle the response from the controller (e.g., display a success message)
+                swal("Success!", response.data.message, "success");
+            })
+            .catch((error) => {
+                // Handle errors, if any
+                console.error(error);
+                swal("Error", "Failed to update skillset proficiency", "error");
+            });
     });
+});
+
 </script>
 
 </html>

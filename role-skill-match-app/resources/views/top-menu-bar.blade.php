@@ -21,13 +21,12 @@
             </div>
             <div class="dropdown">
                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                    {{-- Default staff name [Lee Ji Eun, Role id = 1] from database --}}
-                    Lee Ji Eun (Staff)
+                    <span id="selectedName">{{ $selectedName ?? 'Lee Ji Eun (Staff)' }}</span>
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <li><a class="dropdown-item" href="javascript:void(0);" onclick="changeAccess('hr')">HR Staff</a></li>
-                <li><a class="dropdown-item" href="javascript:void(0);" onclick="changeAccess('staff')">Staff</a></li>
-                <li><a class="dropdown-item" href="javascript:void(0);" onclick="changeAccess('manager')">Manager</a></li>
+                <li><a class="dropdown-item" href="javascript:void(0);" onclick="changeAccess('hr', 'Ji Eun Lee')">Ji Eun Lee (Staff)</a></li>
+                <li><a class="dropdown-item" href="javascript:void(0);" onclick="changeAccess('staff','Sejeong Kim')">Sejeong Kim (Hiring Manager)</a></li>
+                <li><a class="dropdown-item" href="javascript:void(0);" onclick="changeAccess('manager','Bo Gum Park')">Bo Gum Park (HR Admin)</a></li>
                 </ul>
             </div>
         </nav>
@@ -41,7 +40,16 @@
 
 
 <script>
-    function changeAccess(access) {
+
+    const selectedValue = localStorage.getItem('selectedRole');
+
+    if (selectedValue) {
+        document.getElementById('selectedName').textContent = selectedValue;
+    }
+
+    function changeAccess(access, name) {
+        
+        localStorage.setItem('selectedRole', name);
         // Get the current URL
         const currentUrl = window.location.href;
 
@@ -58,6 +66,8 @@
 
         // Navigate to the new URL
         window.location.href = newUrl;
+
+        document.getElementById('selectedName').textContent = name;
     }
 
     function gotoBrowseRoles() {

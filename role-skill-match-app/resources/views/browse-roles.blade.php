@@ -92,35 +92,8 @@
 
 <body onload="searchJobs()">
     {{-- Top Menu Bar --}}
-    <div id="app" class="container mb-3">
-        <nav class="navbar navbar-expand-lg">
-            <a class="navbar-brand" href="http://localhost:8000/browse-roles">
-                <img src="{{ asset('favicon-32x32.png') }}" alt="Company Logo">
-            </a>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="http://localhost:8000/browse-roles">Browse Role Listings</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="http://localhost:8000/my-applications">View Applications</a>
-                    </li>
-                </ul>
-            </div>
-            <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                    {{-- Default staff name [Lee Ji Eun, Role id = 1] from database --}}
-                    Lee Ji Eun (Staff)
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <li><a class="dropdown-item" href="http://localhost:8000/role-listings">HR Staff</a></li>
-                    <li><a class="dropdown-item" href="http://localhost:8000/browse-roles">Staff</a></li>
-                    <li><a class="dropdown-item" href="http://localhost:8000/role-listings-management">Manager</a></li>
-                </ul>
-            </div>
-        </nav>
-    </div>
-
+    @include('top-menu-bar')
+        
     <div class="container">
         <h1 class="mb-3">Browse Role Listings</h1>
 

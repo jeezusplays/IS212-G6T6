@@ -7,12 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\Permission\Traits\HasRoles;
 
 class Staff extends Model
 {
     // links to factory for seeding
     use HasFactory;
     use SoftDeletes;
+    use HasRoles;
 
     // Many-to-one relationship with `Department` model
     public function department(): BelongsTo

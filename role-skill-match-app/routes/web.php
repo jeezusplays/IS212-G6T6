@@ -26,10 +26,17 @@ Route::get('/role-listings', [RoleController::class, 'index']);
 Route::get('/view-role-applicants/listingID={passedlisting}', [App\Http\Controllers\ViewRoleApplicants::class, 'getApplicantListing']);
 
 // Route for browse-roles page
-Route::get('browse-roles', [App\Http\Controllers\BrowseAllRoleController::class, 'index_view'])->name('browse-roles');
+Route::get('/hr/browse-roles', [App\Http\Controllers\BrowseAllRoleController::class, 'index_view'])->name('browse-roles');
+Route::get('/manager/browse-roles', [App\Http\Controllers\BrowseAllRoleController::class, 'index_view'])->name('browse-roles');
+Route::get('/staff/browse-roles', [App\Http\Controllers\BrowseAllRoleController::class, 'index_view'])->name('browse-roles');
 
-Route::get('/create-role', [RoleController::class, 'setup']);
-Route::post('/create-role', [RoleController::class, 'store'])->name('create-role');
+
+// Route for create role
+Route::get('/hr/create-role', [RoleController::class, 'setup']);
+Route::post('/hr/create-role', [RoleController::class, 'store'])->name('create-role');
+Route::get('/manager/create-role', [RoleController::class, 'setup']);
+Route::post('/manager/create-role', [RoleController::class, 'store'])->name('create-role');
+
 
 Route::get('/', function () {
     return view('welcome');

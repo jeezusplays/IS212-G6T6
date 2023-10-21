@@ -21,7 +21,7 @@
             </div>
             <div class="dropdown">
                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                    <span id="selectedName">{{ $selectedName ?? 'Lee Ji Eun (Staff)' }}</span>
+                    <span id="selectedName">{{ $selectedName ?? 'Ji Eun Lee' }}</span>
                 </button>   
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                 <li><a class="dropdown-item" href="javascript:void(0);" onclick="changeAccess('hr', 'Bo Gum Park')">Bo Gum Park (HR Admin)</a></li>

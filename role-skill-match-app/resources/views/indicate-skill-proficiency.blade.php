@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,7 +24,7 @@
 
 </head>
 <style>
-    .centerAll{
+    .centerAll {
         text-align: center;
         align-items: center;
         justify-content: center;
@@ -42,6 +43,7 @@
         /* <div class = "row-justify-content-center/end/around/between"> */
         /* <p class = "text-center"> */
     }
+
     #grey-box {
         background-color: rgb(223, 231, 242);
     }
@@ -59,93 +61,104 @@
         border-radius: 16px;
     }
 </style>
+
 <body>
 
     <div class="container" id="app">
         <nav class="navbar navbar-expand-lg">
             <a class="navbar-brand" href="http://localhost:8000/role-listings">
-                    <img src="{{ asset('favicon-32x32.png') }}" alt="Company Logo">
-                </a>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav">
-                        <li class="nav-item active">
-                            <a class="nav-link" href="http://localhost:8000/browse-roles">Browse Role Listings</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="http://localhost:8000/my-applications">View Applications</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="http://localhost:8000/indicate-skill-proficiency/staffID=1">My Skill Proficiency</a>
-                            </li>
+                <img src="{{ asset('favicon-32x32.png') }}" alt="Company Logo">
+            </a>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="http://localhost:8000/browse-roles">Browse Role Listings</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="http://localhost:8000/my-applications">View Applications</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="http://localhost:8000/indicate-skill-proficiency/staffID=1">My Skill
+                            Proficiency</a>
+                    </li>
 
-                    </ul>
-                </div>
-                <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
-                        data-bs-toggle="dropdown" aria-expanded="false">
-                        {{ $staff_skillset_proficiency[0]['staff_name'] }} (Staff)
-                    </button>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <li><a class="dropdown-item" href="http://localhost:8000/role-listings">HR Staff</a></li>
-                        <li><a class="dropdown-item" href="http://localhost:8000/browse-roles">Staff</a></li>
-                        <li><a class="dropdown-item" href="http://localhost:8000/role-listings-manager">Manager</a></li>
-                    </ul>
-                </div>
-            </nav>
-        </div>
+                </ul>
+            </div>
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                    {{ $staff_skillset_proficiency[0]['staff_name'] }} (Staff)
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <li><a class="dropdown-item" href="http://localhost:8000/role-listings">HR Staff</a></li>
+                    <li><a class="dropdown-item" href="http://localhost:8000/browse-roles">Staff</a></li>
+                    <li><a class="dropdown-item" href="http://localhost:8000/role-listings-manager">Manager</a></li>
+                </ul>
+            </div>
+        </nav>
+    </div>
 
-<div class="container mt-5">
-    <h2>My Skills and Proficiency</h2>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Skill</th>
-                <th>Proficiency</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($staff_skillset_proficiency[0]['staff_skills'] as $skill)
+    <div class="container mt-5">
+        <h2>My Skills and Proficiency</h2>
+        <h5 class = "my-3">
+            <i>
+                Assess and indicate your proficiency levels in various work-related skills.
+            </i>
+        </h5>
+        <table class="table">
+            <thead>
                 <tr>
-                    <td>
-                        <button class="skill" style ="text-align: left;">{{ $skill['skill_name'] }}</button>
-                    </td>
-                    <td class = "centerAll">
-                        <select class="form-select" id ="skill_{{ $skill['skill_name'] }}_{{ $skill['proficiency_id'] }}" aria-label="Default select example">
-                            {{-- Make default selected value the current proficiency id --}}
-                            <option value="{{ $skill['proficiency_id'] }}" selected disabled>
+                    <th>Skill</th>
+                    <th>Proficiency</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($staff_skillset_proficiency[0]['staff_skills'] as $skill)
+                    <tr>
+                        <td>
+                            <button class="skill" style ="text-align: left;">{{ $skill['skill_name'] }}</button>
+                        </td>
+                        <td class = "centerAll">
+                            <select class="form-select"
+                                id ="skill_{{ $skill['skill_name'] }}_{{ $skill['proficiency_id'] }}"
+                                aria-label="Default select example">
+                                {{-- Make default selected value the current proficiency id --}}
                                 @if ($skill['proficiency_id'] == 1)
-                                    Existing Proficiency: Beginner
+                                    <option value="{{ $skill['proficiency_id'] }}" id= "{{ $skill['proficiency_id'] }}_1" selected >Beginner</option>
+                                    <option value="2" id= "{{ $skill['proficiency_id'] }}_2">Intermediate</option>
+                                    <option value="3" id= "{{ $skill['proficiency_id'] }}_3">Expert</option>
                                 @elseif ($skill['proficiency_id'] == 2)
-                                    Existing Proficiency: Intermediate
+                                    <option value="{{ $skill['proficiency_id'] }}" id= "{{ $skill['proficiency_id'] }}_1">Beginner</option>
+                                    <option value="2" id= "{{ $skill['proficiency_id'] }}_2" selected >Intermediate</option>
+                                    <option value="3" id= "{{ $skill['proficiency_id'] }}_3">Expert</option>
                                 @elseif ($skill['proficiency_id'] == 3)
-                                    Existing Proficiency: Expert
+                                    Currently Set Proficiency: Expert
+                                    <option value="1" id= "{{ $skill['proficiency_id'] }}_1">Beginner</option>
+                                    <option value="2" id= "{{ $skill['proficiency_id'] }}_2">Intermediate</option>
+                                    <option value="{{ $skill['proficiency_id'] }}" id= "{{ $skill['proficiency_id'] }}_3" selected >Expert</option>
                                 @endif
-                            </option>
-                            {{-- Provide Beginner, Intermediate, Expert option values with respective unique id skill_name_proficiency_value --}}
-                            <option value="1" id= "{{ $skill['proficiency_id'] }}_1">Beginner</option>
-                            <option value="2" id= "{{ $skill['proficiency_id'] }}_2">Intermediate</option>
-                            <option value="3" id= "{{ $skill['proficiency_id'] }}_3">Expert</option>
-                        </select>
-                    </td>
-                <tr>
-            @endforeach
-        </tbody>
-    </table>
-    <div class="d-grid gap-2 col-2 mx-auto">
-        <button class="btn btn-success" type="button">Save Changes</button>
-</div>
+
+                            </select>
+                        </td>
+                    <tr>
+                @endforeach
+            </tbody>
+        </table>
+        <div class="d-grid gap-2 col-2 mx-auto">
+            <button class="btn btn-success" type="button">Save Changes</button>
+        </div>
 
 </body>
 <!-- Include Bootstrap JS and jQuery -->
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script>
-    document.addEventListener("DOMContentLoaded", function () {
+    document.addEventListener("DOMContentLoaded", function() {
         const saveChangesButton = document.querySelector('.btn-success');
 
-        saveChangesButton.addEventListener('click', function () {
+        saveChangesButton.addEventListener('click', function() {
             const proficiencyData = [];
             const proficiencyDropdowns = document.querySelectorAll('select.form-select');
-            
+
             proficiencyDropdowns.forEach((dropdown) => {
                 const proficiencyId = dropdown.id.split('_').pop(); // Extract proficiency_id
                 const selectedValue = dropdown.value; // Selected proficiency value
@@ -158,17 +171,17 @@
 
             // Send proficiency data to the controller via an AJAX request
             axios.post('/update-skill-proficiency', {
-                data: proficiencyData,
-            })
-            .then((response) => {
-                // Handle the response from the controller (e.g., display a success message)
-                swal("Success!", response.data.message, "success");
-            })
-            .catch((error) => {
-                // Handle errors, if any
-                console.error(error);
-                swal("Error", "Failed to update skillset proficiency", "error");
-            });
+                    data: proficiencyData,
+                })
+                .then((response) => {
+                    // Handle the response from the controller (e.g., display a success message)
+                    swal("Success!", response.data.message, "success");
+                })
+                .catch((error) => {
+                    // Handle errors, if any
+                    console.error(error);
+                    swal("Error", "Failed to update skillset proficiency", "error");
+                });
         });
     });
 </script>

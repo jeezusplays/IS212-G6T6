@@ -85,7 +85,7 @@
                         <div class="card-body">
                             <p class="card-text">Applications received:
                                 {{ $role['total_applications'] }}
-                                <a href="http://localhost:8000/view-role-applicants/listingID={{ $role['listing_id'] }}" class="@if ($role['total_applications'] > 0)  @endif">[View
+                                <a href="javascript:void(0);" onclick="gotoViewRoleApplicants({{ $role['listing_id'] }})" class="@if ($role['total_applications'] > 0)  @endif">[View
                                     Applications]</a>
                             </p>
                             <p class="card-text">Creation Date: {{ $role['created_at'] }}</p>
@@ -215,6 +215,26 @@
         window.location.href = newUrl;
 
         //href="http://localhost:8000/edit/listingID={{ $role['listing_id'] }}"
+    }
+
+    function gotoViewRoleApplicants(listingid){
+
+        const currentUrl = window.location.href;
+
+        // Extract the part of the URL after the domain, which includes the page
+        const urlSegments = currentUrl.split(window.location.origin)[1];
+        
+        // Split the URL segments by '/'
+        const segments = urlSegments.split('/');  
+        access=segments[1]
+        
+        // Construct the new URL with the selected access and the current page
+        const newUrl = `${window.location.origin}/${access}/view-role-applicants/listingID=${listingid}`;
+
+        // Navigate to the new URL
+        window.location.href = newUrl;
+
+        //href="http://localhost:8000/view-role-applicants/listingID={{ $role['listing_id'"
     }
 
 

@@ -25,7 +25,8 @@ Route::get('/manager/role-listings', [RoleController::class, 'index']);
 
 
 // Route for view-role-applicants page
-Route::get('/view-role-applicants/listingID={passedlisting}', [App\Http\Controllers\ViewRoleApplicants::class, 'getApplicantListing']);
+Route::get('/hr/view-role-applicants/listingID={passedlisting}', [App\Http\Controllers\ViewRoleApplicants::class, 'getApplicantListing']);
+Route::get('/manager/view-role-applicants/listingID={passedlisting}', [App\Http\Controllers\ViewRoleApplicants::class, 'getApplicantListing']);
 
 // Route for browse-roles page
 Route::get('/hr/browse-roles', [App\Http\Controllers\BrowseAllRoleController::class, 'index_view'])->name('browse-roles');

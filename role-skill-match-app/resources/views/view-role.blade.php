@@ -50,10 +50,13 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item active">
-                        <a class="nav-link" href="http://localhost:8000/browse-roles">Browse Role Listings</a>
+                        <a class="nav-link" href="http://localhost:8000/browse-roles">Broasdwse Role Listings</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="http://localhost:8000/my-applications">View Applications</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="http://localhost:8000/my-applications">Create Applications</a>
                     </li>
                 </ul>
             </div>

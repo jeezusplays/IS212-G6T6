@@ -20,7 +20,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 // Route for role listings page
-Route::get('/role-listings', [RoleController::class, 'index']);
+Route::get('/hr/role-listings', [RoleController::class, 'index']);
+Route::get('/manager/role-listings', [RoleController::class, 'index']);
+Route::get('/staff/role-listings', [RoleController::class, 'index']);
 
 // Route for view-role-applicants page
 Route::get('/view-role-applicants/listingID={passedlisting}', [App\Http\Controllers\ViewRoleApplicants::class, 'getApplicantListing']);

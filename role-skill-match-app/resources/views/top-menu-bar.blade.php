@@ -11,6 +11,12 @@
                     <li class="nav-item">
                         <a class="nav-link" href="http://localhost:8000/my-applications">View Applications</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link"href="javascript:void(0);" onclick="gotoCreateRole()">Create Role Listing</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link"href="javascript:void(0);" onclick="gotoMyRoleListings()">All Role Listings</a>
+                    </li>
                 </ul>
             </div>
             <div class="dropdown">
@@ -54,7 +60,7 @@
         window.location.href = newUrl;
     }
 
-    function gotoBrowseRoles(access) {
+    function gotoBrowseRoles() {
 
         const currentUrl = window.location.href;
 
@@ -71,7 +77,43 @@
         // Navigate to the new URL
         window.location.href = newUrl;
     }
-</script>
+
+    function gotoCreateRole() {
+
+        const currentUrl = window.location.href;
+
+        // Extract the part of the URL after the domain, which includes the page
+        const urlSegments = currentUrl.split(window.location.origin)[1];
+
+        // Split the URL segments by '/'
+        const segments = urlSegments.split('/');  
+        access=segments[1]
+
+        // Construct the new URL with the selected access and the current page
+        const newUrl = `${window.location.origin}/${access}/create-role`;
+
+        // Navigate to the new URL
+        window.location.href = newUrl;
+        }
+
+    function gotoMyRoleListings() {
+
+        const currentUrl = window.location.href;
+
+        // Extract the part of the URL after the domain, which includes the page
+        const urlSegments = currentUrl.split(window.location.origin)[1];
+
+        // Split the URL segments by '/'
+        const segments = urlSegments.split('/');  
+        access=segments[1]
+
+        // Construct the new URL with the selected access and the current page
+        const newUrl = `${window.location.origin}/${access}/role-listings`;
+
+        // Navigate to the new URL
+        window.location.href = newUrl;
+        }
+    </script>
 
 
 

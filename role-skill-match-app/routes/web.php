@@ -22,7 +22,7 @@ use Illuminate\Support\Facades\Route;
 // Route for role listings page
 Route::get('/hr/role-listings', [RoleController::class, 'index']);
 Route::get('/manager/role-listings', [RoleController::class, 'index']);
-Route::get('/staff/role-listings', [RoleController::class, 'index']);
+
 
 // Route for view-role-applicants page
 Route::get('/view-role-applicants/listingID={passedlisting}', [App\Http\Controllers\ViewRoleApplicants::class, 'getApplicantListing']);
@@ -48,7 +48,8 @@ Route::get('/', function () {
 Route::post('/updateRole', [UpdateRoleController::class, 'store']);
 
 //get listing
-Route::get('/edit/listingID={passedlisting}', [UpdateRoleController::class, 'autoFillRoleListing']);
+Route::get('/hr/edit/listingID={passedlisting}', [UpdateRoleController::class, 'autoFillRoleListing']);
+Route::get('/manager/edit/listingID={passedlisting}', [UpdateRoleController::class, 'autoFillRoleListing']);
 
 // Auth::routes();
 

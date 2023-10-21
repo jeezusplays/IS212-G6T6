@@ -72,11 +72,11 @@
                 <div
                     class="col-xl-4 col-md-6 col-sm-12 role-card @if ($role['status'] == 'Open') open-role @else closed-role @endif">
                     <div class="card mb-3">
-                        <a href="http://localhost:8000/view/listingID={{ $role['listing_id'] }}"
+                        <a href="javascript:void(0);" onclick="gotoEditRole({{ $role['listing_id'] }})"
                             class="card-title-link">
                             <div class="card-header card-title p-3 d-flex justify-content-between align-items-center">
                                 <h5 class="m-0">{{ $role['role'] }} ({{ $role['work_arrangement'] }})</h5>
-                                <a href="http://localhost:8000/edit/listingID={{ $role['listing_id'] }}"
+                                <a href="javascript:void(0);" onclick="gotoEditRole({{ $role['listing_id'] }})"
                                     class="btn btn-sm btn-outline-primary">
                                     Edit Listing
                                 </a>
@@ -196,6 +196,27 @@
             document.getElementById("searchErrorAlert").style.display = "none";
         }
     }
+
+    function gotoEditRole(listingid){
+
+        const currentUrl = window.location.href;
+
+        // Extract the part of the URL after the domain, which includes the page
+        const urlSegments = currentUrl.split(window.location.origin)[1];
+        
+        // Split the URL segments by '/'
+        const segments = urlSegments.split('/');  
+        access=segments[1]
+        
+        // Construct the new URL with the selected access and the current page
+        const newUrl = `${window.location.origin}/${access}/edit/listingID=${listingid}`;
+
+        // Navigate to the new URL
+        window.location.href = newUrl;
+
+        //href="http://localhost:8000/edit/listingID={{ $role['listing_id'] }}"
+    }
+
 
 </script>
 

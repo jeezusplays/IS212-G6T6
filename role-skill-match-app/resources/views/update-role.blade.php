@@ -34,40 +34,12 @@
       Update Role Listings
   </Title>
 </head>
-
+@vite(['resources/sass/app.scss', 'resources/js/app.js'])
 <body>
     <div id="app">
 
     {{-- Top Menu Bar --}}
-    <div class="container">
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
-          <a class="navbar-brand" href="http://localhost:8000/role-listings">
-              <img src="{{ asset('favicon-32x32.png') }}" alt="Company Logo">
-          </a>
-          <div class="collapse navbar-collapse" id="navbarNav">
-              <ul class="navbar-nav">
-                  <li class="nav-item active">
-                      <a class="nav-link" href="http://localhost:8000/role-listings">View Role Listings</a>
-                  </li>
-                  <li class="nav-item">
-                      <a class="nav-link" href="http://localhost:8000/create-role">Create Role Listing</a>
-                  </li>
-              </ul>
-          </div>
-          <div class="dropdown">
-              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
-                  data-bs-toggle="dropdown" aria-expanded="false">
-                  {{-- Retrieve default HR staff name [Park Bo Gum, Role id = 5] from database --}}
-                  Park Bo Gum (HR Staff)
-              </button>
-              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                  <li><a class="dropdown-item" href="http://localhost:8000/role-listings">HR Staff</a></li>
-                  <li><a class="dropdown-item" href="http://localhost:8000/browse-roles">Staff</a></li>
-                  <li><a class="dropdown-item" href="http://localhost:8000/role-listings-management">Manager</a></li>
-              </ul>
-          </div>
-      </nav>
-  </div>
+    @include('top-menu-bar')
 
     </div>
     </div>

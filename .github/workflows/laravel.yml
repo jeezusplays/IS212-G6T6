@@ -16,11 +16,13 @@ jobs:
       with:
         php-version: '8.0'
     - name: Checkout code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v2
       with:
-        path: ../role-skill-match-app
+        path: 'IS212-G6T6' # Set the path to the main repository
+    - name: Change directory to subdirectory
+      run: cd IS212-G6T6/role-skill-match-app
     - name: Copy .env
-      run: php -r "file_exists('role-skill-match-app/.env') || copy('role-skill-match-app/.env.example', 'role-skill-match-app/.env');"
+      run: php -r "file_exists('.env') || copy('.env.example', '.env');"
     - name: Install Dependencies
       run: composer install
     - name: Generate key

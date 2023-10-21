@@ -15,9 +15,12 @@ jobs:
     - uses: shivammathur/setup-php@15c43e89cdef867065b0213be354c2841860869e
       with:
         php-version: '8.0'
-    - uses: actions/checkout@v3
+    - name: Checkout code
+      uses: actions/checkout@v3
+      with:
+        path: ../role-skill-match-app
     - name: Copy .env
-      run: php -r "file_exists('.env') || copy('.env.example', '.env');"
+      run: php -r "file_exists('role-skill-match-app/.env') || copy('role-skill-match-app/.env.example', 'role-skill-match-app/.env');"
     - name: Install Dependencies
       run: composer install
     - name: Generate key
@@ -26,10 +29,10 @@ jobs:
     #   run: chmod -R 777 storage bootstrap/cache
     # - name: Create Database
     #   run: |
-    #     mkdir -p database
-    #     touch database/database.sqlite
+    #     mkdir -p role-skill-match-app/database
+    #     touch role-skill-match-app/database/database.sqlite
     # - name: Execute tests (Unit and Feature tests) via PHPUnit
     #   env:
     #     DB_CONNECTION: sqlite
-    #     DB_DATABASE: database/database.sqlite
+    #     DB_DATABASE: role-skill-match-app/database/database.sqlite
     #   run: vendor/bin/phpunit

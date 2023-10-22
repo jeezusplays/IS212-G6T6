@@ -229,7 +229,7 @@
                                 <span class="sr-only skill-match-text" style="color:darkgreen;"><b>{{$skill_match_percent}}% Skills Matched</b></span>
                                 <div class="progress my-3">
                                     <!-- Adjust both valuenow and width to reflect progress -->
-                                    <div class="progress-bar skill-match-progressbar"  role="progressbar" aria-valuenow="{{$skill_match_percent}}" aria-valuemin="0" aria-valuemax="100" @style("width: {$width};") style = "background-color:darkgreen;"> <!-- width: {{$width}}; -->
+                                    <div class="progress-bar skill-match-progressbar"  role="progressbar" aria-valuenow="{{$skill_match_percent}}" aria-valuemin="0" aria-valuemax="100" @style("width: {$width};") style = "background-color:darkgreen;"> 
                                         <div class="progress-stripes"></div>
                                     </div>
                                 </div>
@@ -282,7 +282,6 @@
 <script>
     // Search bar functionality
     function start(){
-        //fetchData();
         triggerTooltip()
         searchJobs();
         progressColorChange();
@@ -341,19 +340,6 @@
         document.getElementById('jobListingsCount').textContent = `${counter} roles found based on your filters`;
     }
 
-    // Function to clear all filters
-    function clearFilters() {
-        // Clear the filter inputs and show all role cards
-        document.getElementById('filterDepartment').selectedIndex = 0;
-        document.getElementById('filterLocation').selectedIndex = 0;
-        document.getElementById('filterSkillsets').selectedIndex = 0;
-
-        document.querySelectorAll(".role-card").forEach(card => {
-            card.style.display = "";
-        });
-        searchJobs();
-    }
-
     function progressColorChange(){
         var text_arr = document.getElementsByClassName('skill-match-text')
         var progress_arr = document.getElementsByClassName('skill-match-progressbar')
@@ -379,23 +365,6 @@
             skill_match_progress.style.backgroundColor = colour
         }      
     }
-
-    function fetchData() {
-        const staffId = 1; // Need to add StaffID when it's done
-
-        const url = `http://127.0.0.1:8000/browse-roles?staff_id=${staffId}`;
-
-        fetch(url)
-            .then(response => response.json())
-            .then(data => {
-            // Handle the response data
-            console.log(data);
-            })
-            .catch(error => {
-            // Handle any errors
-            console.error(error);
-            });
-        }
 
     function triggerTooltip(){
         const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')

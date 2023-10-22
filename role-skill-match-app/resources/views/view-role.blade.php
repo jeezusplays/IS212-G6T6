@@ -4,8 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>View Role</title>
-    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
     <!-- Bootstrap CSS -->
@@ -15,6 +14,10 @@
       integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
       crossorigin="anonymous"
     />
+
+    <!-- Popper.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
@@ -69,7 +72,7 @@
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon-32x32.png') }}">
   </head>
 
-  <body onload = "progressColorChange()">
+  <body onload = "start()">
   <div id="app" class="container mb-3">
         <nav class="navbar navbar-expand-lg">
             <a class="navbar-brand" href="http://localhost:8000/browse-roles">
@@ -147,27 +150,38 @@
                     <h3>Skills</h3>
                 </div>
             </div>
+            @php   
+                $arr = [];   
+                foreach ($staff_skills as $item=>$skill_item){
+                    $skill = $skill_item->skill;
+                    $arr[] = $skill;
+                }
 
+                $match = array_intersect($role['skills'],$arr);
+                $skill_match_percent = count($match) / count($role['skills']) * 100;
+
+                $missing_skills = array_diff($role['skills'], $match);
+                $width = $skill_match_percent . '%';
+                                    
+            @endphp
             <div class="row mt-2">
+                
                 <div class="col">
                     @foreach ($role['skills'] as $skill)
+                        @if(in_array($skill,$missing_skills))
+                        <button class="skill-item"><del><a href="#" style="text-decoration: none; color:black;" data-bs-toggle="tooltip" data-bs-title="You do not possess this skill required by the job">{{ $skill }}</a></del></button>
+                        @else
                         <button class="skill-item">{{$skill}}</button>
+                        @endif
                     @endforeach
                 </div>
             </div>
             <div class="row mt-3">
                 <div class="col">
-                    @php
-                        $match = array_intersect($role['skills'],$staff_skills);
-                        $skill_match_percent = count($match) / count($role['skills']) * 100;
-
-                        $missing_skills = array_diff($role['skills'], $match);
-                        $width = $skill_match_percent . '%';
-                    @endphp
                         <span class="sr-only skill-match-text" style="color:darkgreen;"><b>{{$skill_match_percent}}% Skills Matched</b></span>
                         <div class="progress my-3">
                             <!-- Adjust both valuenow and width to reflect progress -->
-                            <div class="progress-bar skill-match-progressbar"  role="progressbar" aria-valuenow="{{$skill_match_percent}}" aria-valuemin="0" aria-valuemax="100" style="background-color:darkgreen; width: {{ $width }};"> <!-- width: {{$width}}; -->
+                            <div class="progress-bar skill-match-progressbar"  role="progressbar" aria-valuenow="{{$skill_match_percent}}" aria-valuemin="0" aria-valuemax="100" @style("width: {$width};") style = "background-color:darkgreen;"> 
                                 <div class="progress-stripes"></div>
                             </div>
                         </div>
@@ -202,6 +216,16 @@
     </body>
 
     <script>
+        function start(){
+        triggerTooltip();
+        progressColorChange();
+        }
+
+        function triggerTooltip(){
+        const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+        const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+        }
+
         function progressColorChange(){
         var text_arr = document.getElementsByClassName('skill-match-text')
         var progress_arr = document.getElementsByClassName('skill-match-progressbar')

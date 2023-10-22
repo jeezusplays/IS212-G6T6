@@ -44,4 +44,4 @@ Route::get('/alldepartments', [App\Http\Controllers\UpdateRoleController::class,
 Route::get('/hiringManagerDDL', [UpdateRoleController::class, 'retrieveAllHiringManagers']);
 Route::get('/skillsDDL', [UpdateRoleController::class, 'retrieveAllSkills']);
 
-Route::get('/view-role/listingID={passedlisting}', [ViewRoleController::class, 'getListing']);
+Route::get('/view-role/listingID={passedlisting}/staff_id={currentStaffID}', [ViewRoleController::class, 'getListing']);

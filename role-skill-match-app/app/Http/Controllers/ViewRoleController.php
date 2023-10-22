@@ -10,6 +10,7 @@ use App\Models\Role_Skill;
 use App\Models\Skill;
 use App\Models\Staff;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class ViewRoleController extends Controller
 {

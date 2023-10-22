@@ -132,7 +132,8 @@ class BrowseAllRoleController extends Controller
             ->select('skill.skill_id', 'skill.skill')
             ->get();
 
-        return view('browse-roles', compact('roles', 'departments', 'skills', 'countries', 'staff_skills'));
+        $staff_id = $request->staff_id;
+        return view('browse-roles', compact('roles', 'departments', 'skills', 'countries', 'staff_skills','staff_id'));
 
         // For testing purposes only, to view the JSON data
         return response()->json($roles);

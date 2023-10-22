@@ -64,9 +64,6 @@
             left: 0;
             top: 0;
         }
-
-        
-
     </style>
 
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon-32x32.png') }}">

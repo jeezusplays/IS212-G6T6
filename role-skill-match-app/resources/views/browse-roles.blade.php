@@ -102,7 +102,7 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item active">
-                        <a class="nav-link" href="http://localhost:8000/browse-roles">Browse Role Listings</a>
+                        <a class="nav-link" href="http://localhost:8000/browse-roles/staff_id=2">Browse Role Listings</a> <!-- staff_id needs to be dynamic -->
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="http://localhost:8000/my-applications">View Applications</a>
@@ -116,7 +116,7 @@
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     <li><a class="dropdown-item" href="http://localhost:8000/role-listings">HR Staff</a></li>
-                    <li><a class="dropdown-item" href="http://localhost:8000/browse-roles">Staff</a></li>
+                    <li><a class="dropdown-item" href="http://localhost:8000/browse-roles/staff_id=2">Staff</a></li> <!-- staff_id needs to be dynamic -->
                     <li><a class="dropdown-item" href="http://localhost:8000/role-listings-management">Manager</a></li>
                 </ul>
             </div>
@@ -175,10 +175,10 @@
             <div class="col-md-9">
                 @foreach ($roles as $role)
                 @if ($role['status'] == 'Open')
-                    <a href="http://localhost:8000/view-role/listingID={{ $role['listing_id'] }}" class="card-title-link">
+                    <a href="http://localhost:8000/view-role/listingID={{ $role['listing_id'] }}/staff_id=2" class="card-title-link"> <!-- staff id needs to be dynamic -->
                         <div class="card my-3 role-card" data-department="{{ $role['department'] }}" data-location="{{ $role['country'] }}">
                             <h5 class="card-title card-header p-3 d-flex justify-content-between align-items-center" style="background-color: #dbeffc">{{ $role['role'] }} ({{ $role['work_arrangement'] }})
-                                <a href="http://localhost:8000/view-role/listingID={{ $role['listing_id'] }}" class="btn btn-sm btn-outline-primary">View Details</a>
+                                <a href="http://localhost:8000/view-role/listingID={{ $role['listing_id'] }}/staff_id=2" class="btn btn-sm btn-outline-primary">View Details</a> <!-- staff id needs to be dynamic -->
                             </h5>
                     </a>
 

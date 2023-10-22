@@ -143,17 +143,46 @@
                 @endforeach
             </tbody>
         </table>
-        <div class="d-grid gap-2 col-2 mx-auto">
-            <button class="btn btn-success" type="button">Save Changes</button>
+        <div class="container mx-auto centerAll">
+            <button class="btn btn-secondary btn-lg" type="button" id="clearChangesButton">Clear Changes</button>
+            <button class="btn btn-success btn-lg" type="button" id="saveChangesButton">Save Changes</button>
         </div>
-
+        
+        
 </body>
 <!-- Include Bootstrap JS and jQuery -->
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script>
 document.addEventListener("DOMContentLoaded", function() {
-    const saveChangesButton = document.querySelector('.btn-success');
+    const saveChangesButton = document.querySelector('#saveChangesButton');
+    const clearChangesButton = document.querySelector('#clearChangesButton');
     const staff_id = window.location.href.split('=').pop(); // Extract staff_id from URL
+    const defaultSelections = {}; // Store default selections here
+
+    // Function to set default selections based on the current selections
+    const setDefaultSelections = () => {
+        const proficiencyDropdowns = document.querySelectorAll('select.form-select');
+        proficiencyDropdowns.forEach((dropdown) => {
+            const skill_id = dropdown.id.split('_')[1]; // Extract skill id
+            const proficiencyId = dropdown.id.split('_').pop(); // Extract proficiency_id
+            const selectedValue = dropdown.value; // Selected proficiency value
+            defaultSelections[skill_id] = selectedValue; // Store default selection
+        });
+    };
+
+    // Function to reset selections to default
+    const resetSelections = () => {
+        const proficiencyDropdowns = document.querySelectorAll('select.form-select');
+        proficiencyDropdowns.forEach((dropdown) => {
+            const skill_id = dropdown.id.split('_')[1]; // Extract skill id
+            dropdown.value = defaultSelections[skill_id]; // Reset to default
+        });
+    };
+
+    // Set default selections
+    setDefaultSelections();
+
+    // Add a click event listener to the "Save Changes" button
     saveChangesButton.addEventListener('click', function() {
         const proficiencyData = [];
         const proficiencyDropdowns = document.querySelectorAll('select.form-select');
@@ -162,7 +191,6 @@ document.addEventListener("DOMContentLoaded", function() {
             const proficiencyId = dropdown.id.split('_').pop(); // Extract proficiency_id
             const skill_name = dropdown.id.split('_')[0]; // Extract skill name
             const skill_id = dropdown.id.split('_')[1]; // Extract skill id
-
             const selectedValue = dropdown.value; // Selected proficiency value
 
             proficiencyData.push({
@@ -174,7 +202,7 @@ document.addEventListener("DOMContentLoaded", function() {
             });
         });
 
-        console.log(proficiencyData)
+        console.log(proficiencyData);
 
         // Send proficiency data to the controller via an AJAX request
         axios.post('http://localhost:8000/update-skill-proficiency', {
@@ -190,9 +218,15 @@ document.addEventListener("DOMContentLoaded", function() {
                 swal("Error", "Failed to update skillset proficiency", "error");
             });
     });
-});
 
+    // Add a click event listener to the "Clear Changes" button
+    clearChangesButton.addEventListener('click', function() {
+        // Reset selections to default
+        resetSelections();
+    });
+});
 </script>
+
 
 </html>
 

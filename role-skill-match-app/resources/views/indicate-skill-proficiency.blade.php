@@ -205,7 +205,7 @@ document.addEventListener("DOMContentLoaded", function() {
         console.log(proficiencyData);
 
         // Send proficiency data to the controller via an AJAX request
-        axios.post('http://localhost:8000/update-skill-proficiency', {
+        axios.post('{{ route('index.store') }}', {
                 data: proficiencyData,
             })
             .then((response) => {

@@ -7,6 +7,7 @@ use App\Models\Staff;
 use App\Models\Staff_Skill;
 use App\Models\Skill;
 use App\Models\Proficiency;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\View;
@@ -19,12 +20,48 @@ class IndicateSkillProficiency extends Controller
     }
     public function store(Request $request)
     {
-        $requestData = $request;
-        // requestData is a array of objects, where each object has old proficiency id and new proficiency id, skill id and staff id, skill_name
-        // Store each object into staff_skill table
-
-        return response()->json(['message' => 'Successfully updated skill proficiency'], 200);
+        // Extract the 'data' key from the request
+        $requestData = $request->input('data');
+    
+        // Check if the 'data' key is an array, if not, convert it to an array
+        if (!is_array($requestData)) {
+            $requestData = [$requestData];
+        }
+    
+        // Update the staff_skill table with the new proficiency ID using proficiency_id_new_value and updated_at timestamp
+        DB::beginTransaction();
+    
+        try {
+            foreach ($requestData as $data) {
+                // Check if 'staff_id' exists in the data, if not, continue to the next iteration
+                if (!isset($data['staff_id'])) {
+                    continue;
+                }
+    
+                $staff_id = $data['staff_id'];
+                $skill_id = $data['skill_id'];
+                $proficiency_id_new_value = $data['proficiency_id_new_value'];
+    
+                // Update the database using DB::table
+                DB::table('staff_skill')
+                    ->where('staff_id', $staff_id)
+                    ->where('skill_id', $skill_id)
+                    ->update(['proficiency_id' => $proficiency_id_new_value, 'updated_at' => now()]);
+            }
+    
+            // Commit the changes to the database
+            DB::commit();
+    
+            return response()->json(['message' => 'Successfully updated skill proficiency'], 200);
+        } catch (\Exception $e) {
+            // Handle the error, for example:
+            DB::rollBack(); // Rollback the transaction if an error occurs
+            return response()->json(['message' => 'Error updating skill proficiency'], 500);
+        }
     }
+    
+    
+    
     public function autoFillSkills($passedlisting)
     {
         // Retrieve all staff, staff_skill, skill, proficiency table data

@@ -143,9 +143,9 @@
                 @endforeach
             </tbody>
         </table>
-        <div class="container mx-auto centerAll">
-            <button class="btn btn-secondary btn-lg" type="button" id="clearChangesButton">Clear Changes</button>
-            <button class="btn btn-success btn-lg" type="button" id="saveChangesButton">Save Changes</button>
+        <div class="container mx-auto centerAll mt-5">
+            <button class="btn btn-secondary btn-lg mx-3" type="button" id="clearChangesButton">Clear Changes</button>
+            <button class="btn btn-success btn-lg mx-3" type="button" id="saveChangesButton">Save Changes</button>
         </div>
         
         
@@ -201,8 +201,6 @@ document.addEventListener("DOMContentLoaded", function() {
                 proficiency_id_new_value: selectedValue,
             });
         });
-
-        console.log(proficiencyData);
 
         // Send proficiency data to the controller via an AJAX request
         axios.post('{{ route('index.store') }}', {

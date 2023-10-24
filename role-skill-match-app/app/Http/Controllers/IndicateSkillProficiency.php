@@ -68,9 +68,8 @@ class IndicateSkillProficiency extends Controller
         $staff_table = Staff::where('staff_id', $passedlisting)->get();
         $staff_skill_table = Staff_Skill::where('staff_id', $passedlisting)->get();
         $skill_table = Skill::all();
-        $proficiency_table = Proficiency::all();
 
-        $staff_skillset_proficiency = $staff_table->map(function ($staff) use ($staff_skill_table, $skill_table, $proficiency_table, $passedlisting) {
+        $staff_skillset_proficiency = $staff_table->map(function ($staff) use ($staff_skill_table, $skill_table, $passedlisting) {
             $staff_name = $staff->staff_lname . " " . $staff->staff_fname;
             // Join staff_skill table with staff table
             $staff_skill_table = DB::table('staff_skill')

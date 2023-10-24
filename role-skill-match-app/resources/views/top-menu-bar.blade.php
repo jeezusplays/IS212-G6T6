@@ -14,7 +14,7 @@
                     <li class="nav-item">
                         <a class="nav-link"href="javascript:void(0);" onclick="gotoMySkills()">My Skills</a>
                     </li>
-                    @if (Str::contains(request()->url(), ['/hr', '/manager']))
+                    @if (Str::contains(request()->url(), ['/hr', '/manager','/admin']))
                     <li class="nav-item">
                         <a class="nav-link"href="javascript:void(0);" onclick="gotoCreateRole()">Create Role Listing</a>
                     </li>
@@ -32,6 +32,7 @@
                 <li><a class="dropdown-item" href="javascript:void(0);" onclick="changeAccess('hr', 'Bo Gum Park')">Bo Gum Park (HR)</a></li>
                 <li><a class="dropdown-item" href="javascript:void(0);" onclick="changeAccess('user','Ji Eun Lee')">Ji Eun Lee (User)</a></li>
                 <li><a class="dropdown-item" href="javascript:void(0);" onclick="changeAccess('manager','Sejeong Kim')">Sejeong Kim (Hiring Manager)</a></li>
+                <li><a class="dropdown-item" href="javascript:void(0);" onclick="changeAccess('admin','Sohee Han')">Sohee Han (Admin)</a></li>
                 </ul>
             </div>
         </nav>
@@ -73,6 +74,8 @@
                 newPath = 'manager/indicate-skill-proficiency/staffID=6';
             } else if (access === "user") {
                 newPath = 'user/indicate-skill-proficiency/staffID=1';
+            } else if (access === "admin") {
+                newPath = 'admin/indicate-skill-proficiency/staffID=8';
             }
             const newUrl = `${window.location.origin}/${newPath}`;
             window.location.href = newUrl;
@@ -162,6 +165,8 @@
                     staffID = 1;
                 } else if (access === "manager") {
                     staffID = 6;
+                } else if (access === "admin") {
+                    staffID = 8;
             }
 
             const newUrl = `${window.location.origin}/${access}/indicate-skill-proficiency/staffID=${staffID}`;

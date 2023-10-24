@@ -86,14 +86,6 @@ class SkillSeeder extends Seeder
             'skill_id' => 18,
             'skill' => 'Story Telling',
         ]);
-        Skill::create([
-            'skill_id' => 19,
-            'skill' => 'Agile Software Development',
-        ]);
-        Skill::create([
-            'skill_id' => 20,
-            'skill' => 'Agile Software Development',
-        ]);
             // Add more skills here
     }
 }

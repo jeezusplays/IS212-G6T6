@@ -12,11 +12,16 @@
                         <a class="nav-link" href="http://localhost:8000/my-applications">View Applications</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link"href="javascript:void(0);" onclick="gotoMySkills()">My Skills</a>
+                    </li>
+                    @if (Str::contains(request()->url(), ['/hr', '/manager']))
+                    <li class="nav-item">
                         <a class="nav-link"href="javascript:void(0);" onclick="gotoCreateRole()">Create Role Listing</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link"href="javascript:void(0);" onclick="gotoAllRoleListings()">All Role Listings</a>
-                    </li>
+                    </li>   
+                    @endif
                 </ul>
             </div>
             <div class="dropdown">
@@ -122,6 +127,38 @@
 
         // Navigate to the new URL
         window.location.href = newUrl;
+        }
+
+        function gotoMySkills() {
+
+            const currentUrl = window.location.href;
+
+            // Extract the part of the URL after the domain, which includes the page
+            const urlSegments = currentUrl.split(window.location.origin)[1];
+            
+            // Split the URL segments by '/'
+            const segments = urlSegments.split('/');  
+            access=segments[1]
+            //const newUrl = `${window.location.origin}/${access}/indicate-skill-proficiency/staffID=1`;
+            // Construct the new URL with the selected access and the current page
+
+            // Initialize staffID with a default value
+            let staffID = 1;
+
+            // Check the value of the access variable and set staffID accordingly
+            if (access === "hr") {
+                    staffID = 5;
+                } else if (access === "staff") {
+                    staffID = 1;
+                } else if (access === "manager") {
+                    staffID = 6;
+            }
+
+            const newUrl = `${window.location.origin}/${access}/indicate-skill-proficiency/staffID=${staffID}`;
+
+            
+            // Navigate to the new URL
+            window.location.href = newUrl;
         }
     </script>
 

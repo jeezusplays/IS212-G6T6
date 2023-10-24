@@ -39,39 +39,8 @@
   </head>
 
   <body>
-
-    <div class="container" id="app">
-
-    <nav class="navbar navbar-expand-lg">
-        <a class="navbar-brand" href="http://localhost:8000/role-listings">
-                <img src="{{ asset('favicon-32x32.png') }}" alt="Company Logo">
-            </a>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="http://localhost:8000/role-listings">View Role Listings</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="http://localhost:8000/create-role">Create Role Listing</a>
-                        </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="http://localhost:8000/update-role">Edit Role Listing</a>
-                    </li>
-                </ul>
-            </div>
-            <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
-                    data-bs-toggle="dropdown" aria-expanded="false">
-                    Li Ji Eun (Staff)
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <li><a class="dropdown-item" href="http://localhost:8000/role-listings">HR Staff</a></li>
-                    <li><a class="dropdown-item" href="http://localhost:8000/role-listings-staff">Staff</a></li>
-                    <li><a class="dropdown-item" href="http://localhost:8000/role-listings-manager">Manager</a></li>
-                </ul>
-            </div>
-        </nav>
-    </div>
+  @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+  @include('top-menu-bar')
         
     <div class="container-sm">
 

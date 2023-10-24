@@ -19,6 +19,16 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+// Route for indicate-skill-proficiency page
+Route::get('/indicate-skill-proficiency', [App\Http\Controllers\IndicateSkillProficiency::class, 'index']);
+Route::get('/hr/indicate-skill-proficiency/staffID={passedlisting}', [App\Http\Controllers\IndicateSkillProficiency::class, 'autoFillSkills']);
+Route::get('/staff/indicate-skill-proficiency/staffID={passedlisting}', [App\Http\Controllers\IndicateSkillProficiency::class, 'autoFillSkills']);
+Route::get('manager/indicate-skill-proficiency/staffID={passedlisting}', [App\Http\Controllers\IndicateSkillProficiency::class, 'autoFillSkills']);
+
+
+//store skill-proficiency data
+Route::post('/update-skill-proficiency', [App\Http\Controllers\IndicateSkillProficiency::class, 'store'])->name('index.store');
+
 // Route for role listings page
 Route::get('/hr/role-listings', [RoleController::class, 'index']);
 Route::get('/manager/role-listings', [RoleController::class, 'index']);

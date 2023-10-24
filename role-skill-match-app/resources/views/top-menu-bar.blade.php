@@ -30,7 +30,7 @@
                 </button>   
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                 <li><a class="dropdown-item" href="javascript:void(0);" onclick="changeAccess('hr', 'Bo Gum Park')">Bo Gum Park (HR Admin)</a></li>
-                <li><a class="dropdown-item" href="javascript:void(0);" onclick="changeAccess('staff','Ji Eun Lee')">Ji Eun Lee (Regular Staff)</a></li>
+                <li><a class="dropdown-item" href="javascript:void(0);" onclick="changeAccess('user','Ji Eun Lee')">Ji Eun Lee (Regular Staff)</a></li>
                 <li><a class="dropdown-item" href="javascript:void(0);" onclick="changeAccess('manager','Sejeong Kim')">Sejeong Kim (Hiring Manager)</a></li>
                 </ul>
             </div>
@@ -53,7 +53,6 @@
     }
 
     function changeAccess(access, name) {
-        
         localStorage.setItem('selectedRole', name);
         // Get the current URL
         const currentUrl = window.location.href;
@@ -64,16 +63,31 @@
         // Split the URL segments by '/'
         const segments = urlSegments.split('/');
         const page = segments.slice(2);
-        
-        
-        // Construct the new URL with the selected access and the current page
-        const newUrl = `${window.location.origin}/${access}/${page.join('/')}`;
 
-        // Navigate to the new URL
-        window.location.href = newUrl;
+        if (page.includes('indicate-skill-proficiency')) {
+            // Check if the page includes "indicate-skill-proficiency"
+            let newPath;
+            if (access === "hr") {
+                newPath = 'hr/indicate-skill-proficiency/staffID=5';
+            } else if (access === "manager") {
+                newPath = 'manager/indicate-skill-proficiency/staffID=6';
+            } else if (access === "user") {
+                newPath = 'user/indicate-skill-proficiency/staffID=1';
+            }
+            const newUrl = `${window.location.origin}/${newPath}`;
+            window.location.href = newUrl;
+        } else {
+            // Construct the new URL with the selected access and the current page
+            const newUrl = `${window.location.origin}/${access}/${page.join('/')}`;
+
+            // Navigate to the new URL
+            window.location.href = newUrl;
+        }
 
         document.getElementById('selectedName').textContent = name;
     }
+
+
 
     function gotoBrowseRoles() {
 
@@ -148,7 +162,7 @@
             // Check the value of the access variable and set staffID accordingly
             if (access === "hr") {
                     staffID = 5;
-                } else if (access === "staff") {
+                } else if (access === "user") {
                     staffID = 1;
                 } else if (access === "manager") {
                     staffID = 6;

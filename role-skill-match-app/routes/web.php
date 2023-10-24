@@ -22,7 +22,7 @@ use Illuminate\Support\Facades\Route;
 // Route for indicate-skill-proficiency page
 Route::get('/indicate-skill-proficiency', [App\Http\Controllers\IndicateSkillProficiency::class, 'index']);
 Route::get('/hr/indicate-skill-proficiency/staffID={passedlisting}', [App\Http\Controllers\IndicateSkillProficiency::class, 'autoFillSkills']);
-Route::get('/staff/indicate-skill-proficiency/staffID={passedlisting}', [App\Http\Controllers\IndicateSkillProficiency::class, 'autoFillSkills']);
+Route::get('/user/indicate-skill-proficiency/staffID={passedlisting}', [App\Http\Controllers\IndicateSkillProficiency::class, 'autoFillSkills']);
 Route::get('manager/indicate-skill-proficiency/staffID={passedlisting}', [App\Http\Controllers\IndicateSkillProficiency::class, 'autoFillSkills']);
 
 
@@ -41,7 +41,7 @@ Route::get('/manager/view-role-applicants/listingID={passedlisting}', [App\Http\
 // Route for browse-roles page
 Route::get('/hr/browse-roles', [App\Http\Controllers\BrowseAllRoleController::class, 'index_view'])->name('browse-roles');
 Route::get('/manager/browse-roles', [App\Http\Controllers\BrowseAllRoleController::class, 'index_view'])->name('browse-roles');
-Route::get('/staff/browse-roles', [App\Http\Controllers\BrowseAllRoleController::class, 'index_view'])->name('browse-roles');
+Route::get('/user/browse-roles', [App\Http\Controllers\BrowseAllRoleController::class, 'index_view'])->name('browse-roles');
 
 
 // Route for create role
@@ -66,7 +66,7 @@ Route::get('/apply', function () {
 // Route for view role details from browse roles page
 Route::get('/hr/view-role/listingID={passedlisting}', [ViewRoleController::class, 'getListing']);
 Route::get('/manager/view-role/listingID={passedlisting}', [ViewRoleController::class, 'getListing']);
-Route::get('/staff/view-role/listingID={passedlisting}', [ViewRoleController::class, 'getListing']);
+Route::get('/user/view-role/listingID={passedlisting}', [ViewRoleController::class, 'getListing']);
 
 
 Route::get('/', function () {

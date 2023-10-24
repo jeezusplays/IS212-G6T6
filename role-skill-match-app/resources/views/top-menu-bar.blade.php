@@ -9,7 +9,7 @@
                         <a class="nav-link" href="javascript:void(0);" onclick="gotoBrowseRoles()">Browse Role Listings</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="http://localhost:8000/my-applications">View Applications</a>
+                        <a class="nav-link" href="http://localhost:8000/my-applications">View My Applications</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link"href="javascript:void(0);" onclick="gotoMySkills()">My Skills</a>

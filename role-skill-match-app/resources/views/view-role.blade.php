@@ -76,7 +76,7 @@
             @foreach ($roles as $role)
             <div class="row mt-5 mb-4">
                 <div class="col-12 col-sm-8 text-start">
-                    <h1>{{$role['role']}}</h1>
+                    <h1>{{$role['role']}} ({{ $role['work_arrangement'] == 1 ? "Part Time" : "Full Time"}})</h1>
                 </div>
                 <div class="col-12 col-sm-4">
                     <div class="d-flex justify-content-start justify-content-sm-end">
@@ -90,15 +90,10 @@
                     <b>Department</b> {{$role['department']}}
                 </div>
                 <div class="col-12 col-sm-4">
-                    <b>Work Arrangement</b> 
-                    @if ($role['work_arrangement'] == 1)
-                    Part Time
-                    @else 
-                    Full Time
-                    @endif
+                    <b>Country</b> {{$role['country']}}
                 </div>
                 <div class="col-12 col-sm-4">
-                    <b>Country</b> {{$role['country']}}
+                    <b>Vacancy</b> {{$role['vacancy']}}
                 </div>
             </div>
 
@@ -125,18 +120,6 @@
                     @foreach ($role['skills'] as $skill)
                         <button class="skill">{{$skill}}</button>
                     @endforeach
-                </div>
-            </div>
-            
-            <div class="row mt-5">
-                <div class="col">
-                    <h3>Vacancy</h3>
-                </div>
-            </div>
-
-            <div class="row mt-2">
-                <div class="col">
-                    {{$role['vacancy']}} positions
                 </div>
             </div>
 

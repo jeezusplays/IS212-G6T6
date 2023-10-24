@@ -70,6 +70,30 @@ class SkillSeeder extends Seeder
             'skill_id' => 14,
             'skill' => 'Agile Software Development',
         ]);
+        Skill::create([
+            'skill_id' => 15,
+            'skill' => 'Staff Management',
+        ]);
+        Skill::create([
+            'skill_id' => 16,
+            'skill' => 'Creative Development',
+        ]);
+        Skill::create([
+            'skill_id' => 17,
+            'skill' => 'Empathy and Emotional Intelligence',
+        ]);
+        Skill::create([
+            'skill_id' => 18,
+            'skill' => 'Story Telling',
+        ]);
+        Skill::create([
+            'skill_id' => 19,
+            'skill' => 'Agile Software Development',
+        ]);
+        Skill::create([
+            'skill_id' => 20,
+            'skill' => 'Agile Software Development',
+        ]);
             // Add more skills here
     }
 }

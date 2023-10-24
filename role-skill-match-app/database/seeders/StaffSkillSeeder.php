@@ -31,6 +31,13 @@ class StaffSkillSeeder extends Seeder
             ['staff_id' => 7, 'skill_id' => 5, 'proficiency_id' => 1, 'created_at' => now(), 'updated_at' => now()],
             ['staff_id' => 7, 'skill_id' => 6, 'proficiency_id' => 2, 'created_at' => now(), 'updated_at' => now()],
             ['staff_id' => 7, 'skill_id' => 7, 'proficiency_id' => 3, 'created_at' => now(), 'updated_at' => now()],
+            ['staff_id' => 8, 'skill_id' => 9, 'proficiency_id' => 3, 'created_at' => now(), 'updated_at' => now()],
+            ['staff_id' => 8, 'skill_id' => 10, 'proficiency_id' => 3, 'created_at' => now(), 'updated_at' => now()],
+            ['staff_id' => 8, 'skill_id' => 16, 'proficiency_id' => 3, 'created_at' => now(), 'updated_at' => now()],
+            ['staff_id' => 8, 'skill_id' => 17, 'proficiency_id' => 3, 'created_at' => now(), 'updated_at' => now()],
+            ['staff_id' => 8, 'skill_id' => 18, 'proficiency_id' => 3, 'created_at' => now(), 'updated_at' => now()],
+            ['staff_id' => 8, 'skill_id' => 2, 'proficiency_id' => 3, 'created_at' => now(), 'updated_at' => now()],
+            ['staff_id' => 8, 'skill_id' => 5, 'proficiency_id' => 3, 'created_at' => now(), 'updated_at' => now()]
         ]);
     }
 }

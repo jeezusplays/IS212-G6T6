@@ -29,8 +29,8 @@
                     <span id="selectedName">{{ $selectedName ?? 'Ji Eun Lee' }}</span>
                 </button>   
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <li><a class="dropdown-item" href="javascript:void(0);" onclick="changeAccess('hr', 'Bo Gum Park')">Bo Gum Park (HR Admin)</a></li>
-                <li><a class="dropdown-item" href="javascript:void(0);" onclick="changeAccess('user','Ji Eun Lee')">Ji Eun Lee (Regular Staff)</a></li>
+                <li><a class="dropdown-item" href="javascript:void(0);" onclick="changeAccess('hr', 'Bo Gum Park')">Bo Gum Park (HR)</a></li>
+                <li><a class="dropdown-item" href="javascript:void(0);" onclick="changeAccess('user','Ji Eun Lee')">Ji Eun Lee (User)</a></li>
                 <li><a class="dropdown-item" href="javascript:void(0);" onclick="changeAccess('manager','Sejeong Kim')">Sejeong Kim (Hiring Manager)</a></li>
                 </ul>
             </div>
@@ -86,8 +86,6 @@
 
         document.getElementById('selectedName').textContent = name;
     }
-
-
 
     function gotoBrowseRoles() {
 
@@ -153,8 +151,6 @@
             // Split the URL segments by '/'
             const segments = urlSegments.split('/');  
             access=segments[1]
-            //const newUrl = `${window.location.origin}/${access}/indicate-skill-proficiency/staffID=1`;
-            // Construct the new URL with the selected access and the current page
 
             // Initialize staffID with a default value
             let staffID = 1;

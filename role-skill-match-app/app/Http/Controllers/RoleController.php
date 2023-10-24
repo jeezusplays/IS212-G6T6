@@ -99,7 +99,8 @@ class RoleController extends Controller
             }
 
             // Role was created, return 200 OK HTTP code
-            return redirect('/create-role')->with('success', 'Role created successfully!');
+            //return redirect('/create-role')->with('success', 'Role created successfully!');
+            return redirect()->back()->with('success', 'Role created successfully');
         } else {
             // Role already exists, return 409 Conflict HTTP code
             return response()->json(

@@ -36,15 +36,13 @@ Route::get('/staff/browse-roles', [App\Http\Controllers\BrowseAllRoleController:
 
 // Route for create role
 Route::get('/hr/create-role', [RoleController::class, 'setup']);
-Route::post('/hr/create-role', [RoleController::class, 'store'])->name('create-role');
 Route::get('/manager/create-role', [RoleController::class, 'setup']);
-Route::post('/manager/create-role', [RoleController::class, 'store'])->name('create-role');
+
+Route::post('/create-role', [RoleController::class, 'store'])->name('create-role');
 
 //Route for edit listing
 Route::get('/hr/edit/listingID={passedlisting}', [UpdateRoleController::class, 'autoFillRoleListing']);
 Route::get('/manager/edit/listingID={passedlisting}', [UpdateRoleController::class, 'autoFillRoleListing']);
-
-//store listing data
 Route::post('/updateRole', [UpdateRoleController::class, 'store']);
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');

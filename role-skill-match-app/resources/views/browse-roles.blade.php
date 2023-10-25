@@ -209,6 +209,9 @@
                                     $match = array_intersect($role['skills'],$arr);
                                     $skill_match_percent = count($match) / count($role['skills']) * 100;
 
+                                    //round to 1dp
+                                    $skill_match_percent = round($skill_match_percent, 1);
+
                                     $missing_skills = array_diff($role['skills'], $match);
                                     $width = $skill_match_percent . '%';
                                     

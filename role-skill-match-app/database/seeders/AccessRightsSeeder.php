@@ -26,6 +26,10 @@ class AccessRightsSeeder extends Seeder
         ]);
         Access_Rights::create([
             'access_id' => 3,
+            'access_name' => 'HR',
+        ]);
+        Access_Rights::create([
+            'access_id' => 4,
             'access_name' => 'Admin',
         ]);
     }

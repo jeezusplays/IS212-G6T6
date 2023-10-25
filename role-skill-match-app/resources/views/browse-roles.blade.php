@@ -60,23 +60,35 @@
             padding: 5px;
             /* Add padding to the grid container */
         }
+        .skill-item{
+            background-color: rgb(223, 231, 242);
+            border: none;
+            color: black;
+            padding: 5px 10px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 16px;
+        }
 
-        .skill-item {
-            border: 1px solid #ccc;
+        /* .skill-item {
+            border: 1px solid #ccc; */
             /* make border round */
-            border-radius: 5px;
+            /* border-radius: 5px; */
             /* Add a border around each skill item */
-            padding: 5px;
+            /* padding: 5px; */
             /* Add padding to the skill items for spacing */
             /* Make skill-item be in the center of the box */
-            display: flex;
+            /* display: flex;
             justify-content: center;
             align-items: center;
             margin: 0;
-            background-color: #f5f5f5;
+            background-color: #f5f5f5; */
             /* Background color for skill items */
-            font-size: 12px;
-        }
+            /* font-size: 12px;
+        } */
 
 
         /* ... */
@@ -217,7 +229,16 @@
                                     
                                 @endphp
                                 <p class="card-text mb-0 mt-3 d-inline"><b>Skills:</b>
-                                <div class="grid-container">
+                                <div class="col">
+                                    @foreach ($role['skills'] as $skill)
+                                        @if(in_array($skill,$missing_skills))
+                                        <button class="skill-item" id="skilldata" data-skillsets="{{ json_encode($role['skills']) }}"><del><a href="#" style="text-decoration: none; color:black;" data-bs-toggle="tooltip" data-bs-title="You do not possess this skill required by the job">{{ $skill }}</a></del></button>
+                                        @else
+                                        <button class="skill-item" id="skilldata" data-skillsets="{{ json_encode($role['skills']) }}">{{$skill}}</button>
+                                        @endif
+                                    @endforeach
+                                </div>
+                                <!-- <div class="grid-container">
                                     @foreach ($role['skills'] as $index => $skill)
                                         @if(in_array($skill,$missing_skills))
                                             <div class="skill-item" id="skilldata" data-skillsets="{{ json_encode($role['skills']) }}"><del><a href="#" style="text-decoration: none; color:black;" data-bs-toggle="tooltip" data-bs-title="You do not possess this skill required by the job">{{ $skill }}</a></del></div>
@@ -225,7 +246,7 @@
                                             <div class="skill-item" id="skilldata" data-skillsets="{{ json_encode($role['skills']) }}">{{ $skill }}</div>
                                         @endif
                                     @endforeach
-                                </div>
+                                </div> -->
                                 </p>
                                 <!-- Insert placeholder Dotted Progress Bar here to represent skill match, should not overlap past 9 column-->
                                 

@@ -30,7 +30,9 @@
                 </button>   
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                 <li><a class="dropdown-item" href="javascript:void(0);" onclick="changeAccess('hr', 'Bo Gum Park')">Bo Gum Park (HR)</a></li>
+                @if (!Str::contains(request()->url(), ['/create-role', '/role-listings']))
                 <li><a class="dropdown-item" href="javascript:void(0);" onclick="changeAccess('user','Ji Eun Lee')">Ji Eun Lee (User)</a></li>
+                @endif
                 <li><a class="dropdown-item" href="javascript:void(0);" onclick="changeAccess('manager','Sejeong Kim')">Sejeong Kim (Hiring Manager)</a></li>
                 <li><a class="dropdown-item" href="javascript:void(0);" onclick="changeAccess('admin','Sohee Han')">Sohee Han (Admin)</a></li>
                 </ul>

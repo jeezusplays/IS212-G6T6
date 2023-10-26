@@ -12,14 +12,24 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - uses: actions/checkout@v3
     - uses: shivammathur/setup-php@15c43e89cdef867065b0213be354c2841860869e
       with:
         php-version: '8.0'
-    - uses: actions/checkout@v3
+
     - name: Copy .env
       run: php -r "file_exists('.env') || copy('.env.example', '.env');"
+
+    - name: Install Composer
+      run: composer self-update
+
+    - name: Composer Install
+      run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+      continue-on-error: true  # Continue even if the command fails
+
     - name: Install Dependencies
       run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+
     - name: Generate key
       run: php artisan key:generate
     - uses: mirromutth/mysql-action@v1.1
@@ -28,12 +38,10 @@ jobs:
         mysql root password: '' # Required if "mysql user" is empty, default is empty. The root superuser password
         mysql user: 'root' # Required if "mysql root password" is empty, default is empty. The superuser for the specified database. Can use secrets, too
         mysql password: '' # Required if "mysql user" exists. The password for the "mysql user"
+
     - name: Directory Permissions
       run: chmod -R 777 storage bootstrap/cache
-    - name: Create Database
-      run: |
-        mkdir -p database
-        touch database/database.sqlite
+
     - name: PHPUnit Tests
       uses: php-actions/phpunit@v3
       env:

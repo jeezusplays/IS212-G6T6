@@ -204,13 +204,9 @@ document.addEventListener("DOMContentLoaded", function() {
         });
 
         // Send proficiency data to the controller via an AJAX request
-<<<<<<< Updated upstream
-        axios.post('{{ route(\'index.store\') }}', {
-=======
         const routeUrl = document.getElementById('route').getAttribute('data-url');
 
         axios.post(routeUrl, {
->>>>>>> Stashed changes
                 data: proficiencyData,
             })
             .then((response) => {

@@ -117,18 +117,18 @@ class RoleController extends Controller
                 ->pluck('staff_name')
                 ->toArray();
 
-            // return [
-            //     'listing_id' => $role->listing_id, // listing_id
-            //     'role_id' => $role->role_id, // role_id
-            //     'role' => $matchingRole ? $matchingRole->role : null, // job title
-            //     // parse the created_at date via Carbon to d-m-Y format
-            //     'created_at' => Carbon::parse($role->created_at)->format('d-m-Y'), // created_at
-            //     'full_name' => implode(', ', $staffNames), // listed by
-            //     'status' => $status, // status
-            //     'total_applications' => $applicationCount ? $applicationCount->total_applications : 0, // total_applications
-            //     'vacancy' => $vacancy, // vacancy
-            //     'work_arrangement' => $work_arrangement, // work_arrangement
-            // ];
+            return [
+                'listing_id' => $role->listing_id, // listing_id
+                'role_id' => $role->role_id, // role_id
+                'role' => $matchingRole ? $matchingRole->role : null, // job title
+                // parse the created_at date via Carbon to d-m-Y format
+                'created_at' => Carbon::parse($role->created_at)->format('d-m-Y'), // created_at
+                'full_name' => implode(', ', $staffNames), // listed by
+                'status' => $status, // status
+                'total_applications' => $applicationCount ? $applicationCount->total_applications : 0, // total_applications
+                'vacancy' => $vacancy, // vacancy
+                'work_arrangement' => $work_arrangement, // work_arrangement
+            ];
         });
 
         return view('role-listings', compact('roles'));

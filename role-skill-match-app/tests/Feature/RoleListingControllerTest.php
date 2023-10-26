@@ -117,9 +117,8 @@ class RoleListingControllerTest extends TestCase
     public function test_index()
     {
         $response = $this->get('/role-listings');
-        $response->assertSuccessful();
-        // $response->assertViewHasAll([
-        //     'roles',
-        // ]);
+        $response->assertViewHasAll([
+            'roles',
+        ]);
     }
 }

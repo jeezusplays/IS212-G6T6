@@ -136,5 +136,15 @@ class StaffSeeder extends Seeder
             'email' => 'hxliow.2021@scis.smu.edu.sg',
             'access_id' => 2,
         ]);
+        Staff::create([
+            'staff_id' => 8,
+            'role_id' => 5,
+            'staff_fname' => 'Sohee',
+            'staff_lname' => 'Han',
+            'department_id' => 2, 
+            'country_id' => 3, 
+            'email' => 'hxliow.2021@scis.smu.edu.sg',
+            'access_id' => 4,
+        ]);
     }
 }

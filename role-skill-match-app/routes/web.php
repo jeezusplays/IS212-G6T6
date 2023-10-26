@@ -1,5 +1,6 @@
 <?php
 
+
 use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\BrowseAllRoleController;
 use App\Http\Controllers\HomeController;
@@ -31,11 +32,11 @@ Route::post('/update-skill-proficiency', [IndicateSkillProficiency::class, 'stor
 // Route for role listings page
 Route::get('/role-listings', [RoleController::class, 'index']);
 
+// Route for browse-roles page
+Route::get('browse-roles/staff_id={staff_id}', [App\Http\Controllers\BrowseAllRoleController::class, 'index_view'])->name('browse-roles');
 // Route for view-role-applicants page
 Route::get('/view-role-applicants/listingID={passedlisting}', [ViewRoleApplicants::class, 'getApplicantListing']);
 
-// Route for browse-roles page
-Route::get('browse-roles', [BrowseAllRoleController::class, 'index_view'])->name('browse-roles');
 
 Route::get('/create-role', [RoleController::class, 'setup']);
 Route::post('/create-role', [RoleController::class, 'store'])->name('create-role');
@@ -60,9 +61,11 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/hiringManagerDDL', [UpdateRoleController::class, 'retrieveAllHiringManagers']);
 Route::get('/skillsDDL', [UpdateRoleController::class, 'retrieveAllSkills']);
 
+Route::get('/view-role/listingID={passedlisting}/staff_id={currentStaffID}', [ViewRoleController::class, 'getListing']);
 // post request to apply for a role as staff
 Route::post('/apply', [ApplicationController::class, 'store'])->name('apply-role');
 Route::get('/apply', function () {
     return view('apply-role');
 });
-Route::get('/view-role/listingID={passedlisting}', [ViewRoleController::class, 'getListing']);
+// Previous version, can remove once not needed
+// Route::get('/view-role/listingID={passedlisting}', [ViewRoleController::class, 'getListing']);

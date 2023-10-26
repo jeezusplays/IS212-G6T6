@@ -35,9 +35,10 @@ class Staff extends Model
     // TODO: Check everything below this line ------------------------------------------------
 
     // One-to-many relationship with `Staff_Skill` model
-    public function skills(): BelongsToMany
+    public function skills()
     {
-        return $this->belongsToMany(Skill::class, 'staff_skill', 'staff_id', 'skill_id');
+        return $this->hasMany(Staff_Skill::class, 'staff_id', 'staff_id');
+
     }
 
     // One-to-many relationship with `Application` model

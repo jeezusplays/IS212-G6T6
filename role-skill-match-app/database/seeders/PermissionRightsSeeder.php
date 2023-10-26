@@ -58,6 +58,22 @@ class PermissionRightsSeeder extends Seeder
             'access_id' => 3,
             'permission_id' => 4,
         ]);
+        Permission_Rights::create([
+            'access_id' => 4,
+            'permission_id' => 1,
+        ]);
+        Permission_Rights::create([
+            'access_id' => 4,
+            'permission_id' => 2,
+        ]);
+        Permission_Rights::create([
+            'access_id' => 4,
+            'permission_id' => 3,
+        ]);
+        Permission_Rights::create([
+            'access_id' => 4,
+            'permission_id' => 4,
+        ]);
         
             // Add more permissions here
     }

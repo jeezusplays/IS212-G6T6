@@ -25,9 +25,9 @@ jobs:
     - uses: mirromutth/mysql-action@v1.1
       with:
         mysql database: 'test' # Optional, default value is "test". The specified database which will be create
-        mysql root password: ${{ secrets.RootPassword }} # Required if "mysql user" is empty, default is empty. The root superuser password
-        mysql user: 'developer' # Required if "mysql root password" is empty, default is empty. The superuser for the specified database. Can use secrets, too
-        mysql password: ${{ secrets.DatabasePassword }} # Required if "mysql user" exists. The password for the "mysql user"
+        mysql root password: '' # Required if "mysql user" is empty, default is empty. The root superuser password
+        mysql user: 'root' # Required if "mysql root password" is empty, default is empty. The superuser for the specified database. Can use secrets, too
+        mysql password: '' # Required if "mysql user" exists. The password for the "mysql user"
     - name: Directory Permissions
       run: chmod -R 777 storage bootstrap/cache
     - name: Create Database

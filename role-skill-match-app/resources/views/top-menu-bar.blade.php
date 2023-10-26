@@ -1,6 +1,6 @@
 <div id="app" class="container mb-3">
         <nav class="navbar navbar-expand-lg">
-            <a class="navbar-brand" href="javascript:void(0);" onclick="gotoBrowseRoles()">
+            <a class="navbar-brand" href="javascript:void(0);" onclick="gotoHomePage()">
                 <img src="{{ asset('favicon-32x32.png') }}" alt="Company Logo">
             </a>
             <div class="collapse navbar-collapse" id="navbarNav">
@@ -85,16 +85,21 @@
             window.location.href = newUrl;
 
         } else if (page.includes('create-role') || page.includes('role-listings')) {
-            newPath = 'staff_id=1/browse-roles'
-            const newUrl = `${window.location.origin}/${newPath}`;
-            window.location.href = newUrl;
+            if (access.includes('staff_id=1')){
+                window.location.href = `${window.location.origin}/${access}/browse-roles`;
+            }
+            else {
+                newUrl = `${window.location.origin}/${access}/${page.join('/')}`;
+                window.location.href = newUrl;
+            }
+            
+            //window.location.href = newUrl;
 
         } else if (segments[1].includes('staff_id=1')){
-            
             newUrl = `${window.location.origin}/${access}/create-role`;
             window.location.href = newUrl;
-        }
-        else {
+
+        } else {
             // Construct the new URL with the selected access and the current page
             const newUrl = `${window.location.origin}/${access}/${page.join('/')}`;
             // Navigate to the new URL
@@ -104,6 +109,28 @@
         document.getElementById('selectedName').textContent = name;
     }
 
+    function gotoHomePage() {
+
+        const currentUrl = window.location.href;
+
+        // Extract the part of the URL after the domain, which includes the page
+        const urlSegments = currentUrl.split(window.location.origin)[1];
+
+        // Split the URL segments by '/'
+        const segments = urlSegments.split('/');  
+        access=segments[1];
+        console.log(access);
+
+        // Construct the new URL with the selected access and the current page
+        if (access.includes('staff_id=1')){
+            newUrl = `${window.location.origin}/${access}/browse-roles`;
+        } else {
+            newUrl = `${window.location.origin}/${access}/create-role`; 
+        }
+        // Navigate to the new URL
+        window.location.href = newUrl;
+        }
+    
     function gotoBrowseRoles() {
 
         const currentUrl = window.location.href;

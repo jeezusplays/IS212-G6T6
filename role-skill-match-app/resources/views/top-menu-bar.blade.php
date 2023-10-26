@@ -71,15 +71,9 @@
         if (page.includes('indicate-skill-proficiency')) {
             // Check if the page includes "indicate-skill-proficiency"
             let newPath;
-            if (access === "staff_id=5") {
-                newPath = 'staff_id=5/indicate-skill-proficiency';
-            } else if (access === "staff_id=6") {
-                newPath = 'staff_id=6/indicate-skill-proficiency';
-            } else if (access === "staff_id=1") {
-                newPath = 'staff_id=1/indicate-skill-proficiency';
-            } else if (access === "staff_id=8") {
-                newPath = 'staff_id=8/indicate-skill-proficiency';
-            }
+            if (access !== "staff_id=1") {
+                newPath = access+'/create-role';
+            } 
             const newUrl = `${window.location.origin}/${newPath}`;
 
             window.location.href = newUrl;

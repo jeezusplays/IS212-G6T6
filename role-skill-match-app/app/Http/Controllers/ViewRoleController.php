@@ -4,16 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Country;
 use App\Models\Department;
-use App\Models\Hiring_Manager;
 use App\Models\Role;
 use App\Models\Role_Listing;
 use App\Models\Role_Skill;
 use App\Models\Skill;
 use App\Models\Staff;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\View;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class ViewRoleController extends Controller
 {
@@ -22,8 +19,8 @@ class ViewRoleController extends Controller
         return view('view-role');
     }
 
-    public function getListing($passedlisting)
-    { 
+    public function getListing($currentStaffID,$passedlisting)
+    {
         // Retrieve all role data from the database
         $RoleListing_Table = Role_Listing::where('listing_id', $passedlisting)->get();
         //declaring tables
@@ -75,20 +72,21 @@ class ViewRoleController extends Controller
 
         $isRoleValid = ($roles[0]['status'] != 2);
         
-
-        if (!$isRoleValid) {
+        if (! $isRoleValid) {
             $nullifiedRole = [];
             foreach ($roles[0] as $key => $value) {
                 $nullifiedRole[$key] = null;
             }
             $roles->splice(0, 1, [$nullifiedRole]);
         }
-        
-        //dummy data
-        $staff_skills = ["Capital Management", "Python", "People Management", "Stakeholder Management"]; 
+
+        //return skills of current staff user
+        $staff_skills = DB::table('staff_skill')
+            ->join('skill', 'staff_skill.skill_id', '=', 'skill.skill_id')
+            ->where('staff_skill.staff_id', '=', $currentStaffID)
+            ->select('skill.skill_id', 'skill.skill')
+            ->get();
 
         return view('view-role', compact('roles', 'isRoleValid', 'staff_skills'));
     }
-
 }
-?>

@@ -14,7 +14,7 @@
                     <li class="nav-item">
                         <a class="nav-link"href="javascript:void(0);" onclick="gotoMySkills()">My Skills</a>
                     </li>
-                    @if (Str::contains(request()->url(), ['/hr', '/manager','/admin']))
+                    @if (Str::contains(request()->url(), ['/staff_id=3', '/staff_id=5','staff_id=8']))
                     <li class="nav-item">
                         <a class="nav-link"href="javascript:void(0);" onclick="gotoCreateRole()">Create Role Listing</a>
                     </li>
@@ -29,12 +29,12 @@
                     <span id="selectedName">{{ $selectedName ?? 'Ji Eun Lee' }}</span>
                 </button>   
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <li><a class="dropdown-item" href="javascript:void(0);" onclick="changeAccess('hr', 'Bo Gum Park')">Bo Gum Park (HR)</a></li>
+                <li><a class="dropdown-item" href="javascript:void(0);" onclick="changeAccess('staff_id=5', 'Bo Gum Park')">Bo Gum Park (HR)</a></li>
                 @if (!Str::contains(request()->url(), ['/create-role', '/role-listings']))
-                <li><a class="dropdown-item" href="javascript:void(0);" onclick="changeAccess('user','Ji Eun Lee')">Ji Eun Lee (User)</a></li>
+                <li><a class="dropdown-item" href="javascript:void(0);" onclick="changeAccess('staff_id=1','Ji Eun Lee')">Ji Eun Lee (User)</a></li>
                 @endif
-                <li><a class="dropdown-item" href="javascript:void(0);" onclick="changeAccess('manager','Sejeong Kim')">Sejeong Kim (Hiring Manager)</a></li>
-                <li><a class="dropdown-item" href="javascript:void(0);" onclick="changeAccess('admin','Sohee Han')">Sohee Han (Admin)</a></li>
+                <li><a class="dropdown-item" href="javascript:void(0);" onclick="changeAccess('staff_id=3','Sejeong Kim')">Sejeong Kim (Hiring Manager)</a></li>
+                <li><a class="dropdown-item" href="javascript:void(0);" onclick="changeAccess('staff_id=8','Sohee Han')">Sohee Han (Admin)</a></li>
                 </ul>
             </div>
         </nav>
@@ -70,14 +70,14 @@
         if (page.includes('indicate-skill-proficiency')) {
             // Check if the page includes "indicate-skill-proficiency"
             let newPath;
-            if (access === "hr") {
-                newPath = 'hr/indicate-skill-proficiency/staffID=5';
-            } else if (access === "manager") {
-                newPath = 'manager/indicate-skill-proficiency/staffID=6';
-            } else if (access === "user") {
-                newPath = 'user/indicate-skill-proficiency/staffID=1';
-            } else if (access === "admin") {
-                newPath = 'admin/indicate-skill-proficiency/staffID=8';
+            if (access === "staff_id=5") {
+                newPath = 'staff_id=5/indicate-skill-proficiency';
+            } else if (access === "staff_id=6") {
+                newPath = 'staff_id=6/indicate-skill-proficiency';
+            } else if (access === "staff_id=1") {
+                newPath = 'staff_id=1/indicate-skill-proficiency';
+            } else if (access === "staff_id=8") {
+                newPath = 'staff_id=8/indicate-skill-proficiency';
             }
             const newUrl = `${window.location.origin}/${newPath}`;
             window.location.href = newUrl;
@@ -171,7 +171,7 @@
                     staffID = 8;
             }
 
-            const newUrl = `${window.location.origin}/${access}/indicate-skill-proficiency/staffID=${staffID}`;
+            const newUrl = `${window.location.origin}/${access}/indicate-skill-proficiency`;
 
             
             // Navigate to the new URL

@@ -8,9 +8,6 @@
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-  <!-- Scripts -->
-
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -21,6 +18,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous">
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="icon" href="{{ asset('favicon-32x32.png') }}" type="image/x-icon">
 
 
@@ -65,9 +63,8 @@
 </style>
 
 <body>
-
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
-    @include('top-menu-bar')
+    @include('top-menu-bar')    
 
     <div class="container mt-5">
         <h2>My Skills and Proficiency</h2>
@@ -172,7 +169,6 @@ document.addEventListener("DOMContentLoaded", function() {
                 proficiency_id_new_value: selectedValue,
             });
         });
-
         // Send proficiency data to the controller via an AJAX request
         axios.post('{{ route('index.store') }}', {
                 data: proficiencyData,

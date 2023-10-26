@@ -71,11 +71,9 @@
 
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon-32x32.png') }}">
   </head>
-  @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+
   <body>
 
-  <body onload = "start()">
-  
         
     <div class="container-sm">
     {{-- Top Menu Bar --}} <!--  notw orking -->
@@ -84,7 +82,7 @@
             @foreach ($roles as $role)
             <div class="row mt-5 mb-4">
                 <div class="col-12 col-sm-8 text-start">
-                    <h1>{{$role['role']}}</h1>
+                    <h1>{{$role['role']}} ({{ $role['work_arrangement'] == 1 ? "Part Time" : "Full Time"}})</h1>
                 </div>
                 <div class="col-12 col-sm-4">
                     <div class="d-flex justify-content-start justify-content-sm-end">
@@ -151,8 +149,19 @@
                     @endforeach
                 </div>
             </div>
+            <div class="row mt-3">
+                <div class="col">
+                        <span class="sr-only skill-match-text" style="color:darkgreen;"><b>{{$skill_match_percent}}% Skills Matched</b></span>
+                        <div class="progress my-3">
+                            <!-- Adjust both valuenow and width to reflect progress -->
+                            <div class="progress-bar skill-match-progressbar"  role="progressbar" aria-valuenow="{{$skill_match_percent}}" aria-valuemin="0" aria-valuemax="100" @style("width: {$width};") style = "background-color:darkgreen;"> 
+                                <div class="progress-stripes"></div>
+                            </div>
+                        </div>
+                </div>
+            </div>
             
-            <div class="row mt-5">
+            <div class="row mt-4">
                 <div class="col">
                     <h3>Vacancy</h3>
                 </div>

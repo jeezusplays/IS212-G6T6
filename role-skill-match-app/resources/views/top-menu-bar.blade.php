@@ -84,7 +84,7 @@
 
             window.location.href = newUrl;
 
-        } else if (page.includes('create-role') || page.includes('role-listings')) {
+        } else if (page.includes('create-role') || page.includes('role-listings') || page.includes('view-role-applicants')) {
             if (access.includes('staff_id=1')){
                 window.location.href = `${window.location.origin}/${access}/browse-roles`;
             }

@@ -26,10 +26,10 @@ class Staff extends Model
         return $this->belongsTo(Country::class, 'country_id');
     }
 
-    // Many-to-one relationship with `AccessRight` model
+    // Many-to-one relationship with `Access_Rights` model
     public function access(): BelongsTo
     {
-        return $this->belongsTo(AccessRight::class, 'access_id');
+        return $this->belongsTo(Access_Rights::class, 'access_id');
     }
 
     // TODO: Check everything below this line ------------------------------------------------
@@ -38,6 +38,7 @@ class Staff extends Model
     public function skills()
     {
         return $this->hasMany(Staff_Skill::class, 'staff_id', 'staff_id');
+
     }
 
     // One-to-many relationship with `Application` model

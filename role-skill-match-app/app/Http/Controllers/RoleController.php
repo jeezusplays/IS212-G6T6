@@ -5,52 +5,28 @@ namespace App\Http\Controllers;
 use App\Models\Application;
 use App\Models\Country;
 use App\Models\Department;
-use App\Models\Hiring_Manager;
 use App\Models\Role;
 use App\Models\Role_Listing;
 use App\Models\Skill;
 use App\Models\Staff;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class RoleController extends Controller
 {
-    public static $lastId = 0;
-
-    public function create()
-    {
-        $roleId = self::$lastId + 1;
-
-        return view('/create-role', ['Role_ID' => $roleId]);
-    }
-
     public function store(Request $request)
     {
-
-        // Save mutliselect forms as arrays
-
-        // Get all selected hiring managers as array
-        // $staffIds = $request->input('Staff_ID', []);
-        // Save selected options
-        // Role::create([
-        //     'Staff_ID' => $staffIds
-        // ]);
-
-        // Get all selected skills as array
-        // $skills = $request->input('skills', []);
-        // Save selected options
-        // Role::create([
-        //     'skills' => $skills
-        // ]);
 
         // Check if role already exists in the database
         $role = Role::where('role_id', $request->input('Role_ID'))->first();
 
         if (! $role) {
             // return error message
-            return redirect()->back()->withErrors(['Role does not exist']);
+            return redirect('/create-role')->withErrors(['error' => 'Role does not exist']);
         }
 
+        // Find existing role listing, if not create new role listing
         $role_listing = Role_Listing::firstOrCreate(
             [
                 'role_id' => $role->role_id,
@@ -69,6 +45,7 @@ class RoleController extends Controller
 
         // Check if role was recently created or not
         if ($role_listing->wasRecentlyCreated) {
+            // Create all new hiring manager records
             $managers = $request->input('Staff_ID');
             foreach ($managers as $manager) {
                 $query = DB::table('hiring_manager')->insert(
@@ -83,6 +60,7 @@ class RoleController extends Controller
                 );
             }
 
+            // Create all new skill records to match role listing
             $skills = $request->input('Skills', []);
             foreach ($skills as $skill) {
                 $role_skill = DB::table('role_skill')->insert(
@@ -98,7 +76,7 @@ class RoleController extends Controller
             }
 
             // Role was created, return 200 OK HTTP code
-            return redirect('/create-role')->with('success', 'Role created successfully!');
+            return redirect('/create-role')->with(['success' => 'Role created successfully!']);
         } else {
             // Role already exists, return 409 Conflict HTTP code
             return response()->json(
@@ -122,8 +100,6 @@ class RoleController extends Controller
             ->groupBy('listing_id')
             ->get();
 
-        
-
         $roles = $RoleListing_Table->map(function ($role) use ($Role_Table, $Application_Table) {
 
             $matchingRole = $Role_Table->firstWhere('role_id', $role->role_id);
@@ -133,19 +109,20 @@ class RoleController extends Controller
             $vacancy = $role->vacancy;
             $status = $role->status === 1 ? 'Open' : 'Closed';
             $work_arrangement = $role->work_arrangement === 1 ? 'Part Time' : 'Full Time';
-            
+
             $staffNames = DB::table('hiring_manager')
-            ->join('staff', 'hiring_manager.staff_id', '=', 'staff.staff_id')
-            ->where('hiring_manager.listing_id', $role->listing_id)
-            ->selectRaw('DISTINCT CONCAT(staff.staff_lname, " ", staff.staff_fname) as staff_name')
-            ->pluck('staff_name')
-            ->toArray();
-                
+                ->join('staff', 'hiring_manager.staff_id', '=', 'staff.staff_id')
+                ->where('hiring_manager.listing_id', $role->listing_id)
+                ->selectRaw('DISTINCT CONCAT(staff.staff_lname, " ", staff.staff_fname) as staff_name')
+                ->pluck('staff_name')
+                ->toArray();
+
             return [
                 'listing_id' => $role->listing_id, // listing_id
                 'role_id' => $role->role_id, // role_id
                 'role' => $matchingRole ? $matchingRole->role : null, // job title
-                'created_at' => $role->created_at->format('Y-m-d'), // creation_date
+                // parse the created_at date via Carbon to d-m-Y format
+                'created_at' => Carbon::parse($role->created_at)->format('d-m-Y'), // created_at
                 'full_name' => implode(', ', $staffNames), // listed by
                 'status' => $status, // status
                 'total_applications' => $applicationCount ? $applicationCount->total_applications : 0, // total_applications
@@ -187,11 +164,6 @@ class RoleController extends Controller
         // hiring managers
 
         // only get staff who are hiring managers
-        // $hiring_managers = DB::table('staff')->join('hiring_manager', 'staff.staff_id', '=', 'hiring_manager.staff_id')->select('staff.staff_id', 'staff_fname', 'staff_lname')->get();
-
-        // get all staff
-        $hiring_managers = DB::table('staff')->select('staff.staff_id', 'staff_fname', 'staff_lname')->get();
-
         $hiring_managers = DB::table('staff')
             ->select('staff.staff_id', 'staff_lname', 'staff_fname')
             ->where('access_Id', 2)
@@ -211,7 +183,6 @@ class RoleController extends Controller
             'deptDDL' => $departments,
             'workArrangementDDL' => $work_arrangements,
             'countryID_DDL' => $countries,
-            'Staff_ID' => $hiring_managers,
             'hiringManagerDDL' => $hiring_managers,
             // New role will be open by default
             'status' => 1,

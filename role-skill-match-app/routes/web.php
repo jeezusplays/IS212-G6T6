@@ -1,9 +1,12 @@
 <?php
 
 use App\Http\Controllers\ApplicationController;
+use App\Http\Controllers\BrowseAllRoleController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\IndicateSkillProficiency;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UpdateRoleController;
+use App\Http\Controllers\ViewRoleApplicants;
 use App\Http\Controllers\ViewRoleController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -20,19 +23,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 // Route for indicate-skill-proficiency page
-Route::get('/indicate-skill-proficiency', [App\Http\Controllers\IndicateSkillProficiency::class, 'index']);
-Route::get('/indicate-skill-proficiency/staffID={passedListing}', [App\Http\Controllers\IndicateSkillProficiency::class, 'autoFillSkills']);
+Route::get('/indicate-skill-proficiency', [IndicateSkillProficiency::class, 'index']);
+Route::get('/indicate-skill-proficiency/staffID={passedListing}', [IndicateSkillProficiency::class, 'autoFillSkills']);
 //store skill-proficiency data
-Route::post('/update-skill-proficiency', [App\Http\Controllers\IndicateSkillProficiency::class, 'store'])->name('index.store');
+Route::post('/update-skill-proficiency', [IndicateSkillProficiency::class, 'store'])->name('index.store');
 
 // Route for role listings page
 Route::get('/role-listings', [RoleController::class, 'index']);
 
 // Route for view-role-applicants page
-Route::get('/view-role-applicants/listingID={passedlisting}', [App\Http\Controllers\ViewRoleApplicants::class, 'getApplicantListing']);
+Route::get('/view-role-applicants/listingID={passedlisting}', [ViewRoleApplicants::class, 'getApplicantListing']);
 
 // Route for browse-roles page
-Route::get('browse-roles', [App\Http\Controllers\BrowseAllRoleController::class, 'index_view'])->name('browse-roles');
+Route::get('browse-roles', [BrowseAllRoleController::class, 'index_view'])->name('browse-roles');
 
 Route::get('/create-role', [RoleController::class, 'setup']);
 Route::post('/create-role', [RoleController::class, 'store'])->name('create-role');

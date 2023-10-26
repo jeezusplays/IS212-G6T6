@@ -5,6 +5,7 @@
             </a>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
+                @if (Str::contains(request()->url(), ['/staff_id=1']))
                     <li class="nav-item active">
                         <a class="nav-link" href="javascript:void(0);" onclick="gotoBrowseRoles()">Browse Role Listings</a>
                     </li>
@@ -14,12 +15,13 @@
                     <li class="nav-item">
                         <a class="nav-link"href="javascript:void(0);" onclick="gotoMySkills()">My Skills</a>
                     </li>
-                    @if (Str::contains(request()->url(), ['/staff_id=3', '/staff_id=5','staff_id=8']))
+                @endif
+                    @if (Str::contains(request()->url(), ['/staff_id=6', '/staff_id=5','/staff_id=8']))
                     <li class="nav-item">
                         <a class="nav-link"href="javascript:void(0);" onclick="gotoCreateRole()">Create Role Listing</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link"href="javascript:void(0);" onclick="gotoAllRoleListings()">All Role Listings</a>
+                        <a class="nav-link"href="javascript:void(0);" onclick="gotoAllRoleListings()">Manage Role Listings</a>
                     </li>   
                     @endif
                 </ul>
@@ -30,10 +32,10 @@
                 </button>   
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                 <li><a class="dropdown-item" href="javascript:void(0);" onclick="changeAccess('staff_id=5', 'Bo Gum Park')">Bo Gum Park (HR)</a></li>
-                @if (!Str::contains(request()->url(), ['/create-role', '/role-listings']))
+                
                 <li><a class="dropdown-item" href="javascript:void(0);" onclick="changeAccess('staff_id=1','Ji Eun Lee')">Ji Eun Lee (User)</a></li>
-                @endif
-                <li><a class="dropdown-item" href="javascript:void(0);" onclick="changeAccess('staff_id=3','Sejeong Kim')">Sejeong Kim (Hiring Manager)</a></li>
+    
+                <li><a class="dropdown-item" href="javascript:void(0);" onclick="changeAccess('staff_id=6','Sejeong Kim')">Sejeong Kim (Hiring Manager)</a></li>
                 <li><a class="dropdown-item" href="javascript:void(0);" onclick="changeAccess('staff_id=8','Sohee Han')">Sohee Han (Admin)</a></li>
                 </ul>
             </div>
@@ -66,7 +68,6 @@
         // Split the URL segments by '/'
         const segments = urlSegments.split('/');
         const page = segments.slice(2);
-
         if (page.includes('indicate-skill-proficiency')) {
             // Check if the page includes "indicate-skill-proficiency"
             let newPath;
@@ -80,11 +81,22 @@
                 newPath = 'staff_id=8/indicate-skill-proficiency';
             }
             const newUrl = `${window.location.origin}/${newPath}`;
+
             window.location.href = newUrl;
-        } else {
+
+        } else if (page.includes('create-role') || page.includes('role-listings')) {
+            newPath = 'staff_id=1/browse-roles'
+            const newUrl = `${window.location.origin}/${newPath}`;
+            window.location.href = newUrl;
+
+        } else if (segments[1].includes('staff_id=1')){
+            
+            newUrl = `${window.location.origin}/${access}/create-role`;
+            window.location.href = newUrl;
+        }
+        else {
             // Construct the new URL with the selected access and the current page
             const newUrl = `${window.location.origin}/${access}/${page.join('/')}`;
-
             // Navigate to the new URL
             window.location.href = newUrl;
         }
@@ -161,16 +173,7 @@
             let staffID = 1;
 
             // Check the value of the access variable and set staffID accordingly
-            if (access === "hr") {
-                    staffID = 5;
-                } else if (access === "user") {
-                    staffID = 1;
-                } else if (access === "manager") {
-                    staffID = 6;
-                } else if (access === "admin") {
-                    staffID = 8;
-            }
-
+        
             const newUrl = `${window.location.origin}/${access}/indicate-skill-proficiency`;
 
             

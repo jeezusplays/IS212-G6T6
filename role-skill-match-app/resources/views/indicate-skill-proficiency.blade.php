@@ -124,7 +124,8 @@
 document.addEventListener("DOMContentLoaded", function() {
     const saveChangesButton = document.querySelector('#saveChangesButton');
     const clearChangesButton = document.querySelector('#clearChangesButton');
-    const staff_id = window.location.href.split('=').pop(); // Extract staff_id from URL
+    const staff_id = window.location.href.split('=').pop()[0]; // Extract staff_id from URL
+    
     const defaultSelections = {}; // Store default selections here
 
     // Function to set default selections based on the current selections
@@ -154,13 +155,13 @@ document.addEventListener("DOMContentLoaded", function() {
     saveChangesButton.addEventListener('click', function() {
         const proficiencyData = [];
         const proficiencyDropdowns = document.querySelectorAll('select.form-select');
-
+        
         proficiencyDropdowns.forEach((dropdown) => {
             const proficiencyId = dropdown.id.split('_').pop(); // Extract proficiency_id
             const skill_name = dropdown.id.split('_')[0]; // Extract skill name
             const skill_id = dropdown.id.split('_')[1]; // Extract skill id
             const selectedValue = dropdown.value; // Selected proficiency value
-
+            
             proficiencyData.push({
                 staff_id: staff_id,
                 skill_id: skill_id,
@@ -170,6 +171,7 @@ document.addEventListener("DOMContentLoaded", function() {
             });
         });
         // Send proficiency data to the controller via an AJAX request
+        
         axios.post('{{ route('index.store') }}', {
                 data: proficiencyData,
             })

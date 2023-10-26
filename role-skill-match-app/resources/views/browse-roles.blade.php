@@ -353,8 +353,8 @@
             var skill_match_progress = progress_arr[i]
             var percent = skill_match_progress.getAttribute('aria-valuenow')
 
-            console.log(skill_match_progress)
-            console.log(skill_match_text)
+            //console.log(skill_match_progress)
+            //console.log(skill_match_text)
             
             var colour = ""
             if (percent < 50){

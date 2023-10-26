@@ -147,7 +147,8 @@
             <button class="btn btn-secondary btn-lg mx-3" type="button" id="clearChangesButton">Clear Changes</button>
             <button class="btn btn-success btn-lg mx-3" type="button" id="saveChangesButton">Save Changes</button>
         </div>
-        
+
+        <div id="route" data-url="{{ route('index.store') }}"></div>
         
 </body>
 <!-- Include Bootstrap JS and jQuery -->
@@ -203,7 +204,13 @@ document.addEventListener("DOMContentLoaded", function() {
         });
 
         // Send proficiency data to the controller via an AJAX request
+<<<<<<< Updated upstream
         axios.post('{{ route(\'index.store\') }}', {
+=======
+        const routeUrl = document.getElementById('route').getAttribute('data-url');
+
+        axios.post(routeUrl, {
+>>>>>>> Stashed changes
                 data: proficiencyData,
             })
             .then((response) => {

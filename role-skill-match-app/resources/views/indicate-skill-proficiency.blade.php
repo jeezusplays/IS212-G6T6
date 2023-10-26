@@ -203,7 +203,7 @@ document.addEventListener("DOMContentLoaded", function() {
         });
 
         // Send proficiency data to the controller via an AJAX request
-        axios.post('{{ route('index.store') }}', {
+        axios.post('{{ route(\'index.store\') }}', {
                 data: proficiencyData,
             })
             .then((response) => {

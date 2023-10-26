@@ -27,9 +27,9 @@ jobs:
       run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
       continue-on-error: true  # Continue even if the command fails
 
-    - name: Install Dependencies
-      run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
-
+    - name: Change Directory
+      run: cd role-skill-match-app
+      
     - name: Generate key
       run: php artisan key:generate
     - uses: mirromutth/mysql-action@v1.1

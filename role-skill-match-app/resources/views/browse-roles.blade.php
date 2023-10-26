@@ -397,6 +397,18 @@
         const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
         const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
     }
+
+    // Function to clear all filters
+    function clearFilters() {
+    // Clear the filter inputs and show all role cards
+    document.getElementById('filterDepartment').selectedIndex = 0;
+    document.getElementById('filterLocation').selectedIndex = 0;
+    document.getElementById('filterSkillsets').selectedIndex = 0;
+    document.querySelectorAll(".role-card").forEach(card => {
+        card.style.display = "";
+    });
+    searchJobs();
+}
 </script>
 
 </html>

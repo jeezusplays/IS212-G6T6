@@ -12,6 +12,7 @@ use App\Models\Staff;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\ExpiredDeadlineController;
 
 class RoleController extends Controller
 {
@@ -94,6 +95,13 @@ class RoleController extends Controller
         }
     }
 
+    protected $ExpiredDeadlineController;
+
+    public function __construct(ExpiredDeadlineController $ExpiredDeadlineController)
+    {
+        $this->ExpiredDeadlineController = $ExpiredDeadlineController;
+    }
+
     public function index()
     {
         // Retrieve all role data from the database
@@ -143,6 +151,7 @@ class RoleController extends Controller
 
     public function setup()
     {
+        $this->ExpiredDeadlineController->updateStatusForExpiredDeadlines();
         //all roles
         $role_titles = Role::select('role_id', 'role')->get();
 

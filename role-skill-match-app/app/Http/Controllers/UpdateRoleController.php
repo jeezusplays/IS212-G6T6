@@ -179,8 +179,9 @@ class UpdateRoleController extends Controller
         //return response()->json(['message' => 'Fields updated successfully']);
     }
 
-    public function autoFillRoleListing($staffid,$passedlisting)
+    public function autoFillRoleListing($currentStaffID,$passedlisting)
     { 
+        $staffID = $currentStaffID;
         // Retrieve all role data from the database
         $RoleListing_Table = Role_Listing::where('listing_id', $passedlisting)->get();
         //declaring tables

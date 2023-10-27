@@ -12,19 +12,19 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
-    - uses: shivammathur/setup-php@15c43e89cdef867065b0213be354c2841860869e
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: Setup PHP
+      uses: shivammathur/setup-php@15c43e89cdef867065b0213be354c2841860869e
       with:
         php-version: '8.0'
 
     - name: Copy .env
       run: php -r "file_exists('.env') || copy('.env.example', '.env');"
 
-    - name: Install Composer
-      run: composer self-update
-
     - name: Composer Install
-      run: composer install
+      run: composer install || composer update
       continue-on-error: true  # Continue even if the command fails
 
     - name: Generate key
@@ -44,8 +44,19 @@ jobs:
       env:
         XDEBUG_MODE: coverage
       with:
-        bootstrap: role-skill-match-app/vendor/autoload.php
+        bootstrap: vendor/autoload.php
         configuration: role-skill-match-app/phpunit.xml
         php_extensions: xdebug
         args: tests --coverage-clover ./coverage.xml
+
+    - name: laravel-pint
+      uses: aglipanci/laravel-pint-action@0.1.0
+      with:
+        preset: laravel
+
+    - name: Commit changes
+      uses: stefanzweifel/git-auto-commit-action@v4
+      with:
+        commit_message: PHP Linting (Pint)
+        skip_fetch: true
 

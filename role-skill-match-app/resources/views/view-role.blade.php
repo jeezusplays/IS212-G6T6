@@ -120,23 +120,27 @@
                     <h3>Skills</h3>
                 </div>
             </div>
-            @php   
+            @php
                 $arr = [];   
-                foreach ($staff_skills as $item=>$skill_item){
+                foreach ($staff_skills as $item => $skill_item) {
                     $skill = $skill_item->skill;
                     $arr[] = $skill;
                 }
+                $match = []; // Define an empty array here
 
-                $match = array_intersect($role['skills'],$arr);
-                $skill_match_percent = count($match) / count($role['skills']) * 100;
-
-                //round to 1dp
-                $skill_match_percent = round($skill_match_percent, 1);
+                if (count($role['skills']) > 0) {
+                    $match = array_intersect($role['skills'], $arr);
+                    $skill_match_percent = count($match) / count($role['skills']) * 100;
+                    // Round to 1 decimal place
+                    $skill_match_percent = round($skill_match_percent, 1); // Fixed typo here
+                } else {
+                    $skill_match_percent = 0;
+                }
 
                 $missing_skills = array_diff($role['skills'], $match);
                 $width = $skill_match_percent . '%';
-                                    
             @endphp
+
             <div class="row mt-2">
                 
                 <div class="col">

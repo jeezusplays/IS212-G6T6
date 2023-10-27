@@ -45,7 +45,7 @@ jobs:
         XDEBUG_MODE: coverage
       with:
         bootstrap: vendor/autoload.php
-        configuration: phpunit.xml
+        configuration: role-skill-match-app/phpunit.xml
         php_extensions: xdebug
         args: tests --coverage-clover ./coverage.xml
 

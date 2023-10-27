@@ -34,7 +34,7 @@ class RoleListingControllerTest extends TestCase
         $response->assertRedirect('/create-role')->with(['success' => 'Role listing created successfully']);
         $this->assertDatabaseCount('role_listing', 13);
         $this->assertDatabaseCount('hiring_manager', 12);
-        $this->assertDatabaseCount('role_skill', 15);
+        $this->assertDatabaseCount('role_skill', 23);
     }
 
     /**

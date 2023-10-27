@@ -37,7 +37,7 @@ jobs:
         mysql password: 'root' # Required if "mysql user" exists. The password for the "mysql user"
 
     - name: Directory Permissions
-      run: chmod -R 777 storage bootstrap/cache
+      run: cd role-skill-match-app || chmod -R 777 storage bootstrap/cache
 
     - name: PHPUnit Tests
       uses: php-actions/phpunit@v3

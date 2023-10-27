@@ -27,11 +27,8 @@ jobs:
       run: composer install
       continue-on-error: true  # Continue even if the command fails
 
-    - name: Change Directory
-      run: cd role-skill-match-app
-
     - name: Generate key
-      run: php artisan key:generate
+      run: cd role-skill-match-app || php artisan key:generate
     - uses: mirromutth/mysql-action@v1.1
       with:
         mysql database: 'test' # Optional, default value is "test". The specified database which will be create

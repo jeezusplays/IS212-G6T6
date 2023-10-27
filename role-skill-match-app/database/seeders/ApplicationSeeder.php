@@ -20,6 +20,18 @@ class ApplicationSeeder extends Seeder
             'listing_id' =>3,
             'Staff_id' => 1
         ]);
+        Application::create([
+            'Status' => 2, 
+            'Application_Date' => '2023-07-15',
+            'listing_id' =>7,
+            'Staff_id' => 1
+        ]);
+        Application::create([
+            'Status' => 6, 
+            'Application_Date' => '2023-03-15',
+            'listing_id' =>6,
+            'Staff_id' => 1
+        ]);
         ///////
         Application::create([
             'Status' => 1, 

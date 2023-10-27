@@ -88,11 +88,6 @@ class ViewRoleController extends Controller
             ->get();
 
         //return skills of current staff user
-        $staff_skills = DB::table('staff_skill')
-            ->join('skill', 'staff_skill.skill_id', '=', 'skill.skill_id')
-            ->where('staff_skill.staff_id', '=', $currentStaffID)
-            ->select('skill.skill_id', 'skill.skill')
-            ->get();
 
         return view('view-role', compact('roles', 'isRoleValid', 'staff_skills'));
     }

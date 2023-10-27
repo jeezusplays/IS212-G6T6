@@ -9,7 +9,7 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UpdateRoleController;
 use App\Http\Controllers\ViewRoleApplicants;
 use App\Http\Controllers\ViewRoleController;
-use App\Http\Controllers\MyApplicationsController;
+use App\Http\Controllers\ViewMyApplicationsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -66,5 +66,8 @@ Route::get('/apply', function () {
 Route::get('/view-app-status', function () {
     return view('view-app-status');
 });
+
+Route::get('staff_id={currentStaffID}/view-my-applications', [ViewMyApplicationsController::class, 'getMyApplications']);
+
 
 Route::redirect('/', '/staff_id=1/browse-roles');

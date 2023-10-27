@@ -44,7 +44,7 @@ class ViewMyApplicationsController extends Controller
             'role' => $Role_Table->pluck('role'),
             'country' => $Country_Table->pluck('country')
         ];
-
+        dd("Please remove this line, acts as a 'break' from the function so it does not run the return line");
         #insert frontend view here
         return view('view-role', compact('roles'));
     }

@@ -9,6 +9,7 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UpdateRoleController;
 use App\Http\Controllers\ViewRoleApplicants;
 use App\Http\Controllers\ViewRoleController;
+use App\Http\Controllers\MyApplicationsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -42,18 +43,13 @@ Route::get('/staff_id={staff_id}/view-role-applicants/listingID={passedlisting}'
 Route::get('/staff_id={staff_id}/create-role', [RoleController::class, 'setup']);
 
 
-// UPDATEDUPDATEDUPDATEDUPDATEDUPDATEDUPDATEDUPDATEDUPDATEDUPDATEDUPDATEDUPDATEDUPDATEDUPDATEDUPDATEDUPDATEDUPDATEDUPDATEDUPDATEDUPDATED
-
 Route::get('/staff_id={staff_id}/browse-roles', [App\Http\Controllers\BrowseAllRoleController::class, 'index_view'])->name('browse-roles');
 Route::get('/view-role-applicants/listingID={passedlisting}', [ViewRoleApplicants::class, 'getApplicantListing']);
 
-// END OF UPDATEDUPDATEDUPDATEDUPDATEDUPDATEDUPDATEDUPDATEDUPDATEDUPDATEDUPDATEDUPDATEDUPDATEDUPDATEDUPDATEDUPDATEDUPDATEDUPDATEDUPDATED
 
 Route::post('/create-role', [RoleController::class, 'store'])->name('create-role');
 
 //Route for edit listing
-
-
 Route::get('staff_id={currentStaffID}/edit/listingID={passedlisting}', [UpdateRoleController::class, 'autoFillRoleListing']);
 
 Route::post('/updateRole', [UpdateRoleController::class, 'store']);
@@ -64,6 +60,11 @@ Route::get('staff_id={currentStaffID}/view-role/listingID={passedlisting}', [Vie
 Route::post('/apply', [ApplicationController::class, 'store'])->name('apply-role');
 Route::get('/apply', function () {
     return view('apply-role');
+});
+
+// view application status
+Route::get('/view-app-status', function () {
+    return view('view-app-status');
 });
 
 Route::redirect('/', '/staff_id=1/browse-roles');

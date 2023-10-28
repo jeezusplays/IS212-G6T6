@@ -231,7 +231,7 @@
             </div>
         @endif
         {{-- Invisible div class to store application_id value --}}
-        <div class="d-none" id="application_id">{{ $role['application'] }}</div>
+        <div class="d-none" id="application_id">{{ $role['application_id'] }}</div>
     </div>
 
 </body>

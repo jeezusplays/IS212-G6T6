@@ -67,7 +67,8 @@ Route::get('/view-app-status', function () {
     return view('view-app-status');
 });
 
-Route::get('staff_id={currentStaffID}/view-my-applications', [ViewMyApplicationsController::class, 'getMyApplications']);
+
+Route::get('/staff_id={staff_id}/view-my-applications', [App\Http\Controllers\ViewMyApplicationsController::class, 'getMyApplications'])->name('view-all-applications');
 
 
 Route::redirect('/', '/staff_id=1/browse-roles');

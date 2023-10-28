@@ -63,10 +63,10 @@ class ViewMyApplicationsController extends Controller
             $application->num_days_since_application = $today->diffInDays($application->application_date);
         });
     
-        $formattedRoles = [];
+        $roles = [];
     
         foreach ($Application_Table as $key => $application) {
-            $formattedRoles[$key] = [
+            $roles[$key] = [
                 'num_days_since_application' => $application->num_days_since_application,
                 'application_status' => $application->status,
                 'department' => $Department_Table[$key]->department,
@@ -77,12 +77,12 @@ class ViewMyApplicationsController extends Controller
         }
     
         // Now, you can structure your data as an array of arrays
-        $formattedRolesArray = array_values($formattedRoles);
+        $roles = array_values($roles);
     
         $departments = DB::table('department')->pluck('department')->toArray();
         $countries = DB::table('country')->pluck('country')->toArray();
         $skills = DB::table('skill')->pluck('skill')->toArray();
-        return view('view-my-applications', compact('formattedRolesArray', 'departments', 'countries'));
+        return view('view-my-applications', compact('roles', 'departments', 'countries'));
     }
     
     

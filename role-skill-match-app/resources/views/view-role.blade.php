@@ -293,7 +293,14 @@
             .then(response => {
                 // Handle the response, e.g., show a success message
                 console.log(response)
-                swal("Success!", response.data.message, "success");
+                // Reload the page once swal is closed
+                swal({
+                    title: "Success!",
+                    text: response.data.message,
+                    icon: "success",
+                }).then(() => {
+                    location.reload();
+                });
             })
             .catch(error => {
                 // Handle errors, e.g., show an error message

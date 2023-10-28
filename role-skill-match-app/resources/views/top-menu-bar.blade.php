@@ -10,7 +10,7 @@
                         <a class="nav-link" href="javascript:void(0);" onclick="gotoBrowseRoles()">Browse Role Listings</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="http://localhost:8000/my-applications">View My Applications</a>
+                        <a class="nav-link" href="javascript:void(0);" onclick="gotoMyApplications()">View My Applications</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link"href="javascript:void(0);" onclick="gotoMySkills()">My Skills</a>
@@ -198,6 +198,23 @@
             const newUrl = `${window.location.origin}/${access}/indicate-skill-proficiency`;
 
             
+            // Navigate to the new URL
+            window.location.href = newUrl;
+        }
+        function gotoMyApplications() {
+
+            const currentUrl = window.location.href;
+
+            // Extract the part of the URL after the domain, which includes the page
+            const urlSegments = currentUrl.split(window.location.origin)[1];
+
+            // Split the URL segments by '/'
+            const segments = urlSegments.split('/');  
+            access=segments[1]
+
+            // Construct the new URL with the selected access and the current page
+            const newUrl = `${window.location.origin}/${access}/view-my-applications`;
+
             // Navigate to the new URL
             window.location.href = newUrl;
         }

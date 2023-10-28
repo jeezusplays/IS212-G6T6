@@ -55,10 +55,14 @@ class ViewMyApplicationsController extends Controller
         $Application_Table = Application::where('staff_id', $currentStaffID)->get();
         $RoleListing_Table = Role_Listing::whereIn('listing_id', $Application_Table->pluck('listing_id'))->get();
         $Role_Table = Role::whereIn('role_id', $RoleListing_Table->pluck('role_id'))->get(['role_id', 'role']);
-        $Department_Table = Department::whereIn('department_id', $RoleListing_Table->pluck('department_id'))->get(['department_id', 'department']);
-        $Country_Table = Country::whereIn('country_id', $RoleListing_Table->pluck('country_id'))->get(['country_id', 'country']);
         $today = now();
-        
+        $Country_Table = Country::join('role_listing', 'country.country_id', '=', 'role_listing.country_id')
+            ->whereIn('role_listing.listing_id', $Application_Table->pluck('listing_id'))
+            ->get(['country.country_id', 'country.country']);
+        $Department_Table = Department::join('role_listing', 'department.department_id', '=', 'role_listing.department_id')
+            ->whereIn('role_listing.listing_id', $Application_Table->pluck('listing_id'))
+            ->get(['department.department_id', 'department.department']);
+   
         $Application_Table->each(function ($application) use ($today) {
             $application->num_days_since_application = $today->diffInDays($application->application_date);
         });
@@ -82,8 +86,11 @@ class ViewMyApplicationsController extends Controller
         $departments = DB::table('department')->pluck('department')->toArray();
         $countries = DB::table('country')->pluck('country')->toArray();
         $skills = DB::table('skill')->pluck('skill')->toArray();
-        return view('view-my-applications', compact('roles', 'departments', 'countries'));
+        //  dd($roles);
+        return view('view-my-applications', compact('roles', 'departments', 'countries','skills'));
     }
+
+    
     
     
 }

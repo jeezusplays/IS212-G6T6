@@ -29,6 +29,9 @@ Route::get('/indicate-skill-proficiency/staffID={passedListing}', [IndicateSkill
 //store skill-proficiency data
 Route::post('/update-skill-proficiency', [IndicateSkillProficiency::class, 'store'])->name('index.store');
 
+// Update application withdraw data
+Route::post('/withdraw', [ViewRoleController::class, 'withdrawApplication'])->name('withdraw');
+
 // Route for role listings page
 Route::get('/role-listings', [RoleController::class, 'index']);
 

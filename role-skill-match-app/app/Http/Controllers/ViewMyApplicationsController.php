@@ -82,7 +82,6 @@ class ViewMyApplicationsController extends Controller
         $departments = DB::table('department')->pluck('department')->toArray();
         $countries = DB::table('country')->pluck('country')->toArray();
         $skills = DB::table('skill')->pluck('skill')->toArray();
-        dd($formattedRolesArray);
         return view('view-my-applications', compact('formattedRolesArray', 'departments', 'countries'));
     }
     

@@ -144,13 +144,6 @@
                     <option value="{{ $country }}">{{ $country }}</option>
                     @endforeach
                 </select>
-                <select class="form-select mb-3" id="filterSkillsets">
-                    <option value="" selected disabled>Filter by Skillsets</option>
-                    <!-- Add skillset options dynamically -->
-                    @foreach ($skills as $skill)
-                    <option value="{{ $skill }}">{{ $skill }}</option>
-                    @endforeach
-                </select>
                 <button id="filterButton" class="btn btn-primary w-100 form-control-lg" onclick="searchJobs()">Apply Filters</button>
                 <button id="clearFilterButton" class="btn btn-secondary w-100 mt-3 form-control-lg" onclick="clearFilters()">Clear Filters</button>
                 <p class = "mt-3" id = "jobListingsCount">0 roles found based on your filters</p>
@@ -188,21 +181,37 @@
                                     Applied {{ $role['num_days_since_application'] }} days ago
                                     </p>
                                         <b>Status:</b>
-                                        <span class="text-success">
                                         @if ($role['application_status'] == 1)
-                                            Applied
+                                            <span class="badge rounded-pill bg-info
+                                            ">Applied
+                                            </span>
+
                                         @elseif ($role['application_status'] == 2)
-                                            HR Received
+                                            <span class="badge rounded-pill bg-primary
+                                            ">HR Received
+                                            </span>
+
                                         @elseif ($role['application_status'] == 3)
-                                            Interview Scheduled
+                                            <span class="badge rounded-pill bg-primary
+                                            ">Interview Scheduled
+                                            </span>
+
                                         @elseif ($role['application_status'] == 4)
-                                            Accepted
+                                            <span class="badge rounded-pill bg-success
+                                            ">Accepted
+                                            </span>
+                                            
                                         @elseif ($role['application_status'] == 5)
-                                            Rejected
+                                            <span class="badge rounded-pill bg-danger
+                                            ">Rejected
+                                            </span>
+
                                         @else
-                                            Withdrawn
+                                            <span class="badge rounded-pill bg-secondary
+                                            ">Withdrawn
+                                            </span>
                                         @endif
-                                        </span>
+                                        
                                 </div>
                             </div>
                         </div>

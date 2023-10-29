@@ -54,7 +54,9 @@ class ViewMyApplicationsController extends Controller
         // Retrieve all role data from the database
         $Application_Table = Application::where('staff_id', $currentStaffID)->get();
         $RoleListing_Table = Role_Listing::whereIn('listing_id', $Application_Table->pluck('listing_id'))->get();
-        $Role_Table = Role::whereIn('role_id', $RoleListing_Table->pluck('role_id'))->get(['role_id', 'role']);
+        $Role_Table = Role::join('role_listing', 'role.role_id', '=', 'role_listing.role_id')
+            ->whereIn('role_listing.listing_id', $Application_Table->pluck('listing_id'))
+            ->get(['role.role_id', 'role.role']);
         $today = now();
         $Country_Table = Country::join('role_listing', 'country.country_id', '=', 'role_listing.country_id')
             ->whereIn('role_listing.listing_id', $Application_Table->pluck('listing_id'))

@@ -181,7 +181,6 @@ class UpdateRoleController extends Controller
 
     public function autoFillRoleListing($currentStaffID,$passedlisting)
     { 
-        $staffID = $currentStaffID;
         // Retrieve all role data from the database
         $RoleListing_Table = Role_Listing::where('listing_id', $passedlisting)->get();
         //declaring tables

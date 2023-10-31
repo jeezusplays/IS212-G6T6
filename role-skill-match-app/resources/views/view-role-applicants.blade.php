@@ -41,7 +41,7 @@
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon-32x32.png') }}">
 </head>
 
-<body>
+<body onload = "start()">
     {{-- Top Menu Bar --}}
     <div id="app" class="container">
         <nav class="navbar navbar-expand-lg">
@@ -73,7 +73,7 @@
         </nav>
     </div>
 
-    <div class="container-sm">
+    <div class="container-sm" >
         @if ($isRoleValid)
             @foreach ($roles as $role)
                 <div class="row mt-5 mb-4">
@@ -115,19 +115,36 @@
                         </div>
 
                 </div>
+                
+                <div class="mt-4">
+                    <h4>Role Skills</h4>
+                </div>
 
-                        <div class="mt-4">
-                            <h4>Role Skills</h4>
-                        </div>
+                <div class="row mt-2 mb-3">
+                    <div class="col">
+                        @foreach ($role['skills'] as $skill)
+                            <button class="skill">{{ $skill }}</button>
+                        @endforeach
+                    </div>
+                </div>
+                
+                {{-- Search Bar --}}
+                <div class="mb-3">
+                    <form class="d-flex" id = "searchSubmit" onsubmit="searchApplicants(); return false;">
+                        <input class="form-control me-2 form-control-lg" id="myInput" type="search" placeholder="Search by role title" aria-label="Search">
+                        <button class="btn btn-success form-control-lg" id="searchButton" type="submit">
+                            Search
+                        </button>
+                    </form>
+                </div>
 
-                        <div class="row mt-2">
-                            <div class="col">
-                                @foreach ($role['skills'] as $skill)
-                                    <button class="skill">{{ $skill }}</button>
-                                @endforeach
-                            </div>
-                        </div>
-
+                <!-- <div class="mb-3">
+                        <input class="form-control me-2 form-control-lg" id="myInput" type="search" placeholder="Search for applicants" aria-label="Search">
+                        <button class="btn btn-success form-control-lg" id="searchButton" onclick ="searchApplicants();">
+                            Search
+                        </button>
+                   
+                </div> -->
 
 
                 {{-- Create a bootstrap table containing columns 'Name, 'Application Date', 'Skillset', 'Status', 'Email' --}}
@@ -153,8 +170,8 @@
                                     </tr>
                                 @else
                                 @foreach ($role['applicants'] as $applicant)
-                                    <tr>
-                                        <td>{{ $applicant['staff_name'] }}</td>
+                                    <tr class ="applicant" >
+                                        <td class="appName">{{ $applicant['staff_name'] }}</td>
                                         <td>{{ $applicant['application_date'] }}</td>
                                         <td>
                                             {{-- Iterate through both $applicant['skillset'] and $applicant['proficiency'] together at same index --}}
@@ -201,5 +218,42 @@
     </div>
 
 </body>
+
+<script>
+    function start(){
+        searchApplicants()
+    }
+
+    function searchApplicants(){
+        const input = document.getElementById('myInput').value.toLowerCase().trim()
+
+        document.querySelectorAll('.applicant').forEach(applicant => {
+            let matchCount = 0;
+            let name = applicant.querySelector('.appName').innerHTML.toLowerCase()
+            if (name.indexOf(input) > -1 ){
+                matchCount +=1
+            }
+
+            let skills = applicant.querySelectorAll('.skill')
+            skills.forEach(item => {
+                skill = item.innerHTML.toLowerCase().split('(')[0].trim()
+                if (skill.indexOf(input) > -1){
+                    matchCount +=1
+                }  
+            })
+
+            if (input == ''){
+                applicant.style.visibility = "visible";
+            }
+            else if (matchCount == 0){
+                applicant.style.visibility = "collapse";
+            }
+            else{
+                applicant.style.visibility = "visible";
+            }
+        })
+    }
+
+</script>
 
 </html>

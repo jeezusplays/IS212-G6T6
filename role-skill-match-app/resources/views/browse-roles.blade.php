@@ -248,9 +248,13 @@
                                     <p class="card-text" id="card-status" data-laravel-variable-2="{{ $role['deadline'] }}" data-toggle="tooltip" data-placement="top" title="Application Closes on {{ $role['deadline'] }}">
                                         <b>Status:</b>
                                         @if ($role['status'] == 'Open')
-                                        <span class="text-success">Open</span>
+                                        <span class="badge rounded-pill bg-primary
+                                            ">Open
+                                        </span>
                                         @else
-                                        <span class="text-danger">Closed</span>
+                                        <span class="badge rounded-pill bg-secondary
+                                            ">HR Received
+                                        </span>
                                         @endif
                                     </p>
                                     <p class ="card-text">

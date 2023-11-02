@@ -77,8 +77,15 @@
         @if ($isRoleValid)
             @foreach ($roles as $role)
                 <div class="row mt-5 mb-4">
-                    <div class="col-12 col-sm-8 text-start">
-                        <h1>Applicants for <i>{{ $role['role'] }}</i> role</h1>
+                    <div class="col-12 text-start">
+                        <h1>Applicants for <i>{{ $role['role'] }} (
+                        @if ($role['work_arrangement'] == 1)
+                            Part Time
+                        @else
+                            Full Time
+                        @endif
+                        )
+                        </i> role</h1>
                     </div>
                 </div>
 
@@ -91,21 +98,11 @@
                         </div>
 
                         <div class="col-12 col-sm-4">
-                            <b>Work Arrangement:</b>
-                            @if ($role['work_arrangement'] == 1)
-                                Part Time
-                            @else
-                                Full Time
-                            @endif
-                        </div>
-                        <div class="col-12 col-sm-4">
                             <b>Country:</b> {{ $role['country'] }}
                         </div>
 
-                        <div class="row mt-2">
-                            <div class="col">
-                                <b>Vacancy: </b>{{ $role['vacancy'] }} positions
-                            </div>
+                        <div class="col-12 col-sm-4">
+                            <b>Vacancy: </b>{{ $role['vacancy'] }} 
                         </div>
 
                         <div class="row mt-3">
@@ -123,7 +120,7 @@
                 <div class="row mt-2 mb-3">
                     <div class="col">
                         @foreach ($role['skills'] as $skill)
-                            <button class="skill">{{ $skill }}</button>
+                            <button class="skill listing_skill">{{ $skill }}</button>
                         @endforeach
                     </div>
                 </div>
@@ -138,14 +135,6 @@
                     </form>
                 </div>
 
-                <!-- <div class="mb-3">
-                        <input class="form-control me-2 form-control-lg" id="myInput" type="search" placeholder="Search for applicants" aria-label="Search">
-                        <button class="btn btn-success form-control-lg" id="searchButton" onclick ="searchApplicants();">
-                            Search
-                        </button>
-                   
-                </div> -->
-
 
                 {{-- Create a bootstrap table containing columns 'Name, 'Application Date', 'Skillset', 'Status', 'Email' --}}
                 <div class="row mt-5">
@@ -155,6 +144,7 @@
                             <thead class = "align-middle" style = "background-color: rgb(223, 231, 242);">
                                 <tr>
                                     <th scope="col">Name</th>
+                                    <!-- <th scope="col">Role</th> -->
                                     <th scope="col">Application Date</th>
                                     <th scope="col">Skillset & Proficiency</th>
                                     <th scope="col">Status</th>
@@ -174,9 +164,10 @@
                                         <td class="appName">{{ $applicant['staff_name'] }}</td>
                                         <td>{{ $applicant['application_date'] }}</td>
                                         <td>
+
                                             {{-- Iterate through both $applicant['skillset'] and $applicant['proficiency'] together at same index --}}
                                             @foreach ($applicant['skillset'] as $index => $skill)
-                                                <button class="skill" style ="text-align: left;">{{ $skill }}
+                                                <button class="skill app_skill" style ="text-align: left; padding: 5px 10px;">{{ $skill }}
                                                     ({{ $applicant['proficiency'][$index] }})</button>
                                             @endforeach
                                         </td>
@@ -201,7 +192,7 @@
                                         {{-- create a td with hyperlinked field --}}
                                         <td><a href="mailto:{{ $applicant['email'] }}">{{ $applicant['email'] }}</a>
                                         </td>
-                                        <td>50% - Placeholder</td>
+                                        <td><span class="role-skill-match-percent" style="color: darkgreen;">10%</span></td>
                                     </tr>
                                 @endforeach
                                 @endif
@@ -222,6 +213,7 @@
 <script>
     function start(){
         searchApplicants()
+        progressColorChange()
     }
 
     function searchApplicants(){
@@ -229,12 +221,15 @@
 
         document.querySelectorAll('.applicant').forEach(applicant => {
             let matchCount = 0;
+
+            //name search func
             let name = applicant.querySelector('.appName').innerHTML.toLowerCase()
             if (name.indexOf(input) > -1 ){
                 matchCount +=1
             }
 
-            let skills = applicant.querySelectorAll('.skill')
+            //skill search func
+            let skills = applicant.querySelectorAll('.app_skill')
             skills.forEach(item => {
                 skill = item.innerHTML.toLowerCase().split('(')[0].trim()
                 if (skill.indexOf(input) > -1){
@@ -254,6 +249,46 @@
         })
     }
 
+    function progressColorChange(){
+        
+        let listing_skills = document.querySelectorAll('.listing_skill')
+        let skill_len = listing_skills.length;
+        console.log(skill_len);
+
+        document.querySelectorAll('.applicant').forEach(applicant => {
+            let count = 0;
+            let app_skills = applicant.querySelectorAll('.app_skill')
+                app_skills.forEach(item => {
+                    skill = item.innerHTML.toLowerCase().split('(')[0].trim()
+                    listing_skills.forEach(element =>{
+                        element = element.innerHTML.toLowerCase().trim()
+                        if (skill == element){
+                            count += 1
+                        }
+                    })
+            })
+            
+            percent = count/skill_len * 100
+            if (!Number.isInteger(percent)){
+                percent = percent.toFixed(1)
+            }
+            console.log(percent)
+            let percent_text = applicant.querySelector('.role-skill-match-percent')
+            console.log(percent_text)
+            percent_text.innerHTML = percent + "%"
+            var colour = ""
+            if (percent < 50){
+                colour = "red"
+            }
+            else if (percent >=50 & percent < 75){
+                colour = "#e3bd42"
+            }
+            else{
+                colour = "darkgreen"
+            }
+            percent_text.style.color = colour
+        })
+    }
 </script>
 
 </html>

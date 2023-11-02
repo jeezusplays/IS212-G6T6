@@ -122,11 +122,13 @@
                             {{-- Only condition to not display the button is if the user has not applied or already withdrawn --}}
                             @if ($role['application'] != 0)
                                 @if ($role['application'] != 6)
-                                    <button type ="button" class = "btn btn-outline-danger mx-2">Withdraw
-                                        Application</button>
+                                    <button type ="button" class = "btn btn-outline-danger mx-2">Withdraw Application</button>
+                                @else
+                                    <button type="button" class="btn btn-success btn-md btn-lg">Apply Now</button>  
                                 @endif
+                            @else
+                                <button type="button" class="btn btn-success btn-md btn-lg">Apply Now</button>
                             @endif
-                            <button type="button" class="btn btn-success btn-md btn-lg">Apply Now</button>
                         </div>
                     </div>
                 </div>

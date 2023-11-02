@@ -139,7 +139,17 @@
                 {{-- Create a bootstrap table containing columns 'Name, 'Application Date', 'Skillset', 'Status', 'Email' --}}
                 <div class="row mt-5">
                     <h4>Applicants</h4>
-                    <div class="col">
+                    <div id="no-matching-results" class="card mb-3 mt-3" style="display: none;">
+                        <div class="card-body">
+                            <h5 class="card-title">No matching results</h5>
+                            <p class="card-text">
+                                Sorry, there are no applicants that match your search criteria. Please try
+                                refining your search.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="col" id="applicantsTable">
                         <table class="table table-striped table-bordered align-middle">
                             <thead class = "align-middle" style = "background-color: rgb(223, 231, 242);">
                                 <tr>
@@ -159,6 +169,7 @@
                                         </td>
                                     </tr>
                                 @else
+
                                 @foreach ($role['applicants'] as $applicant)
                                     <tr class ="applicant" >
                                         <td class="appName">{{ $applicant['staff_name'] }}</td>
@@ -192,7 +203,7 @@
                                         {{-- create a td with hyperlinked field --}}
                                         <td><a href="mailto:{{ $applicant['email'] }}">{{ $applicant['email'] }}</a>
                                         </td>
-                                        <td><span class="role-skill-match-percent" style="color: darkgreen;">10%</span></td>
+                                        <td><span class="role-skill-match-percent" style="color: darkgreen;"></span></td>
                                     </tr>
                                 @endforeach
                                 @endif
@@ -218,7 +229,7 @@
 
     function searchApplicants(){
         const input = document.getElementById('myInput').value.toLowerCase().trim()
-
+        var totalCount = 0;
         document.querySelectorAll('.applicant').forEach(applicant => {
             let matchCount = 0;
 
@@ -239,14 +250,25 @@
 
             if (input == ''){
                 applicant.style.visibility = "visible";
+                totalCount += 1
             }
             else if (matchCount == 0){
                 applicant.style.visibility = "collapse";
             }
             else{
                 applicant.style.visibility = "visible";
+                totalCount +=1
             }
         })
+
+        if (totalCount ==0){
+            document.getElementById('applicantsTable').style.display = "none";
+            document.getElementById('no-matching-results').style.display = "";
+        }
+        else{
+            document.getElementById('applicantsTable').style.display = "";
+            document.getElementById('no-matching-results').style.display = "none";
+        }
     }
 
     function progressColorChange(){

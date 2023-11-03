@@ -73,7 +73,7 @@
         </nav>
     </div>
 
-    <div class="container-sm" >
+    <div class="container" >
         @if ($isRoleValid)
             @foreach ($roles as $role)
                 <div class="row mt-5 mb-4">
@@ -128,11 +128,15 @@
                 {{-- Search Bar --}}
                 <div class="mb-3">
                     <form class="d-flex" id = "searchSubmit" onsubmit="searchApplicants(); return false;">
-                        <input class="form-control me-2 form-control-lg" id="myInput" type="search" placeholder="Search by role title" aria-label="Search">
+                        <input class="form-control me-2 form-control-lg" id="myInput" type="search" placeholder="Search for Applicants" aria-label="Search">
                         <button class="btn btn-success form-control-lg" id="searchButton" type="submit">
                             Search
                         </button>
                     </form>
+                </div>
+
+                <div id="searchErrorAlert" class="alert alert-danger" style="display: none;">
+                    Your search input contains invalid characters and is not supported.
                 </div>
 
 
@@ -149,12 +153,12 @@
                         </div>
                     </div>
 
-                    <div class="col" id="applicantsTable">
+                    <div class="row" id="applicantsTable">
                         <table class="table table-striped table-bordered align-middle">
                             <thead class = "align-middle" style = "background-color: rgb(223, 231, 242);">
                                 <tr>
                                     <th scope="col">Name</th>
-                                    <!-- <th scope="col">Role</th> -->
+                                    <th scope="col">Role</th>
                                     <th scope="col">Application Date</th>
                                     <th scope="col">Skillset & Proficiency</th>
                                     <th scope="col">Status</th>
@@ -173,9 +177,9 @@
                                 @foreach ($role['applicants'] as $applicant)
                                     <tr class ="applicant" >
                                         <td class="appName">{{ $applicant['staff_name'] }}</td>
+                                        <td class="deptRole">{{$applicant['department']}} ({{$applicant['role']}})</td>
                                         <td>{{ $applicant['application_date'] }}</td>
                                         <td>
-
                                             {{-- Iterate through both $applicant['skillset'] and $applicant['proficiency'] together at same index --}}
                                             @foreach ($applicant['skillset'] as $index => $skill)
                                                 <button class="skill app_skill" style ="text-align: left; padding: 5px 10px;">{{ $skill }}
@@ -248,6 +252,12 @@
                 }  
             })
 
+            //dept & role search func
+            let deptRole = applicant.querySelector('.deptRole').innerHTML.toLowerCase()
+            if (deptRole.indexOf(input) > -1){
+                matchCount +=1 
+            }
+
             if (input == ''){
                 applicant.style.visibility = "visible";
                 totalCount += 1
@@ -268,6 +278,12 @@
         else{
             document.getElementById('applicantsTable').style.display = "";
             document.getElementById('no-matching-results').style.display = "none";
+        }
+
+        if (input.match(/^[a-zA-Z0-9 ]*$/)) {
+            document.getElementById("searchErrorAlert").style.display = "none";
+        } else {
+            document.getElementById("searchErrorAlert").style.display = "";
         }
     }
 

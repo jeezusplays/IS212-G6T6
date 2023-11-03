@@ -281,35 +281,10 @@
                                                 
                                                 return staff_id;
                                             }
-
-                                            var form = document.getElementById("form_{{ $role['listing_id'] }}");
-                                            form.action = "{{route('apply-role')}}";
-                                            form.method = "POST";
-
-                                            var staffIdInput = document.createElement("input");
-                                            staffIdInput.type = "hidden";
-                                            staffIdInput.name = "staff_id";
-                                            staffIdInput.id = "staff_id";
-                                            staffIdInput.value = getStaffID();
-
-                                            var listingIdInput = document.createElement("input");
-                                            listingIdInput.type = "hidden";
-                                            listingIdInput.name = "listing_id";
-                                            listingIdInput.id = "listing_id";
-                                            listingIdInput.value = "{{ $role['listing_id'] }}";
-
-                                            var submitButton = document.createElement("button");
-                                            submitButton.type = "button";
-                                            submitButton.className = "btn btn-success";
-                                            submitButton.innerText = "Apply Now";
-                                            submitButton.addEventListener('click', function () {
-                                                form.submit();
-                                            })
-
-                                            form.appendChild(staffIdInput);
-                                            form.appendChild(listingIdInput);
-                                            form.appendChild(submitButton);
                                         </script>
+                                        <input type="hidden" id="listing_id" name="listing_id" value="{{ $role['listing_id'] }}">
+                                        <input type="hidden" id="staff_id_{{ $role['listing_id'] }}" name="staff_id">
+                                        <button type="submit" class="btn btn-success" onclick="document.getElementById('staff_id_{{ $role['listing_id'] }}').value = getStaffID();">Apply Now</button>
                                     </form>
                                 </div>
                             </div>

@@ -31,10 +31,6 @@ class ApplicationController extends Controller
         $listing_role = Role_Listing::where('listing_id', $listing_id)->first()->role_id;
         $staff_department = Staff::where('staff_id', $staff_id)->first()->department_id;
         $listing_department = Role_Listing::where('listing_id', $listing_id)->first()->department_id;
-        print_r($staff_role);
-        print_r($listing_role);
-        print_r($staff_department);
-        print_r($listing_department);
         if ($staff_role == $listing_role && $staff_department == $listing_department) {
             return redirect()->back()->with('error', 'You already have this role in this department!');
         }
@@ -46,27 +42,26 @@ class ApplicationController extends Controller
         }
 
         //check that skills for role listing match at least 1 skill for staff applying for this role
-        $role_listing_skills = Role_Listing::where('listing_id', $listing_id)->first()->skills;
+        $role_listing_skills = Role_Listing::where('listing_id', $listing_id)->first()->skills->pluck('skill_id');
         $staff_skills = Staff::where('staff_id', $staff_id)->first()->skills;
-        print_r($role_listing_skills);
-        print_r($staff_skills);
-        dd($role_listing_skills->intersect($staff_skills));
-        $matching_skills = $role_listing_skills->intersect($staff_skills);
-        if (count($matching_skills) == 0) {
-            return redirect()->back()->with('error', 'You do not have the required skills for this role!');
-        }
+        dump($role_listing_skills);
+        dump($staff_skills);
+        // $matching_skills = $role_listing_skills->intersect($staff_skills);
+        // if (count($matching_skills) == 0) {
+        //     return redirect()->back()->with('error', 'You do not have the required skills for this role!');
+        // }
 
-        $application = Application::firstOrCreate([
-            'listing_id' => $listing_id,
-            'staff_id' => $staff_id,
-            'status' => 1,
-            'application_date' => date('Y-m-d'),
-        ]);
+        // $application = Application::firstOrCreate([
+        //     'listing_id' => $listing_id,
+        //     'staff_id' => $staff_id,
+        //     'status' => 1,
+        //     'application_date' => date('Y-m-d'),
+        // ]);
 
-        if ($application->wasRecentlyCreated) {
-            return back()->with('success', 'Application created successfully!');
-        } else {
-            return back()->with('error', 'Application already exists!');
-        }
+        // if ($application->wasRecentlyCreated) {
+        //     return back()->with('success', 'Application created successfully!');
+        // } else {
+        //     return back()->with('error', 'Application already exists!');
+        // }
     }
 }

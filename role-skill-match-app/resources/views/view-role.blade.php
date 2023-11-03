@@ -87,7 +87,28 @@
                 </div>
                 <div class="col-12 col-sm-4">
                     <div class="d-flex justify-content-start justify-content-sm-end">
-                        <button type="button" class="btn btn-success btn-md btn-lg">Apply Now</button>
+                        <form action="{{route('apply-role')}}"
+                            id="form_{{ $role['listingID'] }}" method="POST">
+                                @csrf
+                                <script>
+                                    function getStaffID(){
+                                        const currentUrl = window.location.href;
+                                    
+                                        // Extract the part of the URL after the domain, which includes the page
+                                        const urlSegments = currentUrl.split(window.location.origin)[1];
+                                        
+                                        // Split the URL segments by '/'
+                                        const segments = urlSegments.split('/');  
+                                        access=segments[1]
+                                        staff_id = access.split('=')[1];
+                                        
+                                        return staff_id;
+                                    }
+                                </script>
+                                <input type="hidden" id="listing_id" name="listing_id" value="{{ $role['listingID'] }}">
+                                <input type="hidden" id="staff_id_{{ $role['listingID'] }}" name="staff_id">
+                                <button type="submit" class="btn btn-success btn-md btn-lg" onclick="document.getElementById('staff_id_{{ $role['listingID'] }}').value = getStaffID();">Apply Now</button>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -199,6 +220,22 @@
         triggerTooltip();
         progressColorChange();
         }
+
+        // show success or error popup
+        @if(session('success'))
+            swal({
+            title: "Application successful",
+            text: "{{session('success')}}",
+            icon: "success",
+            });
+        @elseif(session('error')){
+            swal({
+            title: "Application unsuccessful",
+            text: "{{session('error')}}",
+            icon: "error",
+            });
+        };
+        @endif
 
         function triggerTooltip(){
         const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')

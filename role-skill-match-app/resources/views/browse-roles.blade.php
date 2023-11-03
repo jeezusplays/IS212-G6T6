@@ -7,6 +7,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <link rel="icon" href="{{ asset('favicon-32x32.png') }}" type="image/x-icon">
     <style>
         /* Add your custom CSS styles here */
@@ -263,7 +264,53 @@
 
                                 </div>
                                 <div class="mt-3">
-                                    <a href="#" class="btn btn-success">Apply Now</a>
+                                    <form action="{{route('apply-role')}}"
+                                    id="form_{{ $role['listing_id'] }}" method="POST">
+                                        @csrf
+                                        <script>
+                                            function getStaffID(){
+                                                const currentUrl = window.location.href;
+                                            
+                                                // Extract the part of the URL after the domain, which includes the page
+                                                const urlSegments = currentUrl.split(window.location.origin)[1];
+                                                
+                                                // Split the URL segments by '/'
+                                                const segments = urlSegments.split('/');  
+                                                access=segments[1]
+                                                staff_id = access.split('=')[1];
+                                                
+                                                return staff_id;
+                                            }
+
+                                            var form = document.getElementById("form_{{ $role['listing_id'] }}");
+                                            form.action = "{{route('apply-role')}}";
+                                            form.method = "POST";
+
+                                            var staffIdInput = document.createElement("input");
+                                            staffIdInput.type = "hidden";
+                                            staffIdInput.name = "staff_id";
+                                            staffIdInput.id = "staff_id";
+                                            staffIdInput.value = getStaffID();
+
+                                            var listingIdInput = document.createElement("input");
+                                            listingIdInput.type = "hidden";
+                                            listingIdInput.name = "listing_id";
+                                            listingIdInput.id = "listing_id";
+                                            listingIdInput.value = "{{ $role['listing_id'] }}";
+
+                                            var submitButton = document.createElement("button");
+                                            submitButton.type = "button";
+                                            submitButton.className = "btn btn-success";
+                                            submitButton.innerText = "Apply Now";
+                                            submitButton.addEventListener('click', function () {
+                                                form.submit();
+                                            })
+
+                                            form.appendChild(staffIdInput);
+                                            form.appendChild(listingIdInput);
+                                            form.appendChild(submitButton);
+                                        </script>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -289,6 +336,23 @@
 </body>
 
 <script>
+
+    // show success or error popup
+    @if(session('success'))
+        swal({
+          title: "Application successful",
+          text: "{{session('success')}}",
+          icon: "success",
+        });
+    @elseif(session('error')){
+        swal({
+          title: "Application unsuccessful",
+          text: "{{session('error')}}",
+          icon: "error",
+        });
+    };
+    @endif
+
     // Search bar functionality
     function start(){
         triggerTooltip()
@@ -411,7 +475,7 @@
 
         //href="http://localhost:8000/view-role/listingID={{ $role['listing_id'] }}"
     }
-
+    
 </script>
 
 </html>

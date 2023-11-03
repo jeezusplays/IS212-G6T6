@@ -12,52 +12,61 @@ class ApplicationController extends Controller
     // request contains listing_id and staff_id from frontend only
     public function store(Request $request)
     {
+        $listing_id = $request->input('listing_id');
+        $staff_id = $request->input('staff_id');
         //check that role listing status is open
-        $listing = Role_Listing::where('listing_id', $request->listing_id)->first();
+        $listing = Role_Listing::where('listing_id', $listing_id)->first();
         if ($listing->status != 1) {
             return redirect()->back()->with('error', 'This role is not open!');
         }
 
         //check that less than 5 applications exist for staff
-        $existing_applications = Application::where('staff_id', $request->staff_id)->get();
+        $existing_applications = Application::where('staff_id', $staff_id)->get();
         if (count($existing_applications) >= 5) {
             return redirect()->back()->with('error', 'You have reached the maximum number of applications!');
         }
 
         //check that application is for role that staff does not have
-        $staff_role = Staff::where('staff_id', $request->staff_id)->first()->role_id;
-        $listing_role = Role_Listing::where('listing_id', $request->listing_id)->first()->role_id;
-        $staff_department = Staff::where('staff_id', $request->staff_id)->first()->department_id;
-        $listing_department = Role_Listing::where('listing_id', $request->listing_id)->first()->department_id;
+        $staff_role = Staff::where('staff_id', $staff_id)->first()->role_id;
+        $listing_role = Role_Listing::where('listing_id', $listing_id)->first()->role_id;
+        $staff_department = Staff::where('staff_id', $staff_id)->first()->department_id;
+        $listing_department = Role_Listing::where('listing_id', $listing_id)->first()->department_id;
+        print_r($staff_role);
+        print_r($listing_role);
+        print_r($staff_department);
+        print_r($listing_department);
         if ($staff_role == $listing_role && $staff_department == $listing_department) {
             return redirect()->back()->with('error', 'You already have this role in this department!');
         }
 
         //check that listing has more than one vacancy slot
-        $listing = Role_Listing::where('listing_id', $request->listing_id)->first();
+        $listing = Role_Listing::where('listing_id', $listing_id)->first();
         if ($listing->vacancy == 0) {
             return redirect()->back()->with('error', 'This role has no vacancies!');
         }
 
         //check that skills for role listing match at least 1 skill for staff applying for this role
-        $role_listing_skills = Role_Listing::where('listing_id', $request->listing_id)->first()->skills;
-        $staff_skills = Staff::where('staff_id', $request->staff_id)->first()->skills;
+        $role_listing_skills = Role_Listing::where('listing_id', $listing_id)->first()->skills;
+        $staff_skills = Staff::where('staff_id', $staff_id)->first()->skills;
+        print_r($role_listing_skills);
+        print_r($staff_skills);
+        dd($role_listing_skills->intersect($staff_skills));
         $matching_skills = $role_listing_skills->intersect($staff_skills);
         if (count($matching_skills) == 0) {
             return redirect()->back()->with('error', 'You do not have the required skills for this role!');
         }
 
         $application = Application::firstOrCreate([
-            'listing_id' => $request->listing_id,
-            'staff_id' => $request->staff_id,
+            'listing_id' => $listing_id,
+            'staff_id' => $staff_id,
             'status' => 1,
-            'application_date' => $request->application_date,
+            'application_date' => date('Y-m-d'),
         ]);
 
         if ($application->wasRecentlyCreated) {
-            return redirect()->back()->with('success', 'Application created successfully!');
+            return back()->with('success', 'Application created successfully!');
         } else {
-            return redirect()->back()->with('error', 'Application already exists!');
+            return back()->with('error', 'Application already exists!');
         }
     }
 }

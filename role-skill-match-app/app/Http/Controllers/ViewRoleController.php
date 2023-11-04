@@ -21,6 +21,51 @@ class ViewRoleController extends Controller
         return view('view-role');
     }
 
+    public function withdrawApplication (Request $request)
+    {
+        // Extract the 'data' key from the request
+        $requestData = $request->input('data');
+        $requestData = $request->json()->all();
+        // dd($requestData);
+
+        // Check if the 'data' key is an array, if not, convert it to an array
+        if (!is_array($requestData)) {
+            $requestData = [$requestData];
+        }
+    
+        // Update the staff_skill table with the new proficiency ID using proficiency_id_new_value and updated_at timestamp
+        DB::beginTransaction();
+    
+        try {
+            foreach ($requestData as $data) {
+                // Check if 'staff_id' exists in the data, if not, continue to the next iteration
+                if (!isset($data['staff_id'])) {
+                    continue;
+                }
+    
+                $staff_id = $data['staff_id'];
+                $listing_id = $data['listing_id'];
+                $application_id = $data['application_id'];
+                
+                // Update the database using DB::table
+                DB::table('application')
+                    ->where('application_id', $application_id)
+                    ->where('listing_id', $listing_id)
+                    ->where('staff_id', $staff_id)
+                    ->update(['status' => 6, 'updated_at' => now()]);
+            }
+    
+            // Commit the changes to the database
+            DB::commit();
+    
+            return response()->json(['message' => 'Successfully withdrawn application'], 200);
+        } catch (\Exception $e) {
+            // Handle the error, for example:
+            DB::rollBack(); // Rollback the transaction if an error occurs
+            return response()->json(['message' => 'Error withdrawing application'], 500);
+        }
+    }
+
     public function getListing($currentStaffID,$passedlisting)
     {
         // Retrieve all role data from the database

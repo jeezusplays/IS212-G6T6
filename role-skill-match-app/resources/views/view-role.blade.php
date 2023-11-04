@@ -261,6 +261,12 @@
         @endif
         {{-- Invisible div class to store application_id value --}}
         <div class="d-none" id="application_id">{{ $role['application_id'] }}</div>
+        {{-- Invisible div class to store role + work arrangement value --}}
+        <div class="d-none" id="role_name">{{ $role['role'] }}</div>
+        <div class="d-none" id="work_arrangement">{{ $role['work_arrangement'] }}</div>
+        {{-- Invisible div class to store staff name and email --}}
+        <div class="d-none" id="staff_name">{{ $role['staff_name'] }}</div>
+        <div class="d-none" id="staff_email">{{ $role['staff_email'] }}</div>
     </div>
 
 </body>
@@ -320,6 +326,10 @@
     function withdrawApplication() {
         // Fetch the application_id, listing_id, and staff_id from the webpage
         const application_id = document.getElementById('application_id').innerText;
+        const role_name = document.getElementById('role_name').innerText;
+        const work_arrangement = document.getElementById('work_arrangement').innerText;
+        const staff_name = document.getElementById('staff_name').innerText;
+        const staff_email = document.getElementById('staff_email').innerText;
         // Assume currentUrl is in the format http://localhost:8000/view-role/listingID=3/staff_id=1, fetch listingID and staff_id
         const currentUrl = window.location.href;
         const listing_id = currentUrl.split('/')[5].split('=')[1];
@@ -331,6 +341,10 @@
             application_id,
             listing_id,
             staff_id,
+            role_name,
+            work_arrangement,
+            staff_name,
+            staff_email
         };
 
         // Make a POST request to the /withdraw route

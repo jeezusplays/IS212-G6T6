@@ -7,7 +7,8 @@ use App\Http\Controllers\ViewRoleApplicants;
 use App\Http\Controllers\ViewRoleController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
+use Illuminate\Support\Facades\Mail;
+use App\Mail\WithdrawApplication;
 /*
 |--------------------------------------------------------------------------
 | Web Routes

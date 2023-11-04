@@ -13,6 +13,8 @@ use App\Models\Application;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\WithdrawApplication;
 
 class ViewRoleController extends Controller
 {
@@ -46,6 +48,17 @@ class ViewRoleController extends Controller
                 $staff_id = $data['staff_id'];
                 $listing_id = $data['listing_id'];
                 $application_id = $data['application_id'];
+                $role_name = $data['role_name'];
+                $work_arrangement = $data['work_arrangement'];
+                $staff_email = $data['staff_email'];
+                $staff_name = $data['staff_name'];
+
+                // Map work_arrangement value of 1 to part time, 2 to full time
+                if ($work_arrangement == 1) {
+                    $work_arrangement = 'Part Time';
+                } else if ($work_arrangement == 2) {
+                    $work_arrangement = 'Full Time';
+                }
                 
                 // Update the database using DB::table
                 DB::table('application')
@@ -57,7 +70,20 @@ class ViewRoleController extends Controller
     
             // Commit the changes to the database
             DB::commit();
-    
+
+            $data = [
+                'role_name' => $role_name,
+                'work_arrangement' => $work_arrangement,
+                'staff_id' => $staff_id,
+                'application_id' => $application_id,
+                'application_withdraw_date' => now(),
+                'staff_email' => $staff_email,
+                'staff_name' => $staff_name,
+            ];
+
+            $email = new WithdrawApplication($data);
+            Mail::to($staff_email)->send($email);
+
             return response()->json(['message' => 'Successfully withdrawn application'], 200);
         } catch (\Exception $e) {
             // Handle the error, for example:
@@ -91,7 +117,9 @@ class ViewRoleController extends Controller
             ->select('Status', 'application_id')
             ->get();
 
-        $roles = $RoleListing_Table->map(function ($role) use ($Application_Table, $Skill_Table, $Role_Table, $RoleListing_Table, $Department_Table, $passedlisting, $Country_Table) {
+        $Staff_Table = Staff::where('staff_id', '=', $currentStaffID)->get(['staff_id', 'staff_fname', 'staff_lname', 'email']);
+
+        $roles = $RoleListing_Table->map(function ($role) use ($Staff_Table , $Application_Table, $Skill_Table, $Role_Table, $RoleListing_Table, $Department_Table, $passedlisting, $Country_Table) {
             //$staffNames = [];
             $matchingRole = $Role_Table->firstWhere('role_id', $role->role_id);
             $workArrangement = $RoleListing_Table->first()->work_arrangement;
@@ -108,6 +136,8 @@ class ViewRoleController extends Controller
             // Check if the current staff user has applied for the role in application table, default value is 0
             $application = $Application_Table->isNotEmpty() ? $Application_Table->first()->Status : 0;
             $application_id = $Application_Table->isNotEmpty() ? $Application_Table->first()->application_id : null;
+            $staff_name = $Staff_Table->first()->staff_fname . ' ' . $Staff_Table->first()->staff_lname;
+            $staff_email = $Staff_Table->first()->email;
 
             return [
                 'listingID' => $passedlisting,
@@ -124,6 +154,8 @@ class ViewRoleController extends Controller
                 'country' => $country,
                 'application' => $application,
                 'application_id' => $application_id,
+                'staff_name' => $staff_name,
+                'staff_email' => $staff_email,
             ];
         });
 

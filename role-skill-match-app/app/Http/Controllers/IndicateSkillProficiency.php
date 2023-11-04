@@ -16,7 +16,8 @@ class IndicateSkillProficiency extends Controller
 {
     public function index()
     {
-        return view('/indicate-skill-proficiency');
+        //return view('/indicate-skill-proficiency');
+        return redirect()->back()->with('success', 'Role updated successfully');
     }
     public function store(Request $request)
     {
@@ -98,5 +99,7 @@ class IndicateSkillProficiency extends Controller
 
         // return response()->json($staff_skillset_proficiency);
         return view('/indicate-skill-proficiency', compact('staff_skillset_proficiency'));
+
+
     }
 }

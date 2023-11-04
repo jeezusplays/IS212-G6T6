@@ -18,7 +18,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous">
     </script>
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="icon" href="{{ asset('favicon-32x32.png') }}" type="image/x-icon">
 
 
@@ -63,40 +63,8 @@
 </style>
 
 <body>
-
-    <div class="container" id="app">
-        <nav class="navbar navbar-expand-lg">
-            <a class="navbar-brand" href="http://localhost:8000/role-listings">
-                <img src="{{ asset('favicon-32x32.png') }}" alt="Company Logo">
-            </a>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="http://localhost:8000/browse-roles">Browse Role Listings</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="http://localhost:8000/my-applications">View Applications</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="http://localhost:8000/indicate-skill-proficiency/staffID=1">My Skill
-                            Proficiency</a>
-                    </li>
-
-                </ul>
-            </div>
-            <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
-                    data-bs-toggle="dropdown" aria-expanded="false">
-                    {{ $staff_skillset_proficiency[0]['staff_name'] }} (Staff)
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <li><a class="dropdown-item" href="http://localhost:8000/role-listings">HR Staff</a></li>
-                    <li><a class="dropdown-item" href="http://localhost:8000/browse-roles">Staff</a></li>
-                    <li><a class="dropdown-item" href="http://localhost:8000/role-listings-manager">Manager</a></li>
-                </ul>
-            </div>
-        </nav>
-    </div>
+    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    @include('top-menu-bar')    
 
     <div class="container mt-5">
         <h2>My Skills and Proficiency</h2>
@@ -147,8 +115,7 @@
             <button class="btn btn-secondary btn-lg mx-3" type="button" id="clearChangesButton">Clear Changes</button>
             <button class="btn btn-success btn-lg mx-3" type="button" id="saveChangesButton">Save Changes</button>
         </div>
-
-        <div id="route" data-url="{{ route('index.store') }}"></div>
+        
         
 </body>
 <!-- Include Bootstrap JS and jQuery -->
@@ -157,7 +124,8 @@
 document.addEventListener("DOMContentLoaded", function() {
     const saveChangesButton = document.querySelector('#saveChangesButton');
     const clearChangesButton = document.querySelector('#clearChangesButton');
-    const staff_id = window.location.href.split('=').pop(); // Extract staff_id from URL
+    const staff_id = window.location.href.split('=').pop()[0]; // Extract staff_id from URL
+    
     const defaultSelections = {}; // Store default selections here
 
     // Function to set default selections based on the current selections
@@ -187,13 +155,13 @@ document.addEventListener("DOMContentLoaded", function() {
     saveChangesButton.addEventListener('click', function() {
         const proficiencyData = [];
         const proficiencyDropdowns = document.querySelectorAll('select.form-select');
-
+        
         proficiencyDropdowns.forEach((dropdown) => {
             const proficiencyId = dropdown.id.split('_').pop(); // Extract proficiency_id
             const skill_name = dropdown.id.split('_')[0]; // Extract skill name
             const skill_id = dropdown.id.split('_')[1]; // Extract skill id
             const selectedValue = dropdown.value; // Selected proficiency value
-
+            
             proficiencyData.push({
                 staff_id: staff_id,
                 skill_id: skill_id,
@@ -202,11 +170,9 @@ document.addEventListener("DOMContentLoaded", function() {
                 proficiency_id_new_value: selectedValue,
             });
         });
-
         // Send proficiency data to the controller via an AJAX request
-        const routeUrl = document.getElementById('route').getAttribute('data-url');
-
-        axios.post(routeUrl, {
+        
+        axios.post('{{ route('index.store') }}', {
                 data: proficiencyData,
             })
             .then((response) => {

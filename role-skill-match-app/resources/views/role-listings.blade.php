@@ -25,35 +25,7 @@
 
 <body>
     {{-- Top Menu Bar --}}
-    <div id="app" class="container">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="http://localhost:8000/role-listings">
-                <img src="{{ asset('favicon-32x32.png') }}" alt="Company Logo">
-            </a>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="http://localhost:8000/role-listings">View Role Listings</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="http://localhost:8000/create-role">Create Role Listing</a>
-                    </li>
-                </ul>
-            </div>
-            <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
-                    data-bs-toggle="dropdown" aria-expanded="false">
-                    {{-- Retrieve default HR staff name [Park Bo Gum, Role id = 5] from database --}}
-                    Park Bo Gum (HR Staff)
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <li><a class="dropdown-item" href="http://localhost:8000/role-listings">HR Staff</a></li>
-                    <li><a class="dropdown-item" href="http://localhost:8000/browse-roles">Staff</a></li>
-                    <li><a class="dropdown-item" href="http://localhost:8000/role-listings-management">Manager</a></li>
-                </ul>
-            </div>
-        </nav>
-    </div>
+    @include('top-menu-bar')
 
     <div class="container">
         {{-- Search Bar and Filter Bar --}}
@@ -100,11 +72,11 @@
                 <div
                     class="col-xl-4 col-md-6 col-sm-12 role-card @if ($role['status'] == 'Open') open-role @else closed-role @endif">
                     <div class="card mb-3">
-                        <a href="http://localhost:8000/view/listingID={{ $role['listing_id'] }}"
+                        <a href="javascript:void(0);" onclick="gotoEditRole({{ $role['listing_id'] }})"
                             class="card-title-link">
                             <div class="card-header card-title p-3 d-flex justify-content-between align-items-center">
                                 <h5 class="m-0">{{ $role['role'] }} ({{ $role['work_arrangement'] }})</h5>
-                                <a href="http://localhost:8000/edit/listingID={{ $role['listing_id'] }}"
+                                <a href="javascript:void(0);" onclick="gotoEditRole({{ $role['listing_id'] }})"
                                     class="btn btn-sm btn-outline-primary">
                                     Edit Listing
                                 </a>
@@ -113,7 +85,7 @@
                         <div class="card-body">
                             <p class="card-text">Applications received:
                                 {{ $role['total_applications'] }}
-                                <a href="http://localhost:8000/view-role-applicants/listingID={{ $role['listing_id'] }}" class="@if ($role['total_applications'] > 0)  @endif">[View
+                                <a href="javascript:void(0);" onclick="gotoViewRoleApplicants({{ $role['listing_id'] }})" class="@if ($role['total_applications'] > 0)  @endif">[View
                                     Applications]</a>
                             </p>
                             <p class="card-text">Creation Date: {{ $role['created_at'] }}</p>
@@ -224,6 +196,47 @@
             document.getElementById("searchErrorAlert").style.display = "none";
         }
     }
+
+    function gotoEditRole(listingid){
+
+        const currentUrl = window.location.href;
+
+        // Extract the part of the URL after the domain, which includes the page
+        const urlSegments = currentUrl.split(window.location.origin)[1];
+        
+        // Split the URL segments by '/'
+        const segments = urlSegments.split('/');  
+        access=segments[1]
+        
+        // Construct the new URL with the selected access and the current page
+        const newUrl = `${window.location.origin}/${access}/edit/listingID=${listingid}`;
+
+        // Navigate to the new URL
+        window.location.href = newUrl;
+
+        //href="http://localhost:8000/edit/listingID={{ $role['listing_id'] }}"
+    }
+
+    function gotoViewRoleApplicants(listingid){
+
+        const currentUrl = window.location.href;
+
+        // Extract the part of the URL after the domain, which includes the page
+        const urlSegments = currentUrl.split(window.location.origin)[1];
+        
+        // Split the URL segments by '/'
+        const segments = urlSegments.split('/');  
+        access=segments[1]
+        
+        // Construct the new URL with the selected access and the current page
+        const newUrl = `${window.location.origin}/${access}/view-role-applicants/listingID=${listingid}`;
+
+        // Navigate to the new URL
+        window.location.href = newUrl;
+
+        //href="http://localhost:8000/view-role-applicants/listingID={{ $role['listing_id'"
+    }
+
 
 </script>
 

@@ -38,7 +38,15 @@ class RoleSkillSeeder extends Seeder
             ['listing_id' => 6, 'skill_id' => 8, 'created_at' => now(), 'updated_at' => now()],
             ['listing_id' => 6, 'skill_id' => 2, 'created_at' => now(), 'updated_at' => now()],
             ['listing_id' => 6, 'skill_id' => 5, 'created_at' => now(), 'updated_at' => now()],
-            ['listing_id' => 6, 'skill_id' => 10, 'created_at' => now(), 'updated_at' => now()]
+            ['listing_id' => 6, 'skill_id' => 10, 'created_at' => now(), 'updated_at' => now()],
+
+            ['listing_id' => 7, 'skill_id' => 13, 'created_at' => now(), 'updated_at' => now()],
+            ['listing_id' => 7, 'skill_id' => 1, 'created_at' => now(), 'updated_at' => now()],
+            ['listing_id' => 8, 'skill_id' => 14, 'created_at' => now(), 'updated_at' => now()],
+            ['listing_id' => 9, 'skill_id' => 15, 'created_at' => now(), 'updated_at' => now()],
+            ['listing_id' => 10, 'skill_id' => 16, 'created_at' => now(), 'updated_at' => now()],
+            ['listing_id' => 11, 'skill_id' => 17, 'created_at' => now(), 'updated_at' => now()],
+            ['listing_id' => 12, 'skill_id' => 18, 'created_at' => now(), 'updated_at' => now()]
         ]);
     }
     

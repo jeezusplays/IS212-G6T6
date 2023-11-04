@@ -2,18 +2,17 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Skill extends Model
 {
-
-    use SoftDeletes;
     // links to factory for seeding
     use HasFactory;
 
+    use SoftDeletes;
 
     // One-to-many relationship with the `Role_Skill` Model
     public function role_skill(): BelongsToMany
@@ -34,16 +33,16 @@ class Skill extends Model
     // }
 
     // Many-to-many relationship with the `Staff` Model through the `Staff_Skill` Model
-    // public function staff(): BelongsToMany
-    // {
-    //     return $this->belongsToMany(Staff::class, 'staff_skill', 'skill_id', 'staff_id');
-    // }
+    public function staff(): BelongsToMany
+    {
+        return $this->belongsToMany(Staff::class, 'staff_skill', 'skill_id', 'staff_id');
+    }
 
     protected $table = 'Skill';
 
     protected $primaryKey = 'skill_id';
 
     protected $fillable = [
-        'skill'
+        'skill',
     ];
 }

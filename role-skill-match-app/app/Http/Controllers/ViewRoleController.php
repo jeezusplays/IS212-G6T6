@@ -19,7 +19,7 @@ class ViewRoleController extends Controller
         return view('view-role');
     }
 
-    public function getListing($passedlisting, $currentStaffID)
+    public function getListing($currentStaffID,$passedlisting)
     {
         // Retrieve all role data from the database
         $RoleListing_Table = Role_Listing::where('listing_id', $passedlisting)->get();
@@ -71,7 +71,7 @@ class ViewRoleController extends Controller
         });
 
         $isRoleValid = ($roles[0]['status'] != 2);
-
+        
         if (! $isRoleValid) {
             $nullifiedRole = [];
             foreach ($roles[0] as $key => $value) {
@@ -87,6 +87,9 @@ class ViewRoleController extends Controller
             ->select('skill.skill_id', 'skill.skill')
             ->get();
 
+        //return skills of current staff user
+
         return view('view-role', compact('roles', 'isRoleValid', 'staff_skills'));
     }
 }
+

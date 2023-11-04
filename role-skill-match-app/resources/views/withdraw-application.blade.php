@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Role Listing Withdrawn Confirmation</title>
+    <title>Withdraw Application Confirmation</title>
 </head>
 <body>
     <p>Dear Applicant {{ $staff_name }} (Staff ID: {{ $staff_id }}),</p>

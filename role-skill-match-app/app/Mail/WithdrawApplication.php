@@ -16,7 +16,7 @@ class WithdrawApplication extends Mailable
     // build the message.
     public function build()
     {
-        return $this->subject('Withdraw Confirmation for Role Listing')
+        return $this->subject('Withdraw Application Confirmation')
         ->view('withdraw-application')
         ->with([
             'role_name' => $this->data['role_name'],
@@ -43,7 +43,7 @@ class WithdrawApplication extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Withdraw Application',
+            subject: 'Withdraw Application Confirmation',
         );
     }
 

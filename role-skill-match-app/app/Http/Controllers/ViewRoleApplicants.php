@@ -97,6 +97,16 @@ class ViewRoleApplicants extends Controller
                     })
                     ->select('proficiency.proficiency')
                     ->get();
+                
+                $Department = Department::join('staff', 'department.department_id', '=', 'staff.department_id')
+                    ->where('staff.staff_id', $applicant->staff_id)
+                    ->select('department.department')
+                    ->first();
+            
+                $Role = Role::join('staff', 'role.role_id', '=', 'staff.role_id')
+                    ->where('staff.staff_id', $applicant->staff_id)
+                    ->select('role.role')
+                    ->first();
 
                 return [
                     'staff_id' => $applicant->staff_id, //main DONE
@@ -107,6 +117,8 @@ class ViewRoleApplicants extends Controller
                     'proficiency' => $Proficiency_Table->pluck('proficiency')->toArray(), //ext DONE
                     'status' => $applicant->status, //ext DONE
                     'email' => $email, //ext DONE
+                    'department' => $Department ? $Department->department : null,
+                    'role' => $Role ? $Role->role : null,
                 ];
             });
             

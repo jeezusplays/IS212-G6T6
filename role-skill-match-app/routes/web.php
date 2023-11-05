@@ -7,7 +7,8 @@ use App\Http\Controllers\ViewRoleApplicants;
 use App\Http\Controllers\ViewRoleController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
+use Illuminate\Support\Facades\Mail;
+use App\Mail\WithdrawApplication;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -25,6 +26,9 @@ Route::get('/staff_id={staff_id}/indicate-skill-proficiency', [App\Http\Controll
 
 //store skill-proficiency data
 Route::post('/update-skill-proficiency', [App\Http\Controllers\IndicateSkillProficiency::class, 'store'])->name('index.store');
+
+// Update application withdraw data
+Route::post('/withdraw', [ViewRoleController::class, 'withdrawApplication'])->name('withdraw');
 
 // Route for role listings page
 Route::get('/staff_id={staff_id}/role-listings', [RoleController::class, 'index']);

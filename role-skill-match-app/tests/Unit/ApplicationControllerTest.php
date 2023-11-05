@@ -34,7 +34,7 @@ class ApplicationControllerTest extends TestCase
         // Follow the redirect and assert the final response code
         $finalResponse = $this->followRedirects($response);
         $finalResponse->assertStatus(Response::HTTP_OK);
-        
+        $this->assertDatabaseCount('application', 23);
 
     }
 }

@@ -47,6 +47,13 @@ class ApplicationController extends Controller
         $role_listing_skills = Role_Listing::where('listing_id', $listing_id)->first()->skills->pluck('skill_id');
         $staff_skills = Staff::where('staff_id', $staff_id)->first()->skills;
 
+
+        //redeclare existing applications to check if there is existing application
+        $existing_applications = Application::where('staff_id', $staff_id)
+            ->where('listing_id', $listing_id)
+            ->whereIn('status', [1, 2, 3])
+            ->get();
+
         //check if user already has the same exisitng application
         foreach ($existing_applications as $existing_application) {
             $listing_id = $existing_application->listing_id;

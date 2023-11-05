@@ -25,7 +25,7 @@ class ApplicationController extends Controller
             ->whereIn('status', [1, 2, 3])
             ->get();
         if (count($existing_applications) >= 5) {
-            return redirect()->back()->with('error', 'You have reached the maximum number of applications!');
+            return redirect()->back()->with('error', 'You have reached the maximum number of ongoing applications!');
         }
 
         //check that application is for role that staff does not have

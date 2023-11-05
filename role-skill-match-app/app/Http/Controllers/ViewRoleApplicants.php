@@ -24,7 +24,7 @@ class ViewRoleApplicants extends Controller
     {
         return view('view-role-applicants');
     }
-    public function getApplicantListing($passedlisting)
+    public function getApplicantListing($currentStaffID,$passedlisting)
     { 
         // Retrieve all role data from the database
         $RoleListing_Table = Role_Listing::where('listing_id', $passedlisting)->get();

@@ -7,7 +7,6 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <link rel="icon" href="{{ asset('favicon-32x32.png') }}" type="image/x-icon">
     <style>
         /* Add your custom CSS styles here */
@@ -99,7 +98,7 @@
 
 
     <title>
-        Browse Roles
+        My Applications
     </title>
 </head>
 
@@ -111,7 +110,7 @@
     @include('top-menu-bar')
         
     <div class="container">
-        <h1 class="mb-3">Browse Role Listings</h1>
+        <h1 class="mb-3">My Applications</h1>
 
         {{-- Search Bar --}}
         <div class="mb-3">
@@ -145,13 +144,6 @@
                     <option value="{{ $country }}">{{ $country }}</option>
                     @endforeach
                 </select>
-                <select class="form-select mb-3" id="filterSkillsets">
-                    <option value="" selected disabled>Filter by Skillsets</option>
-                    <!-- Add skillset options dynamically -->
-                    @foreach ($skills as $skill)
-                    <option value="{{ $skill }}">{{ $skill }}</option>
-                    @endforeach
-                </select>
                 <button id="filterButton" class="btn btn-primary w-100 form-control-lg" onclick="searchJobs()">Apply Filters</button>
                 <button id="clearFilterButton" class="btn btn-secondary w-100 mt-3 form-control-lg" onclick="clearFilters()">Clear Filters</button>
                 <p class = "mt-3" id = "jobListingsCount">0 roles found based on your filters</p>
@@ -161,11 +153,10 @@
             <!-- Job Listing Card -->
             <div class="col-md-9">
                 @foreach ($roles as $role)
-                @if ($role['status'] == 'Open')
-                <a href="javascript:void(0);" onclick="gotoViewRole({{ $role['listing_id'] }})" class="card-title-link">
+                
+                <a href="javascript:void(0);" class="card-title-link">
                     <div class="card my-3 role-card" data-department="{{ $role['department'] }}" data-location="{{ $role['country'] }}">
-                        <h5 class="card-title card-header p-3 d-flex justify-content-between align-items-center" style="background-color: #dbeffc">{{ $role['role'] }} ({{ $role['work_arrangement'] }})
-                            <a href="javascript:void(0);" onclick="gotoViewRole({{ $role['listing_id'] }})" class="btn btn-sm btn-outline-primary">View Details</a>
+                        <h5 class="card-title card-header p-3 d-flex justify-content-between align-items-center" style="background-color: #dbeffc">{{ $role['role'] }} 
                         </h5>
                 </a>
 
@@ -182,116 +173,51 @@
                                 </svg>
                                 <p class="card-text d-inline"><b>Location: </b>{{ $role['country'] }}</p>
                                 <p></p>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gear" viewBox="0 0 16 16" style="display: inline;">
-                                    <path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492zM5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0z" />
-                                    <path d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52l-.094-.319zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115l.094-.319z" />
-                                </svg>
-                                @php
-                                    $arr = [];
-                                    foreach ($staff_skills as $item => $skill_item) {
-                                        $skill = $skill_item->skill;
-                                        $arr[] = $skill;
-                                    }
-
-                                    $totalSkills = count($role['skills']);
-                                    
-                                    if ($totalSkills > 0) {
-                                        $match = array_intersect($role['skills'], $arr);
-                                        $skill_match_percent = count($match) / $totalSkills * 100;
-                                        $width = $skill_match_percent . '%';
-                                    } else {
-                                        $skill_match_percent = 0;
-                                        $width = '0%'; // Set width to zero if there are no skills
-                                    }
-
-                                    // Round to 1 decimal place
-                                    $skill_match_percent = round($skill_match_percent, 1);
-
-                                    $missing_skills = array_diff($role['skills'], $match);
-                                @endphp
-
-                                <p class="card-text mb-0 mt-3 d-inline"><b>Skills:</b>
-                                <div class="col">
-                                    @foreach ($role['skills'] as $skill)
-                                        @if(in_array($skill,$missing_skills))
-                                        <button class="skill-item" id="skilldata" data-skillsets="{{ json_encode($role['skills']) }}"><del><a href="#" style="text-decoration: none; color:black;" data-bs-toggle="tooltip" data-bs-title="You do not possess this skill required by the job">{{ $skill }}</a></del></button>
-                                        @else
-                                        <button class="skill-item" id="skilldata" data-skillsets="{{ json_encode($role['skills']) }}">{{$skill}}</button>
-                                        @endif
-                                    @endforeach
-                                </div>
-                                <!-- <div class="grid-container">
-                                    @foreach ($role['skills'] as $index => $skill)
-                                        @if(in_array($skill,$missing_skills))
-                                            <div class="skill-item" id="skilldata" data-skillsets="{{ json_encode($role['skills']) }}"><del><a href="#" style="text-decoration: none; color:black;" data-bs-toggle="tooltip" data-bs-title="You do not possess this skill required by the job">{{ $skill }}</a></del></div>
-                                        @else
-                                            <div class="skill-item" id="skilldata" data-skillsets="{{ json_encode($role['skills']) }}">{{ $skill }}</div>
-                                        @endif
-                                    @endforeach
-                                </div> -->
-                                </p>
-                                <!-- Insert placeholder Dotted Progress Bar here to represent skill match, should not overlap past 9 column-->
                                 
-                                <span class="sr-only skill-match-text" style="color:darkgreen;"><b>{{$skill_match_percent}}% Skills Matched</b></span>
-                                <div class="progress my-3">
-                                    <!-- Adjust both valuenow and width to reflect progress -->
-                                    <div class="progress-bar skill-match-progressbar"  role="progressbar" aria-valuenow="{{$skill_match_percent}}" aria-valuemin="0" aria-valuemax="100" @style("width: {$width};") style = "background-color:darkgreen;"> 
-                                        <div class="progress-stripes"></div>
-                                    </div>
-                                </div>
                             </div>
                             <div class="col-lg-3">
                                 <div class="my-4">
-                                    <p class="card-text"><i>{{ $role['total_applications'] }} applications</i></p>
-                                    <p class="card-text" id="dateSincePost" data-laravel-variable-1="{{ $role['created_at'] }}" data-toggle="tooltip" data-placement="top" title="">
-                                    Created {{ $role['days_from_creation'] }} days ago
+                                <p class="card-text" id="dateSincePost" data-laravel-variable-1="{{ $role['num_days_since_application'] }}" data-toggle="tooltip" data-placement="top" title="">
+                                    Applied {{ $role['num_days_since_application'] }} days ago
                                     </p>
-                                    <p class="card-text" id="card-status" data-laravel-variable-2="{{ $role['deadline'] }}" data-toggle="tooltip" data-placement="top" title="Application Closes on {{ $role['deadline'] }}">
                                         <b>Status:</b>
-                                        @if ($role['status'] == 'Open')
-                                        <span class="badge rounded-pill bg-primary
-                                            ">Open
-                                        </span>
-                                        @else
-                                        <span class="badge rounded-pill bg-secondary
-                                            ">HR Received
-                                        </span>
-                                        @endif
-                                    </p>
-                                    <p class ="card-text">
-                                        <i>Application closes in <u>{{ $role['days_until_deadline'] }} days</u> on {{ $role['deadline'] }}</i>
-                                    </p>
+                                        @if ($role['application_status'] == 1)
+                                            <span class="badge rounded-pill bg-info
+                                            ">Applied
+                                            </span>
 
-                                </div>
-                                <div class="mt-3">
-                                    <form action="{{route('apply-role')}}"
-                                    id="form_{{ $role['listing_id'] }}" method="POST">
-                                        @csrf
-                                        <script>
-                                            function getStaffID(){
-                                                const currentUrl = window.location.href;
+                                        @elseif ($role['application_status'] == 2)
+                                            <span class="badge rounded-pill bg-primary
+                                            ">HR Received
+                                            </span>
+
+                                        @elseif ($role['application_status'] == 3)
+                                            <span class="badge rounded-pill bg-primary
+                                            ">Interview Scheduled
+                                            </span>
+
+                                        @elseif ($role['application_status'] == 4)
+                                            <span class="badge rounded-pill bg-success
+                                            ">Accepted
+                                            </span>
                                             
-                                                // Extract the part of the URL after the domain, which includes the page
-                                                const urlSegments = currentUrl.split(window.location.origin)[1];
-                                                
-                                                // Split the URL segments by '/'
-                                                const segments = urlSegments.split('/');  
-                                                access=segments[1]
-                                                staff_id = access.split('=')[1];
-                                                
-                                                return staff_id;
-                                            }
-                                        </script>
-                                        <input type="hidden" id="listing_id" name="listing_id" value="{{ $role['listing_id'] }}">
-                                        <input type="hidden" id="staff_id_{{ $role['listing_id'] }}" name="staff_id">
-                                        <button type="submit" class="btn btn-success" onclick="document.getElementById('staff_id_{{ $role['listing_id'] }}').value = getStaffID();">Apply Now</button>
-                                    </form>
+                                        @elseif ($role['application_status'] == 5)
+                                            <span class="badge rounded-pill bg-danger
+                                            ">Rejected
+                                            </span>
+
+                                        @else
+                                            <span class="badge rounded-pill bg-secondary
+                                            ">Withdrawn
+                                            </span>
+                                        @endif
+                                        
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            @endif
+           
             @endforeach
 
 
@@ -311,23 +237,6 @@
 </body>
 
 <script>
-
-    // show success or error popup
-    @if(session('success'))
-        swal({
-          title: "Application successful",
-          text: "{{session('success')}}",
-          icon: "success",
-        });
-    @elseif(session('error')){
-        swal({
-          title: "Application unsuccessful",
-          text: "{{session('error')}}",
-          icon: "error",
-        });
-    };
-    @endif
-
     // Search bar functionality
     function start(){
         triggerTooltip()
@@ -448,9 +357,9 @@
         // Navigate to the new URL
         window.location.href = newUrl;
 
-        //href="http://localhost:8000/view-role/listingID={{ $role['listing_id'] }}"
+      
     }
-    
+
 </script>
 
 </html>

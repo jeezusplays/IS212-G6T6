@@ -38,23 +38,9 @@ class UpdateRoleController extends Controller
 
     public function store(Request $request)
     {
+        
         $requestData = $request->input();
-        // hard coding the data for testing purposes
-        /*
-        $requestData["listing_id"] = "1";
-        $requestData["jobTitle"] = "Financial Analyst";
-        $requestData["workArrangement"] = "1";
-        $requestData["department"] = "1";
-        $requestData["hiringManager"] = ["6"];
-        $requestData["vacancy"] = "5";
-        $requestData["deadline"] = "2023-12-31";
-        $requestData["description"] = "Lorem ipsum dolor sit amet";
-        $requestData["skills"] = ["1","2"];
-        $requestData["Country_ID"] = "1"; //UPDATE THIS ALSO
-        $requestData["Status"] = "1";  // probably dont need to do
-        */
-        //actual start of code
-
+    
         $listingId = $requestData['listingID'];
         $jobTitle = $requestData['roleTitle'];
         $workArrangement = $requestData['workArrangement'];
@@ -193,7 +179,7 @@ class UpdateRoleController extends Controller
         //return response()->json(['message' => 'Fields updated successfully']);
     }
 
-    public function autoFillRoleListing($passedlisting)
+    public function autoFillRoleListing($currentStaffID,$passedlisting)
     { 
         // Retrieve all role data from the database
         $RoleListing_Table = Role_Listing::where('listing_id', $passedlisting)->get();

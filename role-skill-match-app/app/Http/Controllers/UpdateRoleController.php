@@ -14,22 +14,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\View;
 
-/*
-$request = new Request();
-            // Set the input data
-            $request->merge([
-                '_token' => 'IgfOyMbAdJXvrQGRkagnbpex41WrY8h7ZR3S1Kzu',
-                'listing_id' => '3',
-                'jobTitle' => 'UpdatedTitle',
-                'workArrangement' => '1',
-                'department' => '3',
-                'hiringManager' => ['Kim Sejeong'],
-                'vacancy' => '5',
-                'deadline' => '2023-12-31',
-                'description' => 'Lorem ipsum dolor sit amet'
-            ]);
-*/
-
 class UpdateRoleController extends Controller
 {
     public function index()
@@ -91,9 +75,7 @@ class UpdateRoleController extends Controller
         // Commit the changes to the database
         DB::commit();
 
-        ///////////////////////////////////////////////////////////////////
-
-        //if passed in value is not array, assign it array/////////////////////////////////////////////////////////////////////
+        //if passed in value is not array, assign it array
         if (! is_array($requestData['hiringManager'])) {
             $requestData['hiringManager'] = [$requestData['hiringManager']];
         }
@@ -175,8 +157,6 @@ class UpdateRoleController extends Controller
         
         return redirect()->back()->with('success', 'Role updated successfully');
         
-       
-        //return response()->json(['message' => 'Fields updated successfully']);
     }
 
     public function autoFillRoleListing($currentStaffID,$passedlisting)
@@ -227,10 +207,6 @@ class UpdateRoleController extends Controller
                 ->pluck('staff_name')
                 ->toArray();
 
-            // Find the corresponding staff record using the role_id
-
-            //$status = $role->status === 1 ? 'Open' : 'Closed';
-
             return [
                 //'role_id' => $matchingRole ? $matchingRole->role_id : null,
                 'listingID' => $passedlisting,
@@ -268,7 +244,6 @@ class UpdateRoleController extends Controller
         $departments = Department::all(['department_id', 'department']);
 
         return $departments;
-        // return response()->json($departments);
     }
 
     public function retrieveAllHiringManagers()
@@ -288,7 +263,6 @@ class UpdateRoleController extends Controller
         $skills = Skill::all(['skill_id', 'skill']);
 
         return $skills;
-        //return view ('updateRole', compact('skills'));
 
     }
 

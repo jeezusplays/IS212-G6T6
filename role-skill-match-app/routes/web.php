@@ -38,17 +38,17 @@ Route::get('/staff_id={staff_id}/view-role-applicants/listingID={passedlisting}'
 
 // Route for create role
 Route::get('/staff_id={staff_id}/create-role', [RoleController::class, 'setup']);
-
-Route::get('/staff_id={staff_id}/browse-roles', [App\Http\Controllers\BrowseAllRoleController::class, 'index_view'])->name('browse-roles');
-Route::get('/view-role-applicants/listingID={passedlisting}', [ViewRoleApplicants::class, 'getApplicantListing']);
-
 Route::post('/create-role', [RoleController::class, 'store'])->name('create-role');
+
+// Route for browse role
+Route::get('/staff_id={staff_id}/browse-roles', [App\Http\Controllers\BrowseAllRoleController::class, 'index_view'])->name('browse-roles');
+
 
 //Route for edit listing
 Route::get('staff_id={currentStaffID}/edit/listingID={passedlisting}', [UpdateRoleController::class, 'autoFillRoleListing']);
-
 Route::post('/updateRole', [UpdateRoleController::class, 'store']);
 
+//Route for view role listing
 Route::get('staff_id={currentStaffID}/view-role/listingID={passedlisting}', [ViewRoleController::class, 'getListing']);
 
 // post request to apply for a role as staff
@@ -57,11 +57,7 @@ Route::get('/apply', function () {
     return view('apply-role');
 });
 
-// view application status
-Route::get('/view-app-status', function () {
-    return view('view-app-status');
-});
-
+// Route for view my applications
 Route::get('/staff_id={staff_id}/view-my-applications', [App\Http\Controllers\ViewMyApplicationsController::class, 'getMyApplications'])->name('view-all-applications');
 
 Route::redirect('/', '/staff_id=1/browse-roles');

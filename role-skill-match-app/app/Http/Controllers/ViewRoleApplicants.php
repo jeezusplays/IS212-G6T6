@@ -36,7 +36,7 @@ class ViewRoleApplicants extends Controller
         $Country_Table = Country::whereIn('country_id', $RoleListing_Table->pluck('country_id'))->get(['country_id', 'country']);
 
         $Role_Table = Role::whereIn('role_id', $RoleListing_Table->pluck('role_id'))->get(['role_id', 'role']);
-        //$RoleSkill_Table = Role_Skill::where('listing_id', $passedlisting)->get(['listing_id','skill_id']);
+
         $RoleSkill_Table = Role_Skill::whereIn('listing_id', $RoleListing_Table->pluck('listing_id'))->get(['listing_id', 'skill_id']);
 
         $Skill_Table = Skill::join('role_skill', 'skill.skill_id', '=', 'role_skill.skill_id')
@@ -122,20 +122,6 @@ class ViewRoleApplicants extends Controller
                 ];
             });
             
-            //$country_id= $RoleListing_Table->first()->country_id;
-
-            // $staffNames = DB::table('role_listing')
-            //     ->where('hiring_manager.listing_id', $passedlisting)
-            //     ->join('hiring_manager', 'role_listing.listing_id', '=', 'hiring_manager.listing_id')
-            //     ->join('staff', 'hiring_manager.staff_id', '=', 'staff.staff_id')
-            //     ->selectRaw('DISTINCT CONCAT(staff.staff_fname, " ", staff.staff_lname) as staff_name')
-            //     ->pluck('staff_name')
-            //     ->toArray();
-
-            // Find the corresponding staff record using the role_id
-
-            //$status = $role->status === 1 ? 'Open' : 'Closed';
-
             return [
                 //'role_id' => $matchingRole ? $matchingRole->role_id : null,
                 'listingID' => $passedlisting,
@@ -156,9 +142,6 @@ class ViewRoleApplicants extends Controller
             ];
         });
 
-        /* $roles = $roles->filter(function ($role) {
-            return $role['status'] == 1;
-        }); */
         $isRoleValid = ($roles[0]['status'] != 2);
         
 

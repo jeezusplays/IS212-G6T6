@@ -327,7 +327,7 @@
         const work_arrangement = document.getElementById('work_arrangement').innerText;
         const staff_name = document.getElementById('staff_name').innerText;
         const staff_email = document.getElementById('staff_email').innerText;
-        // Assume currentUrl is in the format http://localhost:8000/view-role/listingID=3/staff_id=1, fetch listingID and staff_id
+        // Assume currentUrl is in the format http://localhost:8000/staff_id=1/view-role/listingID=3, fetch listingID and staff_id
         const currentUrl = window.location.href;
         const listing_id = currentUrl.split('/')[5].split('=')[1];
         const staff_id = currentUrl.split('/')[3].split('=')[1];

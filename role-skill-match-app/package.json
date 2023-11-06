@@ -16,6 +16,7 @@
         "vite": "^4.4.9"
     },
     "dependencies": {
-        "bootstrap": "^5.3.2"
+        "bootstrap": "^5.3.2",
+        "nomnoml": "^1.6.2"
     }
 }

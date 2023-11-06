@@ -51,7 +51,7 @@
     npm install
     composer install
     ```
-4. Create a copy of the `.env.example` file and rename it to `.env`. Edit `DB_DATABASE` `.env` file to `sbrp`.
+4. Create a copy of the `.env.example` file and rename it to `.env`. Edit `DB_DATABASE` `.env` file to `sbrp`. Change the necessary Mail and AWS SES credentials from our Google Drive's .env file as reference.
 5. Create a database named `sbrp` in MySQL.
 6. Migrate the database.
     ```sh

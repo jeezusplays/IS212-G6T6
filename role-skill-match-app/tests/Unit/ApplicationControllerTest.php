@@ -8,6 +8,7 @@ use Illuminate\Http\Response;
 use App\Models\Application;
 use App\Models\Role_Listing;
 use App\Models\Staff;
+use Illuminate\Support\Facades\DB;
 
 class ApplicationControllerTest extends TestCase
 {
@@ -37,4 +38,23 @@ class ApplicationControllerTest extends TestCase
         $this->assertDatabaseCount('application', 23);
 
     }
+
+    public function testViewAllApplications()
+    {
+        // Perform a GET request to your controller method
+        $response = $this->get(route('view-all-applications', ['staff_id' => 1]));
+
+        // Assert the HTTP response status code (assuming you return a view)
+        $response->assertStatus(200);
+
+        // You can also assert the view data to ensure it contains the expected variables
+        $response->assertViewHasAll([
+            'roles',
+            'departments',
+            'countries',
+            'skills',
+        ]);
+    }
+
+    
 }

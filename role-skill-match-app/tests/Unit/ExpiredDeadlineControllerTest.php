@@ -3,13 +3,16 @@
 use App\Http\Controllers\ExpiredDeadlineController;
 use App\Models\Role_Listing;
 use Tests\TestCase;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ExpiredDeadlineControllerTest extends TestCase
   {  
+    use RefreshDatabase;
+
     public function testExpiredDeadlineUpdatesStatus()
     {
         // Seed the database with a Role_Listing record
-        Role_Listing::create([
+        Role_Listing::Updateorcreate([
             'listing_id' => 2,
             'role_id' => 2,
             'description' => 'Lorem ipsum dolor sit amet',
@@ -37,7 +40,7 @@ class ExpiredDeadlineControllerTest extends TestCase
     public function testUpdateStatusWhenVacancyIs0()
     {
         // Seed the database with a Role_Listing record
-        Role_Listing::create([
+        Role_Listing::Updateorcreate([
             'listing_id' => 2,
             'role_id' => 2,
             'description' => 'Lorem ipsum dolor sit amet',
@@ -58,6 +61,7 @@ class ExpiredDeadlineControllerTest extends TestCase
 
         // Retrieve the updated Role_Listing record from the database
         $updatedRoleListing = Role_Listing::find(2);
+        
         // Assert that the status has been updated to 2
         $this->assertEquals(2, $updatedRoleListing->status);
     }

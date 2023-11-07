@@ -88,13 +88,10 @@ To use the application, follow these steps:
 4. When finished, exit the application or close the web browser.
 
 ## Team
-|| Name | Github | 
-|-----------| ----------- | ----------- | 
-|<img src="https://avatars.githubusercontent.com/u/68149788?v=4" width="100"></img>|Tan Zuyi Joey|[![jeezusplays](https://img.shields.io/badge/GitHub-181717.svg?style=for-the-badge&logo=GitHub&logoColor=white)](https://github.com/jeezusplays)|
-|<img src="https://avatars.githubusercontent.com/u/111420736?v=4" width="100"></img>|Liow Hong Xiang|[![hx240](https://img.shields.io/badge/GitHub-181717.svg?style=for-the-badge&logo=GitHub&logoColor=white)](https://github.com/hx240)|
-|<img src="https://avatars.githubusercontent.com/u/111410622?v=4" width="100"></img>|Anthony|[![anthonyckho](https://img.shields.io/badge/GitHub-181717.svg?style=for-the-badge&logo=GitHub&logoColor=white)](https://github.com/anthonyckho)|
-|<img src="https://avatars.githubusercontent.com/u/144538254?v=4" width="100"></img>|De Hou|[![dehou](https://img.shields.io/badge/GitHub-181717.svg?style=for-the-badge&logo=GitHub&logoColor=white)](https://github.com/dehou37)|
-|<img src="https://avatars.githubusercontent.com/u/65487985?v=4" width="100"></img>|Jeremy|[![jeremy](https://img.shields.io/badge/GitHub-181717.svg?style=for-the-badge&logo=GitHub&logoColor=white)](https://github.com/jeremygmc)|
-|<img src="https://avatars.githubusercontent.com/u/140048767?v=4" width="100"></img>|Anthony Ho|[![kk](https://img.shields.io/badge/GitHub-181717.svg?style=for-the-badge&logo=GitHub&logoColor=white)](https://github.com/kantkawkhin3)|
+|| <img src="https://avatars.githubusercontent.com/u/68149788?v=4" width="100"></img> | <img src="https://avatars.githubusercontent.com/u/111420736?v=4" width="100"></img> | <img src="https://avatars.githubusercontent.com/u/111410622?v=4" width="100"></img> | <img src="https://avatars.githubusercontent.com/u/144538254?v=4" width="100"></img> | <img src="https://avatars.githubusercontent.com/u/65487985?v=4" width="100"></img> | <img src="https://avatars.githubusercontent.com/u/140048767?v=4" width="100"></img> |
+| ----------- | ----------- | ----------- | ----------- | ----------- | ----------- | ----------- | 
+| Name | Tan Zuyi Joey | Liow Hong Xiang | Anthony | De Hou | Jeremy | Kaw Khin | 
+| Role | Scrum Master | Product Owner | Developer | Developer | Developer | Developer | Developer |
+| Github | [![jeezusplays](https://img.shields.io/badge/GitHub-181717.svg?style=for-the-badge&logo=GitHub&logoColor=white)](https://github.com/jeezusplays) | [![hx240](https://img.shields.io/badge/GitHub-181717.svg?style=for-the-badge&logo=GitHub&logoColor=white)](https://github.com/hx240) | [![anthonyckho](https://img.shields.io/badge/GitHub-181717.svg?style=for-the-badge&logo=GitHub&logoColor=white)](https://github.com/anthonyckho) | [![dehou](https://img.shields.io/badge/GitHub-181717.svg?style=for-the-badge&logo=GitHub&logoColor=white)](https://github.com/dehou37) | [![jeremy](https://img.shields.io/badge/GitHub-181717.svg?style=for-the-badge&logo=GitHub&logoColor=white)](https://github.com/jeremygmc) | [![kk](https://img.shields.io/badge/GitHub-181717.svg?style=for-the-badge&logo=GitHub&logoColor=white)](https://github.com/kantkawkhin3) |
 
 

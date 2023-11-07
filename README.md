@@ -1,4 +1,3 @@
-<!-- PROJECT LOGO -->
 <br />
 <div align="center">
   <a href="https://github.com/jeezusplays/IS212-G6T6">
@@ -14,7 +13,18 @@
 
 
 ## About The Project
+Skill Based Role Portal (SBRP) is a web application developed to meet the growing need for an efficient and streamlined internal talent sourcing process within All-in-One, a leading Printing Solution Equipment Servicing company. This project aims to provide a platform where employees can easily apply for open positions and allow managers and directors to identify suitable candidates from within the company.
 
+### Core Functionalities
+For our first release, the team has identify 5 core features. The core features are as follows:
+
+| Role | Function | Description |
+| ----------- | ----------- | ----------- |
+| Human Resources | CRU of Role Listings | Maintenance of Role listings <br> There is no delete for job listings but there would be an deadline for each listing |
+| Human Resources | View skills of role applicants | View the skills of each staff |
+| Staff | Browse and Filter Role Listing | List out the open roles and display the details |
+| Staff | View Role-Skill Match | Display the match and gaps of the roles with current skill set |
+| Staff | Apply for Role | Apply for the open role | 
 
 ## Built With
 ### Major Frameworks / Libraries 
@@ -34,8 +44,8 @@
   * [MySQL Workbench](https://dev.mysql.com/downloads/workbench/)
   * [composer](https://getcomposer.org/download/) 
   * [php](https://www.php.net/downloads)
-  * npm `npm install npm@latest -g`
-  * node `npm install node@latest -g`
+  * [npm](https://www.npmjs.com/get-npm) - `npm install npm@latest -g`
+  * [node](https://nodejs.org/en/download/) - `npm install node@latest -g`
 
 ### Installation
 1. Clone the repo

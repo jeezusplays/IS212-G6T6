@@ -38,14 +38,18 @@ For our first release, the team has identify 5 core features. The core features 
 - ![Laravel](https://img.shields.io/badge/Laravel-FF2D20.svg?style=for-the-badge&logo=Laravel&logoColor=white)
 - ![MySQL](https://img.shields.io/badge/MySQL-4479A1.svg?style=for-the-badge&logo=MySQL&logoColor=white)
 
+#### Continuous Integration
+- ![Codacy](https://img.shields.io/badge/Codacy-222F29.svg?style=for-the-badge&logo=Codacy&logoColor=white)
+- ![GitHub Actions](https://img.shields.io/badge/GitHub%20Actions-2088FF.svg?style=for-the-badge&logo=GitHub-Actions&logoColor=white)
+
 ## Getting Started
 ### Prerequisites
 * Install the following:
-  * [MySQL Workbench](https://dev.mysql.com/downloads/workbench/)
-  * [composer](https://getcomposer.org/download/) 
-  * [php](https://www.php.net/downloads)
-  * [npm](https://www.npmjs.com/get-npm) - `npm install npm@latest -g`
-  * [node](https://nodejs.org/en/download/) - `npm install node@latest -g`
+  * [![MySQL Workbench](https://img.shields.io/badge/MySQL-4479A1.svg?style=for-the-badge&logo=MySQL&logoColor=white)](https://dev.mysql.com/downloads/workbench/)
+  * [![Composer](https://img.shields.io/badge/Composer-885630.svg?style=for-the-badge&logo=Composer&logoColor=white)](https://getcomposer.org/download/)
+  * [![PHP](https://img.shields.io/badge/PHP-777BB4.svg?style=for-the-badge&logo=PHP&logoColor=white)](https://www.php.net/downloads)
+  * [![npm](https://img.shields.io/badge/npm-CB3837.svg?style=for-the-badge&logo=npm&logoColor=white)](https://www.npmjs.com/get-npm)
+  * [![node](https://img.shields.io/badge/Node.js-339933.svg?style=for-the-badge&logo=nodedotjs&logoColor=white)](https://nodejs.org/en/download/)
 
 ### Installation
 1. Clone the repo

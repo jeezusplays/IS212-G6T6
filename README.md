@@ -1,7 +1,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/jeezusplays/IS212-G6T6">
-    <img src="assets/readme_logo.png" alt="Logo" width="100" height="100">
+    <img src="role-skill-match-app/public/favicon-32x32.png" alt="Logo">
   </a>
 
 <h3 align="center">IS212-G6T6</h3>

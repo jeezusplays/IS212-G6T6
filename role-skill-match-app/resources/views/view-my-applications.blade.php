@@ -2,55 +2,57 @@
 <html>
 
 <head>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+        integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
+        integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous">
+    </script>
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="icon" href="{{ asset('favicon-32x32.png') }}" type="image/x-icon">
     <style>
         /* Add your custom CSS styles here */
-        .card-title-link {
-            text-decoration: none;
-            /* Remove underline */
-            color: inherit;
-        }
-
         .progress {
             border-radius: 0;
             background-color: lightgrey;
-            /* Set the background color to light grey */
             box-shadow: none;
             width: 75%;
             position: relative;
         }
 
         .progress-bar {
-            background-color: green;
-            /* Set the background color to green for the matched percentage */
-            height: 100%;
+            background-color: green !important;
+            height: 20px;
+            /* Adjust the height as needed */
         }
 
-        .progress-stripes {
-            background: repeating-linear-gradient(to right,
-                    rgba(0, 0, 0, 0),
-                    rgba(0, 0, 0, 0) 9%,
-                    white 9%,
-                    white 10.1%);
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            left: 0;
-            top: 0;
+        .progress-stages {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .stage {
+            text-align: center;
+            flex-grow: 1;
+            font-size: 14px;
+            /* Adjust the font size as needed */
+            white-space: nowrap;
+            /* Prevent text from wrapping */
+        }
+        
+
+        .card-title-link {
+            text-decoration: none;
+            /* Remove underline */
+            color: inherit;
         }
 
         .vertical {
             border-right: 1px dotted grey;
             height: 100%;
         }
-
-        /* Updated CSS */
-        /* ... */
 
         .grid-container {
             display: grid;
@@ -61,38 +63,6 @@
             padding: 5px;
             /* Add padding to the grid container */
         }
-        .skill-item{
-            background-color: rgb(223, 231, 242);
-            border: none;
-            color: black;
-            padding: 5px 10px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            margin: 4px 2px;
-            cursor: pointer;
-            border-radius: 16px;
-        }
-
-        /* .skill-item {
-            border: 1px solid #ccc; */
-            /* make border round */
-            /* border-radius: 5px; */
-            /* Add a border around each skill item */
-            /* padding: 5px; */
-            /* Add padding to the skill items for spacing */
-            /* Make skill-item be in the center of the box */
-            /* display: flex;
-            justify-content: center;
-            align-items: center;
-            margin: 0;
-            background-color: #f5f5f5; */
-            /* Background color for skill items */
-            /* font-size: 12px;
-        } */
-
-
-        /* ... */
     </style>
 
 
@@ -108,14 +78,15 @@
 <body onload="start()">
     {{-- Top Menu Bar --}}
     @include('top-menu-bar')
-        
+
     <div class="container">
         <h1 class="mb-3">My Applications</h1>
 
         {{-- Search Bar --}}
         <div class="mb-3">
             <form class="d-flex" id = "searchSubmit" onsubmit="searchJobs(); return false;">
-                <input class="form-control me-2 form-control-lg" id="myInput" type="search" placeholder="Search by role title" aria-label="Search">
+                <input class="form-control me-2 form-control-lg" id="myInput" type="search"
+                    placeholder="Search by role title" aria-label="Search">
                 <button class="btn btn-success form-control-lg" id="searchButton" type="submit">
                     Search
                 </button>
@@ -134,18 +105,20 @@
                     <option value="" selected disabled>Filter by Department</option>
                     <!-- Add department options dynamically -->
                     @foreach ($departments as $department)
-                    <option value="{{ $department }}">{{ $department }}</option>
+                        <option value="{{ $department }}">{{ $department }}</option>
                     @endforeach
                 </select>
                 <select class="form-select mb-3" id="filterLocation">
                     <option value="" selected disabled>Filter by Location</option>
                     <!-- Add location options dynamically -->
                     @foreach ($countries as $country)
-                    <option value="{{ $country }}">{{ $country }}</option>
+                        <option value="{{ $country }}">{{ $country }}</option>
                     @endforeach
                 </select>
-                <button id="filterButton" class="btn btn-primary w-100 form-control-lg" onclick="searchJobs()">Apply Filters</button>
-                <button id="clearFilterButton" class="btn btn-secondary w-100 mt-3 form-control-lg" onclick="clearFilters()">Clear Filters</button>
+                <button id="filterButton" class="btn btn-primary w-100 form-control-lg" onclick="searchJobs()">Apply
+                    Filters</button>
+                <button id="clearFilterButton" class="btn btn-secondary w-100 mt-3 form-control-lg"
+                    onclick="clearFilters()">Clear Filters</button>
                 <p class = "mt-3" id = "jobListingsCount">0 roles found based on your filters</p>
             </div>
 
@@ -153,71 +126,114 @@
             <!-- Job Listing Card -->
             <div class="col-md-9">
                 @foreach ($roles as $role)
-                
-                <a href="javascript:void(0);" class="card-title-link">
-                    <div class="card my-3 role-card" data-department="{{ $role['department'] }}" data-location="{{ $role['country'] }}">
-                        <h5 class="card-title card-header p-3 d-flex justify-content-between align-items-center" style="background-color: #dbeffc">{{ $role['role'] }} 
-                        </h5>
-                </a>
+                    <a href="javascript:void(0);" class="card-title-link">
+                        <div class="card my-3 role-card" data-department="{{ $role['department'] }}"
+                            data-location="{{ $role['country'] }}">
+                            <h5 class="card-title card-header p-3 d-flex justify-content-between align-items-center"
+                                style="background-color: #dbeffc">{{ $role['role'] }}
+                            </h5>
+                    </a>
 
                     <div class="card-body">
                         <div class="row">
                             <div class="col-lg-9 vertical">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-diagram-3" viewBox="0 0 16 16" style="display: inline;">
-                                    <path fill-rule="evenodd" d="M6 3.5A1.5 1.5 0 0 1 7.5 2h1A1.5 1.5 0 0 1 10 3.5v1A1.5 1.5 0 0 1 8.5 6v1H14a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-1 0V8h-5v.5a.5.5 0 0 1-1 0V8h-5v.5a.5.5 0 0 1-1 0v-1A.5.5 0 0 1 2 7h5.5V6A1.5 1.5 0 0 1 6 4.5v-1zM8.5 5a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1zM0 11.5A1.5 1.5 0 0 1 1.5 10h1A1.5 1.5 0 0 1 4 11.5v1A1.5 1.5 0 0 1 2.5 14h-1A1.5 1.5 0 0 1 0 12.5v-1zm1.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1zm4.5.5A1.5 1.5 0 0 1 7.5 10h1a1.5 1.5 0 0 1 1.5 1.5v1A1.5 1.5 0 0 1 8.5 14h-1A1.5 1.5 0 0 1 6 12.5v-1zm1.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1zm4.5.5a1.5 1.5 0 0 1 1.5-1.5h1a1.5 1.5 0 0 1 1.5 1.5v1a1.5 1.5 0 0 1-1.5 1.5h-1a1.5 1.5 0 0 1-1.5-1.5v-1zm1.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1z" />
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                    fill="currentColor" class="bi bi-diagram-3" viewBox="0 0 16 16"
+                                    style="display: inline;">
+                                    <path fill-rule="evenodd"
+                                        d="M6 3.5A1.5 1.5 0 0 1 7.5 2h1A1.5 1.5 0 0 1 10 3.5v1A1.5 1.5 0 0 1 8.5 6v1H14a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-1 0V8h-5v.5a.5.5 0 0 1-1 0V8h-5v.5a.5.5 0 0 1-1 0v-1A.5.5 0 0 1 2 7h5.5V6A1.5 1.5 0 0 1 6 4.5v-1zM8.5 5a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1zM0 11.5A1.5 1.5 0 0 1 1.5 10h1A1.5 1.5 0 0 1 4 11.5v1A1.5 1.5 0 0 1 2.5 14h-1A1.5 1.5 0 0 1 0 12.5v-1zm1.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1zm4.5.5A1.5 1.5 0 0 1 7.5 10h1a1.5 1.5 0 0 1 1.5 1.5v1A1.5 1.5 0 0 1 8.5 14h-1A1.5 1.5 0 0 1 6 12.5v-1zm1.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1zm4.5.5a1.5 1.5 0 0 1 1.5-1.5h1a1.5 1.5 0 0 1 1.5 1.5v1a1.5 1.5 0 0 1-1.5 1.5h-1a1.5 1.5 0 0 1-1.5-1.5v-1zm1.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1z" />
                                 </svg>
                                 <p class="card-text d-inline"><b>Department: </b>{{ $role['department'] }}</p>
                                 <p></p>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt-fill" viewBox="0 0 16 16" style="display: inline;">
-                                    <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z" />
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                    fill="currentColor" class="bi bi-geo-alt-fill" viewBox="0 0 16 16"
+                                    style="display: inline;">
+                                    <path
+                                        d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z" />
                                 </svg>
                                 <p class="card-text d-inline"><b>Location: </b>{{ $role['country'] }}</p>
-                                <p></p>
-                                
+                                <!-- Progress Tracker -->
+                                <div class="progress mt-3">
+                                    @if ($role['application_status'] == 1)
+                                        <div class="progress-bar progress-bar-striped" style="width: 20%;"></div>
+                                        <div class="stage-marker stage-applied"></div>
+                                    @elseif ($role['application_status'] == 2)
+                                        <div class="progress-bar progress-bar-striped" style="width: 40%;"></div>
+                                        <div class="stage-marker stage-hr-received"></div>
+                                    @elseif ($role['application_status'] == 3)
+                                        <div class="progress-bar progress-bar-striped" style="width: 60%;"></div>
+                                        <div class="stage-marker stage-interview-scheduled"></div>
+                                    @elseif ($role['application_status'] == 4)
+                                        <div class="progress-bar progress-bar-striped" style="width: 80%;"></div>
+                                        <div class="stage-marker stage-accepted-rejected"></div>
+                                    @elseif ($role['application_status'] == 5)
+                                        <div class="progress-bar progress-bar-striped" style="width: 80%;"></div>
+                                    @else
+                                        <div class="progress-bar" style="width: 0%;"></div>
+                                        <div class="stage-marker stage-withdrawn"></div>
+                                    @endif
+                                </div>
+
+                                <div class="progress-stages mt-1" style = "width: 75%">
+                                    <div class="stage">Withdrawn</div>
+                                    <div class="stage">Applied</div>
+                                    <div class="stage">HR Received</div>
+                                    <div class="stage">Interview Scheduled</div>
+                                    <div class="stage">Accepted/Rejected</div>
+                                </div>
+
+
                             </div>
                             <div class="col-lg-3">
                                 <div class="my-4">
-                                <p class="card-text" id="dateSincePost" data-laravel-variable-1="{{ $role['num_days_since_application'] }}" data-toggle="tooltip" data-placement="top" title="">
-                                    Applied {{ $role['num_days_since_application'] }} days ago
+                                    <p class="card-text" id="dateSincePost"
+                                        data-laravel-variable-1="{{ $role['num_days_since_application'] }}"
+                                        data-toggle="tooltip" data-placement="top" title="">
+                                        Applied {{ $role['num_days_since_application'] }} days ago
                                     </p>
-                                        <b>Status:</b>
-                                        @if ($role['application_status'] == 1)
-                                            <span class="badge rounded-pill bg-info
+                                    <p class = "card-text">
+                                        Last updated on: {{ $role['updated_at'] }}
+                                    </p>
+                                    <b>Status:</b>
+                                    @if ($role['application_status'] == 1)
+                                        <span
+                                            class="badge rounded-pill bg-info
                                             ">Applied
-                                            </span>
-
-                                        @elseif ($role['application_status'] == 2)
-                                            <span class="badge rounded-pill bg-primary
-                                            ">HR Received
-                                            </span>
-
-                                        @elseif ($role['application_status'] == 3)
-                                            <span class="badge rounded-pill bg-primary
-                                            ">Interview Scheduled
-                                            </span>
-
-                                        @elseif ($role['application_status'] == 4)
-                                            <span class="badge rounded-pill bg-success
+                                        </span>
+                                    @elseif ($role['application_status'] == 2)
+                                        <span
+                                            class="badge rounded-pill bg-primary
+                                            ">HR
+                                            Received
+                                        </span>
+                                    @elseif ($role['application_status'] == 3)
+                                        <span
+                                            class="badge rounded-pill bg-primary
+                                            ">Interview
+                                            Scheduled
+                                        </span>
+                                    @elseif ($role['application_status'] == 4)
+                                        <span
+                                            class="badge rounded-pill bg-success
                                             ">Accepted
-                                            </span>
-                                            
-                                        @elseif ($role['application_status'] == 5)
-                                            <span class="badge rounded-pill bg-danger
+                                        </span>
+                                    @elseif ($role['application_status'] == 5)
+                                        <span
+                                            class="badge rounded-pill bg-danger
                                             ">Rejected
-                                            </span>
-
-                                        @else
-                                            <span class="badge rounded-pill bg-secondary
+                                        </span>
+                                    @else
+                                        <span
+                                            class="badge rounded-pill bg-secondary
                                             ">Withdrawn
-                                            </span>
-                                        @endif
-                                        
+                                        </span>
+                                    @endif
+
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-           
+            </div>
             @endforeach
 
 
@@ -238,21 +254,18 @@
 
 <script>
     // Search bar functionality
-    function start(){
+    function start() {
         triggerTooltip()
         searchJobs();
-        progressColorChange();
     }
 
     function searchJobs() {
-        const selectedSkillset = document.getElementById('filterSkillsets').value;
         const input = document.getElementById('myInput');
         const filter = input.value.toUpperCase();
         var counter = 0;
         document.querySelectorAll(".role-card").forEach(card => {
             const title = card.querySelector(".card-title").innerText.toUpperCase();
             const text = card.querySelector(".card-text").innerText.toUpperCase();
-            const skills = card.querySelector(".skill-item");
 
             if (title.indexOf(filter) > -1 || text.indexOf(filter) > -1) {
                 // If department and location filter matches, display the card
@@ -260,15 +273,8 @@
                 let location_filter = document.getElementById("filterLocation").value;
                 if (department_filter == "" || department_filter == card.getAttribute('data-department')) {
                     if (location_filter == "" || location_filter == card.getAttribute('data-location')) {
-                        if (skills && skills.getAttribute('data-skillsets').includes(selectedSkillset)) {
-                            card.style.display = "";
-                            counter++;
-                        } else if (selectedSkillset == "") {
-                            card.style.display = "";
-                            counter++;
-                        } else {
-                            card.style.display = "none";
-                        }
+                        card.style.display = "";
+                        counter++;
                     } else {
                         card.style.display = "none";
                     }
@@ -297,42 +303,16 @@
         document.getElementById('jobListingsCount').textContent = `${counter} roles found based on your filters`;
     }
 
-    function progressColorChange(){
-        var text_arr = document.getElementsByClassName('skill-match-text')
-        var progress_arr = document.getElementsByClassName('skill-match-progressbar')
-        for (var i = 0; i < text_arr.length; i++) {
-            var skill_match_text = text_arr[i]
-            var skill_match_progress = progress_arr[i]
-            var percent = skill_match_progress.getAttribute('aria-valuenow')
-
-            //console.log(skill_match_progress)
-            //console.log(skill_match_text)
-            
-            var colour = ""
-            if (percent < 50){
-                colour = "red"
-            }
-            else if (percent >=50 & percent < 75){
-                colour = "#e3bd42"
-            }
-            else{
-                colour = "darkgreen"
-            }
-            skill_match_text.style.color = colour
-            skill_match_progress.style.backgroundColor = colour
-        }      
-    }
-
-    function triggerTooltip(){
+    function triggerTooltip() {
         const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
         const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
     }
+
     // Function to clear all filters
     function clearFilters() {
         // Clear the filter inputs and show all role cards
         document.getElementById('filterDepartment').selectedIndex = 0;
         document.getElementById('filterLocation').selectedIndex = 0;
-        document.getElementById('filterSkillsets').selectedIndex = 0;
 
         document.querySelectorAll(".role-card").forEach(card => {
             card.style.display = "";
@@ -340,26 +320,25 @@
         searchJobs();
     }
 
-    function gotoViewRole(listingid){
+    function gotoViewRole(listingid) {
 
         const currentUrl = window.location.href;
 
         // Extract the part of the URL after the domain, which includes the page
         const urlSegments = currentUrl.split(window.location.origin)[1];
-        
+
         // Split the URL segments by '/'
-        const segments = urlSegments.split('/');  
-        access=segments[1]
-        
+        const segments = urlSegments.split('/');
+        access = segments[1]
+
         // Construct the new URL with the selected access and the current page
         const newUrl = `${window.location.origin}/${access}/view-role/listingID=${listingid}`;
 
         // Navigate to the new URL
         window.location.href = newUrl;
 
-      
-    }
 
+    }
 </script>
 
 </html>

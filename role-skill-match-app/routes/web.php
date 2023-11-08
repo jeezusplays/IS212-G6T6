@@ -1,8 +1,6 @@
 <?php
 
-
 use App\Http\Controllers\ApplicationController;
-use App\Http\Controllers\BrowseAllRoleController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\IndicateSkillProficiency;
 use App\Http\Controllers\RoleController;
@@ -36,7 +34,6 @@ Route::get('/role-listings', [RoleController::class, 'index']);
 Route::get('browse-roles/staff_id={staff_id}', [App\Http\Controllers\BrowseAllRoleController::class, 'index_view'])->name('browse-roles');
 // Route for view-role-applicants page
 Route::get('/view-role-applicants/listingID={passedlisting}', [ViewRoleApplicants::class, 'getApplicantListing']);
-
 
 Route::get('/create-role', [RoleController::class, 'setup']);
 Route::post('/create-role', [RoleController::class, 'store'])->name('create-role');

@@ -11,7 +11,6 @@ class Hiring_Manager extends Model
 {
     // links to factory for seeding
     use HasFactory;
-
     use SoftDeletes;
 
     // Many-to-one relationship with `Role` Model

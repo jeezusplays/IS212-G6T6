@@ -4,13 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-use App\Models\Access_Rights;
 use App\Models\Application;
-use App\Models\Permission;
-use App\Models\Permission_Rights;
-use App\Models\Proficiency;
-use App\Models\Role_Skill;
-use App\Models\Staff;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -44,7 +38,7 @@ class DatabaseSeeder extends Seeder
             ApplicationSeeder::class,
             HiringManagerSeeder::class,
             RoleSkillSeeder::class,
-            RoleListingSeeder::class
+            RoleListingSeeder::class,
         ]);
 
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');

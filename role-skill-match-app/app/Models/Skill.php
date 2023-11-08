@@ -2,18 +2,17 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Skill extends Model
 {
-
-    use SoftDeletes;
     // links to factory for seeding
     use HasFactory;
 
+    use SoftDeletes;
 
     // One-to-many relationship with the `Role_Skill` Model
     public function role_skill(): BelongsToMany
@@ -44,6 +43,6 @@ class Skill extends Model
     protected $primaryKey = 'skill_id';
 
     protected $fillable = [
-        'skill'
+        'skill',
     ];
 }

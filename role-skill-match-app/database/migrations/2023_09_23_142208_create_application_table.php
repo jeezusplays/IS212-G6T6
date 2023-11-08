@@ -23,7 +23,7 @@ return new class extends Migration
             // Foreign Keys
             $table->foreign('listing_id')->references('listing_id')->on('role_listing');
             $table->foreign('staff_id')->references('staff_id')->on('staff');
-            
+
         });
     }
 

@@ -30,7 +30,7 @@ return new class extends Migration
             $table->foreign('department_id')->references('department_id')->on('department');
             $table->foreign('country_id')->references('country_id')->on('country');
             $table->foreign('created_by')->references('staff_id')->on('staff');
-            
+
         });
     }
 

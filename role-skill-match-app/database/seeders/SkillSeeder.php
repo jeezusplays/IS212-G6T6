@@ -2,10 +2,8 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 use App\Models\Skill;
+use Illuminate\Database\Seeder;
 
 class SkillSeeder extends Seeder
 {
@@ -86,6 +84,6 @@ class SkillSeeder extends Seeder
             'skill_id' => 18,
             'skill' => 'Story Telling',
         ]);
-            // Add more skills here
+        // Add more skills here
     }
 }

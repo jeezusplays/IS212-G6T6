@@ -2,10 +2,9 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Permission_Rights;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use App\Models\Permission_Rights;
 
 class PermissionRightsSeeder extends Seeder
 {
@@ -74,7 +73,7 @@ class PermissionRightsSeeder extends Seeder
             'access_id' => 4,
             'permission_id' => 4,
         ]);
-        
-            // Add more permissions here
+
+        // Add more permissions here
     }
 }

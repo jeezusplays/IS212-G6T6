@@ -2,10 +2,8 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 use App\Models\Country;
+use Illuminate\Database\Seeder;
 
 class CountrySeeder extends Seeder
 {
@@ -13,7 +11,7 @@ class CountrySeeder extends Seeder
      * Run the database seeds.
      */
     public function run(): void
-    { 
+    {
         // create 5 countries using model
         Country::create([
             'country_id' => 1,

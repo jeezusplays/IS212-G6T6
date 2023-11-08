@@ -39,6 +39,17 @@
             font-size: 14px;
             /* Adjust the font size as needed */
             white-space: nowrap;
+            color: #9CA3AF;
+            /* Prevent text from wrapping */
+        }
+
+        .stage-at {
+            text-align: center;
+            flex-grow: 1;
+            font-size: 14px;
+            /* Adjust the font size as needed */
+            white-space: nowrap;
+            font-weight: bold;
             /* Prevent text from wrapping */
         }
         
@@ -155,19 +166,19 @@
                                 <!-- Progress Tracker -->
                                 <div class="progress mt-3">
                                     @if ($role['application_status'] == 1)
-                                        <div class="progress-bar progress-bar-striped" style="width: 20%;"></div>
+                                        <div class="progress-bar bg-info" style="width: 20%;"></div>
                                         <div class="stage-marker stage-applied"></div>
                                     @elseif ($role['application_status'] == 2)
-                                        <div class="progress-bar progress-bar-striped" style="width: 40%;"></div>
+                                        <div class="progress-bar bg-primary" style="width: 40%;"></div>
                                         <div class="stage-marker stage-hr-received"></div>
                                     @elseif ($role['application_status'] == 3)
-                                        <div class="progress-bar progress-bar-striped" style="width: 60%;"></div>
+                                        <div class="progress-bar bg-primary" style="width: 60%;"></div>
                                         <div class="stage-marker stage-interview-scheduled"></div>
                                     @elseif ($role['application_status'] == 4)
-                                        <div class="progress-bar progress-bar-striped" style="width: 80%;"></div>
+                                        <div class="progress-bar bg-success" style="width: 100%;"></div>
                                         <div class="stage-marker stage-accepted-rejected"></div>
                                     @elseif ($role['application_status'] == 5)
-                                        <div class="progress-bar progress-bar-striped" style="width: 80%;"></div>
+                                        <div class="progress-bar bg-danger" style="width: 100%;"></div>
                                     @else
                                         <div class="progress-bar" style="width: 0%;"></div>
                                         <div class="stage-marker stage-withdrawn"></div>
@@ -175,11 +186,38 @@
                                 </div>
 
                                 <div class="progress-stages mt-1" style = "width: 75%">
+                                    @if ($role['application_status'] == 6)
+                                    <div class="stage-at">Withdrawn</div>
+                                    @else
                                     <div class="stage">Withdrawn</div>
+                                    @endif
+                                    
+                                    @if ($role['application_status'] == 1)
+                                    <div class="stage-at">Applied</div>
+                                    @else
                                     <div class="stage">Applied</div>
+                                    @endif
+
+                                    @if ($role['application_status'] == 2)
+                                    <div class="stage-at">HR Received</div>
+                                    @else
                                     <div class="stage">HR Received</div>
+                                    @endif
+
+                                    @if ($role['application_status'] == 3)
+                                    <div class="stage-at">Interview Scheduled</div>
+                                    @else
                                     <div class="stage">Interview Scheduled</div>
+                                    @endif
+
+                                    @if ($role['application_status'] == 4)
+                                    <div class="stage-at">Accepted</div>
+                                    @elseif ($role['application_status'] == 5)
+                                    <div class="stage-at">Rejected</div>
+                                    @else
                                     <div class="stage">Accepted/Rejected</div>
+                                    @endif
+
                                 </div>
 
 

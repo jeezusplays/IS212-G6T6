@@ -98,6 +98,5 @@ class IndicateSkillProficiency extends Controller
         // return response()->json($staff_skillset_proficiency);
         return view('/indicate-skill-proficiency', compact('staff_skillset_proficiency'));
 
-
     }
 }

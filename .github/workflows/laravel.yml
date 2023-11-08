@@ -44,10 +44,9 @@ jobs:
       env:
         XDEBUG_MODE: coverage
       with:
-        bootstrap: vendor/autoload.php
         configuration: role-skill-match-app/phpunit.xml
         php_extensions: xdebug
-        args: tests --coverage-clover ./coverage.xml
+        coverage_html: coverage.html
 
     - name: laravel-pint
       uses: aglipanci/laravel-pint-action@0.1.0

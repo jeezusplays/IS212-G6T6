@@ -48,7 +48,7 @@ jobs:
         TEST_NAME: Scarlett
       with:
         version: 9.5.26
-        configuration: phpunit.xml
+        configuration: tests/phpunit.xml
         bootstrap: vendor/autoload.php
         php_extensions: xdebug
         coverage_html: coverage.html

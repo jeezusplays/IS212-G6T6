@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\ApplicationController;
-use App\Http\Controllers\BrowseAllRoleController;
 use App\Http\Controllers\IndicateSkillProficiency;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UpdateRoleController;
@@ -36,6 +35,9 @@ Route::post('/withdraw', [ViewRoleController::class, 'withdrawApplication'])->na
 Route::get('/staff_id={staff_id}/role-listings', [RoleController::class, 'index']);
 
 // Route for view-role-applicants page
+Route::get('/view-role-applicants/listingID={passedlisting}', [ViewRoleApplicants::class, 'getApplicantListing']);
+
+Route::get('/create-role', [RoleController::class, 'setup']);
 Route::get('/staff_id={staff_id}/view-role-applicants/listingID={passedlisting}', [ViewRoleApplicants::class, 'getApplicantListing']);
 
 // Route for create role

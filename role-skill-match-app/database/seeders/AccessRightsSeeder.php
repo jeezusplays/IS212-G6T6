@@ -2,11 +2,9 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
-// import model
 use App\Models\Access_Rights;
+// import model
+use Illuminate\Database\Seeder;
 
 class AccessRightsSeeder extends Seeder
 {

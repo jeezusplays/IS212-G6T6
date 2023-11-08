@@ -141,7 +141,7 @@ class ViewRoleController extends Controller
                 'role' => $matchingRole ? $matchingRole->role : null,  //job title
                 'work_arrangement' => $workArrangement, //work arrangement
                 'department' => $department,   //department
-                'department_id' => $department_id,  
+                'department_id' => $department_id,
                 'vacancy' => $vacancy, //vacancy
                 'deadline' => $deadline, //deadline
                 'description' => $description,

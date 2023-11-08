@@ -2,10 +2,8 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use App\Models\Staff_Skill;
 
 class StaffSkillSeeder extends Seeder
 {
@@ -44,7 +42,7 @@ class StaffSkillSeeder extends Seeder
             ['staff_id' => 8, 'skill_id' => 17, 'proficiency_id' => 3, 'created_at' => now(), 'updated_at' => now()],
             ['staff_id' => 8, 'skill_id' => 18, 'proficiency_id' => 3, 'created_at' => now(), 'updated_at' => now()],
             ['staff_id' => 8, 'skill_id' => 2, 'proficiency_id' => 3, 'created_at' => now(), 'updated_at' => now()],
-            ['staff_id' => 8, 'skill_id' => 5, 'proficiency_id' => 3, 'created_at' => now(), 'updated_at' => now()]
+            ['staff_id' => 8, 'skill_id' => 5, 'proficiency_id' => 3, 'created_at' => now(), 'updated_at' => now()],
         ]);
     }
 }

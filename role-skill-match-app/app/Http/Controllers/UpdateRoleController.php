@@ -22,9 +22,9 @@ class UpdateRoleController extends Controller
 
     public function store(Request $request)
     {
-        
+
         $requestData = $request->input();
-    
+
         $listingId = $requestData['listingID'];
         $jobTitle = $requestData['roleTitle'];
         $workArrangement = $requestData['workArrangement'];
@@ -35,14 +35,13 @@ class UpdateRoleController extends Controller
         $country_id = $requestData['Country_ID'];
         $status = $requestData['Status'];
 
-
         //if passed in value is not array, assign it array, even if its 1 value
         if (! is_array($requestData['skills'])) {
             $requestData['skills'] = [$requestData['skills']];
         }
 
         $skills = $requestData['skills'];
-        
+
         // Retrieve existing records for the given listingId
         $existingRecords = DB::table('role_skill')
             ->where('listing_id', $listingId)
@@ -154,13 +153,13 @@ class UpdateRoleController extends Controller
             ]
         );
         // Return view to the user current page on success, back to the form
-        
+
         return redirect()->back()->with('success', 'Role updated successfully');
-        
+
     }
 
-    public function autoFillRoleListing($currentStaffID,$passedlisting)
-    { 
+    public function autoFillRoleListing($passedlisting)
+    {
         // Retrieve all role data from the database
         $RoleListing_Table = Role_Listing::where('listing_id', $passedlisting)->get();
         //declaring tables
@@ -273,6 +272,7 @@ class UpdateRoleController extends Controller
         return $country;
 
     }
+
     public function retrieveAllRoles()
     {
         $role = Role::all(['role_id', 'role']);

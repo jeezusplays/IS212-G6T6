@@ -39,8 +39,6 @@ jobs:
     - name: Directory Permissions
       run: cd role-skill-match-app || chmod -R 777 storage bootstrap/cache
 
-    - uses: php-actions/composer@v6
-
     - name: PHPUnit Tests
       uses: php-actions/phpunit@v3
       env:

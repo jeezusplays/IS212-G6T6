@@ -76,7 +76,7 @@ class ViewRoleController extends Controller
                 'work_arrangement' => $work_arrangement,
                 'staff_id' => $staff_id,
                 'application_id' => $application_id,
-                'application_withdraw_date' => now(),
+                'application_withdraw_date' => Carbon::parse(now())->format('d-m-Y H:i:s'),
                 'staff_email' => $staff_email,
                 'staff_name' => $staff_name,
             ];

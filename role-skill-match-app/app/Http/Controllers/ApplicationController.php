@@ -5,8 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\Application;
 use App\Models\Role_Listing;
 use App\Models\Staff;
+use App\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\ApplyApplication;
+use Carbon\Carbon;
 
 class ApplicationController extends Controller
 {
@@ -87,6 +91,32 @@ class ApplicationController extends Controller
         ]);
 
         if ($application->wasRecentlyCreated) {
+            $role_name = Role::where('role_id', Role_Listing::where('listing_id', $listing_id)->first()->role_id)->first()->role;
+            $work_arrangement = Role_Listing::where('listing_id', $listing_id)->first()->work_arrangement;
+            $application_id = $application->application_id;
+            $staff_email = Staff::where('staff_id', $staff_id)->first()->email;
+            $staff_name = Staff::where('staff_id', $staff_id)->first()->staff_fname . ' ' . Staff::where('staff_id', $staff_id)->first()->staff_lname;
+
+            // Map work_arrangement value of 1 to part time, 2 to full time
+            if ($work_arrangement == 1) {
+                $work_arrangement = 'Part Time';
+            } else if ($work_arrangement == 2) {
+                $work_arrangement = 'Full Time';
+            }
+
+            $data = [
+                'role_name' => $role_name,
+                'work_arrangement' => $work_arrangement,
+                'staff_id' => $staff_id,
+                'application_id' => $application_id,
+                'application_apply_date' => Carbon::parse(now())->format('d-m-Y H:i:s'),
+                'staff_email' => $staff_email,
+                'staff_name' => $staff_name,
+            ];
+
+            $email = new ApplyApplication($data);
+            Mail::to($staff_email)->send($email);
+
             return redirect()->back()->with('success', 'Application created successfully!');
         } else {
             return redirect()->back()->with('error', 'Application already exists!');

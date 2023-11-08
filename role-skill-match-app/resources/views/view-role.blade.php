@@ -116,16 +116,21 @@
                                     @if ($role['application'] != 6)
                                         <button type ="button" class = "btn btn-outline-danger mx-2">Withdraw
                                             Application</button>
-                                    @else
+                                    @elseif ($role['application'] != 6)
                                         <button type="submit" class="btn btn-success btn-md btn-lg"
                                             onclick="document.getElementById('staff_id_{{ $role['listingID'] }}').value = getStaffID();">Apply
                                             Now</button>
+                                    @else
+                                        <button type = "submit" class = "btn btn-outline btn-md btn-lg" disabled>
+                                            Application Withdrawn
+                                        </button>
                                     @endif
                                 @else
                                     <button type="submit" class="btn btn-success btn-md btn-lg"
                                         onclick="document.getElementById('staff_id_{{ $role['listingID'] }}').value = getStaffID();">Apply
                                         Now</button>
                                 @endif
+
                             </form>
                         </div>
                     </div>
@@ -321,50 +326,64 @@
 
     // Function to handle application withdrawal
     function withdrawApplication() {
-        // Fetch the application_id, listing_id, and staff_id from the webpage
-        const application_id = document.getElementById('application_id').innerText;
-        const role_name = document.getElementById('role_name').innerText;
-        const work_arrangement = document.getElementById('work_arrangement').innerText;
-        const staff_name = document.getElementById('staff_name').innerText;
-        const staff_email = document.getElementById('staff_email').innerText;
-        // Assume currentUrl is in the format http://localhost:8000/staff_id=1/view-role/listingID=3, fetch listingID and staff_id
-        const currentUrl = window.location.href;
-        const listing_id = currentUrl.split('/')[5].split('=')[1];
-        const staff_id = currentUrl.split('/')[3].split('=')[1];
+        // Swal confirmation popup before executing the withdrawApplication
+        swal({
+            title: "Are you sure?",
+            text: "You will not be able to revert this action or reapply to this role",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        }).then((willWithdraw) => {
+            if (willWithdraw) {
+                // If user clicks "Yes", execute the withdrawApplication function
+                // Fetch the application_id, listing_id, and staff_id from the webpage
+                const application_id = document.getElementById('application_id').innerText;
+                const role_name = document.getElementById('role_name').innerText;
+                const work_arrangement = document.getElementById('work_arrangement').innerText;
+                const staff_name = document.getElementById('staff_name').innerText;
+                const staff_email = document.getElementById('staff_email').innerText;
+                // Assume currentUrl is in the format http://localhost:8000/staff_id=1/view-role/listingID=3, fetch listingID and staff_id
+                const currentUrl = window.location.href;
+                const listing_id = currentUrl.split('/')[5].split('=')[1];
+                const staff_id = currentUrl.split('/')[3].split('=')[1];
 
 
-        // Prepare the data to be sent
-        const application_data = {
-            application_id,
-            listing_id,
-            staff_id,
-            role_name,
-            work_arrangement,
-            staff_name,
-            staff_email
-        };
+                // Prepare the data to be sent
+                const application_data = {
+                    application_id,
+                    listing_id,
+                    staff_id,
+                    role_name,
+                    work_arrangement,
+                    staff_name,
+                    staff_email
+                };
 
-        // Make a POST request to the /withdraw route
-        axios.post('/withdraw', {
-                data: application_data
-            })
-            .then(response => {
-                // Handle the response, e.g., show a success message
-                console.log(response)
-                // Reload the page once swal is closed
-                swal({
-                    title: "Success!",
-                    text: response.data.message,
-                    icon: "success",
-                }).then(() => {
-                    location.reload();
-                });
-            })
-            .catch(error => {
-                // Handle errors, e.g., show an error message
-                console.log(error)
-                swal('Error', 'An error occurred while withdrawing the application.', 'error');
-            });
+                // Make a POST request to the /withdraw route
+                axios.post('/withdraw', {
+                        data: application_data
+                    })
+                    .then(response => {
+                        // Handle the response, e.g., show a success message
+                        console.log(response)
+                        // Reload the page once swal is closed
+                        swal({
+                            title: "Success!",
+                            text: response.data.message,
+                            icon: "success",
+                        }).then(() => {
+                            location.reload();
+                        });
+                    })
+                    .catch(error => {
+                        // Handle errors, e.g., show an error message
+                        console.log(error)
+                        swal('Error', 'An error occurred while withdrawing the application.', 'error');
+                    });
+            }
+        });
+
+
     }
 
     // Attach an event listener to the "Withdraw Application" button

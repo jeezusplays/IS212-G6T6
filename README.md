@@ -65,7 +65,7 @@ For our first release, the team has identify 5 core features. The core features 
     npm install
     composer install
     ```
-4. Create a copy of the `.env.example` file and rename it to `.env`. Edit `DB_DATABASE` `.env` file to `sbrp`. Change the necessary Mail and AWS SES credentials from our Google Drive's .env file as reference.
+4. Create a copy of the `.env.example` file and rename it to `.env`. Edit `DB_DATABASE` `.env` file to `sbrp`. Change the necessary Mail and AWS SES credentials from our Google Drive's .env file as reference (Link provided via text file in submission document).
 5. Create a database named `sbrp` in MySQL.
 6. Migrate the database.
     ```sh
@@ -75,13 +75,17 @@ For our first release, the team has identify 5 core features. The core features 
     ```sh
     php artisan db:seed
     ```
-9. Generate artisan key
+8. Generate artisan key.
     ```sh
     php artisan key:generate
     ```
-10. Start local laravel server.
+9. Start local laravel server.
     ```sh
     php artisan serve
+    ```
+10. In another terminal, start the local development server.
+    ```sh
+    npm run dev
     ```
 
 ## Usage

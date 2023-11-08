@@ -166,13 +166,13 @@
                                 <!-- Progress Tracker -->
                                 <div class="progress mt-3">
                                     @if ($role['application_status'] == 1)
-                                        <div class="progress-bar bg-info" style="width: 20%;"></div>
+                                        <div class="progress-bar bg-info" style="width: 30%;"></div>
                                         <div class="stage-marker stage-applied"></div>
                                     @elseif ($role['application_status'] == 2)
-                                        <div class="progress-bar bg-primary" style="width: 40%;"></div>
+                                        <div class="progress-bar bg-primary" style="width: 45%;"></div>
                                         <div class="stage-marker stage-hr-received"></div>
                                     @elseif ($role['application_status'] == 3)
-                                        <div class="progress-bar bg-primary" style="width: 60%;"></div>
+                                        <div class="progress-bar bg-primary" style="width: 75%;"></div>
                                         <div class="stage-marker stage-interview-scheduled"></div>
                                     @elseif ($role['application_status'] == 4)
                                         <div class="progress-bar bg-success" style="width: 100%;"></div>

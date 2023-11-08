@@ -166,7 +166,7 @@
                                 <!-- Progress Tracker -->
                                 <div class="progress mt-3">
                                     @if ($role['application_status'] == 1)
-                                        <div class="progress-bar bg-info" style="width: 30%;"></div>
+                                        <div class="progress-bar bg-info" style="width: 28%;"></div>
                                         <div class="stage-marker stage-applied"></div>
                                     @elseif ($role['application_status'] == 2)
                                         <div class="progress-bar bg-primary" style="width: 45%;"></div>

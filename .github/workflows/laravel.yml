@@ -14,8 +14,6 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v3
-      
-    - uses: php-actions/composer@v6
 
     - name: Setup PHP
       uses: shivammathur/setup-php@15c43e89cdef867065b0213be354c2841860869e
@@ -40,6 +38,8 @@ jobs:
 
     - name: Directory Permissions
       run: cd role-skill-match-app || chmod -R 777 storage bootstrap/cache
+
+    - uses: php-actions/composer@v6
 
     - name: PHPUnit Tests
       uses: php-actions/phpunit@v3

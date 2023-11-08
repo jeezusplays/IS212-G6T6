@@ -11,7 +11,6 @@ class Skill extends Model
 {
     // links to factory for seeding
     use HasFactory;
-
     use SoftDeletes;
 
     // One-to-many relationship with the `Role_Skill` Model

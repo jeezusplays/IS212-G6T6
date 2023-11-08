@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\ApplyApplication;
 use App\Models\Application;
+use App\Models\Role;
 use App\Models\Role_Listing;
 use App\Models\Staff;
-use App\Models\Role;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\ApplyApplication;
-use Carbon\Carbon;
 
 class ApplicationController extends Controller
 {
@@ -95,12 +95,12 @@ class ApplicationController extends Controller
             $work_arrangement = Role_Listing::where('listing_id', $listing_id)->first()->work_arrangement;
             $application_id = $application->application_id;
             $staff_email = Staff::where('staff_id', $staff_id)->first()->email;
-            $staff_name = Staff::where('staff_id', $staff_id)->first()->staff_fname . ' ' . Staff::where('staff_id', $staff_id)->first()->staff_lname;
+            $staff_name = Staff::where('staff_id', $staff_id)->first()->staff_fname.' '.Staff::where('staff_id', $staff_id)->first()->staff_lname;
 
             // Map work_arrangement value of 1 to part time, 2 to full time
             if ($work_arrangement == 1) {
                 $work_arrangement = 'Part Time';
-            } else if ($work_arrangement == 2) {
+            } elseif ($work_arrangement == 2) {
                 $work_arrangement = 'Full Time';
             }
 

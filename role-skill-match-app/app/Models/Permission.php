@@ -11,7 +11,6 @@ class Permission extends Model
 {
     // links to factory for seeding
     use HasFactory;
-
     use SoftDeletes;
 
     // One-to-many relationship with `Permission_Rights` model

@@ -19,34 +19,34 @@ class ApplicationSeeder extends Seeder
             'Staff_id' => 1,
         ]);
         Application::create([
-            'Status' => 2, 
+            'Status' => 2,
             'Application_Date' => '2023-07-15',
-            'listing_id' =>7,
-            'Staff_id' => 1
+            'listing_id' => 7,
+            'Staff_id' => 1,
         ]);
         Application::create([
-            'Status' => 6, 
+            'Status' => 6,
             'Application_Date' => '2023-03-15',
-            'listing_id' =>6,
-            'Staff_id' => 1
+            'listing_id' => 6,
+            'Staff_id' => 1,
         ]);
         Application::create([
-            'Status' => 3, 
+            'Status' => 3,
             'Application_Date' => '2023-03-15',
-            'listing_id' =>12,
-            'Staff_id' => 1
+            'listing_id' => 12,
+            'Staff_id' => 1,
         ]);
         Application::create([
-            'Status' => 4, 
+            'Status' => 4,
             'Application_Date' => '2023-03-15',
-            'listing_id' =>11,
-            'Staff_id' => 1
+            'listing_id' => 11,
+            'Staff_id' => 1,
         ]);
         Application::create([
-            'Status' => 5, 
+            'Status' => 5,
             'Application_Date' => '2023-03-15',
-            'listing_id' =>10,
-            'Staff_id' => 1
+            'listing_id' => 10,
+            'Staff_id' => 1,
         ]);
         ///////
         Application::create([

@@ -11,7 +11,6 @@ class Permission_Rights extends Model
 {
     // links to factory for seeding
     use HasFactory;
-
     use SoftDeletes;
 
     protected $table = 'Permission_Rights';

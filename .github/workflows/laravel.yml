@@ -43,7 +43,9 @@ jobs:
       uses: php-actions/phpunit@v3
       env:
         XDEBUG_MODE: coverage
+        TEST_NAME: Scarlett
       with:
+        version: 9.5.26
         configuration: role-skill-match-app/phpunit.xml
         bootstrap: role-skill-match-app/vendor/autoload.php
         php_extensions: xdebug

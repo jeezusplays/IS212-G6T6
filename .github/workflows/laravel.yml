@@ -10,6 +10,8 @@ jobs:
   laravel-tests:
 
     runs-on: ubuntu-latest
+    env: 
+      working-directory: role-skill-match-app
 
     steps:
     - name: Checkout
@@ -28,7 +30,7 @@ jobs:
       continue-on-error: true  # Continue even if the command fails
 
     - name: Generate key
-      run: cd role-skill-match-app || php artisan key:generate
+      run: php artisan key:generate
     - uses: mirromutth/mysql-action@v1.1
       with:
         mysql database: 'test' # Optional, default value is "test". The specified database which will be create
@@ -46,8 +48,8 @@ jobs:
         TEST_NAME: Scarlett
       with:
         version: 9.5.26
-        configuration: role-skill-match-app/phpunit.xml
-        bootstrap: role-skill-match-app/vendor/autoload.php
+        configuration: phpunit.xml
+        bootstrap: vendor/autoload.php
         php_extensions: xdebug
         coverage_html: coverage.html
 

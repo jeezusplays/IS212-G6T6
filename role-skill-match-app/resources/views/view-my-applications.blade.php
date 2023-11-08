@@ -215,7 +215,7 @@
                                     @elseif ($role['application_status'] == 5)
                                     <div class="stage-at">Rejected</div>
                                     @else
-                                    <div class="stage">Accepted/Rejected</div>
+                                    <div class="stage">Offer</div>
                                     @endif
 
                                 </div>

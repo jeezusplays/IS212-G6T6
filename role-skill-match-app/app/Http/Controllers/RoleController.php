@@ -29,7 +29,6 @@ class RoleController extends Controller
         }
 
         // Find existing role listing, if not create new role listing
-        // Find existing role listing, if not create new role listing
         $role_listing = Role_Listing::firstOrCreate(
             [
                 'role_id' => $role->role_id,

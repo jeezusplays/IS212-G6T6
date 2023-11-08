@@ -12,6 +12,7 @@ use App\Models\Staff;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\ExpiredDeadlineController;
 
 class RoleController extends Controller
 {
@@ -23,6 +24,7 @@ class RoleController extends Controller
 
         if (! $role) {
             // return error message
+            return redirect('/create-role')->withErrors(['error' => 'Role does not exist']);
             return redirect('/create-role')->withErrors(['error' => 'Role does not exist']);
         }
 
@@ -46,6 +48,7 @@ class RoleController extends Controller
         // Check if role was recently created or not
         if ($role_listing->wasRecentlyCreated) {
             // Create all new hiring manager records
+            // Create all new hiring manager records
             $managers = $request->input('Staff_ID');
             foreach ($managers as $manager) {
                 $query = DB::table('hiring_manager')->insert(
@@ -60,6 +63,7 @@ class RoleController extends Controller
                 );
             }
 
+            // Create all new skill records to match role listing
             // Create all new skill records to match role listing
             $skills = $request->input('Skills', []);
             foreach ($skills as $skill) {
@@ -76,7 +80,8 @@ class RoleController extends Controller
             }
 
             // Role was created, return 200 OK HTTP code
-            return redirect('/create-role')->with(['success' => 'Role created successfully!']);
+            //return redirect('/create-role')->with('success', 'Role created successfully!');
+            return redirect()->back()->with('success', 'Role created successfully');
         } else {
             // Role already exists, return 409 Conflict HTTP code
             return response()->json(
@@ -87,6 +92,13 @@ class RoleController extends Controller
                 409
             );
         }
+    }
+
+    protected $ExpiredDeadlineController;
+
+    public function __construct(ExpiredDeadlineController $ExpiredDeadlineController)
+    {
+        $this->ExpiredDeadlineController = $ExpiredDeadlineController;
     }
 
     public function index()
@@ -109,6 +121,7 @@ class RoleController extends Controller
             $vacancy = $role->vacancy;
             $status = $role->status === 1 ? 'Open' : 'Closed';
             $work_arrangement = $role->work_arrangement === 1 ? 'Part Time' : 'Full Time';
+
 
             $staffNames = DB::table('hiring_manager')
                 ->join('staff', 'hiring_manager.staff_id', '=', 'staff.staff_id')
@@ -137,6 +150,7 @@ class RoleController extends Controller
 
     public function setup()
     {
+        $this->ExpiredDeadlineController->updateStatusForExpiredDeadlines();
         //all roles
         $role_titles = Role::select('role_id', 'role')->get();
 

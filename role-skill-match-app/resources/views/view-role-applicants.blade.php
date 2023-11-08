@@ -41,44 +41,23 @@
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon-32x32.png') }}">
 </head>
 
-<body>
+<body onload = "start()">
     {{-- Top Menu Bar --}}
-    <div id="app" class="container">
-        <nav class="navbar navbar-expand-lg">
-            <a class="navbar-brand" href="http://localhost:8000/role-listings">
-                <img src="{{ asset('favicon-32x32.png') }}" alt="Company Logo">
-            </a>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="http://localhost:8000/role-listings">View Role Listings</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="http://localhost:8000/create-role">Create Role Listing</a>
-                    </li>
-                </ul>
-            </div>
-            <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
-                    data-bs-toggle="dropdown" aria-expanded="false">
-                    {{-- Retrieve default HR staff name [Park Bo Gum, Role id = 5] from database --}}
-                    Park Bo Gum (HR Staff)
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <li><a class="dropdown-item" href="http://localhost:8000/role-listings">HR Staff</a></li>
-                    <li><a class="dropdown-item" href="http://localhost:8000/browse-roles">Staff</a></li>
-                    <li><a class="dropdown-item" href="http://localhost:8000/role-listings-management">Manager</a></li>
-                </ul>
-            </div>
-        </nav>
-    </div>
+    @include('top-menu-bar')
 
-    <div class="container-sm">
+    <div class="container" >
         @if ($isRoleValid)
             @foreach ($roles as $role)
                 <div class="row mt-5 mb-4">
-                    <div class="col-12 col-sm-8 text-start">
-                        <h1>Applicants for <i>{{ $role['role'] }}</i> role</h1>
+                    <div class="col-12 text-start">
+                        <h1>Applicants for <i>{{ $role['role'] }} (
+                        @if ($role['work_arrangement'] == 1)
+                            Part Time
+                        @else
+                            Full Time
+                        @endif
+                        )
+                        </i> role</h1>
                     </div>
                 </div>
 
@@ -91,21 +70,11 @@
                         </div>
 
                         <div class="col-12 col-sm-4">
-                            <b>Work Arrangement:</b>
-                            @if ($role['work_arrangement'] == 1)
-                                Part Time
-                            @else
-                                Full Time
-                            @endif
-                        </div>
-                        <div class="col-12 col-sm-4">
                             <b>Country:</b> {{ $role['country'] }}
                         </div>
 
-                        <div class="row mt-2">
-                            <div class="col">
-                                <b>Vacancy: </b>{{ $role['vacancy'] }} positions
-                            </div>
+                        <div class="col-12 col-sm-4">
+                            <b>Vacancy: </b>{{ $role['vacancy'] }} 
                         </div>
 
                         <div class="row mt-3">
@@ -115,29 +84,53 @@
                         </div>
 
                 </div>
+                
+                <div class="mt-4">
+                    <h4>Role Skills</h4>
+                </div>
 
-                        <div class="mt-4">
-                            <h4>Role Skills</h4>
-                        </div>
+                <div class="row mt-2 mb-3">
+                    <div class="col">
+                        @foreach ($role['skills'] as $skill)
+                            <button class="skill listing_skill">{{ $skill }}</button>
+                        @endforeach
+                    </div>
+                </div>
+                
+                {{-- Search Bar --}}
+                <div class="mb-3">
+                    <form class="d-flex" id = "searchSubmit" onsubmit="searchApplicants(); return false;">
+                        <input class="form-control me-2 form-control-lg" id="myInput" type="search" placeholder="Search for Applicants" aria-label="Search">
+                        <button class="btn btn-success form-control-lg" id="searchButton" type="submit">
+                            Search
+                        </button>
+                    </form>
+                </div>
 
-                        <div class="row mt-2">
-                            <div class="col">
-                                @foreach ($role['skills'] as $skill)
-                                    <button class="skill">{{ $skill }}</button>
-                                @endforeach
-                            </div>
-                        </div>
-
+                <div id="searchErrorAlert" class="alert alert-danger" style="display: none;">
+                    Your search input contains invalid characters and is not supported.
+                </div>
 
 
                 {{-- Create a bootstrap table containing columns 'Name, 'Application Date', 'Skillset', 'Status', 'Email' --}}
                 <div class="row mt-5">
                     <h4>Applicants</h4>
-                    <div class="col">
+                    <div id="no-matching-results" class="card mb-3 mt-3" style="display: none;">
+                        <div class="card-body">
+                            <h5 class="card-title">No matching results</h5>
+                            <p class="card-text">
+                                Sorry, there are no applicants that match your search criteria. Please try
+                                refining your search.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="row" id="applicantsTable">
                         <table class="table table-striped table-bordered align-middle">
                             <thead class = "align-middle" style = "background-color: rgb(223, 231, 242);">
                                 <tr>
                                     <th scope="col">Name</th>
+                                    <th scope="col">Role</th>
                                     <th scope="col">Application Date</th>
                                     <th scope="col">Skillset & Proficiency</th>
                                     <th scope="col">Status</th>
@@ -152,14 +145,16 @@
                                         </td>
                                     </tr>
                                 @else
+
                                 @foreach ($role['applicants'] as $applicant)
-                                    <tr>
-                                        <td>{{ $applicant['staff_name'] }}</td>
+                                    <tr class ="applicant" >
+                                        <td class="appName">{{ $applicant['staff_name'] }}</td>
+                                        <td class="deptRole">{{$applicant['department']}} ({{$applicant['role']}})</td>
                                         <td>{{ $applicant['application_date'] }}</td>
                                         <td>
                                             {{-- Iterate through both $applicant['skillset'] and $applicant['proficiency'] together at same index --}}
                                             @foreach ($applicant['skillset'] as $index => $skill)
-                                                <button class="skill" style ="text-align: left;">{{ $skill }}
+                                                <button class="skill app_skill" style ="text-align: left; padding: 5px 10px;">{{ $skill }}
                                                     ({{ $applicant['proficiency'][$index] }})</button>
                                             @endforeach
                                         </td>
@@ -184,7 +179,7 @@
                                         {{-- create a td with hyperlinked field --}}
                                         <td><a href="mailto:{{ $applicant['email'] }}">{{ $applicant['email'] }}</a>
                                         </td>
-                                        <td>50% - Placeholder</td>
+                                        <td><span class="role-skill-match-percent" style="color: darkgreen;"></span></td>
                                     </tr>
                                 @endforeach
                                 @endif
@@ -201,5 +196,109 @@
     </div>
 
 </body>
+
+<script>
+    function start(){
+        searchApplicants()
+        progressColorChange()
+    }
+
+    function searchApplicants(){
+        const input = document.getElementById('myInput').value.toLowerCase().trim()
+        var totalCount = 0;
+        document.querySelectorAll('.applicant').forEach(applicant => {
+            let matchCount = 0;
+
+            //name search func
+            let name = applicant.querySelector('.appName').innerHTML.toLowerCase()
+            if (name.indexOf(input) > -1 ){
+                matchCount +=1
+            }
+
+            //skill search func
+            let skills = applicant.querySelectorAll('.app_skill')
+            skills.forEach(item => {
+                skill = item.innerHTML.toLowerCase().split('(')[0].trim()
+                if (skill.indexOf(input) > -1){
+                    matchCount +=1
+                }  
+            })
+
+            //dept & role search func
+            let deptRole = applicant.querySelector('.deptRole').innerHTML.toLowerCase()
+            if (deptRole.indexOf(input) > -1){
+                matchCount +=1 
+            }
+
+            if (input == ''){
+                applicant.style.visibility = "visible";
+                totalCount += 1
+            }
+            else if (matchCount == 0){
+                applicant.style.visibility = "collapse";
+            }
+            else{
+                applicant.style.visibility = "visible";
+                totalCount +=1
+            }
+        })
+
+        if (totalCount ==0){
+            document.getElementById('applicantsTable').style.display = "none";
+            document.getElementById('no-matching-results').style.display = "";
+        }
+        else{
+            document.getElementById('applicantsTable').style.display = "";
+            document.getElementById('no-matching-results').style.display = "none";
+        }
+
+        if (input.match(/^[a-zA-Z0-9 ]*$/)) {
+            document.getElementById("searchErrorAlert").style.display = "none";
+        } else {
+            document.getElementById("searchErrorAlert").style.display = "";
+        }
+    }
+
+    function progressColorChange(){
+        
+        let listing_skills = document.querySelectorAll('.listing_skill')
+        let skill_len = listing_skills.length;
+        console.log(skill_len);
+
+        document.querySelectorAll('.applicant').forEach(applicant => {
+            let count = 0;
+            let app_skills = applicant.querySelectorAll('.app_skill')
+                app_skills.forEach(item => {
+                    skill = item.innerHTML.toLowerCase().split('(')[0].trim()
+                    listing_skills.forEach(element =>{
+                        element = element.innerHTML.toLowerCase().trim()
+                        if (skill == element){
+                            count += 1
+                        }
+                    })
+            })
+            
+            percent = count/skill_len * 100
+            if (!Number.isInteger(percent)){
+                percent = percent.toFixed(1)
+            }
+            console.log(percent)
+            let percent_text = applicant.querySelector('.role-skill-match-percent')
+            console.log(percent_text)
+            percent_text.innerHTML = percent + "%"
+            var colour = ""
+            if (percent < 50){
+                colour = "red"
+            }
+            else if (percent >=50 & percent < 75){
+                colour = "#e3bd42"
+            }
+            else{
+                colour = "darkgreen"
+            }
+            percent_text.style.color = colour
+        })
+    }
+</script>
 
 </html>

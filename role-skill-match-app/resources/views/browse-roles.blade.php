@@ -6,6 +6,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <link rel="icon" href="{{ asset('favicon-32x32.png') }}" type="image/x-icon">
     <style>
         /* Add your custom CSS styles here */
@@ -106,38 +108,8 @@
 
 <body onload="start()">
     {{-- Top Menu Bar --}}
-    <div id="app" class="container mb-3">
-        <nav class="navbar navbar-expand-lg">
-            <a class="navbar-brand" href="http://localhost:8000/browse-roles">
-                <img src="{{ asset('favicon-32x32.png') }}" alt="Company Logo">
-            </a>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="http://localhost:8000/browse-roles/staff_id=2">Browse Role Listings</a> <!-- staff_id needs to be dynamic -->
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="http://localhost:8000/my-applications">View Applications</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="http://localhost:8000/indicate-skill-proficiency/staffID=1">My Skill Proficiency</a>
-                    </li>
-                </ul>
-            </div>
-            <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                    {{-- Default staff name [Lee Ji Eun, Role id = 1] from database --}}
-                    Lee Ji Eun (Staff)
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <li><a class="dropdown-item" href="http://localhost:8000/role-listings">HR Staff</a></li>
-                    <li><a class="dropdown-item" href="http://localhost:8000/browse-roles/staff_id=2">Staff</a></li> <!-- staff_id needs to be dynamic -->
-                    <li><a class="dropdown-item" href="http://localhost:8000/role-listings-management">Manager</a></li>
-                </ul>
-            </div>
-        </nav>
-    </div>
-
+    @include('top-menu-bar')
+        
     <div class="container">
         <h1 class="mb-3">Browse Role Listings</h1>
 
@@ -190,12 +162,12 @@
             <div class="col-md-9">
                 @foreach ($roles as $role)
                 @if ($role['status'] == 'Open')
-                    <a href="http://localhost:8000/view-role/listingID={{ $role['listing_id'] }}/staff_id=2" class="card-title-link"> <!-- staff id needs to be dynamic -->
-                        <div class="card my-3 role-card" data-department="{{ $role['department'] }}" data-location="{{ $role['country'] }}">
-                            <h5 class="card-title card-header p-3 d-flex justify-content-between align-items-center" style="background-color: #dbeffc">{{ $role['role'] }} ({{ $role['work_arrangement'] }})
-                                <a href="http://localhost:8000/view-role/listingID={{ $role['listing_id'] }}/staff_id=2" class="btn btn-sm btn-outline-primary">View Details</a> <!-- staff id needs to be dynamic -->
-                            </h5>
-                    </a>
+                <a href="javascript:void(0);" onclick="gotoViewRole({{ $role['listing_id'] }})" class="card-title-link">
+                    <div class="card my-3 role-card" data-department="{{ $role['department'] }}" data-location="{{ $role['country'] }}">
+                        <h5 class="card-title card-header p-3 d-flex justify-content-between align-items-center" style="background-color: #dbeffc">{{ $role['role'] }} ({{ $role['work_arrangement'] }})
+                            <a href="javascript:void(0);" onclick="gotoViewRole({{ $role['listing_id'] }})" class="btn btn-sm btn-outline-primary">View Details</a>
+                        </h5>
+                </a>
 
                     <div class="card-body">
                         <div class="row">
@@ -214,23 +186,30 @@
                                     <path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492zM5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0z" />
                                     <path d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52l-.094-.319zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115l.094-.319z" />
                                 </svg>
-                                @php   
-                                    $arr = [];   
-                                    foreach ($staff_skills as $item=>$skill_item){
+                                @php
+                                    $arr = [];
+                                    foreach ($staff_skills as $item => $skill_item) {
                                         $skill = $skill_item->skill;
                                         $arr[] = $skill;
                                     }
 
-                                    $match = array_intersect($role['skills'],$arr);
-                                    $skill_match_percent = count($match) / count($role['skills']) * 100;
+                                    $totalSkills = count($role['skills']);
+                                    
+                                    if ($totalSkills > 0) {
+                                        $match = array_intersect($role['skills'], $arr);
+                                        $skill_match_percent = count($match) / $totalSkills * 100;
+                                        $width = $skill_match_percent . '%';
+                                    } else {
+                                        $skill_match_percent = 0;
+                                        $width = '0%'; // Set width to zero if there are no skills
+                                    }
 
-                                    //round to 1dp
+                                    // Round to 1 decimal place
                                     $skill_match_percent = round($skill_match_percent, 1);
 
                                     $missing_skills = array_diff($role['skills'], $match);
-                                    $width = $skill_match_percent . '%';
-                                    
                                 @endphp
+
                                 <p class="card-text mb-0 mt-3 d-inline"><b>Skills:</b>
                                 <div class="col">
                                     @foreach ($role['skills'] as $skill)
@@ -270,9 +249,13 @@
                                     <p class="card-text" id="card-status" data-laravel-variable-2="{{ $role['deadline'] }}" data-toggle="tooltip" data-placement="top" title="Application Closes on {{ $role['deadline'] }}">
                                         <b>Status:</b>
                                         @if ($role['status'] == 'Open')
-                                        <span class="text-success">Open</span>
+                                        <span class="badge rounded-pill bg-primary
+                                            ">Open
+                                        </span>
                                         @else
-                                        <span class="text-danger">Closed</span>
+                                        <span class="badge rounded-pill bg-secondary
+                                            ">HR Received
+                                        </span>
                                         @endif
                                     </p>
                                     <p class ="card-text">
@@ -281,7 +264,28 @@
 
                                 </div>
                                 <div class="mt-3">
-                                    <a href="#" class="btn btn-success">Apply Now</a>
+                                    <form action="{{route('apply-role')}}"
+                                    id="form_{{ $role['listing_id'] }}" method="POST">
+                                        @csrf
+                                        <script>
+                                            function getStaffID(){
+                                                const currentUrl = window.location.href;
+                                            
+                                                // Extract the part of the URL after the domain, which includes the page
+                                                const urlSegments = currentUrl.split(window.location.origin)[1];
+                                                
+                                                // Split the URL segments by '/'
+                                                const segments = urlSegments.split('/');  
+                                                access=segments[1]
+                                                staff_id = access.split('=')[1];
+                                                
+                                                return staff_id;
+                                            }
+                                        </script>
+                                        <input type="hidden" id="listing_id" name="listing_id" value="{{ $role['listing_id'] }}">
+                                        <input type="hidden" id="staff_id_{{ $role['listing_id'] }}" name="staff_id">
+                                        <button type="submit" class="btn btn-success" onclick="document.getElementById('staff_id_{{ $role['listing_id'] }}').value = getStaffID();">Apply Now</button>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -307,6 +311,23 @@
 </body>
 
 <script>
+
+    // show success or error popup
+    @if(session('success'))
+        swal({
+          title: "Application successful",
+          text: "{{session('success')}}",
+          icon: "success",
+        });
+    @elseif(session('error')){
+        swal({
+          title: "Application unsuccessful",
+          text: "{{session('error')}}",
+          icon: "error",
+        });
+    };
+    @endif
+
     // Search bar functionality
     function start(){
         triggerTooltip()
@@ -375,8 +396,8 @@
             var skill_match_progress = progress_arr[i]
             var percent = skill_match_progress.getAttribute('aria-valuenow')
 
-            console.log(skill_match_progress)
-            console.log(skill_match_text)
+            //console.log(skill_match_progress)
+            //console.log(skill_match_text)
             
             var colour = ""
             if (percent < 50){
@@ -397,6 +418,39 @@
         const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
         const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
     }
+    // Function to clear all filters
+    function clearFilters() {
+        // Clear the filter inputs and show all role cards
+        document.getElementById('filterDepartment').selectedIndex = 0;
+        document.getElementById('filterLocation').selectedIndex = 0;
+        document.getElementById('filterSkillsets').selectedIndex = 0;
+
+        document.querySelectorAll(".role-card").forEach(card => {
+            card.style.display = "";
+        });
+        searchJobs();
+    }
+
+    function gotoViewRole(listingid){
+
+        const currentUrl = window.location.href;
+
+        // Extract the part of the URL after the domain, which includes the page
+        const urlSegments = currentUrl.split(window.location.origin)[1];
+        
+        // Split the URL segments by '/'
+        const segments = urlSegments.split('/');  
+        access=segments[1]
+        
+        // Construct the new URL with the selected access and the current page
+        const newUrl = `${window.location.origin}/${access}/view-role/listingID=${listingid}`;
+
+        // Navigate to the new URL
+        window.location.href = newUrl;
+
+        //href="http://localhost:8000/view-role/listingID={{ $role['listing_id'] }}"
+    }
+    
 </script>
 
 </html>

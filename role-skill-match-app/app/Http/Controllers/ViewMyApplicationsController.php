@@ -73,6 +73,7 @@ class ViewMyApplicationsController extends Controller
         foreach ($Application_Table as $key => $application) {
             $roles[$key] = [
                 'num_days_since_application' => $application->num_days_since_application,
+                'updated_at' => Carbon::parse($application->updated_at)->format('d/m/Y H:i:s'),
                 'application_status' => $application->status,
                 'department' => $Department_Table[$key]->department,
                 'role' => $Role_Table[$key]->role,

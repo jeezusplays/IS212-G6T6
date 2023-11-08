@@ -1,14 +1,16 @@
 <?php
 
 use App\Http\Controllers\ApplicationController;
+use App\Http\Controllers\BrowseAllRoleController;
+use App\Http\Controllers\IndicateSkillProficiency;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UpdateRoleController;
+use App\Http\Controllers\ViewMyApplicationsController;
 use App\Http\Controllers\ViewRoleApplicants;
 use App\Http\Controllers\ViewRoleController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Mail;
-use App\Mail\WithdrawApplication;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,12 +22,12 @@ use App\Mail\WithdrawApplication;
 |
 */
 // Route for indicate-skill-proficiency page
-Route::get('/indicate-skill-proficiency', [App\Http\Controllers\IndicateSkillProficiency::class, 'index']);
+Route::get('/indicate-skill-proficiency', [IndicateSkillProficiency::class, 'index']);
 
-Route::get('/staff_id={staff_id}/indicate-skill-proficiency', [App\Http\Controllers\IndicateSkillProficiency::class, 'autoFillSkills']);
+Route::get('/staff_id={staff_id}/indicate-skill-proficiency', [IndicateSkillProficiency::class, 'autoFillSkills']);
 
 //store skill-proficiency data
-Route::post('/update-skill-proficiency', [App\Http\Controllers\IndicateSkillProficiency::class, 'store'])->name('index.store');
+Route::post('/update-skill-proficiency', [IndicateSkillProficiency::class, 'store'])->name('index.store');
 
 // Update application withdraw data
 Route::post('/withdraw', [ViewRoleController::class, 'withdrawApplication'])->name('withdraw');
@@ -34,15 +36,14 @@ Route::post('/withdraw', [ViewRoleController::class, 'withdrawApplication'])->na
 Route::get('/staff_id={staff_id}/role-listings', [RoleController::class, 'index']);
 
 // Route for view-role-applicants page
-Route::get('/staff_id={staff_id}/view-role-applicants/listingID={passedlisting}', [App\Http\Controllers\ViewRoleApplicants::class, 'getApplicantListing']);
+Route::get('/staff_id={staff_id}/view-role-applicants/listingID={passedlisting}', [ViewRoleApplicants::class, 'getApplicantListing']);
 
 // Route for create role
 Route::get('/staff_id={staff_id}/create-role', [RoleController::class, 'setup']);
 Route::post('/create-role', [RoleController::class, 'store'])->name('create-role');
 
 // Route for browse role
-Route::get('/staff_id={staff_id}/browse-roles', [App\Http\Controllers\BrowseAllRoleController::class, 'index_view'])->name('browse-roles');
-
+Route::get('/staff_id={staff_id}/browse-roles', [BrowseAllRoleController::class, 'index_view'])->name('browse-roles');
 
 //Route for edit listing
 Route::get('staff_id={currentStaffID}/edit/listingID={passedlisting}', [UpdateRoleController::class, 'autoFillRoleListing']);
@@ -58,6 +59,6 @@ Route::get('/apply', function () {
 });
 
 // Route for view my applications
-Route::get('/staff_id={staff_id}/view-my-applications', [App\Http\Controllers\ViewMyApplicationsController::class, 'getMyApplications'])->name('view-all-applications');
+Route::get('/staff_id={staff_id}/view-my-applications', [ViewMyApplicationsController::class, 'getMyApplications'])->name('view-all-applications');
 
 Route::redirect('/', '/staff_id=1/browse-roles');

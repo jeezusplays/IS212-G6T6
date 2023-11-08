@@ -18,9 +18,10 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
+        ref: ${{ github.head_ref }}
 
     - name: Setup PHP
       uses: shivammathur/setup-php@15c43e89cdef867065b0213be354c2841860869e

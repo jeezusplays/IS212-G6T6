@@ -19,6 +19,8 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v3
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Setup PHP
       uses: shivammathur/setup-php@15c43e89cdef867065b0213be354c2841860869e
@@ -53,12 +55,10 @@ jobs:
         preset: laravel
 
     - name: Commit changes
-      uses: stefanzweifel/git-auto-commit-action@latest
+      uses: stefanzweifel/git-auto-commit-action@v5
       with:
         commit_user_email: jeremygmc_@hotmail.com
         commit_user_name: Jeremy Goh
         commit_message: PHP Linting (Pint)
         skip_fetch: true
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 

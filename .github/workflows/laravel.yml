@@ -50,15 +50,15 @@ jobs:
     - name: Artisan Tests
       run: cd role-skill-match-app || php artisan test tests/Unit/
 
-    - name: laravel-pint
-      uses: aglipanci/laravel-pint-action@0.1.0
-      with:
-        preset: laravel
+    # - name: laravel-pint
+    #   uses: aglipanci/laravel-pint-action@0.1.0
+    #   with:
+    #     preset: laravel
 
-    - name: Commit changes
-      uses: stefanzweifel/git-auto-commit-action@v5
-      with:
-        commit_user_email: jeremygmc_@hotmail.com
-        commit_user_name: Jeremy Goh
-        commit_message: PHP Linting (Pint)
-        skip_fetch: true
+    # - name: Commit changes
+    #   uses: stefanzweifel/git-auto-commit-action@v5
+    #   with:
+    #     commit_user_email: jeremygmc_@hotmail.com
+    #     commit_user_name: Jeremy Goh
+    #     commit_message: PHP Linting (Pint)
+    #     skip_fetch: true

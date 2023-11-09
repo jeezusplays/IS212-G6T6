@@ -65,26 +65,26 @@ For our first release, the team has identify 5 core features. The core features 
     npm install
     composer install
     ```
-4. Create a copy of the `.env.example` file and rename it to `.env`. Edit `DB_DATABASE` `.env` file to `sbrp`. Change the necessary Mail and AWS SES credentials from our Google Drive's .env file as reference (Link provided via text file in submission document).
-5. Create a database named `sbrp` in MySQL.
-6. Migrate the database.
+4. Create a copy of the `.env` file from the Google Drive link shared. Place this file in the /role-skill-match-app directory. (Google Drive Link provided via text file in submission document). If you are a Mac user, please add in the password to your SQL connection under DB_PASSWORD in the `.env` file.
+6. Create a database named `sbrp` in MySQL.
+7. Migrate the database.
     ```sh
     php artisan migrate
     ```
-7. Seed the database.
+8. Seed the database.
     ```sh
     php artisan db:seed
     ```
-8. Generate artisan key.
+9. Generate artisan key.
     ```sh
     php artisan key:generate
     ```
-9. Start WAMP / MAMP on your device.
-10. Start local laravel server.
+10. Start WAMP / MAMP on your device.
+11. Start local laravel server.
     ```sh
     php artisan serve
     ```
-11. In another terminal, start the local development server.
+12. In another terminal, start the local development server.
     ```sh
     npm run dev
     ```

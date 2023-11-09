@@ -74,7 +74,7 @@ class RoleControllerTest extends TestCase
     /**
      * Negative test case for Role listing already exists.
      */
-    /* public function test_store_new_role_listing_role_listing_already_exists()
+    public function test_store_new_role_listing_role_listing_already_exists()
     {
 
         $response = $this->post('/create-role', [
@@ -92,16 +92,16 @@ class RoleControllerTest extends TestCase
 
         ]);
 
-        $response->assertRedirect('/create-role')->with(['error' => 'Role listing already exists']);
+        $response->assertRedirect('')->with(['error' => 'Role listing already exists']);
         $this->assertDatabaseCount('role_listing', 13);
-    } */
+    }
 
     /**
      * Positive test case for setup method.
      */
     /* public function test_setup()
     {
-        $response = $this->get('/create-role');
+        $response = $this->get('/staff_id=1/create-role');
         $response->assertViewHasAll([
             'header',
             'rolesDDL',
@@ -123,11 +123,11 @@ class RoleControllerTest extends TestCase
     /**
      * Positive test case for index method.
      */
-    /* public function test_index()
+    public function test_index()
     {
-        $response = $this->get('/role-listings');
+        $response = $this->get('/staff_id=1/role-listings');
         $response->assertViewHasAll([
             'roles',
         ]);
-    } */
+    }
 }

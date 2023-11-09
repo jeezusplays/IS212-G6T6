@@ -24,8 +24,6 @@ class RoleController extends Controller
         if (! $role) {
             // return error message
             return redirect('/create-role')->withErrors(['error' => 'Role does not exist']);
-
-            return redirect('/create-role')->withErrors(['error' => 'Role does not exist']);
         }
 
         // Find existing role listing, if not create new role listing
@@ -48,7 +46,6 @@ class RoleController extends Controller
         // Check if role was recently created or not
         if ($role_listing->wasRecentlyCreated) {
             // Create all new hiring manager records
-            // Create all new hiring manager records
             $managers = $request->input('Staff_ID');
             foreach ($managers as $manager) {
                 $query = DB::table('hiring_manager')->insert(
@@ -63,7 +60,6 @@ class RoleController extends Controller
                 );
             }
 
-            // Create all new skill records to match role listing
             // Create all new skill records to match role listing
             $skills = $request->input('Skills', []);
             foreach ($skills as $skill) {
@@ -199,7 +195,6 @@ class RoleController extends Controller
             'hiringManagerDDL' => $hiring_managers,
             // New role will be open by default
             'status' => 1,
-            'Staff_ID' => 5,
         ]);
     }
 }

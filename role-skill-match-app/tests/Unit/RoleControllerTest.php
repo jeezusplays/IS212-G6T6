@@ -3,8 +3,8 @@
 namespace Tests\Unit;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Tests\TestCase;
 use Illuminate\Http\Response;
+use Tests\TestCase;
 
 class RoleControllerTest extends TestCase
 {
@@ -36,16 +36,14 @@ class RoleControllerTest extends TestCase
 
         // Assert the response is successful (e.g., a 200 status code)
         $response->assertStatus(Response::HTTP_FOUND);
-    
+
         // Follow the redirect and assert the final response code
         $finalResponse = $this->followRedirects($response);
         $finalResponse->assertStatus(Response::HTTP_OK);
 
-
-
         $this->assertDatabaseCount('role_listing', 13);
         //$this->assertDatabaseCount('hiring_manager', 13);
-        $this->assertDatabaseCount('role_skill', 30); 
+        $this->assertDatabaseCount('role_skill', 30);
     }
 
     /**

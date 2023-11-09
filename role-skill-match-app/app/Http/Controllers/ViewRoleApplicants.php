@@ -2,20 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Country;
 use App\Models\Application;
+use App\Models\Country;
 use App\Models\Department;
 use App\Models\Hiring_Manager;
+use App\Models\Proficiency;
 use App\Models\Role;
 use App\Models\Role_Listing;
 use App\Models\Role_Skill;
 use App\Models\Skill;
 use App\Models\Staff;
 use App\Models\Staff_Skill;
-use App\Models\Proficiency;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\View;
 use Carbon\Carbon;
 
 class ViewRoleApplicants extends Controller
@@ -24,8 +21,9 @@ class ViewRoleApplicants extends Controller
     {
         return view('view-role-applicants');
     }
-    public function getApplicantListing($currentStaffID,$passedlisting)
-    { 
+
+    public function getApplicantListing($currentStaffID, $passedlisting)
+    {
         // Retrieve all role data from the database
         $RoleListing_Table = Role_Listing::where('listing_id', $passedlisting)->get();
         //declaring tables
@@ -63,17 +61,17 @@ class ViewRoleApplicants extends Controller
             $status = $RoleListing_Table->first()->status;
 
             $Application_Table = Application::whereIn('listing_id', $RoleListing_Table->pluck('listing_id'))
-            ->selectRaw('listing_id, COUNT(application_id) as total_applications')
-            ->groupBy('listing_id')
-            ->get();
+                ->selectRaw('listing_id, COUNT(application_id) as total_applications')
+                ->groupBy('listing_id')
+                ->get();
 
             $applicationCount = $Application_Table->where('listing_id', $role->listing_id)->first();
 
             $AllApplicant_Table = Application::whereIn('listing_id', $RoleListing_Table->pluck('listing_id'))->get(['listing_id', 'staff_id', 'application_date', 'status']);
             $Staff_Table = Staff::whereIn('staff_id', $AllApplicant_Table->pluck('staff_id'))->get(['staff_id', 'staff_fname', 'staff_lname', 'email']);
             $StaffSkill_Table = Staff_Skill::whereIn('staff_id', $Staff_Table->pluck('staff_id'))->get(['staff_id', 'skill_id']);
-            $applicants = $AllApplicant_Table->map(function ($applicant) use ($StaffSkill_Table, $Staff_Table, $passedlisting) {
-                // Fetch applicants, containing their name, application date, skillset, status, email  
+            $applicants = $AllApplicant_Table->map(function ($applicant) use ($Staff_Table) {
+                // Fetch applicants, containing their name, application date, skillset, status, email
                 // Fetch staff name in staff table using staff_id from $applicants staff_id
                 $staff = $Staff_Table->firstWhere('staff_id', $applicant->staff_id);
                 // Fetch email in staff table using staff_id from $applicants staff_id
@@ -97,12 +95,12 @@ class ViewRoleApplicants extends Controller
                     })
                     ->select('proficiency.proficiency')
                     ->get();
-                
+
                 $Department = Department::join('staff', 'department.department_id', '=', 'staff.department_id')
                     ->where('staff.staff_id', $applicant->staff_id)
                     ->select('department.department')
                     ->first();
-            
+
                 $Role = Role::join('staff', 'role.role_id', '=', 'staff.role_id')
                     ->where('staff.staff_id', $applicant->staff_id)
                     ->select('role.role')
@@ -110,7 +108,7 @@ class ViewRoleApplicants extends Controller
 
                 return [
                     'staff_id' => $applicant->staff_id, //main DONE
-                    'staff_name' => $staff->staff_fname . ' ' . $staff->staff_lname, //ext DONE
+                    'staff_name' => $staff->staff_fname.' '.$staff->staff_lname, //ext DONE
                     // parse the application date via Carbon to d-m-Y format
                     'application_date' => Carbon::parse($applicant->application_date)->format('d-m-Y'), //ext DONE
                     'skillset' => $person_skills, //ext DONE
@@ -121,7 +119,7 @@ class ViewRoleApplicants extends Controller
                     'role' => $Role ? $Role->role : null,
                 ];
             });
-            
+
             return [
                 //'role_id' => $matchingRole ? $matchingRole->role_id : null,
                 'listingID' => $passedlisting,
@@ -143,17 +141,16 @@ class ViewRoleApplicants extends Controller
         });
 
         $isRoleValid = ($roles[0]['status'] != 2);
-        
 
-        if (!$isRoleValid) {
+        if (! $isRoleValid) {
             $nullifiedRole = [];
             foreach ($roles[0] as $key => $value) {
                 $nullifiedRole[$key] = null;
             }
             $roles->splice(0, 1, [$nullifiedRole]);
         }
+
         // return json_decode($roles);
         return view('view-role-applicants', compact('roles', 'isRoleValid'));
     }
 }
-?>

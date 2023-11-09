@@ -10,7 +10,6 @@ use App\Models\Staff;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Http\Controllers\ExpiredDeadlineController;
 
 class BrowseAllRoleController extends Controller
 {
@@ -143,7 +142,8 @@ class BrowseAllRoleController extends Controller
             ->get();
 
         $staff_id = $request->staff_id;
-        return view('browse-roles', compact('roles', 'departments', 'skills', 'countries', 'staff_skills','staff_id'));
+
+        return view('browse-roles', compact('roles', 'departments', 'skills', 'countries', 'staff_skills', 'staff_id'));
 
         // For testing purposes only, to view the JSON data
         return response()->json($roles);

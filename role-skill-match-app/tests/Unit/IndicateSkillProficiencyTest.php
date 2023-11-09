@@ -4,9 +4,8 @@ namespace Tests\Feature\Controllers;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
-use Tests\TestCase;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\DB;
+use Tests\TestCase;
 
 class IndicateSkillProficiencyTest extends TestCase
 {
@@ -41,5 +40,4 @@ class IndicateSkillProficiencyTest extends TestCase
         // Assert the response is successful (e.g., a 200 status code)
         $response->assertStatus(200);
     }
-
 }

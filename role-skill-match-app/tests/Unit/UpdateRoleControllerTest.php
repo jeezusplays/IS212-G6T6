@@ -2,13 +2,9 @@
 
 namespace Tests\Unit;
 
-use Tests\TestCase;
-use App\Http\Controllers\UpdateRoleController;
-use Illuminate\Http\Response;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use App\Models\Role_Listing;
-use Illuminate\Database\Query\Builder;
+use Illuminate\Http\Response;
+use Tests\TestCase;
 
 class UpdateRoleControllerTest extends TestCase
 {
@@ -31,16 +27,16 @@ class UpdateRoleControllerTest extends TestCase
             'skills' => [1, 2, 3],
             'hiringManager' => [6, 7],
         ];
-        
+
         $response = $this->post('/updateRole', $requestData);
-        
+
         // Assert the response is successful (e.g., a 200 status code)
         $response->assertStatus(Response::HTTP_FOUND);
-    
+
         // Follow the redirect and assert the final response code
         $finalResponse = $this->followRedirects($response);
         $finalResponse->assertStatus(Response::HTTP_OK);
-        
+
     }
 
     public function testEditRoleDetailsView()

@@ -3,7 +3,6 @@
 namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
@@ -17,16 +16,16 @@ class ApplyApplication extends Mailable
     public function build()
     {
         return $this->subject('Apply Application Confirmation')
-        ->view('apply-role-email')
-        ->with([
-            'role_name' => $this->data['role_name'],
-            'work_arrangement' => $this->data['work_arrangement'],
-            'staff_id' => $this->data['staff_id'],
-            'application_id' => $this->data['application_id'],
-            'application_apply_date' => $this->data['application_apply_date'],
-            'staff_name' => $this->data['staff_name'],
-            'staff_email' => $this->data['staff_email'],
-        ]);
+            ->view('apply-role-email')
+            ->with([
+                'role_name' => $this->data['role_name'],
+                'work_arrangement' => $this->data['work_arrangement'],
+                'staff_id' => $this->data['staff_id'],
+                'application_id' => $this->data['application_id'],
+                'application_apply_date' => $this->data['application_apply_date'],
+                'staff_name' => $this->data['staff_name'],
+                'staff_email' => $this->data['staff_email'],
+            ]);
     }
 
     /**
@@ -34,7 +33,7 @@ class ApplyApplication extends Mailable
      */
     public function __construct($data)
     {
-        $this->data=$data;
+        $this->data = $data;
     }
 
     /**

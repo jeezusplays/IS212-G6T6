@@ -42,8 +42,8 @@ class RoleControllerTest extends TestCase
         $finalResponse->assertStatus(Response::HTTP_OK);
 
         $this->assertDatabaseCount('role_listing', 13);
-        //$this->assertDatabaseCount('hiring_manager', 13);
-        $this->assertDatabaseCount('role_skill', 30);
+        $this->assertDatabaseCount('hiring_manager', 12);
+        $this->assertDatabaseCount('role_skill', 23);
     }
 
     /**

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ApplicationController;
+use App\Http\Controllers\BrowseAllRoleController;
 use App\Http\Controllers\IndicateSkillProficiency;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UpdateRoleController;

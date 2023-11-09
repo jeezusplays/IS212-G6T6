@@ -47,8 +47,8 @@ jobs:
     - name: Directory Permissions
       run: cd role-skill-match-app || chmod -R 777 storage bootstrap/cache
 
-    - name: PHPUnit Tests
-      run: cd role-skill-match-app || vendor/bin/phpunit --coverage-text
+    - name: Artisan Tests
+      run: cd role-skill-match-app || php artisan test tests/Unit/
 
     - name: laravel-pint
       uses: aglipanci/laravel-pint-action@0.1.0

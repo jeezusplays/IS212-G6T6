@@ -12,7 +12,6 @@ use App\Models\Staff;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Http\Controllers\ExpiredDeadlineController;
 
 class RoleController extends Controller
 {
@@ -25,6 +24,7 @@ class RoleController extends Controller
         if (! $role) {
             // return error message
             return redirect('/create-role')->withErrors(['error' => 'Role does not exist']);
+
             return redirect('/create-role')->withErrors(['error' => 'Role does not exist']);
         }
 
@@ -121,7 +121,6 @@ class RoleController extends Controller
             $vacancy = $role->vacancy;
             $status = $role->status === 1 ? 'Open' : 'Closed';
             $work_arrangement = $role->work_arrangement === 1 ? 'Part Time' : 'Full Time';
-
 
             $staffNames = DB::table('hiring_manager')
                 ->join('staff', 'hiring_manager.staff_id', '=', 'staff.staff_id')

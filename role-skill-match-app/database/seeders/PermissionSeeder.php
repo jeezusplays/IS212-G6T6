@@ -2,10 +2,8 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 use App\Models\Permission;
+use Illuminate\Database\Seeder;
 
 class PermissionSeeder extends Seeder
 {
@@ -30,6 +28,6 @@ class PermissionSeeder extends Seeder
             'permission_id' => 4,
             'permission' => 'delete',
         ]);
-            // Add more permissions here
+        // Add more permissions here
     }
 }

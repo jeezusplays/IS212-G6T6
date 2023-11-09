@@ -2,13 +2,8 @@
 
 namespace Tests\Unit;
 
-use Tests\TestCase;
-use App\Http\Controllers\UpdateRoleController;
-use Illuminate\Http\Response;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use App\Models\Role_Listing;
-use Illuminate\Database\Query\Builder;
+use Tests\TestCase;
 
 class ViewRoleApplicantsControllerTest extends TestCase
 {

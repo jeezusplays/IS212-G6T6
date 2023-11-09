@@ -2,13 +2,8 @@
 
 namespace Tests\Unit;
 
-use Tests\TestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\Response;
-use App\Models\Application;
-use App\Models\Role_Listing;
-use App\Models\Staff;
-use Illuminate\Support\Facades\DB;
+use Tests\TestCase;
 
 class ViewMyApplicationsControllerTest extends TestCase
 {

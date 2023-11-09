@@ -76,7 +76,7 @@ class ViewRoleController extends Controller
                 'work_arrangement' => $work_arrangement,
                 'staff_id' => $staff_id,
                 'application_id' => $application_id,
-                'application_withdraw_date' => now(),
+                'application_withdraw_date' => Carbon::parse(now())->format('d-m-Y H:i:s'),
                 'staff_email' => $staff_email,
                 'staff_name' => $staff_name,
             ];
@@ -102,7 +102,6 @@ class ViewRoleController extends Controller
         $Country_Table = Country::whereIn('country_id', $RoleListing_Table->pluck('country_id'))->get(['country_id', 'country']);
 
         $Role_Table = Role::whereIn('role_id', $RoleListing_Table->pluck('role_id'))->get(['role_id', 'role']);
-        //$RoleSkill_Table = Role_Skill::whereIn('listing_id', $RoleListing_Table->pluck('listing_id'))->get(['listing_id', 'skill_id']);
 
         $Skill_Table = Skill::join('role_skill', 'skill.skill_id', '=', 'role_skill.skill_id')
             ->join('role_listing', function ($join) use ($passedlisting) {
@@ -120,11 +119,9 @@ class ViewRoleController extends Controller
         $Staff_Table = Staff::where('staff_id', '=', $currentStaffID)->get(['staff_id', 'staff_fname', 'staff_lname', 'email']);
 
         $roles = $RoleListing_Table->map(function ($role) use ($Staff_Table , $Application_Table, $Skill_Table, $Role_Table, $RoleListing_Table, $Department_Table, $passedlisting, $Country_Table) {
-            //$staffNames = [];
             $matchingRole = $Role_Table->firstWhere('role_id', $role->role_id);
             $workArrangement = $RoleListing_Table->first()->work_arrangement;
             $vacancy = $RoleListing_Table->first()->vacancy;
-            //$deadline = $RoleListing_Table->first()->deadline;
             $deadline = Carbon::parse($RoleListing_Table->first()->deadline)->format('d-m-Y');
             $department = $Department_Table->first()->department;
             $department_id = $Department_Table->first()->department_id;

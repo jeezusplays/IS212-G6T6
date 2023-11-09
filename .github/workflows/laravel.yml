@@ -32,7 +32,7 @@ jobs:
       run: php -r "file_exists('.env') || copy('.env.example', '.env');"
 
     - name: Composer Install
-      run: composer install || composer update
+      run: cd role-skill-match-app || composer install || composer update
       continue-on-error: true  # Continue even if the command fails
 
     - name: Generate key

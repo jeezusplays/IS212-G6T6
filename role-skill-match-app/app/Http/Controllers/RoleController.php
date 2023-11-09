@@ -195,6 +195,7 @@ class RoleController extends Controller
             'hiringManagerDDL' => $hiring_managers,
             // New role will be open by default
             'status' => 1,
+            'Staff_ID' => 5,
         ]);
     }
 }

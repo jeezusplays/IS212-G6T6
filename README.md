@@ -79,11 +79,12 @@ For our first release, the team has identify 5 core features. The core features 
     ```sh
     php artisan key:generate
     ```
-9. Start local laravel server.
+9. Start WAMP / MAMP on your device.
+10. Start local laravel server.
     ```sh
     php artisan serve
     ```
-10. In another terminal, start the local development server.
+11. In another terminal, start the local development server.
     ```sh
     npm run dev
     ```
